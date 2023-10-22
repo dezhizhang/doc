@@ -5,7 +5,7 @@
  * :copyright: (c) 2023, Tungee
  * :date created: 2023-10-21 21:31:50
  * :last editor: 张德志
- * :date last edited: 2023-10-22 15:09:14
+ * :date last edited: 2023-10-22 15:16:19
  */
 import { defineConfig } from 'dumi';
 
@@ -20,17 +20,21 @@ export default defineConfig({
     history: { type: 'hash' },
     nav: [
       {
-        title: '前端',
+        title: '前端文档',
         link: '/frontend',
       },
       {
-        title: '移动端',
+        title: '移动文档',
         link: '/mobile',
       },
       {
-        title: '后台',
+        title: '后台文档',
         link: '/backend',
       },
+      {
+        title:'人工智能',
+        link:'/ntelligence'
+      }
     ],
   }
 });

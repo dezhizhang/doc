@@ -57,3 +57,12 @@ ADD         # 将宿主机目录下的文件拷贝进镜像且会自动处理URL
 CMD         # 指定容后启动后要干的事
 ENTRYPOINT  #类型启动动令
 ```
+
+### docker 网络命令
+
+```
+docker network --help          # 获取所命令
+docker network connect
+docker network rm 网络名称      # 删除网络
+docker network inspect 网络名称 # 查看网络信息
+```
