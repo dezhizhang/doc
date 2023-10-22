@@ -5,7 +5,7 @@
  * :copyright: (c) 2023, Tungee
  * :date created: 2023-10-21 21:31:50
  * :last editor: 张德志
- * :date last edited: 2023-10-22 20:10:15
+ * :date last edited: 2023-10-22 20:22:26
  */
 import path from 'path';
 import { defineConfig } from 'dumi';
@@ -16,7 +16,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 const PKG = require(path.resolve(process.cwd(), 'package.json'));
 
 // 静态文件路径前缀
-const VER_PATH = REACT_APP_ENV === 'prod' ? `http://cdn.xiaozhi.shop/${PKG.name}/` : `/`; // 获取编译环境配置
+const VER_PATH = REACT_APP_ENV === 'prod1' ? `http://cdn.xiaozhi.shop/${PKG.name}/` : `/`; // 获取编译环境配置
 
 const publicPath = isProduction ? VER_PATH : '/';
 

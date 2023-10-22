@@ -1,6 +1,7 @@
 node_modules
 /doc
 .dumi/tmp
+
 .dumi/tmp-production
 .DS_Store
 

@@ -68,3 +68,15 @@ docker network connect
 docker network rm 网络名称      # 删除网络
 docker network inspect 网络名称 # 查看网络信息
 ```
+
+### docker-compose 容器集群编排
+
+```
+
+```
+
+### 安装 portainer
+
+```
+docker run -d -p 8000:8000 -p 9000:9000 --name protainer --restart=always -v/var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
+```
