@@ -41,3 +41,19 @@ docker ps -a # 列出所有容器
 
 docker start 容器id # 运行容器
 ```
+
+### Dockerfile 常量
+
+```
+FROM        # 基础镜像
+RUN         # 容器运行
+EXPOSE      # 当前容器对外端口
+WORKDIR     # 工作目录
+USER        # 指定已什么样用户执行
+ENV         # 运行时环境
+VOLUME      # 容器卷
+COPY        # 将宿主机目录下的文件拷贝进镜像
+ADD         # 将宿主机目录下的文件拷贝进镜像且会自动处理URL和解压tar压缩包
+CMD         # 指定容后启动后要干的事
+ENTRYPOINT  #类型启动动令
+```
