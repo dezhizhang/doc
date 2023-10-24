@@ -10,3 +10,9 @@ XRANGE mystrem - +                  # 查找
 XDEL 1698008508965-0                # 删除
 XREAD count 2 streams mystream $    # 最后一条的下一条
 ```
+
+### 管道
+
+```
+cat cmd.txt | redis-cli --pipe
+```
