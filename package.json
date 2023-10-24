@@ -20,7 +20,8 @@
     ]
   },
   "dependencies": {
-    "cross-env": "^7.0.3"
+    "cross-env": "^7.0.3",
+    "url-loader": "^4.1.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",
@@ -28,7 +29,8 @@
     "dumi": "^2.0.2",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "webpack-aliyun-oss-plugin": "^2.1.0"
   },
   "authors": []
 }
