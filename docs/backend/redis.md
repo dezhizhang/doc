@@ -16,3 +16,5 @@ XREAD count 2 streams mystream $    # 最后一条的下一条
 ```
 cat cmd.txt | redis-cli --pipe
 ```
+
+110
