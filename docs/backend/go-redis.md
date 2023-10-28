@@ -437,3 +437,217 @@ func TestHExists(t *testing.T) {
 }
 
 ```
+
+## List 类型
+
+1. TestLPush 左侧插入
+
+```go
+func TestLPush(t *testing.T) {
+	var err error
+	ctx := context.Background()
+	rdb := redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "",
+		DB:       0,
+	})
+	_, err = rdb.Ping(ctx).Result()
+	if err != nil {
+		panic(err)
+	}
+
+	err = rdb.LPush(ctx, "key", 1, 2, 3, 4, 5).Err()
+	if err != nil {
+		panic(err)
+	}
+	t.Log("插入成功")
+}
+```
+
+2. 判断集合左侧是否可以插入，如果存在则不插入，如果不存在则插入
+
+```go
+func TestLPushX(t *testing.T) {
+	var err error
+	ctx := context.Background()
+	rdb := redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "",
+		DB:       0,
+	})
+	_, err = rdb.Ping(ctx).Result()
+	if err != nil {
+		panic(err)
+	}
+	err = rdb.LPushX(ctx, "key", 6, 7, 8).Err()
+	if err != nil {
+		panic(err)
+	}
+}
+```
+
+3. 从右则删除一个值并返回删除后的值
+
+```go
+func TestRPop(t *testing.T) {
+	var err error
+	ctx := context.Background()
+	rdb := redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "",
+		DB:       0,
+	})
+	_, err = rdb.Ping(ctx).Result()
+	if err != nil {
+		panic(err)
+	}
+	val, err1 := rdb.RPop(ctx, "key").Result()
+	if err1 != nil {
+		panic(err1)
+	}
+	t.Log(val)
+}
+```
+
+4. RPush 从列表右则插入值
+
+```go
+func TestRPush(t *testing.T) {
+	var err error
+	ctx := context.Background()
+	rdb := redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "",
+		DB:       0,
+	})
+	_, err = rdb.Ping(ctx).Result()
+	if err != nil {
+		panic(err)
+	}
+	err = rdb.RPush(ctx, "key", 12).Err()
+	if err != nil {
+		panic(err)
+	}
+}
+
+```
+
+5. LPop 从左侧删除
+
+```go
+func TestLPop(t *testing.T) {
+	var err error
+	ctx := context.Background()
+	rdb := redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "",
+		DB:       0,
+	})
+	_, err = rdb.Ping(ctx).Result()
+	if err != nil {
+		panic(err)
+	}
+	result, err1 := rdb.LPop(ctx, "key").Result()
+	if err1 != nil {
+		panic(err1)
+	}
+	fmt.Println(result)
+}
+```
+
+6. LLen 获取集合的长度
+
+```go
+func TestLLen(t *testing.T) {
+	var err error
+	ctx := context.Background()
+	rdb := redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "",
+		DB:       0,
+	})
+	_, err = rdb.Ping(ctx).Result()
+	if err != nil {
+		panic(err)
+	}
+	result, err1 := rdb.LLen(ctx, "key").Result()
+	if err1 != nil {
+		panic(err1)
+	}
+	t.Log(result)
+}
+```
+
+7. 遍历集合
+
+```go
+func TestLRange(t *testing.T) {
+	var err error
+	ctx := context.Background()
+	rdb := redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "",
+		DB:       0,
+	})
+	_, err = rdb.Ping(ctx).Result()
+	if err != nil {
+		panic(err)
+	}
+	result, err1 := rdb.LRange(ctx, "key", 0, -1).Result()
+	if err1 != nil {
+		panic(err1)
+	}
+	t.Log(result)
+
+}
+```
+
+8. 删除数据
+
+```go
+func TestLRem(t *testing.T) {
+	var err error
+	ctx := context.Background()
+	rdb := redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "",
+		DB:       0,
+	})
+	_, err = rdb.Ping(ctx).Result()
+	if err != nil {
+		panic(err)
+	}
+	t.Log("数据库连接成功")
+	err = rdb.LRem(ctx, "key", 0, -1).Err()
+	if err != nil {
+		panic(err)
+	}
+	t.Log("删除成功")
+
+}
+
+```
+
+9. 获取值的索引
+
+```go
+func TestLIndex(t *testing.T) {
+	var err error
+	ctx := context.Background()
+	rdb := redis.NewClient(&redis.Options{
+		Addr: "127.0.0.1:6379",
+		DB:   0,
+	})
+	_, err = rdb.Ping(ctx).Result()
+	if err != nil {
+		panic(err)
+	}
+
+	val, err := rdb.LIndex(ctx, "key", 1).Result()
+	if err != nil {
+		panic(err)
+	}
+	t.Log(val)
+}
+
+```
