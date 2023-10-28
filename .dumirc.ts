@@ -5,7 +5,7 @@
  * :copyright: (c) 2023, Tungee
  * :date created: 2023-10-21 21:31:50
  * :last editor: 张德志
- * :date last edited: 2023-10-28 11:44:20
+ * :date last edited: 2023-10-28 16:48:35
  */
 import { defineConfig } from 'dumi';
 import path from 'path';

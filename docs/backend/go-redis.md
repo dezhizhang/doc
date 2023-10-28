@@ -1,6 +1,6 @@
 # go-redis
 
-### 连接 redis
+## 连接 redis
 
 ```go
 rdb := redis.NewClient(&redis.Options{
