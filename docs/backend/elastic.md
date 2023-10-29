@@ -734,3 +734,115 @@ public class EsTest_Doc_Query5 {
   }
 }
 ```
+
+14. 模湖查询
+
+```java
+package com.atguigu.es.test;
+
+import org.apache.http.HttpHost;
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.client.RequestOptions;
+import org.elasticsearch.client.RestClient;
+import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.unit.Fuzziness;
+import org.elasticsearch.index.query.FuzzyQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
+
+public class EsTest_Doc_Query6 {
+  public static void main(String[] args) throws Exception {
+
+    RestHighLevelClient esClient = new RestHighLevelClient(
+      RestClient.builder(new HttpHost("localhost",9200))
+    );
+
+
+    SearchRequest request = new SearchRequest();
+    request.indices("user");
+
+    SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+    FuzzyQueryBuilder fuzziness = QueryBuilders.fuzzyQuery("name", "德志").fuzziness(Fuzziness.ONE);
+    searchSourceBuilder.query(fuzziness);
+
+    request.source(searchSourceBuilder);
+    SearchResponse search = esClient.search(request, RequestOptions.DEFAULT);
+
+
+    SearchHits hits = search.getHits();
+    System.out.println(hits.getTotalHits());
+    System.out.println(search.getTook());
+
+    for(SearchHit hit:hits) {
+      System.out.println(hit.getSourceAsString());
+    }
+
+    esClient.close();
+
+  }
+}
+
+```
+
+15. 高亮查询
+
+```java
+package com.atguigu.es.test;
+
+import org.apache.http.HttpHost;
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.client.RequestOptions;
+import org.elasticsearch.client.RestClient;
+import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.TermQueryBuilder;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
+
+public class EsTest_Doc_Query7 {
+  public static void main(String[] args) throws Exception {
+    RestHighLevelClient esClient = new RestHighLevelClient(
+      RestClient.builder(new HttpHost("localhost",9200))
+    );
+
+    SearchRequest request = new SearchRequest();
+    request.indices("user");
+
+    SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+    TermQueryBuilder termQueryBuilder = QueryBuilders.termQuery("name", "张德志 ");
+
+    HighlightBuilder highlightBuilder = new HighlightBuilder();
+    highlightBuilder.preTags("<em>");
+    highlightBuilder.postTags("</em>");
+    highlightBuilder.field("name");
+
+
+    searchSourceBuilder.highlighter(highlightBuilder);
+
+    searchSourceBuilder.query(termQueryBuilder);
+
+    request.source(searchSourceBuilder);
+
+    SearchResponse search = esClient.search(request, RequestOptions.DEFAULT);
+
+    SearchHits hits = search.getHits();
+    System.out.println(hits.getTotalHits());
+    System.out.println(search.getTook());
+
+    for(SearchHit hit:hits) {
+      System.out.println(hit.getSourceAsString());
+    }
+
+
+
+    esClient.close();
+  }
+}
+
+```
