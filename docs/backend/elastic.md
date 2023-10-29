@@ -80,3 +80,132 @@ POST localhost:9200/shopping/_update/1001
 DELETE localhost:9200/shopping/_doc/id
 
 ```
+
+### 条件查询
+
+1. 匹配查询
+
+```
+GET localhost:9200/shopping/_search?q=title:晓智科技有限公司
+
+GET localhost:9200/shopping/_search
+{
+    "query":{
+        "match":{
+            "title":"晓智科技有限公司"
+        }
+    }
+}
+```
+
+2. 全量查询
+
+```
+GET localhost:9200/shopping/_search
+{
+    "query":{
+        "match_all":{
+
+        }
+    }
+}
+```
+
+3. 分页查询
+
+```
+GET localhost:9200/shopping/_search
+{
+    "query":{
+        "match_all":{
+
+        }
+    },
+    "from":0,
+    "size":10
+}
+
+```
+
+4. 完全匹配
+
+```
+GET localhost:9200/shopping/_search
+{
+    "query":{
+        "match":{
+            "title":"晓智"
+        }
+    }
+}
+```
+
+5. 高亮显示
+
+```
+GET localhost:9200/shopping/_search
+{
+    "query":{
+        "match":{
+            "title":"晓"
+        }
+    },
+    "highlight":{
+        "fields":{
+            "title":{}
+        }
+    }
+}
+```
+
+6. 聚合操作
+
+```
+GET localhost:9200/shopping/_search
+{
+    "aggs":{
+        "price_group":{
+            "terms":{
+                "field":"price"
+            }
+        }
+    },
+    "size":0
+}
+```
+
+7. 创建映射
+
+```
+PUT localhost:9200/user/_mapping
+{
+    "properties":{
+        "name":{
+            "type":"text",
+            "index":true
+        },
+        "sex":{
+            "type":"keyword",
+            "index":true
+        },
+        "tel":{
+            "type":"keyword",
+            "index":false
+        }
+    }
+}
+```
+
+8. 映射查询
+
+```
+GET localhost:9200/user/_search
+
+{
+    "query":{
+        "match":{
+            "name":"科"
+        }
+    }
+}
+```
