@@ -39,13 +39,19 @@
 | append key value     | 字符串加               |
 | getset key value     | 先 get 再 set 设置值   |
 
-### list 类型
+### List 类型
 
 | 命令                        | 功能                   |
 | --------------------------- | ---------------------- |
 | lpush key value1 value2 ... | 从左向右向 list 添加   |
 | rpush key value1 value2 ... | 从右向左向 list 添加   |
 | lrange key stop end         | 从左向右遍历 list 集合 |
+
+### Hash 类型
+
+| 命令 | 功能     |
+| ---- | -------- |
+| get  | 获取键值 |
 
 ### strem
 

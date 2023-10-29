@@ -917,3 +917,79 @@ func TestZRange(t *testing.T) {
 
 }
 ```
+
+6. ZRangeByScore 根据分数范围返回集合元素，元素根据分数从小到大排序，支持分页
+
+```go
+func TestZRangeByScore(t *testing.T) {
+	var err error
+	ctx := context.Background()
+	rdb := redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "",
+		DB:       0,
+	})
+	_, err = rdb.Ping(ctx).Result()
+	if err != nil {
+		panic(err)
+	}
+	opt := redis.ZRangeBy{
+		Min:    "2",
+		Max:    "1000",
+		Offset: 0,
+		Count:  5,
+	}
+	vals, err1 := rdb.ZRangeByScore(ctx, "set", &opt).Result()
+	if err1 != nil {
+		panic(err1)
+	}
+	t.Log(vals)
+}
+```
+
+7. 根据指定 key 删除元素
+
+```go
+func TestZRem(t *testing.T) {
+	var err error
+	ctx := context.Background()
+	rdb := redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "",
+		DB:       0,
+	})
+	_, err = rdb.Ping(ctx).Result()
+	if err != nil {
+		panic(err)
+	}
+	err = rdb.ZRem(ctx, "zAdd", "张德志").Err()
+	if err != nil {
+		panic(err)
+	}
+	t.Log("删除成功")
+}
+```
+
+10. ZRemRangeByRank 根据索引范围删除元素
+
+```go
+func TestZRemRangeByRank(t *testing.T) {
+	var err error
+	ctx := context.Background()
+	rdb := redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "",
+		DB:       0,
+	})
+	_, err = rdb.Ping(ctx).Result()
+	if err != nil {
+		panic(err)
+	}
+	err = rdb.ZRemRangeByRank(ctx, "zAdd", 0, 1).Err()
+	if err != nil {
+		panic(err)
+	}
+	t.Log("删除成功")
+}
+
+```
