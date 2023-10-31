@@ -155,7 +155,7 @@ type User struct {
 func TestCreateDoc(t *testing.T) {
 	user := &User{
 		ID:       1,
-		Username: "张德志",
+		Username: "晓智科技",
 		Nickname: "晓智",
 		CreateAt: time.Now(),
 	}
@@ -415,3 +415,7 @@ func TestUpdateDoc(t *testing.T) {
 }
 
 ```
+
+[github](https://github.com/dezhizhang/rpc/blob/main/elastic/elastic_test.go)  
+[文档地址](https://doc.xiaozhi.shop/backend/go-elastic)  
+[blog](https://www.xiaozhi.shop/)
