@@ -53,7 +53,7 @@ localhost:9200/shopping/_search
 
 4. 全量修改文档
 
-```
+```js
 PUT  localhost:9200/shopping/_doc/1001
 {
     "title":"晓智科技",
