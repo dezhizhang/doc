@@ -1,6 +1,6 @@
 # go-elastic
 
-[视频地址](https://www.bilibili.com/video/BV1xM4y1p7LM?p=9&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363s)
+<!-- [视频地址](https://www.bilibili.com/video/BV1xM4y1p7LM?p=9&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363s) -->
 
 ### 连接 es
 
@@ -233,4 +233,185 @@ func TestBatchDeleteDocById(t *testing.T) {
 	}
 	t.Log(do.Succeeded())
 }
+```
+
+4. 批量添加
+
+```go
+import (
+	"github.com/olivere/elastic/v7"
+	"testing"
+)
+
+func TestBatchCreate(t *testing.T) {
+	list := []User{
+		{
+			ID:       12,
+			Username: "张三",
+			Nickname: "三",
+			CreateAt: time.Now(),
+		},
+		{
+			ID:       13,
+			Username: "李四",
+			Nickname: "阿四",
+			CreateAt: time.Now(),
+		},
+	}
+
+	client, err := elastic.NewClient(
+		elastic.SetSniff(false),
+		elastic.SetURL("http://localhost:9200"),
+	)
+	if err != nil {
+		panic(err)
+	}
+	bulk := client.Bulk().Index("user").Refresh("true")
+	for _, user := range list {
+		doc := elastic.NewBulkCreateRequest().Doc(&user)
+		bulk.Add(doc)
+	}
+
+	do, err1 := bulk.Do(context.Background())
+	if err1 != nil {
+		panic(err1)
+	}
+
+	t.Log(do.Created())
+}
+
+```
+
+### 文档查询
+
+1. 分页查询
+
+```go
+import (
+	"github.com/olivere/elastic/v7"
+	"testing"
+)
+
+
+// 查询文档
+func TestFindDoc(t *testing.T) {
+	client, err := elastic.NewClient(
+		elastic.SetSniff(false),
+		elastic.SetURL("http://localhost:9200"),
+	)
+	if err != nil {
+		panic(err)
+	}
+
+	query := elastic.NewBoolQuery()
+	res, err1 := client.Search("user").Query(query).From(0).Size(10).Do(context.Background())
+	if err1 != nil {
+		panic(err1)
+	}
+
+	count := res.Hits.TotalHits.Value
+	t.Log(count)
+	for _, value := range res.Hits.Hits {
+		t.Log(string(fmt.Sprintf("%d", value.Score)))
+	}
+
+}
+
+```
+
+2. 精确查询
+
+```go
+import (
+	"github.com/olivere/elastic/v7"
+	"testing"
+)
+
+func TestFindTermDoc(t *testing.T) {
+	client, err := elastic.NewClient(
+		elastic.SetSniff(false),
+		elastic.SetURL("http://localhost:9200"),
+	)
+	if err != nil {
+		panic(err)
+	}
+
+	query := elastic.NewTermQuery("nickname", "晓智科技")
+	res, err1 := client.Search("user").Query(query).From(0).Size(10).Do(context.Background())
+	if err1 != nil {
+		panic(err1)
+	}
+
+	count := res.Hits.TotalHits.Value
+
+	t.Log(count)
+
+	for _, val := range res.Hits.Hits {
+		t.Log(val.Source)
+	}
+
+}
+
+```
+
+3. 模糊查询
+
+```go
+import (
+	"github.com/olivere/elastic/v7"
+	"testing"
+)
+
+
+// 模湖查询
+func TestFinMathDoc(t *testing.T) {
+	client, err := elastic.NewClient(
+		elastic.SetSniff(false),
+		elastic.SetURL("http://localhost:9200"),
+	)
+
+	if err != nil {
+		panic(err)
+	}
+
+	query := elastic.NewMatchQuery("desc", "It从业人员")
+	res, err1 := client.Search("user").Query(query).From(0).Size(10).Do(context.Background())
+	if err1 != nil {
+		panic(err1)
+	}
+
+	count := res.Hits.TotalHits.Value
+	t.Log(count)
+
+	for _, val := range res.Hits.Hits {
+		t.Log(string(val.Source))
+	}
+}
+
+```
+
+4. 文档更新
+
+```go
+import (
+	"github.com/olivere/elastic/v7"
+	"testing"
+)
+
+// 文档更新
+func TestUpdateDoc(t *testing.T) {
+	client, err := elastic.NewClient(elastic.SetSniff(false), elastic.SetURL("http://localhost:9200"))
+	if err != nil {
+		panic(err)
+	}
+
+	updateId := "8VLDh4sBP_UzlGBnlTqW"
+
+	do, err1 := client.Update().Index("user").Id(updateId).Doc(map[string]any{"username": "晓晓智"}).Do(context.Background())
+	if err1 != nil {
+		panic(err1)
+	}
+	t.Log(do)
+}
+
 ```
