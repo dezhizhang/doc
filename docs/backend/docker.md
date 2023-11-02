@@ -22,7 +22,7 @@ docker run -d -p 8080:8080 --name t1 tomcat
 
 ### 安装 mysql
 
-```
+```bash
 docker search mysql # 查看是否有
 
 docker pull mysq  # 下载境像
@@ -60,6 +60,12 @@ CMD         # 指定容后启动后要干的事
 ENTRYPOINT  #类型启动动令
 ```
 
+### Dockerfie构建境像
+
+```bash 
+docker build -t 新镜像名字:tag .
+```
+
 ### docker 网络命令
 
 ```
@@ -69,7 +75,17 @@ docker network rm 网络名称      # 删除网络
 docker network inspect 网络名称 # 查看网络信息
 ```
 
-### docker-compose 容器集群编排
+
+
+
+### 在 Linux 上安装 Docker Compose
+步骤 1: 下载 Docker Compose
+1. 使用 curl 命令下载 Docker Compose 的最新稳定版本
+```bash
+使用 curl 命令下载 Docker Compose 的最新稳定版本
+```
+
+
 
 ```
 
