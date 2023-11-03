@@ -62,8 +62,25 @@ ENTRYPOINT  #类型启动动令
 
 ### Dockerfie构建境像
 
+1. 构建镜像
+
 ```bash 
 docker build -t 新镜像名字:tag .
+```
+
+2. 运行境像
+```bash
+docker run -it 新境像名字:tag
+```
+
+3. 查看本书所有虚悬镜像
+```bash
+docker images ls -f dangling=true
+```
+
+4. 删除所有虚悬镜像
+```bash
+docker image prune
 ```
 
 ### docker 网络命令
