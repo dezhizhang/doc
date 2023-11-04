@@ -4,7 +4,7 @@
 
 ### docker 安装
 
-1. yum安装gcc相关
+1. yum 安装 gcc 相关
 
 ```bash
 yum -y install gcc
@@ -17,38 +17,54 @@ yum -y install gcc-c++
 yum install -y yum-utils
 ```
 
-3. 设置stable镜像仓库
+3. 设置 stable 镜像仓库
+
 ```bash
-yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo  
+yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 
 ```
 
-4. 更新yum软件包索引
+4. 更新 yum 软件包索引
+
 ```bash
 yum makecache fast
 ```
 
-5. 安装docker ce
+5. 安装 docker ce
+
 ```bash
 
 yum install docker-ce docker-ce-cli containerd.io
 
 ```
 
-6. 启动docker
+6. 启动 docker
+
 ```bash
 systemctl start docker
 systemctl stop docker
 ```
 
-7. 查看docker信息
+7. 查看 docker 信息
+
 ```bash
-docker version 
+docker version
 ```
 
+### 配置阿里云境像
 
+1. 阿里境像工具境像加速器
 
-
+```
+sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json <<-'EOF'
+{
+  "registry-mirrors": ["https://ikzlvx21.mirror.aliyuncs.com"]
+}
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
 
 ### 进行容器
 
@@ -108,25 +124,28 @@ CMD         # 指定容后启动后要干的事
 ENTRYPOINT  #类型启动动令
 ```
 
-### Dockerfie构建境像
+### Dockerfie 构建境像
 
 1. 构建镜像
 
-```bash 
+```bash
 docker build -t 新镜像名字:tag .
 ```
 
 2. 运行境像
+
 ```bash
 docker run -it 新境像名字:tag
 ```
 
 3. 查看本书所有虚悬镜像
+
 ```bash
 docker images ls -f dangling=true
 ```
 
 4. 删除所有虚悬镜像
+
 ```bash
 docker image prune
 ```
@@ -140,17 +159,15 @@ docker network rm 网络名称      # 删除网络
 docker network inspect 网络名称 # 查看网络信息
 ```
 
-
-
-
 ### 在 Linux 上安装 Docker Compose
+
 步骤 1: 下载 Docker Compose
+
 1. 使用 curl 命令下载 Docker Compose 的最新稳定版本
+
 ```bash
 使用 curl 命令下载 Docker Compose 的最新稳定版本
 ```
-
-
 
 ```
 
