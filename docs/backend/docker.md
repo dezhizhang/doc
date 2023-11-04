@@ -2,6 +2,54 @@
 
 ### 地址：[docker](https://www.bilibili.com/video/BV1gr4y1U7CY?p=1&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
 
+### docker 安装
+
+1. yum安装gcc相关
+
+```bash
+yum -y install gcc
+yum -y install gcc-c++
+```
+
+2. 安装需要的软件包
+
+```bash
+yum install -y yum-utils
+```
+
+3. 设置stable镜像仓库
+```bash
+yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo  
+
+```
+
+4. 更新yum软件包索引
+```bash
+yum makecache fast
+```
+
+5. 安装docker ce
+```bash
+
+yum install docker-ce docker-ce-cli containerd.io
+
+```
+
+6. 启动docker
+```bash
+systemctl start docker
+systemctl stop docker
+```
+
+7. 查看docker信息
+```bash
+docker version 
+```
+
+
+
+
+
 ### 进行容器
 
 ```
