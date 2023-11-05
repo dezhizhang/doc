@@ -70,3 +70,106 @@ func TestIoReadFile(t *testing.T) {
 }
 
 ```
+### 写入文件
+1. 向文件中写入内容
+```go
+func TestWriteFile(t *testing.T) {
+	file, err := os.OpenFile("./abc.txt", os.O_WRONLY|os.O_CREATE, 0666)
+	if err != nil {
+		t.Logf("打开文件失败%s", err)
+		return
+	}
+	str := "hello, Gardon\n"
+
+	defer file.Close()
+
+	writer := bufio.NewWriter(file)
+
+	// 写入时, 使用带缓存的*writer
+	for i := 0; i < 5; i++ {
+		writer.WriteString(str)
+	}
+
+	// 带缓存因此调用WriteString方法时
+	// 内容是写入到缓存的，因些将缓存中的数据写入磁盘
+	writer.Flush()
+
+}
+
+```
+2. 内容存在则更新不存在侧创建
+```go
+func TestWriteExitFile(t *testing.T) {
+	filePath := "./abc.txt"
+	file, err := os.OpenFile(filePath, os.O_WRONLY|os.O_TRUNC|os.O_CREATE, 0666)
+	if err != nil {
+		t.Logf("打开文件失败%s", err)
+		return
+	}
+
+	defer file.Close()
+
+	str := "您好晓智科技有限会司\r\n"
+	writer := bufio.NewWriter(file)
+	for i := 0; i < 10; i++ {
+		writer.WriteString(str)
+	}
+
+	writer.Flush()
+
+}
+```
+3. 向文件只追加内容
+
+```go
+func TestWriteAppend(t *testing.T) {
+	filePath := "./abc.txt"
+	file, err := os.OpenFile(filePath, os.O_WRONLY|os.O_APPEND, 0666)
+	if err != nil {
+		t.Logf("打开文件失败%s", err)
+	}
+	defer file.Close()
+
+	str := "abc hello world"
+	writer := bufio.NewWriter(file)
+	for i := 0; i < 10; i++ {
+		writer.WriteString(str)
+	}
+	writer.Flush()
+}
+```
+4. 先读取文件后写入文件
+```go
+// 先读文件后写入文件
+func TestReadAndWriteFile(t *testing.T) {
+	filePath := "./abc.txt"
+	file, err := os.OpenFile(filePath, os.O_RDWR|os.O_APPEND, 0666)
+	if err != nil {
+		t.Logf("读取文件失败%s", err)
+		return
+	}
+
+	// 关闭文件
+	defer file.Close()
+	// 读取文件
+	reader := bufio.NewReader(file)
+	for {
+		str, err := reader.ReadString('\n')
+		if err == io.EOF { // 读取到文件未尾
+			break
+		}
+		// 量示到终端
+		t.Log(str)
+	}
+
+	str := "hello 北京你好\r\n"
+	writer := bufio.NewWriter(file)
+	for i := 0; i < 5; i++ {
+		writer.WriteString(str)
+	}
+	writer.Flush()
+}
+
+```
+
+
