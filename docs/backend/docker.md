@@ -96,7 +96,7 @@ docker run -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql # 启动mysql
 
 ### 安装 redis
 
-```
+```bash
 docker search redis
 
 docker pull redis
@@ -169,6 +169,9 @@ docker network inspect 网络名称 # 查看网络信息
 使用 curl 命令下载 Docker Compose 的最新稳定版本
 ```
 
+# 下载路径是【/usr/local/bin/】下载完之后可以看下【/usr/local/bin】这个目录有没有【docker-compose】文件
+curl -L https://get.daocloud.io/docker/compose/releases/download/1.29.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+
 ```
 
 ```
@@ -178,3 +181,6 @@ docker network inspect 网络名称 # 查看网络信息
 ```
 docker run -d -p 8000:8000 -p 9000:9000 --name protainer --restart=always -v/var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
 ```
+
+
+docker login --username=3142922546@qq.com registry.cn-guangzhou.aliyuncs.com
