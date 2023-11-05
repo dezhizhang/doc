@@ -172,4 +172,50 @@ func TestReadAndWriteFile(t *testing.T) {
 
 ```
 
+### 读文件与写文件
+```go
+func TestExitFile(t *testing.T) {
+	filePath := "./test.txt"
+	targetPath := "./test1/abc.txt"
+
+	file, err := ioutil.ReadFile(filePath)
+
+	if err != nil {
+		t.Logf("读取文件失败%s", err)
+		return
+	}
+
+	err = ioutil.WriteFile(targetPath, file, 0666)
+	if err != nil {
+		t.Logf("写文件失败%s", err)
+		return
+	}
+	t.Log("文件写入成功")
+}
+```
+### 判断文件或目录是否存在
+
+```go
+// 判断文件是否存在
+func TestFileIsExit(t *testing.T) {
+	stat, err := os.Stat("./abc1.txt")
+	if err == nil {
+		t.Logf("文件或目录已存在")
+		return
+	}
+	if os.IsNotExist(err) {
+		t.Logf("文件不存在%s", err)
+	}
+	t.Log(stat)
+}
+
+```
+
+时间结节：
+
+```js
+https://www.bilibili.com/video/BV1ME411Y71o/?p=251&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363
+```
+
+
 
