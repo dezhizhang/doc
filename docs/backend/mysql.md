@@ -1,3 +1,3 @@
 # mysql
 
-### 地址:[mysql](https://www.bilibili.com/video/BV1iq4y1u7vj?p=31&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
+### 地址:[mysql](https://www.bilibili.com/video/BV1Kr4y1i7ru/?spm_id_from=333.337.search-card.all.click&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
