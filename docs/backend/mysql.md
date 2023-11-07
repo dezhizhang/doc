@@ -73,6 +73,39 @@ SELECT last_name,salary,email from employees;
 ```bash
 SELECT * FROM employees;
 ```
+4. 查询常量值
 
-[last](https://www.bilibili.com/video/BV12b411K7Zu?p=15&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
+```bash
+SELECT 100;
+```
+5. 查询表过式
+
+```bash
+SELECT 100 * 98;
+```
+6. 查询函数
+
+```bash
+SELECT VERSION()
+```
+
+7. 起别名
+
+```bash
+SELECT 100%92 as 结果;
+SELECT last_name as 姓,first_name as 名 FROM employees;
+```
+8. 去重
+
+```bash
+SELECT DISTINCT department_id from employees
+```
+9. 字符串的拼接
+
+```bash
+SELECT CONCAT(last_name,first_name) as 姓名 FROM employees;
+
+```
+
+[last](https://www.bilibili.com/video/BV12b411K7Zu?p=27&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
 
