@@ -1,11 +1,28 @@
 # go-zero
 
 ### 环境安装
-```
+1. goctl
 
+```bash
+go install github.com/zeromicro/go-zero/tools/goctl@latest
+```
+2. 安装protoc
+
+```bash
+goctl env check --install --verbose --force
+
+go get -u github.com/zeromicro/go-zero@latest
+```
+3. 快速创建一个api
+
+```bash
+goctl api new api
 ```
 
 ### 生成gprc
 ```bash
 goctl rpc protoc user/rpc/user.proto --go_out=user/rpc/types --go-grpc_out=user/rpc/types --zrpc_out=user/rpc/
 ```
+
+时间指针
+[last](https://www.bilibili.com/video/BV1kM411X7Cp?p=3&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
