@@ -138,6 +138,16 @@ SELECT * FROM employees WHERE employee_id BETWEEN 100 AND 120;
 SELECT last_name,job_id FROM employees WHERE job_id IN('IT_PROT','AD_VP','AD_PRES');
 ```
 
+6. is null  = 或<>不能用于判断null值
+
+```bash
+SELECT last_name,commission_pct FROM employees WHERE commission_pct IS NULL
+```
+### 排序查询
+```
+
+```
+
 
 
 [last](https://www.bilibili.com/video/BV12b411K7Zu?p=27&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
