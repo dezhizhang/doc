@@ -218,8 +218,33 @@ SELECT RPAD("刘德华",10,"*") as out_put;
 SELECT REPLACE("张无忌爱上周芷若","周芷若","赵敏") as out_put;
  
 ```
+### 常用数学函当我
 
+1. round 四舍五入
+```
+SELECT ROUND(1.55) as out_put;
+ 
+```
+2. ceil 向上取整
 
+```bash
+SELECT CEIL(1.01) as out_put;
+```
+3. floor 向下取整
+
+```bash
+SELECT FLOOR(1.65) as out_out;
+```
+4. truncate 截断
+
+```bash
+SELECT TRUNCATE(1.65,1) as out_put;
+```
+5. mod 取余
+
+```bash
+SELECT MOD(10,3) as out_put;
+```
 
 
 
