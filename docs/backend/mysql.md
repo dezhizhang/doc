@@ -245,6 +245,28 @@ SELECT TRUNCATE(1.65,1) as out_put;
 ```bash
 SELECT MOD(10,3) as out_put;
 ```
+### 日期函数
+1. now 返回当前系统日期+时间
+
+```bash
+SELECT NOW() as out_put;
+```
+
+2. curdate 返回当前系统日期，不包含时间
+
+```bash
+SELECT CURDATE();
+```
+
+3. curtime 返回当前日间，不包含日期
+```bash
+SELECT curtime();
+```
+4. 指定返回年，月，日，时 ，分，秒
+
+```bash
+SELECT YEAR(NOW()) as out_put;
+```
 
 
 
