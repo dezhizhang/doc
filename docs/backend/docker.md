@@ -55,7 +55,7 @@ docker version
 
 1. 阿里境像工具境像加速器
 
-```
+```bash
 sudo mkdir -p /etc/docker
 sudo tee /etc/docker/daemon.json <<-'EOF'
 {
@@ -169,8 +169,8 @@ docker network inspect 网络名称 # 查看网络信息
 使用 curl 命令下载 Docker Compose 的最新稳定版本
 ```
 
-# 下载路径是【/usr/local/bin/】下载完之后可以看下【/usr/local/bin】这个目录有没有【docker-compose】文件
-curl -L https://get.daocloud.io/docker/compose/releases/download/1.29.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+<!-- # 下载路径是【/usr/local/bin/】下载完之后可以看下【/usr/local/bin】这个目录有没有【docker-compose】文件
+curl -L https://get.daocloud.io/docker/compose/releases/download/1.29.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose -->
 
 ```
 
@@ -181,10 +181,10 @@ curl -L https://get.daocloud.io/docker/compose/releases/download/1.29.1/docker-c
 ```
 docker run -d -p 8000:8000 -p 9000:9000 --name protainer --restart=always -v/var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
 ```
-
+<!-- 
 
 docker login --username=3142922546@qq.com registry.cn-guangzhou.aliyuncs.com
 
 
 
-docker run --name one-api -d --restart always -p 8092:8092 -e SQL_DSN="root:123456@tcp(localhost:3306)/oneapi" 
+docker run --name one-api -d --restart always -p 8092:8092 -e SQL_DSN="root:123456@tcp(localhost:3306)/oneapi"  -->

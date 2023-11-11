@@ -24,5 +24,17 @@ goctl api new api
 goctl rpc protoc user/rpc/user.proto --go_out=user/rpc/types --go-grpc_out=user/rpc/types --zrpc_out=user/rpc/
 ```
 
+### 生成rpc
+
+```bash
+goctl rpc protoc user.proto --go_out=types --go-grpc_out=types --zrpc_out=. 
+```
+### 生成api
+```bash
+ goctl api go -api vido.api --dir ./
+```
+
+goctl api go -api user.api -dir .
+
 时间指针
-[last](https://www.bilibili.com/video/BV1kM411X7Cp?p=3&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
+[last](https://www.bilibili.com/video/BV1kM411X7Cp/?p=6&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)

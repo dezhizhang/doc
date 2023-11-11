@@ -106,6 +106,39 @@ SELECT DISTINCT department_id from employees
 SELECT CONCAT(last_name,first_name) as 姓名 FROM employees;
 
 ```
+### 条件查询
+1. 按条件表过式筛选
+
+```bash
+SELECT * FROM employees WHERE salary > 12000
+```
+
+2. 按逻辑运算符进行筛选
+
+```bash
+SELECT last_name,salary,commission_pct FROM employees WHERE salary >=10000 AND salary <=20000;
+SELECT * FROM employees WHERE NOT(department_id >=90 AND department_id <=110) OR salary >15000;
+```
+
+3. 模糊查询 like between and in is null is not null
+
+```bash
+SELECT * FROM employees WHERE last_name LIKE '%a%';
+
+```
+4. 查询两者之间between and 包含临界值，临界值的顺序不能错序
+
+```bash
+SELECT * FROM employees WHERE employee_id BETWEEN 100 AND 120;
+
+```
+5. in 判断某个字段的值是否属于in列表中的某一项
+
+```bash
+SELECT last_name,job_id FROM employees WHERE job_id IN('IT_PROT','AD_VP','AD_PRES');
+```
+
+
 
 [last](https://www.bilibili.com/video/BV12b411K7Zu?p=27&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
 
