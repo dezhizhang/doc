@@ -144,9 +144,84 @@ SELECT last_name,job_id FROM employees WHERE job_id IN('IT_PROT','AD_VP','AD_PRE
 SELECT last_name,commission_pct FROM employees WHERE commission_pct IS NULL
 ```
 ### 排序查询
+
+1. 从高到低进行排序
+
+```bash
+SELECT * FROM employees ORDER BY salary DESC;
+```
+2. 排序+筛选
+
+```bash
+SELECT * FROM employees WHERE department_id >=90 ORDER BY hiredate ASC
+```
+3. 按字节进行排序
+
+```bash
+SELECT LENGTH(last_name) last_name,salary FROM employees ORDER BY LENGTH(last_name) DESC;
+
+```
+4. 模糊查询排序
+
+```bash
+SELECT *,LENGTH(email) FROM employees WHERE email LIKE '%e%' ORDER BY LENGTH(email) DESC, department_id ASC;
+```
+
+### 字符函数
+
+1. 获取字符串的字节个数
+
+```bash
+SELECT LENGTH("hello world");
+```
+
+2. 拼接字符口串
+
+```bash
+SELECT CONCAT(last_name,'_',first_name) as 姓名 FROM employees;
+```
+3. upper,lower 将字符串变大写，小写
+
+```bash 
+SELECT CONCAT(UPPER(last_name),UPPER(first_name)) as 姓名 FROM employees;
+ 
+```
+4. substr 截取从指定索引处后面的所有字符
+
+```bash
+SELECT SUBSTR("李莫悉爱上了陆展元",7) as out_put;
+SELECT SUBSTR("李莫悉爱上了陆展元",1,3) as out_put;
+```
+5. instr 返回子串第一次出现的索引，如果找不到返回0
+
+```bash
+SELECT INSTR('杨不悔爱上了六侠','六侠') as out_put;
+```
+6. trim 
 ```
 
 ```
+7. lpad 用指定的字符实现左填充指定长度
+
+```bash
+SELECT LPAD("刘德华",10,"*") as out_put;
+
+```
+8. rpad 用指定的字符实现右填充指定的长度
+
+```bash
+SELECT RPAD("刘德华",10,"*") as out_put;
+```
+9. replace 替换
+
+```bash
+SELECT REPLACE("张无忌爱上周芷若","周芷若","赵敏") as out_put;
+ 
+```
+
+
+
+
 
 
 
