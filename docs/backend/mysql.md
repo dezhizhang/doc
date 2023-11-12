@@ -294,20 +294,22 @@ END AS 新工资 FROM employees;
 ```bash
 SELECT SUM(salary) FROM employees;
 ```
-2. 求平均值
+2. avg求平均值
 
 ```bash
 SELECT AVG(salary) FROM employees;
 ```
-3. 求最小值
+3. distinct 去重
+
+```bash
+SELECT SUM(DISTINCT salary) FROM employees;
 ```
 
+4. count 统计
+```bash
+SELECT COUNT(DISTINCT salary) FROM employees;
 ```
 
 
-
-
-
-
-[last](https://www.bilibili.com/video/BV12b411K7Zu?p=27&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
+[last](https://www.bilibili.com/video/BV12b411K7Zu?p=56&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
 
