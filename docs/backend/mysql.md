@@ -267,6 +267,43 @@ SELECT curtime();
 ```bash
 SELECT YEAR(NOW()) as out_put;
 ```
+### 流程控制函数
+1. if 函数
+
+```bash
+SELECT IF(10 > 5,'大','小');
+SELECT last_name,commission_pct,IF(commission_pct IS NULL,'没奖金,呵呵','有奖金,嘻嘻')  备注 FROM employees;
+```
+
+2. case 函数
+
+```bash
+SELECT salary 原始工资,department_id,
+CASE department_id
+	WHEN 20 THEN salary * 1.1
+	WHEN 40 THEN salary * 1.2
+	WHEN 50 THEN salary * 1.3
+	ELSE salary
+END AS 新工资 FROM employees;
+
+```
+
+### 分组函数
+1. sum求合
+
+```bash
+SELECT SUM(salary) FROM employees;
+```
+2. 求平均值
+
+```bash
+SELECT AVG(salary) FROM employees;
+```
+3. 求最小值
+```
+
+```
+
 
 
 
