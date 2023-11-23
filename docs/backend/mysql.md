@@ -309,6 +309,21 @@ SELECT SUM(DISTINCT salary) FROM employees;
 ```bash
 SELECT COUNT(DISTINCT salary) FROM employees;
 ```
+5. 求最大值，最小值，总合
+
+```bash
+SELECT MAX(salary) as 最大值,MIN(salary) as 最小值,SUM(salary) as 总合 from employees;
+```
+
+6. 求两个时间相差的天数
+```bash
+SELECT DATEDIFF(MAX(hiredate),MIN(hiredate)) as 差异 FROM employees;
+```
+7. 统计某个部门id的个数
+
+```bash
+SELECT COUNT(*) 个数 FROM employees WHERE department_id = 90;
+```
 
 
 [last](https://www.bilibili.com/video/BV12b411K7Zu?p=56&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
