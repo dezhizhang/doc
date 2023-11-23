@@ -324,7 +324,19 @@ SELECT DATEDIFF(MAX(hiredate),MIN(hiredate)) as 差异 FROM employees;
 ```bash
 SELECT COUNT(*) 个数 FROM employees WHERE department_id = 90;
 ```
+### GROUP BY函数
 
+1. 查询每个工种的最高工资
+
+```bash
+SELECT MAX(salary),job_id FROM employees GROUP BY job_id;
+```
+
+2. 查询每个位置上的部门数
+```bash
+SELECT COUNT(*),location_id FROM departments GROUP BY location_id;
+ 
+```
 
 [last](https://www.bilibili.com/video/BV12b411K7Zu?p=56&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
 
