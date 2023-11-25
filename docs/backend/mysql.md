@@ -324,7 +324,7 @@ SELECT DATEDIFF(MAX(hiredate),MIN(hiredate)) as 差异 FROM employees;
 ```bash
 SELECT COUNT(*) 个数 FROM employees WHERE department_id = 90;
 ```
-### GROUP BY函数
+### group by函数
 
 1. 查询每个工种的最高工资
 
@@ -338,5 +338,21 @@ SELECT COUNT(*),location_id FROM departments GROUP BY location_id;
  
 ```
 
-[last](https://www.bilibili.com/video/BV12b411K7Zu?p=56&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
+3. 查询每个部门的平均工资
+
+```bash
+SELECT AVG(salary),department_id FROM employees GROUP BY department_id;
+```
+
+4. 查询有奖金的每个领导手下员工的最高工资
+```bash
+SELECT MAX(salary),manager_id FROM employees WHERE commission_pct IS NOT NULL GROUP BY manager_id;
+```
+5. 查询每个部门员工数大于2的
+
+```bash
+SELECT COUNT(*),department_id FROM employees GROUP BY department_id HAVING COUNT(*) > 2
+```
+
+[last](https://www.bilibili.com/video/BV12b411K7Zu?p=59&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
 
