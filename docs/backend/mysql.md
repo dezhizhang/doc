@@ -373,6 +373,28 @@ SELECT last_name,employees.job_id,job_title FROM employees,jobs WHERE employees.
 SELECT last_name,department_name,commission_pct FROM employees e,departments d WHERE e.department_id = d.department_id AND e.commission_pct IS NOT NULL;
  
 ```
+4. 查询城市名第二个字符为o的部门名和城市名
+
+```bash
+SELECT department_name,city FROM departments d,locations l WHERE d.location_id = l.location_id AND city LIKE '_o%';
+```
+5. 查询每个城市的部门个数
+
+```bash
+SELECT COUNT(*) AS 个数,city FROM departments d,locations l WHERE d.location_id = l.location_id GROUP BY city;
+```
+6. 查询每个工种的工种名和员工个数，并且按员工个数降序
+
+```bash
+SELECT job_title,COUNT(*) FROM employees e,jobs j WHERE e.job_id = j.job_id GROUP BY job_title ORDER BY COUNT(*) DESC;
+ 
+```
+
+7. 等值链查询员工名，部门名
+```bash
+SELECT last_name,department_name FROM employees e INNER JOIN departments d ON e.department_id = d.department_id;
+
+```
 
 
 
