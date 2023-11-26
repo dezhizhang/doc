@@ -188,3 +188,17 @@ docker login --username=3142922546@qq.com registry.cn-guangzhou.aliyuncs.com
 
 
 docker run --name one-api -d --restart always -p 8092:8092 -e SQL_DSN="root:123456@tcp(localhost:3306)/oneapi"  -->
+
+
+
+external_url 'http://gitlab.xiaozhi.sho'
+
+
+docker run --detach \
+  --hostname gitlab.xiaozhi.sho \
+  --publish 443:443 --publish 80:80 \
+  --name gitlab \
+  --restart always \
+  --volume /srv/gitlab/config:/etc/gitlab \
+  --volume /srv/gitlab/data:/var/opt/gitlab \
+  gitlab/gitlab-ce:latest

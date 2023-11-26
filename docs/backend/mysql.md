@@ -395,6 +395,17 @@ SELECT job_title,COUNT(*) FROM employees e,jobs j WHERE e.job_id = j.job_id GROU
 SELECT last_name,department_name FROM employees e INNER JOIN departments d ON e.department_id = d.department_id;
 
 ```
+8. 查询名字中包含e的员工名和工种名 
+```bash
+SELECT last_name,job_title FROM employees e INNER JOIN jobs j ON e.job_id = j.job_id WHERE e.last_name LIKE '%e%';
+
+```
+
+9. 查询部门数大于3的城市名和部门数
+```bash
+SELECT city,COUNT(*) AS 部门个数 FROM departments AS d INNER JOIN locations AS l ON d.location_id = l.location_id GROUP BY city HAVING COUNT(*) > 3;
+
+```
 
 
 
