@@ -14,7 +14,7 @@ vi /srv/gitlab/config/gitlab.rb
 在配置文件中，您可以根据需要进行配置更改。以下是一个示例配置文件的内容：
 
 ```bash
-external_url 'http://your-domain.com'
+external_url 'http://gitlab.xiaozhi.shop'
 
 ```
 3. 创建GitLab数据存储目录：
@@ -27,7 +27,7 @@ mkdir -p /srv/gitlab/data
 ```bash
 docker run --detach \
   --hostname your-domain.com \
-  --publish 443:443 --publish 80:80 --publish 22:22 \
+  --publish 443:443 --publish 80:80 
   --name gitlab \
   --restart always \
   --volume /srv/gitlab/config:/etc/gitlab \
@@ -38,3 +38,12 @@ docker run --detach \
 ```bash
 sudo docker exec -it gitlab grep 'Password:' /etc/gitlab/initial_root_password
 ```
+
+
+
+<!-- docker run --detach \
+  --hostname yhttp://gitlab.xiaozhi.shop \
+  --publish 443:443 --publish 8080:80
+  --volume /srv/gitlab/config:/etc/gitlab \
+  --volume /srv/gitlab/data:/var/opt/gitlab \
+  gitlab/gitlab-ce:14.3.0-ce.0 -->
