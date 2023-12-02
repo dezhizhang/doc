@@ -428,6 +428,16 @@ GROUP BY department_id
 HAVING MIN(salary) > (SELECT MIN(salary) FROM employees WHERE department_id = 50);
 ```
 
+4. 行子查询
+```
+
+```
+
+# mysql高级
+docker run -d --name mysql-container -e MYSQL_ROOT_PASSWORD=12356 -p 3306:3306 mysql:latest
+
+
+
 
 
 [last](https://www.bilibili.com/video/BV1iq4y1u7vj?p=11&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
