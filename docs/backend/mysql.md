@@ -406,7 +406,27 @@ SELECT last_name,job_title FROM employees e INNER JOIN jobs j ON e.job_id = j.jo
 SELECT city,COUNT(*) AS 部门个数 FROM departments AS d INNER JOIN locations AS l ON d.location_id = l.location_id GROUP BY city HAVING COUNT(*) > 3;
 
 ```
+### 子查询 
 
+1. 标是子查询 查询工资比Abel高的
+
+```bash
+SELECT * FROM employees WHERE salary > (SELECT salary FROM employees WHERE last_name = "Abel");
+```
+
+2. 返回公司工资最低的员工的last_name,job_id和salary
+
+```bash
+SELECT last_name,job_id,salary FROM employees
+WHERE salary = (SELECT MIN(salary) FROM employees);
+```
+
+3. 
+```bash
+SELECT MIN(salary),department_id FROM employees 
+GROUP BY department_id 
+HAVING MIN(salary) > (SELECT MIN(salary) FROM employees WHERE department_id = 50);
+```
 
 
 

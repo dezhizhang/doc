@@ -32,12 +32,41 @@ docker run --detach \
   --restart always \
   --volume /srv/gitlab/config:/etc/gitlab \
   --volume /srv/gitlab/data:/var/opt/gitlab \
-  gitlab/gitlab-ce:latest
+ gitlab/gitlab-ce:15.6.0-ce.0
 ```
+
+docker run -d  -p 8080:80  a2bf5ef04c22 --privileged=true gitlab/gitlab-ce:14.5.2-ce.0
+
+docker pull gitlab/gitlab-ce:14.5.2-ce.0
 5. 查看root密码
 ```bash
 sudo docker exec -it gitlab grep 'Password:' /etc/gitlab/initial_root_password
 ```
+
+sudo docker exec -it 5c0954f361ca grep 'Password:' /etc/gitlab/initial_root_password
+
+docker run -d --name gitlab-runner 
+  --restart always 
+  -v /var/run/docker.sock:/var/run/docker.sock 
+  gitlab/gitlab-runner:latest
+
+
+
+docker exec -it a28542a6c245 /bin/bash
+
+
+
+docker run -d --name gitlab-runner --restart always \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v /path/to/config:/etc/gitlab-runner \
+  gitlab/gitlab-runner:latest register \
+  --non-interactive \
+  --executor "docker" \
+  --docker-image alpine:latest \
+  --url "https://http://gitlab.digit.icu/" \
+  --registration-token "T2PsEWj3f7gxNRGVLzGa" \
+  --description "My Docker Runner" \
+  --tag-list "docker,linux,x86_64"
 
 
 
@@ -47,3 +76,6 @@ sudo docker exec -it gitlab grep 'Password:' /etc/gitlab/initial_root_password
   --volume /srv/gitlab/config:/etc/gitlab \
   --volume /srv/gitlab/data:/var/opt/gitlab \
   gitlab/gitlab-ce:14.3.0-ce.0 -->
+
+
+docker run -d  -p 3000:3000  0178f49bf609 --privileged=true xiaozhicloud/intelligent
