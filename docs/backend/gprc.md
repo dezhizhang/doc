@@ -8,85 +8,60 @@
 ```go
 syntax = "proto3";
 
-option go_package = ".;proto";
+option go_package="../service";
 
+package service;
 
-service Greeter {
-  rpc SayHello(HelloRequest) returns(HelloReply){}
-}
+// 传输的对像
 
-
-message HelloRequest {
-  string name = 1;
-}
-
-message HelloReply {
-  string message = 1;
+message User {
+  string username = 1;
+  int32  age = 2;
 }
 ```
-### 服务端
-```go
-package main
-
-import (
-	"context"
-	"google.golang.org/grpc"
-	"net"
-	pb "xiaozhi/grpc/proto"
-)
-
-type Server struct {
-	pb.UnimplementedGreeterServer
-}
-
-func (s *Server) SayHello(ctx context.Context, request *pb.HelloRequest) (*pb.HelloReply, error) {
-	return &pb.HelloReply{Message: "hello " + request.GetName()}, nil
-}
-
-func main() {
-	g := grpc.NewServer()
-	pb.RegisterGreeterServer(g, &Server{})
-	listen, err := net.Listen("tcp", ":8084")
-	if err != nil {
-		panic(err)
-	}
-
-	err = g.Serve(listen)
-	if err != nil {
-		panic(err)
-	}
-}
-
-```
-
-### 客户端
+### 序列化与反序列化
 
 ```go
 package main
 
 import (
-	"context"
 	"fmt"
-	"google.golang.org/grpc"
-	"xiaozhi/grpc/proto"
+	"google.golang.org/protobuf/proto"
+	"grpc/service"
 )
 
 func main() {
-	conn, err := grpc.Dial("localhost:8084", grpc.WithInsecure())
+	user := &service.User{
+		Username: "张三",
+		Age:      18,
+	}
+
+	// 序列化过程
+	marshal, err := proto.Marshal(user)
 	if err != nil {
 		panic(err)
 	}
 
-	defer conn.Close()
+	newUser := service.User{}
+	proto.Unmarshal(marshal, &newUser)
 
-	c := proto.NewGreeterClient(conn)
+	fmt.Println(newUser.String())
 
-	r, err1 := c.SayHello(context.Background(), &proto.HelloRequest{Name: "刘德华"})
-	if err1 != nil {
-		panic(err)
-	}
-
-	fmt.Println(r.Message)
 }
 
 ```
+### message介绍
+
+### 字段映射字段
+
+|protobuf  |notes  |c++      |python   |go       |
+| -------- | ------| ------- | ------- | ------- |
+| double   | ----- | double  | float   | float64 |
+| float    | ----- | float   | float   | float32 |
+| int32    | 使用变长编码|int32| int/long| unint32 | 
+| uint32   | 使用变长编码|int32| int/long| unint32 | 
+| sint32   | 使用变长编码|int32| int/long| int32   | 
+| sint64   | 使用变长编码|int32| int/long| int64   | 
+| bool     |           |  bool    | bool| bool   | 
+
+### 默认值

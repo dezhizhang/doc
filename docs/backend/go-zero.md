@@ -34,6 +34,62 @@ goctl rpc protoc user.proto --go_out=types --go-grpc_out=types --zrpc_out=.
  goctl api go -api vido.api --dir ./
 ```
 
+### 响应封装
+```go
+import (
+	"github.com/zeromicro/go-zero/rest/httpx"
+	"net/http"
+)
+
+type Body struct {
+	Code int    `json:"code"`
+	Data any    `json:"data"`
+	Msg  string `json:"msg"`
+}
+
+func Response(r *http.Request, w http.ResponseWriter, data any, err error) {
+	if err != nil {
+		body := &Body{
+			Code: 400,
+			Data: nil,
+			Msg:  "发生错误",
+		}
+		httpx.WriteJson(w, http.StatusOK, body)
+		return
+	}
+
+	body := &Body{
+		Code: 200,
+		Data: data,
+		Msg:  "ok",
+	}
+	httpx.WriteJson(w, http.StatusOK, &body)
+}
+```
+## 单体服务生成
+
+### 标签环境是否安装
+```bash
+goctl env check -i -f --verbose 
+```
+
+### 生成api
+```bash
+goctl api new hello
+```
+
+## 微服务生成
+
+### 生成api
+```bash
+goctl api go -api order.api -dir ./gen
+
+```
+
+
+
+
+
 goctl api go -api user.api -dir .
 
 时间指针
