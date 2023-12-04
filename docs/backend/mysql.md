@@ -57,7 +57,7 @@ select version()
 2. 每条命令最好用分号结尾
 3. 每条命令根据需要，可以进行缩进或换行
 
-### DQL 查询语言
+## DQL 查询语言
 1. 查询表中单个字段
 
 ```bash
@@ -442,6 +442,18 @@ SELECT * FROM employees LIMIT 0, 5;
 ```bash
 SELECT * FROM employees LIMIT 10, 15;
 ```
+## DDL 语句
+1. 插入的值的类型要与列的类型兼容或一致
+
+```bash
+INSERT INTO beauty(id,`name`,sex,borndate,phone,photo,boyfriend_id) VALUES(13,'刘德华','男','1789-4-23','15083356190',NULL,2)
+```
+
+2. 插入方式2
+```bash
+INSERT INTO beauty SET id = 15,`name` = "刘涛", borndate = "1978-09-10", phone = "15082256191"
+```
+
 
 
 
