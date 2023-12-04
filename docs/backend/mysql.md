@@ -443,6 +443,7 @@ SELECT * FROM employees LIMIT 0, 5;
 SELECT * FROM employees LIMIT 10, 15;
 ```
 ## DDL 语句
+### 插入语法
 1. 插入的值的类型要与列的类型兼容或一致
 
 ```bash
@@ -450,9 +451,19 @@ INSERT INTO beauty(id,`name`,sex,borndate,phone,photo,boyfriend_id) VALUES(13,'�
 ```
 
 2. 插入方式2
+
 ```bash
 INSERT INTO beauty SET id = 15,`name` = "刘涛", borndate = "1978-09-10", phone = "15082256191"
 ```
+### 修改语法
+
+1. 修改单表的记录
+
+```bash
+UPDATE beauty SET `name` = "阿涛" WHERE id = 15
+UPDATE beauty SET phone = "15083356190" WHERE `name` LIKE "阿%"
+```
+
 
 
 
@@ -464,5 +475,5 @@ docker run -d --name mysql-container -e MYSQL_ROOT_PASSWORD=12356 -p 3306:3306 m
 
 
 
-[last](https://www.bilibili.com/video/BV12b411K7Zu?p=95&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
+[last](https://www.bilibili.com/video/BV12b411K7Zu?p=105&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
 
