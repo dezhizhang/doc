@@ -469,11 +469,19 @@ UPDATE beauty SET phone = "15083356190" WHERE `name` LIKE "阿%"
 
 
 # mysql高级
-docker run -d --name mysql-container -e MYSQL_ROOT_PASSWORD=12356 -p 3306:3306 mysql:latest
+docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=12356 -p 3306:3306 mysql:latest
 
 
+docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=<password> -d mysql
 
 
 
 [last](https://www.bilibili.com/video/BV12b411K7Zu/?p=106&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
 
+
+
+docker run -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 \
+-v /etc/mysql/data:/var/lib/mysql \
+-v /etc/mysql/conf.d:/etc/mysql/conf.d \
+--name mysql \
+-d mysql:latest
