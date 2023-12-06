@@ -464,6 +464,56 @@ UPDATE beauty SET `name` = "阿涛" WHERE id = 15
 UPDATE beauty SET phone = "15083356190" WHERE `name` LIKE "阿%"
 ```
 
+### 删除语语
+1. 单表的删除
+```bash
+DELETE FROM beauty WHERE id = 15;
+
+```
+
+2. 删除手机号为9结层的用户信息
+```bash
+DELETE FROM beauty WHERE phone LIKE '%9';
+```
+
+3. 多表连接删除
+
+```bash
+DELETE b FROM beauty b INNER JOIN boys bo NO b.boyfriend_id = bo.id WHERE bo.boyName = "张无忌";
+```
+4. 创建表
+
+```bash
+CREATE TABLE my_employess(
+	id INT(10),
+	first_name VARCHAR(10),
+	last_name VARCHAR(10),
+	salary DOUBLE(10,2)
+);
+
+```
+## DDL 数据定义语言
+1. 创建数据库
+
+```bash
+CREATE DATABASE books;
+CREATE DATABASE IN NOT EXISTS books;
+```
+2. 删除库
+
+```bash
+DROP DATABASE books;
+```
+3. 创建表
+
+```bash
+CREATE TABLE book(
+	id INT,
+	bname VARCHAR(25),
+	price DOUBLE,
+	author VARCHAR(20)
+);
+```
 
 
 
