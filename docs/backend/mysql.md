@@ -514,7 +514,29 @@ CREATE TABLE book(
 	author VARCHAR(20)
 );
 ```
+4. 修改表的字段名
 
+```bash
+ALTER TABLE book CHANGE COLUMN author pub_author  VARCHAR(20);
+
+```
+5. 添加表的新列
+
+```bash
+ALTER TABLE book ADD COLUMN salary DOUBLE;
+
+```
+6. 删除表的一列
+
+```bash
+ALTER TABLE book DROP COLUMN salary;
+```
+7. 修改表名
+
+```bash
+ALTER TABLE book RENAME TO book_info;
+
+```
 
 
 
