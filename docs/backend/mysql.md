@@ -537,6 +537,23 @@ ALTER TABLE book DROP COLUMN salary;
 ALTER TABLE book RENAME TO book_info;
 
 ```
+8. 表的删除
+
+```bash
+DROP TABLE book_info;
+```
+
+9. 复制表的结构
+
+```bash
+CREATE TABLE copy LIKE book;
+```
+10. 复制表的结构与数据
+
+```bash
+CREATE TABLE copy2 SELECT * FROM book;
+
+```
 
 
 
