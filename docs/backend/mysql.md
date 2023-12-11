@@ -570,6 +570,12 @@ CREATE TABLE copy LIKE book;
 CREATE TABLE copy2 SELECT * FROM book;
 
 ```
+### sql的执行过程
+```bash
+form ... -> on -> (left/ right join) -> where -> group by -> having -> 
+select -> distinct -> order by -> limit
+
+```
 
 
 
