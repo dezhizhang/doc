@@ -5,7 +5,7 @@
  * :copyright: (c) 2023, Tungee
  * :date created: 2023-10-21 21:31:50
  * :last editor: 张德志
- * :date last edited: 2023-11-10 21:46:04
+ * :date last edited: 2023-12-10 19:21:52
  */
 import { defineConfig } from 'dumi';
 import path from 'path';
@@ -51,13 +51,13 @@ export default defineConfig({
   publicPath: publicPath,
   outputPath: `${PKG.name}`,
   chainWebpack(memo: any) {
-    // memo.plugin('WebpackAliyunOssPlugin').use(WebpackAliyunOssPlugin, [
-    //   {
-    //     ...OSS_CONFIG,
-    //     filter: function (build:any) {
-    //       return !/\.html$/.test(build);
-    //     },
-    //   },
-    // ]);
+    memo.plugin('WebpackAliyunOssPlugin').use(WebpackAliyunOssPlugin, [
+      {
+        ...OSS_CONFIG,
+        filter: function (build:any) {
+          return !/\.html$/.test(build);
+        },
+      },
+    ]);
   },
 });

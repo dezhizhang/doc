@@ -406,6 +406,22 @@ SELECT last_name,job_title FROM employees e INNER JOIN jobs j ON e.job_id = j.jo
 SELECT city,COUNT(*) AS 部门个数 FROM departments AS d INNER JOIN locations AS l ON d.location_id = l.location_id GROUP BY city HAVING COUNT(*) > 3;
 
 ```
+### 日期与时间
+1. 
+```bash
+SELECT CURDATE(),CURRENT_DATE(), CURTIME(), NOW(),SYSDATE(),UTC_DATE(),UTC_TIME() FROM DUAL;
+
+```
+2. 日期与时间cho
+```bash
+SELECT UNIX_TIMESTAMP();
+SELECT FROM_UNIXTIME(1702247160)
+```
+
+
+
+
+
 ### 子查询 
 
 1. 标是子查询 查询工资比Abel高的
@@ -628,7 +644,7 @@ docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=<password> -d mysql
 
 
 
-[last](https://www.bilibili.com/video/BV12b411K7Zu?p=190&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
+[last](https://www.bilibili.com/video/BV1iq4y1u7vj?p=34&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
 
 
 
