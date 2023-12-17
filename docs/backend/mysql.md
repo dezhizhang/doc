@@ -664,11 +664,13 @@ character_set_server=utf8
 systemctl restart mysqld.service
 ```
 
-UPDATE user SET host = '127.0.0.1'  WHERE user= 'root';
+### 用户管理
 
+1. 创建用户
 
-
-tungee1024Zhang
+```bash
+CREATE USER 'zhangsan' IDENTIFIED by 'abc123';
+```
 
 
 
