@@ -5,7 +5,7 @@
  * :copyright: (c) 2023, Tungee
  * :date created: 2023-10-21 21:31:50
  * :last editor: 张德志
- * :date last edited: 2023-12-17 22:50:41
+ * :date last edited: 2023-12-17 22:57:13
  */
 import { defineConfig } from 'dumi';
 import path from 'path';
@@ -43,9 +43,14 @@ export default defineConfig({
         link: '/backend',
       },
       {
-        title: '人工智能',
-        link: '/ntelligence',
+        title: '产品经理',
+        link: '/product',
       },
+      {
+        title: '人工智能',
+        link: '/intelligence',
+      },
+
     ],
   },
   publicPath: publicPath,
