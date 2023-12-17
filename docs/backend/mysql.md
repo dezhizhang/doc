@@ -578,6 +578,12 @@ select -> distinct -> order by -> limit
 ```
 
 
+### 子查询要重看
+```bash
+https://www.bilibili.com/video/BV1iq4y1u7vj?p=44&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363
+```
+
+
 
 # mysql高级
 
@@ -638,6 +644,32 @@ ps -ef | grep mysql
 CREATE DATABASE iblog CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 
+## mysql高级
+### mysql字符集
+1. 查看mysql字符集
+
+```bash
+show variables like '%character%';
+```
+2. 设置为utf8
+
+```bash
+vim /etc/my.cnf
+character_set_server=utf8
+```
+
+3. 重启mysql
+
+```bash
+systemctl restart mysqld.service
+```
+
+UPDATE user SET host = '127.0.0.1'  WHERE user= 'root';
+
+
+
+tungee1024Zhang
+
 
 
 <!-- tungee1024Zhang -->
@@ -650,7 +682,7 @@ docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=<password> -d mysql
 
 
 
-[last](https://www.bilibili.com/video/BV1iq4y1u7vj?p=34&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
+[last](https://www.bilibili.com/video/BV1iq4y1u7vj?p=75&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
 
 
 
