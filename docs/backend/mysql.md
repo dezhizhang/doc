@@ -671,6 +671,12 @@ systemctl restart mysqld.service
 ```bash
 CREATE USER 'zhangsan' IDENTIFIED by 'abc123';
 ```
+2. 修改密码
+
+```bash
+ALTER USER 'zhangdezhi' IDENTIFIED by 'tungee1024Zhang';
+```
+
 
 
 
@@ -684,7 +690,7 @@ docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=<password> -d mysql
 
 
 
-[last](https://www.bilibili.com/video/BV1iq4y1u7vj?p=75&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
+[last](https://www.bilibili.com/video/BV1iq4y1u7vj?p=109&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
 
 
 
