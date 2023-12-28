@@ -691,3 +691,100 @@ class ArrayStack {
 }
 
 ```
+### 冒泡排序
+```java
+package src.com.xiaozhicloud.sort;
+
+import java.util.Arrays;
+
+public class BubbleSort {
+  public static void main(String[] args) {
+      int arr[] = {3,9,-1,10,-2};
+
+      int temp = 0;
+      for(int i=0;i < arr.length - 1;i++) {
+        for(int j=0;j < arr.length - 1 - i;j++) {
+          if(arr[j] > arr[j + 1]) {
+            temp = arr[j];
+            arr[j] = arr[j + 1];
+            arr[j + 1] = temp;
+          }
+        }
+      }
+      System.out.println(Arrays.toString(arr));
+  }
+}
+
+```
+### 冒泡排序优化
+```java
+package src.com.xiaozhicloud.sort;
+
+import java.util.Arrays;
+
+public class BubbleSort {
+  public static void main(String[] args) {
+    int arr[] = {3,9,-1,10,20};
+    int temp = 0;
+    boolean flag = false;
+    for(int i=0;i < arr.length - 1;i++) {
+      flag = false;
+      for(int j=0;j < arr.length - 1;j++) {
+        if(arr[j] > arr[j + 1]) {
+          flag = true;
+          temp = arr[j];
+          arr[j] = arr[j + 1];
+          arr[j + 1] = temp;
+        }
+      }
+      System.out.printf("第(%d)趟排序",i + 1);
+      System.out.println();
+      if(!flag) {
+        break;
+      }
+
+    }
+
+    System.out.println(Arrays.toString(arr));
+  }
+
+}
+
+```
+### 选择排序
+```java
+package src.com.xiaozhicloud.sort;
+
+import java.util.Arrays;
+
+public class SelectSort {
+  public static void main(String[] args) {
+    int[] arr = {101, 34, 199, 1};
+    selectSort(arr);
+
+
+  }
+
+  public static void selectSort(int[] arr) {
+    for (int i = 0; i < arr.length - 1; i++) {
+      int minIndex = i;
+      int min = arr[minIndex];
+      for (int j = i + 1; j < arr.length; j++) {
+        if (min > arr[j]) {
+          min = arr[j];
+          minIndex = j;
+        }
+      }
+      if (minIndex != i) {
+        arr[minIndex] = arr[i];
+        arr[i] = min;
+
+      }
+    }
+    System.out.println(Arrays.toString(arr));
+  }
+
+}
+
+```
+last(https://www.bilibili.com/video/BV1E4411H73v?p=40&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
