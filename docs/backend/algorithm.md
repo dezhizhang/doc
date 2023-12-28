@@ -787,4 +787,94 @@ public class SelectSort {
 }
 
 ```
+### 插入排序
+```java
+package src.com.xiaozhicloud.sort;
+
+import java.util.Arrays;
+
+public class InsertSort {
+  public static void main(String[] args) {
+    int[] arr = {101, 34, 119, 1,-1,89};
+    insertSort(arr);
+    System.out.println(Arrays.toString(arr));
+  }
+
+  public static void insertSort(int[] arr) {
+    for (int i = 1; i < arr.length; i++) {
+      int insertVal = arr[i];
+      int insetIndex = i - 1;
+      while (insetIndex >= 0 && insertVal < arr[insetIndex]) {
+        arr[insetIndex + 1] = arr[insetIndex];
+        insetIndex--;
+      }
+      arr[insetIndex + 1] = insertVal;
+    }
+  }
+}
+
+```
+### 希尔排序
+```java
+package src.com.xiaozhicloud.sort;
+
+import java.util.Arrays;
+
+public class ShellSort {
+  public static void main(String[] args) {
+    int[] arr = {8,9,1,7,2,3,5,4,6,0};
+    shellSort(arr);
+    System.out.println(Arrays.toString(arr));
+  }
+
+  public static void shellSort(int[] arr) {
+    int temp = 0;
+    for (int gap = arr.length / 2; gap > 0; gap /= 2) {
+      for (int i = gap; i < arr.length; i++) {
+        for (int j = i - gap; j >= 0; j -= gap) {
+          if (arr[j] > arr[j + gap]) {
+            temp = arr[j];
+            arr[j] = arr[j + gap];
+            arr[j + gap] = temp;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+```
+### 二分查找
+```java
+public class BinarySearch {
+  public static void main(String[] args) {
+    int arr[] = {1,8,10,89,1000,1234};
+    int i = binarySearch(arr,0,arr.length -1, 88);
+    System.out.println(i);
+    
+  }
+
+  public static int binarySearch(int[]arr,int left,int right,int findValue) {
+    if(left > right) return  -1;
+    int mid = (left + right) / 2;
+    int midValue = arr[mid];
+
+
+    if(findValue > midValue) {
+      return  binarySearch(arr,mid +1,right,findValue);
+    }
+
+    if(findValue < midValue) {
+      return binarySearch(arr,left,mid - 1,findValue);
+    }
+
+    return mid;
+
+  }
+}
+
+```
+
+#TODO
 last(https://www.bilibili.com/video/BV1E4411H73v?p=40&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
