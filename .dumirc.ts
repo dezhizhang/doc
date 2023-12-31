@@ -5,7 +5,7 @@
  * :copyright: (c) 2023, Tungee
  * :date created: 2023-10-21 21:31:50
  * :last editor: 张德志
- * :date last edited: 2023-12-30 17:33:46
+ * :date last edited: 2023-12-31 12:05:17
  */
 import { defineConfig } from 'dumi';
 import path from 'path';
@@ -28,6 +28,7 @@ export default defineConfig({
     name: '晓智文档',
     antd: {},
     base: '/',
+    logo: false,
     history: { type: 'hash' },
     nav: [
       {
