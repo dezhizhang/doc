@@ -1,3 +1,5 @@
+# mongodb
+
 ### Linux 下安装 mongodb
 
 1. 在/etc/yum.repos.d/下创建 mongodb-org-4.2.repo

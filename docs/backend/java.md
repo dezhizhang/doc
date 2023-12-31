@@ -1,4 +1,4 @@
-# JAVA
+# java
 ### 求取最大值
 ```java
 class A02 {
