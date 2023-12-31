@@ -5,7 +5,7 @@
  * :copyright: (c) 2023, Tungee
  * :date created: 2023-10-21 21:31:50
  * :last editor: 张德志
- * :date last edited: 2023-12-31 12:05:17
+ * :date last edited: 2023-12-31 23:33:32
  */
 import { defineConfig } from 'dumi';
 import path from 'path';
@@ -42,6 +42,10 @@ export default defineConfig({
       {
         title: '后台文档',
         link: '/backend',
+      },
+      {
+        title: '阅读书箱',
+        link: '/books',
       },
       {
         title: '产品经理',
