@@ -295,6 +295,65 @@ public class Client {
 
 
 ```
+### 原型模式烤贝对像
+```java
+package src.com.desgin.prototype;
+
+import java.io.*;
+
+public class DeepProtoType implements Serializable, Cloneable {
+  public String name;
+  public DeepCloneTable deepCloneTable;
+
+  public DeepProtoType() {
+    super();
+  }
+  // 深拷贝
+
+  @Override
+  protected Object clone() throws CloneNotSupportedException {
+    Object deep = null;
+    deep = super.clone();
+
+    DeepProtoType deepProtoType = (DeepProtoType) deep;
+    deepProtoType.deepCloneTable = (DeepCloneTable) deepCloneTable.clone();
+    return deepProtoType;
+  }
+
+  public Object deepClone() {
+    ByteArrayOutputStream bos = null;
+    ObjectOutputStream oss = null;
+    ByteArrayInputStream bis = null;
+    ObjectInputStream ois = null;
+    try {
+      bos = new ByteArrayOutputStream();
+      oss = new ObjectOutputStream(bos);
+      oss.writeObject(this);
+
+      // 反序化
+      bis = new ByteArrayInputStream(bos.toByteArray());
+      ois = new ObjectInputStream(bis);
+      DeepProtoType copyObj = (DeepProtoType) ois.readObject();
+
+      return copyObj;
+
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      return null;
+    } finally {
+      try {
+        bos.close();
+        ois.close();
+        oss.close();
+      } catch (Exception e) {
+        System.out.println(e.getMessage());
+      }
+    }
+
+  }
+}
+
+```
 
 
-<!-- last(https://www.bilibili.com/video/BV1G4411c7N4?p=6&vd_source=e38cd951f2ee7bda48ec574f4e9ba363) -->
+<!-- last(https://www.bilibili.com/video/BV1G4411c7N4?p=54&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363) -->
