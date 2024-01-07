@@ -89,6 +89,62 @@ class Singleton2 {
 }
 
 ```
+### 懒汉式单例模式(线程不安全)
+```java
+package src.com.desgin.single;
+
+class Singleton3Test {
+  public static void main(String[] args) {
+    Singleton3 instance = Singleton3.getInstance();
+    Singleton3 instance2 = Singleton3.getInstance();
+    System.out.println(instance == instance2);
+
+  }
+}
+
+class Singleton3{
+  private static Singleton3 instance;
+
+  private Singleton3(){}
+
+  public static Singleton3 getInstance() {
+    if(instance == null) {
+      instance = new Singleton3();
+    }
+    return instance;
+  }
+}
+
+```
+### 懒汉式单例模式(线程安全)
+```java
+package src.com.desgin.single;
+
+class Singleton4Test {
+  
+  public static void main(String[] args) {
+    Singleton4 singleton4 = Singleton4.getInstance();
+    Singleton4 singleton42 = Singleton4.getInstance();
+
+    System.out.println(singleton4 == singleton42);
+  }
+}
+
+class Singleton4 {
+  private static Singleton4 instance;
+
+  private Singleton4() {
+  }
+
+  public static synchronized Singleton4 getInstance() {
+    if (instance == null) {
+      instance = new Singleton4();
+    }
+    return instance;
+  }
+}
+
+```
 
 
 <!-- last(https://www.bilibili.com/video/BV1G4411c7N4?p=6&vd_source=e38cd951f2ee7bda48ec574f4e9ba363) -->
