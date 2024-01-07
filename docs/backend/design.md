@@ -145,6 +145,66 @@ class Singleton4 {
 }
 
 ```
+### 悚汉式(线程安全，同步方法)
+```java
+package src.com.desgin.single;
+
+class Singleton5Test {
+  public static void main(String[] args) {
+    Singleton5 singleton = Singleton5.getInstance();
+    Singleton5 singleton2 = Singleton5.getInstance();
+
+    System.out.println(singleton == singleton2);
+  }
+}
+
+class Singleton5{
+  private static volatile Singleton5 instance;
+
+  private Singleton5() {};
+
+  public static synchronized Singleton5 getInstance() {
+    if(instance == null) {
+      synchronized (Singleton5.class) {
+        if(instance == null) {
+          instance = new Singleton5();
+        }
+      }
+    }
+    return instance;
+  }
+
+}
+
+```
+### 静态内部类实现单例(推荐使用)
+```java
+package src.com.desgin.single;
+
+class Singleton6Test {
+  public static void main(String[] args) {
+    Singleton6 instance = Singleton6.getInstance();
+    Singleton6 instance2 = Singleton6.getInstance();
+
+    System.out.println(instance ==instance2);
+  }
+}
+
+// 静态内部类单例模式
+class Singleton6{
+  private static volatile Singleton6 instance;
+
+  private static class Singleton6Instance {
+    private static final Singleton6 INSTANCE = new Singleton6();
+  }
+
+  // 提供一个静态公共方法
+  public static synchronized Singleton6 getInstance() {
+    return Singleton6Instance.INSTANCE;
+  }
+}
+
+```
 
 
 <!-- last(https://www.bilibili.com/video/BV1G4411c7N4?p=6&vd_source=e38cd951f2ee7bda48ec574f4e9ba363) -->
