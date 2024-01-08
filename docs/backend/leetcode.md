@@ -54,3 +54,78 @@ class ListNode {
 }
 
 ```
+### [83. 删除排序链表中的重复元素](https://leetcode.cn/problems/remove-duplicates-from-sorted-list/description/)
+```java
+package src.com.leetcode.deleteDuplicates;
+
+public class DeleteDuplicates {
+  public static void main(String[] args) {
+    ListNode listNode = new ListNode(1);
+    listNode.next = new ListNode(1);
+    listNode.next.next = new ListNode(2);
+    listNode.next.next.next = new ListNode(3);
+    listNode.next.next.next.next = new ListNode(3);
+    deleteDuplicates(listNode);
+
+//    [1,1,2,3,3]
+  }
+  public static ListNode deleteDuplicates(ListNode head) {
+    if(head == null) {
+      return head;
+    }
+    ListNode currentNode = head;
+    while (null != currentNode.next) {
+      if(currentNode.next.val == currentNode.val) {
+        currentNode.next = currentNode.next.next;
+      }else {
+        currentNode = currentNode.next;
+      }
+    }
+    return head;
+  }
+}
+
+class ListNode{
+  int val;
+  ListNode next;
+  ListNode(){}
+  ListNode(int val) { this.val = val; }
+  ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+}
+
+
+```
+### [141. 环形链表](https://leetcode.cn/problems/linked-list-cycle/description/)
+```java
+package src.com.leetcode.hasCycle;
+
+public class HasCycle {
+  public static void main(String[] args) {
+
+  }
+
+  public boolean hasCycle(ListNode head) {
+    if (head == null) return false;
+    ListNode slowPtr = head, fastPtr = head;
+    while (fastPtr.next != null && fastPtr.next.next != null) {
+      slowPtr = slowPtr.next;
+      fastPtr = fastPtr.next.next;
+      if (slowPtr == fastPtr) {
+        return true;
+      }
+    }
+    return false;
+  }
+}
+
+class ListNode {
+  int val;
+  ListNode next;
+
+  ListNode(int x) {
+    val = x;
+    next = null;
+  }
+}
+
+```

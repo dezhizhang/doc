@@ -82,6 +82,48 @@ public class Producer {
 }
 
 ```
+###  消息者
+```java
+package com.xiaozhicloud.consumer;
+
+import com.rabbitmq.client.*;
+
+public class Consumer {
+  public static final String QUEUE_NAME = "hello";
+
+  public static void main(String[] args) throws Exception {
+    ConnectionFactory factory = new ConnectionFactory();
+    // 设置ip地址
+    factory.setHost("127.0.0.1");
+    // 设置用户名
+    factory.setUsername("guest");
+    // 设置密码
+    factory.setPassword("guest");
+
+    // 创建连接
+    Connection connection = factory.newConnection();
+
+    Channel channel = connection.createChannel();
+
+    // 声明接收消息
+    DeliverCallback deliverCallback = (consumerTag,message) -> {
+      System.out.println("接收消息"+ new String(message.getBody()));
+    };
+
+    CancelCallback cancelCallback =  consumerTag -> {
+      System.out.println("消费消息被中断");
+    };
+
+
+    // 消费者消费消息
+    channel.basicConsume(QUEUE_NAME,true,deliverCallback,cancelCallback);
+
+
+  }
+
+}
+
+```
 
 
 [last](https://www.bilibili.com/video/BV1cb4y1o7zz?p=13&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
