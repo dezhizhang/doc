@@ -2,6 +2,86 @@
 
 ### rabbitmq安装
 [mac安装rabbitmq](https://blog.csdn.net/CSDNwei/article/details/130965219)
+### 配置文件
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.example</groupId>
+  <artifactId>rabbitmq</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <dependencies>
+    <!--rabbitmq 依赖客户端-->
+    <dependency>
+      <groupId>com.rabbitmq</groupId>
+      <artifactId>amqp-client</artifactId>
+      <version>5.8.0</version>
+    </dependency>
+    <!--操作文件流的一个依赖-->
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.6</version>
+    </dependency>
+  </dependencies>
+
+  <!--指定 jdk 编译版本-->
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>8</source>
+          <target>8</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
+
+```
+### 生产者
+```java
+package com.xiaozhicloud.producer;
+
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+
+public class Producer {
+  public static final String QUEUE_NAME = "hello";
+
+  public static void main(String[] args) throws Exception {
+    ConnectionFactory factory = new ConnectionFactory();
+    // 设置ip地址
+    factory.setHost("127.0.0.1");
+    // 设置用户名
+    factory.setUsername("guest");
+    // 设置密码
+    factory.setPassword("guest");
+
+    // 创建连接
+    Connection connection = factory.newConnection();
+
+    Channel channel = connection.createChannel();
+    // 生成一个队列
+    channel.queueDeclare(QUEUE_NAME,false, false,false,null);
+    // 发消息
+    String message = "hello world";
+    channel.basicPublish("",QUEUE_NAME,null,message.getBytes());
+    System.out.println("消息发送完毕");
+    
+  }
+
+}
+
+```
 
 
 [last](https://www.bilibili.com/video/BV1cb4y1o7zz?p=13&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
