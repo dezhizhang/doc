@@ -90,7 +90,7 @@ goctl api go -api order.api -dir ./gen
 
 
 
-goctl api go -api user.api -dir .
+<!-- goctl api go -api user.api -dir .
 
 时间指针
-[last](https://www.bilibili.com/video/BV1kM411X7Cp/?p=6&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
+[last](https://www.bilibili.com/video/BV1kM411X7Cp/?p=6&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363) -->
