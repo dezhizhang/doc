@@ -129,3 +129,86 @@ class ListNode {
 }
 
 ```
+### [142. 环形链表 II](https://leetcode.cn/problems/linked-list-cycle-ii/description/)
+```java
+package src.com.leetcode.detectCycle;
+
+public class DetectCycle {
+  public static void main(String[] args) {
+
+  }
+  public ListNode detectCycle(ListNode head) {
+      if(head == null) return null;
+      ListNode slowPtr = head,fastPtr = head;
+      boolean loopExists = false;
+      while (fastPtr.next != null && fastPtr.next.next != null) {
+        slowPtr = slowPtr.next;
+        fastPtr = fastPtr.next.next;
+        if(slowPtr == fastPtr) {
+          loopExists = true;
+          break;
+        }
+      }
+      if(loopExists) {
+        slowPtr = head;
+        while (slowPtr != fastPtr) {
+          fastPtr = fastPtr.next;
+          slowPtr = slowPtr.next;
+        }
+        return  slowPtr;
+      }
+      return  null;
+  }
+}
+
+class ListNode{
+  int val;
+  ListNode next;
+  ListNode(int x) {
+    val = x;
+    next = null;
+  }
+}
+
+```
+### [206. 反转链表](https://leetcode.cn/problems/reverse-linked-list/description/)
+```java
+package src.com.leetcode.reverseList;
+
+public class ReverseList {
+  public static void main(String[] args) {
+
+  }
+
+  public ListNode reverseList(ListNode head) {
+    ListNode preNode = null;
+    ListNode curr = head;
+    while (curr != null) {
+      ListNode next = curr.next;
+      curr.next = preNode;
+      preNode = curr;
+      curr = next;
+    }
+    return preNode;
+  }
+}
+
+
+class ListNode {
+  int val;
+  ListNode next;
+
+  ListNode() {
+  }
+
+  ListNode(int val) {
+    this.val = val;
+  }
+
+  ListNode(int val, ListNode next) {
+    this.val = val;
+    this.next = next;
+  }
+}
+
+```
