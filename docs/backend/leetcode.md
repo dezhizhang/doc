@@ -212,3 +212,101 @@ class ListNode {
 }
 
 ```
+### 二叉树中序遍历
+```java
+package src.com.leetcode.intersectionNode;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class InorderTraversal {
+  public static void main(String[] args) {
+   
+  }
+
+  public List<Integer> inorderTraversal(TreeNode root) {
+    List<Integer> res = new ArrayList<Integer>();
+    accessTree(root,res);
+    return res;
+  }
+
+  public void accessTree(TreeNode root,List<Integer> res) {
+    if(root == null) {
+      return;
+    }
+    accessTree(root.left,res);
+    res.add(root.val);
+    accessTree(root.right,res);
+  }
+}
+
+
+class TreeNode {
+  int val;
+  TreeNode left;
+  TreeNode right;
+
+  TreeNode() {
+  }
+
+  TreeNode(int val) {
+    this.val = val;
+  }
+
+  TreeNode(int val, TreeNode left, TreeNode right) {
+    this.val = val;
+    this.left = left;
+    this.right = right;
+  }
+}
+
+```
+### [144. 二叉树的前序遍历](https://leetcode.cn/problems/binary-tree-preorder-traversal/description/)
+```java
+package src.com.leetcode.preorderTraversal;
+
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.List;
+
+public class PreorderTraversal {
+  public static void main(String[] args) {
+
+  }
+  public List<Integer> preorderTraversal(TreeNode root) {
+    List<Integer> res = new ArrayList<>();
+    Deque<TreeNode> stack = new LinkedList<>();
+    while (root != null || !stack.isEmpty()) {
+      while (root != null) {
+        res.add(root.val);
+        stack.push(root);
+        root = root.left;
+      }
+
+      root = stack.pop();
+      root = root.right;
+    }
+    return  res;
+  }
+}
+class TreeNode {
+  int val;
+  TreeNode left;
+  TreeNode right;
+  TreeNode() {
+  }
+
+  TreeNode(int val) {
+    this.val = val;
+  }
+
+  TreeNode(int val, TreeNode left, TreeNode right) {
+    this.val = val;
+    this.left = left;
+    this.right = right;
+  }
+}
+
+```
+ [last](https://www.bilibili.com/video/BV1eg411w7gn/?p=27&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
