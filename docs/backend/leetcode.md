@@ -212,7 +212,7 @@ class ListNode {
 }
 
 ```
-### 二叉树中序遍历
+### [94. 二叉树的中序遍历](https://leetcode.cn/problems/binary-tree-inorder-traversal/description/)
 ```java
 package src.com.leetcode.intersectionNode;
 
@@ -309,4 +309,33 @@ class TreeNode {
 }
 
 ```
- [last](https://www.bilibili.com/video/BV1eg411w7gn/?p=27&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
+### [145. 二叉树的后序遍历](https://leetcode.cn/problems/binary-tree-postorder-traversal/description/)
+```java
+class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+    List<Integer> res = new ArrayList<>();
+    Deque<TreeNode> stack = new LinkedList<>();
+
+    TreeNode preAccess = null;
+
+    while (root != null || !stack.isEmpty()) {
+      while (root != null) {
+        stack.push(root);
+        root = root.left;
+      }
+      root = stack.pop();
+      if (root.right == null || root.right == preAccess) {
+        res.add(root.val);
+        preAccess = root;
+        root = null;
+      } else {
+        stack.push(root);
+        root = root.right;
+      }
+    }
+    return res;
+
+  }
+}
+```
+ <!-- [last](https://www.bilibili.com/video/BV1eg411w7gn/?p=27&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363) -->

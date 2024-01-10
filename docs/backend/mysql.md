@@ -585,7 +585,7 @@ https://www.bilibili.com/video/BV1iq4y1u7vj?p=44&spm_id_from=pageDriver&vd_sourc
 
 
 
-# mysql高级
+## mysql高级
 
 ### Linux安装mysql
 1. 下载mysql的repo源

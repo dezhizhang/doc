@@ -4982,7 +4982,7 @@ public class MaxArea {
 
 ```
 ### 二数之和
-```
+```java
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
