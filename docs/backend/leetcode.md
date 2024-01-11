@@ -338,4 +338,105 @@ class Solution {
   }
 }
 ```
+### [101. 对称二叉树](https://leetcode.cn/problems/symmetric-tree/description/)
+```java
+package src.com.leetcode.isSymmetric;
+
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+class TreeNode {
+  int val;
+  TreeNode left;
+  TreeNode right;
+
+  TreeNode() {
+  }
+
+  TreeNode(int val) {
+    this.val = val;
+  }
+
+  TreeNode(int val, TreeNode left, TreeNode right) {
+    this.val = val;
+    this.left = left;
+    this.right = right;
+  }
+}
+
+public class IsSymmetric {
+  public static void main(String[] args) {
+
+  }
+
+  public boolean isSymmetric(TreeNode root) {
+    Queue<TreeNode> q = new LinkedList<TreeNode>();
+    TreeNode u = root.left;
+    TreeNode v = root.right;
+    if(root == null || (u == null && v == null)) {
+      return true;
+    }
+    q.offer(u);
+    q.offer(v);
+
+    while (!q.isEmpty()) {
+      u = q.poll();
+      v = q.poll();
+      if(u == null && v == null) {
+        continue;
+      }
+      if((u == null || v == null) || (u.val != v.val)) {
+        return false;
+      }
+      q.offer(u.left);
+      q.offer(v.right);
+
+
+      q.offer(u.right);
+      q.offer(v.left);
+    }
+    return  true;
+  }
+
+}
+
+```
+### [104. 二叉树的最大深度](https://leetcode.cn/problems/maximum-depth-of-binary-tree/description/)
+
+```java
+package src.com.leetcode.maxDepth;
+
+public class MaxDepth {
+  public static void main(String[] args) {
+
+  }
+  public int maxDepth(TreeNode root) {
+      if(root == null) {
+        return 0;
+      }
+      return Math.max(maxDepth(root.left),maxDepth(root.right)) + 1;
+  }
+}
+
+
+class TreeNode {
+  int val;
+  TreeNode left;
+ TreeNode right;
+
+  TreeNode() {
+  }
+
+  TreeNode(int val) {
+    this.val = val;
+  }
+
+  TreeNode(int val, TreeNode left, TreeNode right) {
+    this.val = val;
+    this.left = left;
+    this.right = right;
+  }
+}
+```
  <!-- [last](https://www.bilibili.com/video/BV1eg411w7gn/?p=27&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363) -->
