@@ -124,6 +124,91 @@ public class Consumer {
 }
 
 ```
+### 封装连接工具
+```java
+package com.xiaozhicloud.utils;
 
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+
+public class Utils {
+  // 连接工厂创建信道工具类
+  public static Channel getChannel() throws Exception {
+    ConnectionFactory factory = new ConnectionFactory();
+    factory.setHost("127.0.0.1");
+    factory.setUsername("guest");
+    factory.setPassword("guest");
+
+    Connection connection = factory.newConnection();
+    Channel channel = connection.createChannel();
+    return channel;
+  }
+}
+
+```
+### 工程进程生产者
+```java
+package com.xiaozhicloud.work;
+
+import com.rabbitmq.client.Channel;
+import com.xiaozhicloud.utils.Utils;
+
+import java.util.Scanner;
+
+public class Producer {
+
+  public static final String QUEUE_NAME = "hello";
+
+  public static void main(String[] args) throws  Exception{
+    Channel channel = Utils.getChannel();
+
+    channel.queueDeclare(QUEUE_NAME,false,false,false,null);
+
+
+    Scanner scanner = new Scanner(System.in);
+
+    while (scanner.hasNext()) {
+      String message = scanner.next();
+      channel.basicPublish("",QUEUE_NAME,null,message.getBytes());
+      System.out.println("消息发送完毕" + message);
+    }
+
+  }
+}
+
+```
+### 工程进程消费者
+```java
+package com.xiaozhicloud.work;
+
+import com.rabbitmq.client.CancelCallback;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.DeliverCallback;
+import com.xiaozhicloud.utils.Utils;
+
+public class Consumer {
+  public static final String QUEUE_NAME = "hello";
+
+  public static void main(String[] args) throws Exception {
+    Channel channel = Utils.getChannel();
+
+
+    DeliverCallback deliverCallback = (consumerTag, message) -> {
+      System.out.println("接收消息"+ new String(message.getBody()));
+    };
+
+    // 取消消息
+    CancelCallback cancelCallback = consumerTag -> {
+      System.out.println("消费消息被中断");
+    };
+    System.out.println("c1等待接收消息...");
+    // 消费者消费消息
+    channel.basicConsume(QUEUE_NAME,true,deliverCallback,cancelCallback);
+
+  }
+}
+
+```
 
 [last](https://www.bilibili.com/video/BV1cb4y1o7zz?p=13&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
