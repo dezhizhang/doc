@@ -210,5 +210,106 @@ public class Consumer {
 }
 
 ```
+### 消息的手动确认生产者
+```java
+package com.xiaozhicloud.loss;
+
+import com.rabbitmq.client.Channel;
+import com.xiaozhicloud.utils.Utils;
+
+import java.util.Scanner;
+
+public class Producer {
+  public static final String TASK_QUEUE_NAME = "ack_queue";
+
+  public static void main(String[] args) throws Exception {
+    Channel channel = Utils.getChannel();
+
+    channel.queueDeclare(TASK_QUEUE_NAME, false, false, false, null);
+
+    // 从控制台获取信息
+    Scanner scanner = new Scanner(System.in);
+
+    while (scanner.hasNext()) {
+      String message = scanner.next();
+      channel.basicPublish("", TASK_QUEUE_NAME, null, message.getBytes("UTF-8"));
+      System.out.println("生产者发出的消息" + message);
+    }
+
+
+  }
+}
+
+```
+### 消息的手动确认消费者1
+```java
+package com.xiaozhicloud.loss;
+
+import com.rabbitmq.client.CancelCallback;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.DeliverCallback;
+import com.xiaozhicloud.utils.Utils;
+
+public class Consumer1 {
+  public static final String TASK_QUEUE_NAME = "ack_queue";
+  public static void main(String[] args) throws Exception {
+    Channel channel = Utils.getChannel();
+    System.out.println("c1等持接收消息处理");
+
+    DeliverCallback deliverCallback = (consumerTag, message) -> {
+      Utils.sleep(1);
+      System.out.println("接收消息"+ new String(message.getBody()));
+      // 手动应答
+      channel.basicAck(message.getEnvelope().getDeliveryTag(),false);
+    };
+
+    // 取消消息
+    CancelCallback cancelCallback = consumerTag -> {
+      System.out.println("消费消息被中断");
+    };
+
+    boolean autoAck = false;
+
+    channel.basicConsume(TASK_QUEUE_NAME,autoAck,deliverCallback,cancelCallback);
+
+  }
+}
+```
+### 消息的手动确认消费者2
+```java
+package com.xiaozhicloud.loss;
+
+import com.rabbitmq.client.CancelCallback;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.DeliverCallback;
+import com.xiaozhicloud.utils.Utils;
+
+public class Consumer2 {
+  public static final String TASK_QUEUE_NAME = "ack_queue";
+  public static void main(String[] args) throws Exception {
+    Channel channel = Utils.getChannel();
+    System.out.println("c2等持接收消息处理");
+
+    DeliverCallback deliverCallback = (consumerTag, message) -> {
+      Utils.sleep(30);
+      System.out.println("接收消息"+ new String(message.getBody()));
+      // 手动应答
+      channel.basicAck(message.getEnvelope().getDeliveryTag(),false);
+    };
+
+    // 取消消息
+    CancelCallback cancelCallback = consumerTag -> {
+      System.out.println("消费消息被中断");
+    };
+
+    boolean autoAck = false;
+
+    channel.basicConsume(TASK_QUEUE_NAME,autoAck,deliverCallback,cancelCallback);
+
+  }
+
+}
+
+```
 
 [last](https://www.bilibili.com/video/BV1cb4y1o7zz?p=13&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
