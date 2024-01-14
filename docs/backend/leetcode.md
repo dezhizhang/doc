@@ -439,4 +439,45 @@ class TreeNode {
   }
 }
 ```
- <!-- [last](https://www.bilibili.com/video/BV1eg411w7gn/?p=27&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363) -->
+### [136. 只出现一次的数字](https://leetcode.cn/problems/single-number/description/)
+```java
+package src.com.leetcode.singleNumber;
+
+public class SingleNumber {
+  public static void main(String[] args) {
+    int[] nums= {4,1,2,1,2};
+    System.out.println(singleNumber(nums));
+  }
+  public static int singleNumber(int[] nums) {
+    int result = 0;
+    for(int num:nums) {
+      result = result ^ num;
+    }
+    return result;
+  }
+}
+
+```
+### [338. 比特位计数](https://leetcode.cn/problems/counting-bits/description/)
+```java
+package src.com.leetcode.countBits;
+
+import java.util.Arrays;
+
+public class CountBits {
+  public static void main(String[] args) {
+    int[] ints = countBits(2);
+    System.out.println(Arrays.toString(ints));
+  }
+  public static int[] countBits(int n) {
+      int[] bits = new int[n+1];
+      for(int i=1;i <=n;i++) {
+        bits[i] = bits[i &(i-1)] +1;
+      }
+      return bits;
+  }
+}
+
+```
+
+ <!-- [last](https://www.bilibili.com/video/BV1eg411w7gn?p=45&vd_source=e38cd951f2ee7bda48ec574f4e9ba363) -->
