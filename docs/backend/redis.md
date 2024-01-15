@@ -69,4 +69,40 @@ cat cmd.txt | redis-cli --pipe
 ```
 
 110
-<!-- [last](https://www.bilibili.com/video/BV1cr4y1671t?p=46&vd_source=e38cd951f2ee7bda48ec574f4e9ba363) -->
+<!-- [last](https://www.bilibili.com/video/BV1cr4y1671t/?p=17&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363) -->
+
+config set requirepass '123456'
+
+### jedis创建连接池
+```java
+package com.xiaozhicloud.utils;
+
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
+
+public class JedisConnectionFactory {
+  private static final JedisPool jedisPool;
+
+  static {
+    JedisPoolConfig poolConfig = new JedisPoolConfig();
+    // 最大连接池
+    poolConfig.setMaxTotal(8);
+    // 最大连接数
+    poolConfig.setMaxIdle(8);
+    // 最小连接数
+    poolConfig.setMinIdle(0);
+    // 等待时长
+    poolConfig.setMaxWaitMillis(1000);
+
+    jedisPool = new JedisPool(poolConfig,"127.0.0.1",6379,1000,"123456");
+
+  }
+
+  // 获取链接池
+  public static Jedis getJedis() {
+    return jedisPool.getResource();
+  }
+}
+
+```

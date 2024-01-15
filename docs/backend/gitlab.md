@@ -79,3 +79,6 @@ docker run -d --name gitlab-runner --restart always \
 
 
 docker run -d  -p 3000:3000  0178f49bf609 --privileged=true xiaozhicloud/intelligent
+
+<!-- 
+[last](https://www.bilibili.com/video/BV17u4y1a72B?p=24&vd_source=e38cd951f2ee7bda48ec574f4e9ba363) -->
