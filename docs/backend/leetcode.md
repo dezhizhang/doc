@@ -508,5 +508,47 @@ public class DecodeString {
 }
 
 ```
+### [344. 反转字符串](https://leetcode.cn/problems/reverse-string/description/)
+```java
+package src.com.leetcode.reverseString;
+
+public class ReverseString {
+  public static void main(String[] args) {
+    char[] s = {'h','e','l','l','o'};
+    reverseString(s);
+
+    System.out.println(s);
+
+  }
+  public static void reverseString(char[] s) {
+    int n = s.length;
+    for(int left = 0,right = n - 1;left < right;++left,--right) {
+      char temp = s[left];
+      s[left] = s[right];
+      s[right] = temp;
+    }
+  }
+}
+
+//----------------------------------------------
+package main
+
+import "fmt"
+
+func main() {
+	s := []byte{'h', 'e', 'l', 'l', 'o'}
+	reverseString(s)
+
+	fmt.Println(string(s))
+}
+func reverseString(s []byte) {
+	for left, right := 0, len(s)-1; left < right; left++ {
+		s[left], s[right] = s[right], s[left]
+		right--
+	}
+}
+
+
+```
 
  <!-- [last](https://www.bilibili.com/video/BV1eg411w7gn?p=45&vd_source=e38cd951f2ee7bda48ec574f4e9ba363) -->
