@@ -1,4 +1,10 @@
 # nginx 
+### linux系统中安装nginx
+
+
+
+### 反向代理
+
 
 ### nginx 常用命令
 1. 查看nginx 版本号
