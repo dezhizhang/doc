@@ -41,6 +41,10 @@ default_type  application/octet-stream;
 ```
 
 ```
+3. 自定义服务日志
+```
+
+```
 
 
 [last](https://www.bilibili.com/video/BV1ov41187bq?p=18&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8)
