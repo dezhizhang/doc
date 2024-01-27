@@ -27,7 +27,7 @@ nginx -s reload
 
 5. 查看nginx进程
 ```bash
-ps -ef | grep nginx
+ps -ef | grep nginx     
 ```
 ### http块
 
@@ -39,7 +39,7 @@ default_type  application/octet-stream;
 ```
 2. default_type的MIME类型
 ```
-
+                       
 ```
 3. 自定义服务日志
 ```
@@ -47,4 +47,4 @@ default_type  application/octet-stream;
 ```
 
 
-[last](https://www.bilibili.com/video/BV1ov41187bq?p=18&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8)
+[last](https://www.bilibili.com/video/BV1ov41187bq?p=32&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8)
