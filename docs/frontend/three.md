@@ -34,3 +34,23 @@ const cubeTexture = new THREE.CubeTextureLoader().setPath('parliament/').load([
 ]);
 scene.background = cubeTexture;
 ```
+
+### 设置ui
+```js
+const uv = new Float32Array([
+	0, 1/4, 1/4, 1/4, 0, 0, 1/4, 0
+])
+
+
+
+const geometry = new THREE.PlaneGeometry(1,1);
+const material = new THREE.MeshBasicMaterial({
+	map:texture
+});
+geometry.setAttribute('uv',new THREE.BufferAttribute(uv,2));
+const plane = new THREE.Mesh(geometry,material);
+scene.add(plane);
+
+console.log(geometry)
+ 
+```
