@@ -37,11 +37,10 @@ scene.background = cubeTexture;
 
 ### 设置ui
 ```js
+const texture = new THREE.TextureLoader().load('./01.jpg');
 const uv = new Float32Array([
 	0, 1/4, 1/4, 1/4, 0, 0, 1/4, 0
 ])
-
-
 
 const geometry = new THREE.PlaneGeometry(1,1);
 const material = new THREE.MeshBasicMaterial({
@@ -53,4 +52,33 @@ scene.add(plane);
 
 console.log(geometry)
  
+```
+### 画一条线
+```js
+import * as THREE from 'three';
+
+
+const camera = new THREE.PerspectiveCamera(45,window.innerWidth / window.innerHeight,1,500);
+camera.position.set(0,0,100);
+camera.lookAt(0,0,0);
+
+const scene = new THREE.Scene();
+
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth,window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+const material = new THREE.LineBasicMaterial({color:0x0000ff});
+
+const points = [];
+points.push(new THREE.Vector3(-10,0,0));
+points.push(new THREE.Vector3(0,10,0));
+points.push(new THREE.Vector3(10,0,0));
+
+const geometry = new THREE.BufferGeometry().setFromPoints(points);
+const line = new THREE.Line(geometry,material);
+
+scene.add(line);
+renderer.render(scene,camera);
+
 ```
