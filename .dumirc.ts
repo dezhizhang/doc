@@ -5,7 +5,7 @@
  * :copyright: (c) 2023, Tungee
  * :date created: 2023-10-21 21:31:50
  * :last editor: 张德志
- * :date last edited: 2024-01-13 14:49:08
+ * :date last edited: 2024-04-29 07:22:27
  */
 import { defineConfig } from 'dumi';
 import path from 'path';
@@ -44,8 +44,8 @@ export default defineConfig({
         link: '/backend',
       },
       {
-        title: '阅读书箱',
-        link: '/books',
+        title: '英词单词',
+        link: '/english',
       },
       {
         title:'演讲',
