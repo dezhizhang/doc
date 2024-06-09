@@ -2,7 +2,11 @@
 
 ### 地址:[mysql](https://www.bilibili.com/video/BV1Kr4y1i7ru/?spm_id_from=333.337.search-card.all.click&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
 
+### mysql安装
+[mysql](https://www.jianshu.com/p/1410f1a61f44)
+
 ### mysql 常见命令
+
 
 1. 显示所有数据库
 
@@ -419,9 +423,6 @@ SELECT FROM_UNIXTIME(1702247160)
 ```
 
 
-
-
-
 ### 子查询 
 
 1. 标是子查询 查询工资比Abel高的
@@ -677,6 +678,14 @@ CREATE USER 'zhangsan' IDENTIFIED by 'abc123';
 ALTER USER 'zhangdezhi' IDENTIFIED by 'tungee1024Zhang';
 ```
 
+### 查看存储引擎
+```bash
+show engines;
+```
+### 查看默认存储引擎
+```bash
+select @@default_storage_engine;
+```
 
 
 
