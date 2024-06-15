@@ -709,6 +709,41 @@ INSERT INTO students_course(studentid,courseid) VALUES
 (2,3),
 (3,4);
 ```
+### 隐式内连接
+```bash
+SELECT * FROM emp,dept WHERE emp.dept_id = dept.id;
+```
+
+### 显示内连接
+```bash
+SELECT * FROM emp INNER JOIN dept ON emp.dept_id = dept.id;
+```
+
+### 外链接
+```bash
+SELECT * FROM emp;
+```
+
+### 左外链接
+```bash
+SELECT * FROM emp LEFT OUTER JOIN dept ON emp.dept_id = dept.id;
+```
+
+### 右外连接
+```bash
+SELECT * FROM emp RIGHT OUTER JOIN dept ON emp.dept_id = dept.id;
+```
+
+### 自连接
+```bash
+SELECT e.ename,b.ename FROM emp e,emp b WHERE e.managerid = b.id;
+```
+### 联合查询
+```bash
+SELECT * FROM emp WHERE salary < 8400 UNION SELECT * FROM emp WHERE age > 40;
+```
+
+
 
 
 
