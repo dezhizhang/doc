@@ -5,6 +5,11 @@
 ### mysql安装
 [mysql](https://www.jianshu.com/p/1410f1a61f44)
 
+### mac下安装启动不了[mac](https://blog.csdn.net/TyxsjX/article/details/132761350)
+```bash
+sudo chown -R mysql /usr/local/mysql/data
+sudo /usr/local/mysql/support-files/mysql.server start
+```
 ### mysql 常见命令
 
 
@@ -577,12 +582,18 @@ form ... -> on -> (left/ right join) -> where -> group by -> having ->
 select -> distinct -> order by -> limit
 
 ```
+## 外键约束
 
-
-### 子查询要重看
+### 添加外键关联 
 ```bash
-https://www.bilibili.com/video/BV1iq4y1u7vj?p=44&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363
+ALTER TABLE emp add CONSTRAINT fk_emp_dept_id FOREIGN KEY(dept_id) REFERENCES dept(id);
 ```
+
+### 删除外键
+```bash
+ALTER TABLE emp drop FOREIGN KEY fk_emp_dept_id
+```
+
 
 
 
