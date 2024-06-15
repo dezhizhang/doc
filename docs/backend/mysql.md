@@ -593,6 +593,122 @@ ALTER TABLE emp add CONSTRAINT fk_emp_dept_id FOREIGN KEY(dept_id) REFERENCES de
 ```bash
 ALTER TABLE emp drop FOREIGN KEY fk_emp_dept_id
 ```
+### 表结构多对多
+```bash
+CREATE TABLE users(
+	id int PRIMARY KEY auto_increment COMMENT "主键",
+	uname VARCHAR(10) NOT NULL UNIQUE COMMENT "姓名",
+	age int CHECK(age > 0 && age < 120) COMMENT "年龄",
+	ustatus CHAR(1) DEFAULT '1' COMMENT "状态",
+	gender char(1) COMMENT "性别"
+) COMMENT "用户表"
+
+
+DROP TABLE users;
+
+
+DESC users;
+
+SELECT * FROM users;
+
+INSERT INTO users(uname,age,ustatus,gender) VALUES("tom1",19,'1',"男"),("tom2",25,'0',"男")
+
+SELECT * FROM users;
+
+INSERT INTO users(uname,age,ustatus,gender) VALUES("tom3",119,'0','女');
+
+SELECT * FROM users;
+
+INSERT INTO users(uname,age,gender) VALUES("tom2",20,"女");
+
+SELECT * FROM users;
+
+
+CREATE TABLE dept(
+	id int PRIMARY KEY auto_increment COMMENT "id",
+	dname VARCHAR(50) NOT NULL COMMENT "部门名称"
+) COMMENT "部门表"
+
+INSERT INTO dept(id,dname) VALUES(1,"研发部"),(2,"市场部"),(3,"财务部"),(4,"销售部"),(5,"总经办");
+
+CREATE TABLE emp(
+	id INT PRIMARY KEY auto_increment COMMENT "id",
+	ename VARCHAR(50) NOT NULL COMMENT "姓名",
+	age int COMMENT "年龄",
+	job VARCHAR(20) COMMENT "职位",
+	salary INT COMMENT "薪资",
+	entrydate date COMMENT "入职时间",
+	managerid INT COMMENT "直属领导",
+	dept_id INT COMMENT "部门is"
+) COMMENT "员工表"
+
+DROP TABLE emp;
+
+
+INSERT INTO emp(ename,age,job,salary,entrydate,managerid,dept_id) VALUES
+("金庸",66,"总载",20000,"2000-01-01",NULL,5),
+("张小小",20,"项目经理",12500,"2005-12-05",1,1),
+("杨逍",33,"开发",8400,"2000-11-03",2,1),
+("韦一笑",48,"开发",11000,"2002-02-05",2,1),
+("常遇春",43,"开发",10500,"2004-09-7",3,1),
+("小昭",19,"程序员鼓励师",6000,"2004-10-12",2,1);
+
+SELECT * FROM emp;
+
+## 添加外键关联 
+# ALTER TABLE emp add CONSTRAINT fk_emp_dept_id FOREIGN KEY(dept_id) REFERENCES dept(id);
+
+ALTER TABLE emp ADD CONSTRAINT fk_emp_dept_id FOREIGN KEY(dept_id) REFERENCES dept(id);
+
+
+## 删除外键
+# ALTER TABLE emp drop FOREIGN KEY fk_emp_dept_id
+
+ALTER TABLE emp drop FOREIGN KEY fk_emp_dept_id;
+
+CREATE TABLE students(
+	id int PRIMARY KEY auto_increment COMMENT "主键",
+	sname VARCHAR(10) COMMENT "姓名",
+	no VARCHAR(10) COMMENT "学号"
+) COMMENT "学生表";
+
+DROP TABLE students;
+
+INSERT INTO students(sname,no)  VALUES 
+("黛绮丝","2000100101"),
+("谢逊","2000100102"),
+("天正","2000100103"),
+("韦一笑","2000100104");
+
+
+CREATE TABLE course(
+	id INT PRIMARY KEY auto_increment COMMENT "主键id",
+	cnme VARCHAR(10) COMMENT "课程名称"
+) COMMENT "课程表";
+
+
+INSERT INTO course(cnme) VALUES
+("java"),
+("php"),
+("mysql"),
+("hadoop");
+
+
+CREATE TABLE students_course(
+	id INT PRIMARY KEY auto_increment COMMENT "主键",
+	studentid INT NOT NULL COMMENT "学生id",
+	courseid INT NOT NULL COMMENT "课程id",
+	CONSTRAINT fk_courseid FOREIGN KEY(courseid) REFERENCES course(id),
+	CONSTRAINT fk_studentid FOREIGN KEY(studentid) REFERENCES students(id)
+) COMMENT "学生课程中间表";
+
+INSERT INTO students_course(studentid,courseid) VALUES 
+(1,1),
+(1,2),
+(1,3),
+(2,3),
+(3,4);
+```
 
 
 
