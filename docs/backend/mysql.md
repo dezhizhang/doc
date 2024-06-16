@@ -743,7 +743,10 @@ SELECT e.ename,b.ename FROM emp e,emp b WHERE e.managerid = b.id;
 SELECT * FROM emp WHERE salary < 8400 UNION SELECT * FROM emp WHERE age > 40;
 ```
 
-
+### 标量子查询
+```bash
+SELECT * FROM emp WHERE dept_id = (SELECT id FROM dept WHERE dname = '研发部');
+```
 
 
 
