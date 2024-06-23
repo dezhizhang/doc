@@ -1,6 +1,6 @@
 # mysql
 
-### 地址:[mysql](https://www.bilibili.com/video/BV1Kr4y1i7ru/?spm_id_from=333.337.search-card.all.click&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
+### 地址:[mysql](https://www.bilibili.com/video/BV12b411K7Zu/?p=22&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8)
 
 ### mysql安装
 [mysql](https://www.jianshu.com/p/1410f1a61f44)
@@ -10,6 +10,13 @@
 sudo chown -R mysql /usr/local/mysql/data
 sudo /usr/local/mysql/support-files/mysql.server start
 ```
+### navcat 连接不上mysql 
+```bash
+https://blog.csdn.net/dabao87/article/details/80571877
+
+```
+
+
 ### mysql 常见命令
 
 
@@ -882,8 +889,9 @@ ALTER  TABLE  book  ADD  INDEX  Y (`card`);
 drop index idx_索引名称 on table(表)
 ```
 ### 慢查询的开启
-```
 
+```bash
+show variables like '%slow_query_log%';
 ```
 
 
