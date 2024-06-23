@@ -853,6 +853,39 @@ select @@default_storage_engine;
 ```
 
 
+### mysql高级
+```
+https://www.bilibili.com/video/BV12b411K7Zu?p=188&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8
+```
+## 索引
+### 创建索引
+
+```bash
+create index indexName on mytable(columname(length))
+```
+### 分析查询
+```bash
+explain select * from tbl_emp;
+```
+### 查询索引
+```bash
+show index from table
+```
+### 创建索引
+```bash
+create index idx_索引名称 on article(category_id,views);
+ALTER  TABLE  book  ADD  INDEX  Y (`card`);
+```
+
+### 删除索引
+```bash
+drop index idx_索引名称 on table(表)
+```
+### 慢查询的开启
+```
+
+```
+
 
 <!-- tungee1024Zhang -->
 
