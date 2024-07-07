@@ -30,6 +30,12 @@ nginx -s reload
 ```bash
 ps -ef | grep nginx     
 ```
+
+6. 通过信号量关闭nginx
+```bash
+kill -TERM 进程id
+```
+
 ### http块
 
 1. 自定义MIME-TYPE
