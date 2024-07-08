@@ -92,5 +92,23 @@ location /testif {
 }
 ```
 
+6. rewrite break 条件
+
+```bash
+location /textbreak {
+    default_type text/plain;
+    set $username TOM;
+
+    if ($args) {
+        set $username jerry;
+        break;
+        set $username rose;
+    }
+
+    add_header username $username;
+    return 200 $username;
+}
+```
+
 
 [last](https://www.bilibili.com/video/BV1ov41187bq/?p=55&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8)
