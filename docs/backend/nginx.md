@@ -52,6 +52,45 @@ default_type  application/octet-stream;
 ```
 
 ```
+4. 配置防盗链
+```bash
+location /image/ {
+    valid_referers blocked www.baidu.com;
+    if ($invalid_referer) {
+        return 403;
+    }
+    alias /home/image/;
+    index img.jpg;
+}
+```
+5. rewrite if条件
+
+```bash
+location /testif {
+    set $username 'Rose';
+    default_type text/plain;
+    # args 方法
+    if ($args) {
+        return 200 success;
+    }
+    # 参数形式
+    if ($request_method = POST) {
+        return 405;
+    }
+    
+    # 正则表达式形式
+    if ($http_user_agent ~ Safari) {
+        return 200 Chrome;
+    }
+
+    # 判断文件是否存在
+    if (!-f $request_filename) {
+        return 200 '<h1>文件不存在</h1>';
+    }
+
+    return 200 error;
+}
+```
 
 
-[last](https://www.bilibili.com/video/BV1ov41187bq?p=32&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8)
+[last](https://www.bilibili.com/video/BV1ov41187bq/?p=55&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8)
