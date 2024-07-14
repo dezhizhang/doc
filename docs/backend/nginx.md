@@ -109,6 +109,14 @@ location /textbreak {
     return 200 $username;
 }
 ```
+7. testreturn 返回
+```bash
+location /testreturn {
+    default_type application/json;
+    #return 200 '{"name":"hello world"}';
+    return https://www.baidu.com;
+}
+```
 
 
 [last](https://www.bilibili.com/video/BV1ov41187bq/?p=55&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8)
