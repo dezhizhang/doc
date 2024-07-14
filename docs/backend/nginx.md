@@ -131,6 +131,7 @@ location /test {
 
 }
 ```
+## 负载均衡
 9. 负载均衡轮询
 
 ```bash
@@ -184,5 +185,27 @@ location / {
     #try_files $uri $uri/ /index.html;
 }
 ```
+## 缓存
+```bash
+upstream backend {
+
+  server 8.134.182.122:8082;
+}
+
+location / {
+    proxy_cache digit;
+    proxy_cache_key $scheme$proxy_host$request_uri;
+    proxy_cache_valid 200 5d;
+    proxy_cache_valid 404 10s;
+    proxy_cache_valid any 1m;
+    proxy_cache_min_uses 5;
+    add_header nginx-cache "$upstream_cache_status";
+    proxy_pass http://backend;
+        #try_files $uri $uri/ /index.html;
+}
+```
+
+
+ proxy_cache_path /usr/local/proxy_cache levels=2:1 keys_zone=digit:200m inactive=1d;
 
 [last](https://www.bilibili.com/video/BV1ov41187bq/?p=55&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8)
