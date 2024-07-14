@@ -117,6 +117,20 @@ location /testreturn {
     return https://www.baidu.com;
 }
 ```
+8. rewrite 重写路由
+```bash
+location /rewrite {
+    rewrite ^/rewrite/url\w*$ https://www.baidu.com;
+    rewrite ^/rewrite/(test)\w*$ /$1 break;
+    rewrite ^/rewrite/(demo)\w*$ /$1 break;
+
+}
+location /test {
+    default_type text/plain;
+    return 200 'text_success';
+
+}
+```
 
 
 [last](https://www.bilibili.com/video/BV1ov41187bq/?p=55&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8)
