@@ -158,6 +158,17 @@ location / {
     #try_files $uri $uri/ /index.html;
 }
 ```
+11. 负载均衡权重
+```bash
+upstream backend {
+  server 8.134.182.122:3000 weight=10;
+  server 8.134.182.122:8082 weight=1;
+}
 
+location / {
+    proxy_pass http://backend;
+    #try_files $uri $uri/ /index.html;
+}
+```
 
 [last](https://www.bilibili.com/video/BV1ov41187bq/?p=55&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8)
