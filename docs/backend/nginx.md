@@ -131,7 +131,7 @@ location /test {
 
 }
 ```
-9. 负载均衡
+9. 负载均衡轮询
 
 ```bash
 upstream backend {
@@ -144,6 +144,19 @@ location / {
     #try_files $uri $uri/ /index.html;
 }
 
+```
+10. 负载均衡最少连接
+```bash
+upstream backend {
+  least_conn;
+  server 8.134.182.122:3000;
+  server 8.134.182.122:8082;
+}
+
+location / {
+    proxy_pass http://backend;
+    #try_files $uri $uri/ /index.html;
+}
 ```
 
 
