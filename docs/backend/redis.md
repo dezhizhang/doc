@@ -70,49 +70,70 @@ XREAD count 2 streams mystream $    # 最后一条的下一条
 | expire               | 给一个key设置有效期,有效期到自动删除 |
 | ttl                  | 查看一个key有效时间        |
 
+### jedis操作redis
 
-### 管道
-
+1. 引入依赖
+```xml
+<dependencies>
+  <!--jedis-->
+    <dependency>
+      <groupId>redis.clients</groupId>
+        <artifactId>jedis</artifactId>
+        <version>3.7.0</version>
+      </dependency>
+      <!--单元测试 -->
+<dependency>
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter</artifactId>
+    <version>5.7.0</version>
+    <scope>test</scope>
+    </dependency>
+</dependencies>
 ```
-cat cmd.txt | redis-cli --pipe
-```
-
-110
-<!-- [last](https://www.bilibili.com/video/BV1cr4y1671t/?p=17&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363) -->
-
-config set requirepass '123456'
-get xiaozhicloud:user:1
-
-### jedis创建连接池
+2. 建立链接池
 ```java
-package com.xiaozhicloud.utils;
+package com.xiaozhicloud.test;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
 
-public class JedisConnectionFactory {
-  private static final JedisPool jedisPool;
+public class JedisTest {
+    private Jedis jedis;
 
-  static {
-    JedisPoolConfig poolConfig = new JedisPoolConfig();
-    // 最大连接池
-    poolConfig.setMaxTotal(8);
-    // 最大连接数
-    poolConfig.setMaxIdle(8);
-    // 最小连接数
-    poolConfig.setMinIdle(0);
-    // 等待时长
-    poolConfig.setMaxWaitMillis(1000);
+    @BeforeEach
+    void setUp() {
+        // 建立连接
+        jedis = new Jedis("127.0.0.1",6379);
+        // 设置密码
+//        jedis.auth("");
+        // 选择库
+        jedis.select(0);
+    }
 
-    jedisPool = new JedisPool(poolConfig,"127.0.0.1",6379,1000,"123456");
+    @Test
+    void testString() {
+        String result = jedis.set("name", "hello world");
+        System.out.println(result);
 
-  }
+        // 获取数据
+        String name = jedis.get("name");
+        System.out.println("name=" + name);
+    }
 
-  // 获取链接池
-  public static Jedis getJedis() {
-    return jedisPool.getResource();
-  }
+    //  释放连接
+    @AfterEach
+    void  tearDown() {
+        if(jedis != null) {
+            jedis.close();
+        }
+    }
 }
 
 ```
+
+
+
+
+
