@@ -81,6 +81,7 @@ cat cmd.txt | redis-cli --pipe
 <!-- [last](https://www.bilibili.com/video/BV1cr4y1671t/?p=17&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363) -->
 
 config set requirepass '123456'
+get xiaozhicloud:user:1
 
 ### jedis创建连接池
 ```java
