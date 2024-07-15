@@ -61,6 +61,15 @@ XRANGE mystrem - +                  # 查找
 XDEL 1698008508965-0                # 删除
 XREAD count 2 streams mystream $    # 最后一条的下一条
 ```
+### reis通用命令
+| 命令                 | 功能                    |
+| -------------------- | ---------------------- |
+| keys                 | 查看符合模板的所有key     |
+| del                  | 删除一个或多个指定的key    |
+| exists               | 判断key是否存在           |
+| expire               | 给一个key设置有效期,有效期到自动删除 |
+| ttl                  | 查看一个key有效时间        |
+
 
 ### 管道
 
