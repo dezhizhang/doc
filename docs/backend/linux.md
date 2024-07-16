@@ -91,6 +91,32 @@ userdel 用户名
 ```bash
 userdel -r 用户名
 ```
+##### 查看用户信息
+```bash
+id 用户名
+```
+##### 查看当前登录用户
+```bash
+who am i 
+```
+## 用户组管理
+
+##### 新增组
+```bash
+groupadd 组名
+```
+##### 删除组
+```bash
+groupdel 组名
+```
+##### 增加用户并添加对应组
+```bash
+useradd -g 用户组 用户名
+```
+##### 修改用户组
+```
+usermod -g 用户组 用户名
+```
 
 
 
