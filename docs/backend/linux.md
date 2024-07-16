@@ -30,6 +30,32 @@ u
 ```bash
 n shift+g
 ```
+## 关机&重启命令
+
+### 立刻进行关机
+```bash
+shutdown -h now
+```
+### 1分钟后会关机
+```bash
+shutdown -h 1
+```
+### 正在重新启动计算机
+```bash
+shutdown -f now
+```
+### 现在重新启动计算机
+```bash
+reboot
+```
+
+### 把内存的数据同步到磁盘
+```bash
+sync
+```
+
+
+
 [last](https://www.bilibili.com/video/BV1Sv411r7vd?p=14&vd_source=10257e657caa8b54111087a9329462e8)
 
 
