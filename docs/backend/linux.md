@@ -272,6 +272,30 @@ gzip /home/hello.txt
 ```bash
 gunzip /home/hello.txt.gz
 ```
+##### zip压缩成zip文件
+
+```bash
+zip -r myhome.zip /home/*
+```
+##### unzip解压zip文件
+
+```bash
+unzip  myhome.zip 
+```
+##### tar -zcvf 将文件打包成.tar.gz包
+
+```bash
+tar -zcvf pc.tar.gz /home/pig.txt /home/cat.txt
+```
+
+##### tar -zxvf -C 文件解压到指定目录
+```bash
+tar -zxvf /home/pc.tar.gz -C /home/temp 
+```
+
+
+
+
 
 
 
