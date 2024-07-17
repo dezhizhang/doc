@@ -126,6 +126,23 @@ pwd
 ```bash
 cd ~
 ```
+##### mkdir创建单级目录
+```bash
+mkdir /home/dog
+```
+##### mkdir创建多级目录
+```bash
+mkdir -p /home/animal/tiger
+```
+##### rm -rf 删除文件
+```bash
+rm -rf /home/animal
+```
+##### 创建空文件
+```bash
+touch /home/hello.txt
+```
+
 
 
 <!-- [last](https://www.bilibili.com/video/BV1Sv411r7vd?p=28&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) -->
