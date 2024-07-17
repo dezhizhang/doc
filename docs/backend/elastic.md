@@ -4,25 +4,25 @@
 
 1. 创建索引
 
-```
+```bash
 PUT localhost:9200/shopping
 ```
 
 2. 获取索引
 
-```
+```bash
 GET localhost:9200/shopping
 ```
 
 3. 查看所有索引
 
-```
+```bash
 GET localhost:9200/_cat/indices?v
 ```
 
 4. 删除索引
 
-```
+```bash
 DELETE localhost:9200/shopping
 ```
 
@@ -41,13 +41,13 @@ POST localhost:9200/shopping/_doc
 
 2. 查看文档
 
-```
+```bash
 GET localhost:9200/shopping/_doc/1001
 ```
 
 3. 查询所有文档
 
-```
+```bash
 localhost:9200/shopping/_search
 ```
 
@@ -64,7 +64,7 @@ PUT  localhost:9200/shopping/_doc/1001
 
 5. 局部更改数据
 
-```
+```bash
 POST localhost:9200/shopping/_update/1001
 {
 
@@ -76,7 +76,7 @@ POST localhost:9200/shopping/_update/1001
 
 6. 删除数据
 
-```
+```bash
 DELETE localhost:9200/shopping/_doc/id
 
 ```
@@ -85,7 +85,7 @@ DELETE localhost:9200/shopping/_doc/id
 
 1. 匹配查询
 
-```
+```bash
 GET localhost:9200/shopping/_search?q=title:晓智科技有限公司
 
 GET localhost:9200/shopping/_search
@@ -100,7 +100,7 @@ GET localhost:9200/shopping/_search
 
 2. 全量查询
 
-```
+```bash
 GET localhost:9200/shopping/_search
 {
     "query":{
@@ -113,7 +113,7 @@ GET localhost:9200/shopping/_search
 
 3. 分页查询
 
-```
+```bash
 GET localhost:9200/shopping/_search
 {
     "query":{
@@ -129,7 +129,7 @@ GET localhost:9200/shopping/_search
 
 4. 完全匹配
 
-```
+```bash
 GET localhost:9200/shopping/_search
 {
     "query":{

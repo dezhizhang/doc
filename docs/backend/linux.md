@@ -200,6 +200,26 @@ echo "hello world" > /home/mydata.txt
 echo "hello world" >> /home/mydata.txt
 cal >> /home/mycal.txt
 ```
+##### 创建软连接 ln
+```bash
+ln -s /root/ /home/myroot
+```
+##### 删除软连接 ln
+```bash
+rm -f /home/myroot
+```
+##### history 查看已执行的历史命令
+
+```bash
+history
+history 10 查看最近10条指令
+history 5 
+```
+##### !历史编号 执行之前执行的命令
+```bash
+!1024
+```
+
 
 
 
