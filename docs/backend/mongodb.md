@@ -104,6 +104,7 @@ db.集合名.update({"articid":"10002"},{$set:{"content":"天气好个狗屁"}})
 db.集合名.update({"articid":"10002"},{$inc:{count:NumberInt(1)}});
 ```
 ### 文档的删除
+
 ###### 删除单条数据
 ```bash
 db.集合名.remove({"articid":"10002"})；
@@ -111,6 +112,58 @@ db.集合名.remove({"articid":"10002"})；
 ###### 批量删除数据
 ```bash
 db.集合名.remove({});
+```
+## 统计与分页
+
+##### 文档的统计
+```bash
+db.集合名.count();
+```
+##### 分页查询
+```bash
+db.集合名.find().limit(2);
+```
+##### 排序查询
+```bash
+db.集合名.find().sort({"articid":-1});
+```
+## 文档的复杂查询
+
+##### 正则查询
+```bash
+db.集合名.find({"content":/小明/});
+```
+##### 比较查询
+```bash
+大于$gt
+db.集合名.find({"articid":{$gt:NumberInt(1)}});
+小于$lt
+db.集合名.find({"articid":{$lt:NumberInt(2)}});
+大于等于$gte
+db.集合名.find({"articid":{$gte:NumberInt(2)}});
+小于等于$lte
+db.集合名.find({"articid":{$lte:NumberInt(1)}});
+不等于$ne
+db.集合名.find({"articid":{$ne:NumberInt(1)}});
+```
+##### 包含查询$in
+```bash
+db.集合名.find({"articid":{$in:[1,3]}});
+```
+##### 条件查询$and
+```bash
+db.集合名.find({$and:[
+    {"articid":{$gt:NumberInt(1)}},
+    {"articid":{$lt:NumberInt(3)}},
+]});
+```
+
+##### 条件查询$or
+```bash
+ db.comment.find({$or:[
+    {"articid":{$gte:NumberInt(2)}},
+    {"articid":{$lte:NumberInt(3)}}]
+});
 ```
 
 <!-- [last](https://www.bilibili.com/video/BV1bJ411x7mq?p=7&vd_source=10257e657caa8b54111087a9329462e8) -->
