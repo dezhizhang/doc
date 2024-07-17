@@ -103,8 +103,14 @@ db.集合名.update({"articid":"10002"},{$set:{"content":"天气好个狗屁"}})
 ```bash
 db.集合名.update({"articid":"10002"},{$inc:{count:NumberInt(1)}});
 ```
-
-
-
+### 文档的删除
+###### 删除单条数据
+```bash
+db.集合名.remove({"articid":"10002"})；
+```
+###### 批量删除数据
+```bash
+db.集合名.remove({});
+```
 
 <!-- [last](https://www.bilibili.com/video/BV1bJ411x7mq?p=7&vd_source=10257e657caa8b54111087a9329462e8) -->
