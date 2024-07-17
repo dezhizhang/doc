@@ -56,6 +56,54 @@ show collections;
 ```bash
 db.集合名称.drop()
 ```
+## 增删改查操作
+### 文档的插入
+
+###### 单条数据插入
+```bash
+db.集合名.inset({ "articid" : "10000", "content" : "天气真好" })
+```
+
+###### 多条数据插入
+```bash
+db.集合名.insertMany(
+[
+    {"articid":"10001", "content":"天气真好1" },
+    {"articid":"10002", "content":"天气真好2"}
+]);
+```
+### 文档的查询
+###### 查询所有文档的查询
+```bash
+db.集合名.find()
+```
+###### 查询单个文档
+```bash
+db.集合名.findOne({“_id”:"66971f606da08ea6a60473ac"});
+```
+##### 投影查询只显示articid
+```bash
+db.集合名.find({"articid":"10000"},{articid:1})
+```
+### 文档的更新
+###### 修改命令
+```bash
+db.集合名.update(query,update,options)
+```
+###### 复盖修改数据
+
+```bash
+db.集合名.update({"articid":"10000"},{"content":"天气好个狗屁"});
+```
+###### 局部修改数据
+```bash
+db.集合名.update({"articid":"10002"},{$set:{"content":"天气好个狗屁"}});
+```
+###### 局部自动增长数据
+```bash
+db.集合名.update({"articid":"10002"},{$inc:{count:NumberInt(1)}});
+```
+
 
 
 
