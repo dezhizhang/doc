@@ -894,25 +894,3 @@ drop index idx_索引名称 on table(表)
 ```bash
 show variables like '%slow_query_log%';
 ```
-
-
-<!-- tungee1024Zhang -->
-
-<!-- 
-docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=12356 -p 3306:3306 mysql:latest
-
-
-docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=<password> -d mysql
-
-
-
-[last](https://www.bilibili.com/video/BV1iq4y1u7vj?p=109&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
-
-
-
-docker run -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 \
--v /etc/mysql/data:/var/lib/mysql \
--v /etc/mysql/conf.d:/etc/mysql/conf.d \
--v /etc/mysql/logs:/logs\
---name mysql \
--d mysql:latest -->

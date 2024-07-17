@@ -117,16 +117,7 @@ useradd -g 用户组 用户名
 ```
 usermod -g 用户组 用户名
 ```
-
-
-
-
-
-
-
-
-
-[last](https://www.bilibili.com/video/BV1Sv411r7vd?p=14&vd_source=10257e657caa8b54111087a9329462e8)
+[last](https://www.bilibili.com/video/BV1Sv411r7vd?p=28&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8)
 
 
 
