@@ -219,13 +219,65 @@ history 5
 ```bash
 !1024
 ```
+## 时间日期类
+
+##### 显示当前时间
+```bash
+date                      #显示当前时间
+date "+%Y"                #显示当前年份
+date "+%m"                #显示当前月份
+date "+%d"                #显示当前那一天
+date "+%Y %m %d %H:%M:%S" #显示当前年月日时分秒
+```
+##### 显示当前日历
+```bash
+cal
+```
+## 搜索查找类
+
+##### find -name 按名字进行查找
+
+```bash
+find /home -name hello.txt
+```
+
+##### find -user 按文件拥有者进行查找
+
+```bash
+find /opt -user root
+```
+##### find -size 按文件大小进行查找
+
+```bash
+find /etc/nginx -size 1k
+```
+##### which 查看指令存放目录
+
+```bash
+which find
+```
+
+##### grep 过虑查找内容，n行号，j忽略大小写
+
+```bash
+cat /home/hello.txt | grep -n "yes"
+```
+## 压缩和解压类
+
+##### gzip用于压缩文件
+```bash
+gzip /home/hello.txt
+```
+##### gunzip用于解压文件
+```bash
+gunzip /home/hello.txt.gz
+```
 
 
 
 
 
-
-<!-- [last](https://www.bilibili.com/video/BV1Sv411r7vd?p=28&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) -->
+<!-- [last](https://www.bilibili.com/video/BV1Sv411r7vd/?p=34&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) -->
 
 
 
