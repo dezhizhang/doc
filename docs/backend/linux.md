@@ -167,6 +167,40 @@ mv hello2.txt hello.java
 ```bash
 cat -n /etc/profile | more
 ```
+##### less 动态查看文件 n 向下查找 N向上查找 q离开
+```bash
+less /etc/profile
+```
+##### echo 输入环境变量 如$PATH,$HOSTNAME
+```bash
+echo $HOSTNAME 
+echo 'hello world'
+```
+##### head 显示文件开头内容，默认显示前10行
+
+```bash
+head /etc/profile
+```
+##### tail 输出文件尾部内容，默认显示尾10行
+
+```bash
+tail -n 10 /etc/profile
+```
+
+##### tail -f ‘文件路径’ 实时监控文件
+```bash
+tail -f /home/mydata.txt 
+```
+##### echo > 复盖写入
+```bash
+echo "hello world" > /home/mydata.txt
+```
+##### echo >> 追加写入
+```bash
+echo "hello world" >> /home/mydata.txt
+cal >> /home/mycal.txt
+```
+
 
 
 
