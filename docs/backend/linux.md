@@ -155,6 +155,19 @@ cp -r /home/bbb/* /home/aa
 ```bash
 \cp -r /home/bbb/* /home/aa
 ```
+##### mv移动文件目录
+```bash
+mv /home/bbb/* /home/aaa 
+```
+##### mv同目录重命名
+```bash
+mv hello2.txt hello.java
+```
+##### cat 查看文件内容 n显示行号
+```bash
+cat -n /etc/profile | more
+```
+
 
 
 
