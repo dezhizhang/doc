@@ -36,6 +36,8 @@ systemctl start mongod
 systemctl enable mongod
 ```
 ## 基本常用命令
+- 备注collection:集合名称
+
 ###### 查看当前数据库
 ```bash
 db
@@ -54,19 +56,19 @@ show collections;
 ```
 ##### 删除集合
 ```bash
-db.集合名称.drop()
+db.collection.drop()
 ```
 ## 增删改查操作
 ### 文档的插入
 
 ###### 单条数据插入
 ```bash
-db.集合名.inset({ "articid" : "10000", "content" : "天气真好" })
+db.collection.inset({ "articid" : "10000", "content" : "天气真好" })
 ```
 
 ###### 多条数据插入
 ```bash
-db.集合名.insertMany(
+db.collection.insertMany(
 [
     {"articid":"10001", "content":"天气真好1" },
     {"articid":"10002", "content":"天气真好2"}
@@ -75,84 +77,84 @@ db.集合名.insertMany(
 ### 文档的查询
 ###### 查询所有文档的查询
 ```bash
-db.集合名.find()
+db.collection.find()
 ```
 ###### 查询单个文档
 ```bash
-db.集合名.findOne({“_id”:"66971f606da08ea6a60473ac"});
+db.collection.findOne({“_id”:"66971f606da08ea6a60473ac"});
 ```
 ##### 投影查询只显示articid
 ```bash
-db.集合名.find({"articid":"10000"},{articid:1})
+db.collection.find({"articid":"10000"},{articid:1})
 ```
 ### 文档的更新
 ###### 修改命令
 ```bash
-db.集合名.update(query,update,options)
+db.collection.update(query,update,options)
 ```
 ###### 复盖修改数据
 
 ```bash
-db.集合名.update({"articid":"10000"},{"content":"天气好个狗屁"});
+db.collection.update({"articid":"10000"},{"content":"天气好个狗屁"});
 ```
 ###### 局部修改数据
 ```bash
-db.集合名.update({"articid":"10002"},{$set:{"content":"天气好个狗屁"}});
+db.collection.update({"articid":"10002"},{$set:{"content":"天气好个狗屁"}});
 ```
 ###### 局部自动增长数据
 ```bash
-db.集合名.update({"articid":"10002"},{$inc:{count:NumberInt(1)}});
+db.collection.update({"articid":"10002"},{$inc:{count:NumberInt(1)}});
 ```
 ### 文档的删除
 
 ###### 删除单条数据
 ```bash
-db.集合名.remove({"articid":"10002"})；
+db.collection.remove({"articid":"10002"})；
 ```
 ###### 批量删除数据
 ```bash
-db.集合名.remove({});
+db.collection.remove({});
 ```
 ## 统计与分页
 
 ##### 文档的统计
 ```bash
-db.集合名.count();
+db.collection.count();
 ```
 ##### 分页查询
 ```bash
-db.集合名.find().limit(2);
+db.collection.find().limit(2);
 ```
 ##### 排序查询
 ```bash
-db.集合名.find().sort({"articid":-1});
+db.collection.find().sort({"articid":-1});
 ```
 ## 文档的复杂查询
 
 ##### 正则查询
 ```bash
-db.集合名.find({"content":/小明/});
+db.collection.find({"content":/小明/});
 ```
 ##### 比较查询
 ```bash
 大于$gt
-db.集合名.find({"articid":{$gt:NumberInt(1)}});
+db.collection.find({"articid":{$gt:NumberInt(1)}});
 小于$lt
-db.集合名.find({"articid":{$lt:NumberInt(2)}});
+db.collection.find({"articid":{$lt:NumberInt(2)}});
 大于等于$gte
-db.集合名.find({"articid":{$gte:NumberInt(2)}});
+db.collection.find({"articid":{$gte:NumberInt(2)}});
 小于等于$lte
-db.集合名.find({"articid":{$lte:NumberInt(1)}});
+db.collection.find({"articid":{$lte:NumberInt(1)}});
 不等于$ne
-db.集合名.find({"articid":{$ne:NumberInt(1)}});
+db.collection.find({"articid":{$ne:NumberInt(1)}});
 ```
 ##### 包含查询$in
 ```bash
-db.集合名.find({"articid":{$in:[1,3]}});
+db.collection.find({"articid":{$in:[1,3]}});
 ```
 ##### 条件查询$and
 ```bash
-db.集合名.find({$and:[
+db.collection.find({$and:[
     {"articid":{$gt:NumberInt(1)}},
     {"articid":{$lt:NumberInt(3)}},
 ]});
@@ -160,10 +162,36 @@ db.集合名.find({$and:[
 
 ##### 条件查询$or
 ```bash
- db.comment.find({$or:[
+db.collection.find({$or:[
     {"articid":{$gte:NumberInt(2)}},
     {"articid":{$lte:NumberInt(3)}}]
 });
 ```
+## 索引管理操作
+##### 索引的查看
+```bash
+db.collection.getIndexes();
+```
+##### 创建单值索引
+
+```bash
+db.collection.createIndex({"articid":1},options);
+```
+
+##### 创建复合索引
+
+```bash
+db.collection.createIndex({"_id":1,"articid":-1},options);
+```
+##### 根据名称删除索引
+```bash
+db.collection.dropIndex("_id_1_articid_-1")
+```
+##### 根据key删除索引
+```bash
+db.collection.dropIndex({"articid":1});
+```
+
+
 
 <!-- [last](https://www.bilibili.com/video/BV1bJ411x7mq?p=7&vd_source=10257e657caa8b54111087a9329462e8) -->

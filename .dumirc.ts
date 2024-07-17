@@ -44,10 +44,6 @@ export default defineConfig({
         link: '/backend',
       },
       {
-        title: '英词单词',
-        link: '/english',
-      },
-      {
         title:'演讲',
         link:'/speech'
       },
