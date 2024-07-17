@@ -292,6 +292,25 @@ tar -zcvf pc.tar.gz /home/pig.txt /home/cat.txt
 ```bash
 tar -zxvf /home/pc.tar.gz -C /home/temp 
 ```
+## 组管理和权限管理
+
+##### 查看文件的所有者
+
+```bash
+ls -ahl
+```
+##### 修改文件所有者
+```bash
+chown tom(用户名)  info.txt(文件名)
+```
+##### 修改文件所在组
+```bash
+chgrp fruit orange.txt
+```
+##### 修改用户所在组
+```bash
+usermod -g wudang(组名) zwj(用户名)
+```
 
 
 
