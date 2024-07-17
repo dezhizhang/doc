@@ -142,6 +142,19 @@ rm -rf /home/animal
 ```bash
 touch /home/hello.txt
 ```
+##### 拷贝文件到指定目录
+```bash
+cp /home/hello.txt /home/bbb
+```
+#### 递归复制整个文件夹
+
+```bash
+cp -r /home/bbb/* /home/aa
+```
+### \cp 强制递归复制整个文件夹
+```bash
+\cp -r /home/bbb/* /home/aa
+```
 
 
 
