@@ -117,6 +117,17 @@ useradd -g 用户组 用户名
 ```
 usermod -g 用户组 用户名
 ```
+## 文件目录类
+##### pwd 当前工作目录绝对路径
+```bash
+pwd
+```
+##### 返回到根目录
+```bash
+cd ~
+```
+
+
 <!-- [last](https://www.bilibili.com/video/BV1Sv411r7vd?p=28&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) -->
 
 
