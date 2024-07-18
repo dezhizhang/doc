@@ -446,6 +446,28 @@ firewall-cmd --reload;
 ```bash
 firewall-cmd --query-port=80/tcp; (端口/协议)
 ```
+## 动态监控
+
+##### 每隔5秒查看刷新系统
+```bash
+top -d 5(秒数)
+```
+##### top 命令交互
+```bash
+top P 以CPU使用排序
+top M 以内存使用排序
+```
+##### 每隔5秒查看刷新系统
+
+```bash
+netstat -anp 
+```
+##### 查看网络运行状态
+```bash
+netstat -an | more
+```
+
+
 
 <!-- [47-51] -->
 
