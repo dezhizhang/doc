@@ -15,7 +15,7 @@ sudo /usr/local/mysql/support-files/mysql.server start
 https://blog.csdn.net/dabao87/article/details/80571877
 
 ```
-## 没有看（https://www.bilibili.com/video/BV12b411K7Zu?p=124&vd_source=10257e657caa8b54111087a9329462e8）
+<!-- ## 没有看（https://www.bilibili.com/video/BV12b411K7Zu?p=124&vd_source=10257e657caa8b54111087a9329462e8） -->
 
 
 ### mysql 常见命令
