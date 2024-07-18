@@ -398,6 +398,54 @@ pstree -p
 ```bash
 pstree -u
 ```
+## 服务管理
+
+##### 启动服务
+```bash
+systemctl start mysqld
+systemctl start mongod
+```
+##### 停止服务
+```bash
+systemctl stop mysqld
+systemctl stop mongod
+```
+##### 查看服务启动状态
+```bash
+systemctl list-unit-files
+```
+##### 查看防火墙状态
+```bash
+systemctl list-unit-files | grep firewalld
+```
+##### 设置服务开机启动
+```bash
+systemctl enable 服务名
+```
+##### 关闭服务开机启动
+```bash
+systemctl disable 服务名
+```
+##### 查看服务是否启动
+```bash
+systemctl is-enabled mysqld
+```
+##### 打开防火墙端口
+```bash
+firewall-cmd --permanent --add-port=80/tcp; (端口/协议)
+```
+##### 关闭防火墙端口
+```bash
+firewall-cmd --permanent --remove-port=80/tcp; (端口/协议)
+```
+##### 重新载入防火墙
+```bash
+firewall-cmd --reload;
+```
+##### 查询端口是否开放 
+```bash
+firewall-cmd --query-port=80/tcp; (端口/协议)
+```
 
 <!-- [47-51] -->
 
