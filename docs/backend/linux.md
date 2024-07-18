@@ -523,6 +523,33 @@ echo $A;
 readonly B=2;
 echo $B;
 ```
+#####  设置为环境变量
+```bash
+export 变量名=变量值
+#!/bin/bash
+export TOMCAT_HOME="hello world";
+echo $TOMCAT_HOME;
+```
+#####  位置参数变量
+```bash
+#!/bin/bash
+echo "$0 $1 $2";
+echo "所有参数=$*";
+echo "$@";
+echo "参数个数=$#";
+```
+##### 预定义变量
+```bash
+#!/bin/bash
+echo "当前执行的进程id=$$";
+/home/shell/hello.sh &
+echo "最后一个后台方式运行的进程=$!";
+echo "执行的结果=$?";
+```
+##### 运算符
+
+
+
 
 
 
