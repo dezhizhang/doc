@@ -311,16 +311,39 @@ chgrp fruit orange.txt
 ```bash
 usermod -g wudang(组名) zwj(用户名)
 ```
+##### 修改文件/目录所在组
 
+```bash
+chgrp newgroup 文件/目录
+chgrp shaolin /home/abc.txt
+chgrp -R shaolin /home/test
+```
+## 任务调度
 
+##### 开启任务调度
+```bash
+crontab -e 
+```
+##### 列出当前有那些任务调度
+```bash
+crontab - l
+```
+##### 终止任务调度
+```bash
+crontab -r 
+```
+##### atq查看任务队列
+```bash
+atq
+```
+##### 删除务队列
+```bash
+atrm 1(任务编号)
+```
 
+<!-- [47-51] -->
 
-
-
-
-
-
-<!-- [last](https://www.bilibili.com/video/BV1Sv411r7vd/?p=34&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) -->
+<!-- [last](https://www.bilibili.com/video/BV1Sv411r7vd?p=44&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) -->
 
 
 
