@@ -367,10 +367,37 @@ ls -l /home | grep "^-" | wc -l
 ```bash
 ls -l /home | grep "^d" | wc -l
 ```
+##### tree树状显示文件
+```bash
+tree /home(目录名)
+```
+## 进程管理
 
+##### 查看运行进程
+```bash
+ps -aux
+```
 
-
-
+##### 查看mysql
+```bash
+ps -aux | grep mysql
+```
+##### 终止进程
+```bash
+kill -9 (进程id) 
+```
+##### 查看运行的终端
+```bash
+ps -aux | grep bash
+```
+##### 查看进程树进程号
+```bash
+pstree -p 
+```
+##### 查看进程树用户
+```bash
+pstree -u
+```
 
 <!-- [47-51] -->
 
