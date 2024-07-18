@@ -466,6 +466,10 @@ netstat -anp
 ```bash
 netstat -an | more
 ```
+##### 查看sshd运行状态
+```bash
+netstat -anp | grep sshd 
+```
 
 
 
