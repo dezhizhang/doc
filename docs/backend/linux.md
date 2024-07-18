@@ -485,6 +485,47 @@ rpm -ql mysql （软件名称）
 ```bash
 rpm -qf /etc/passwd 
 ```
+##### 删除rpm软件包
+```bash
+rpm -e firefox
+```
+##### 查询软件列表
+```bash
+yum list | grep mysql（软件名称）
+```
+##### 软件安装
+
+```bash
+yum install -y redis（软件名称）
+```
+## shell编程
+
+#####  shell入门
+```bash
+1. 编写shell
+#!/bin/bash
+echo "hello world";
+
+2. 赋权限
+chmod u+x hello.sh
+3. 执行
+./hello.sh
+```
+#####  自定义变量
+```bash
+#!/bin/bash
+A=100;
+echo $A;
+# 撤销变量
+unset A;
+echo $A;
+#声明静态变量
+readonly B=2;
+echo $B;
+```
+
+
+
 
 
 
