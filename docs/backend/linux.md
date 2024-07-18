@@ -470,6 +470,21 @@ netstat -an | more
 ```bash
 netstat -anp | grep sshd 
 ```
+## rpm与yum包管理
+
+##### 查询某个软件包是否安装
+```bash
+rpm -qa mysql（软件名称）
+```
+##### 查询软件包安装信息及文件
+```bash
+rpm -ql mysql （软件名称）
+```
+
+##### 查询归属的软件包
+```bash
+rpm -qf /etc/passwd 
+```
 
 
 
