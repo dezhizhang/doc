@@ -2,6 +2,7 @@
 
 
 ## docker 安装
+[阿里云境像服务登录不上]（https://juejin.cn/post/6954645387542003726）
 
 1. ##### yum 安装 gcc 相关
 
@@ -196,55 +197,70 @@ docker export d49bf82c61ee(容器id) >  ubuntu.tar
 ```bash
 cat ubuntu.tar | docker import - ubuntu 
 ```
-10. ##### docker commit 
+10. ##### apt下载软件包
+```bash
+apt-get update
+apt-get -y install vim
+```
+11. ##### docker commit 
 ```bash
 docker commit -m 'vim cmd add ok' -a='zhangdezhi' 199cf9ead58b(容器id) xiaozhi/ubuntu:1.3
 ```
+12. ##### 登录阿里云Docker Registry
+```bash
+docker login --username=31429*****@qq.com registry.cn-shenzhen.aliyuncs.com
+```
+13. ##### 从Registry中拉取镜像
+```bash
+docker pull registry.cn-shenzhen.aliyuncs.com/xiaozhicloud/myubuntu1.3:[镜像版本号]
+```
+14. ##### 将镜像推送到Registry
+```bash
+$ docker push registry.cn-shenzhen.aliyuncs.com/xiaozhicloud/myubuntu1.3:[镜像版本号]
+```
 
-
-
-5. ##### 列出当前所有正在运行的容器
+15. ##### 列出当前所有正在运行的容器
 ```bash
 docker ps 
 ```
 
-6. ##### 列出当前所有正在运行的容器+历史运行过的
+16. ##### 列出当前所有正在运行的容器+历史运行过的
 ```bash
  docker ps -a 
 ```
-7. ##### 显示最近创建的容器
+17. ##### 显示最近创建的容器
 ```bash
 docker ps -l
 ```
-8. ##### 只显示容器编号
+18. ##### 只显示容器编号
 ```bash
 docker ps -q
 ```
-8. ##### run进容器 exit退出, 容器停止
+19. ##### run进容器 exit退出, 容器停止
 ```bash
 exit
 ```
-9. ##### run进容器 ctrl+p+q退出, 容器不停止
+20. ##### run进容器 ctrl+p+q退出, 容器不停止
 ```bash
 ctrl+p+q
 ```
-10. ##### 启动已停止的容器
+21. ##### 启动已停止的容器
 ```bash
 docker start 6f7f870398f2(容器id或容器名称)
 ```
-11. ##### 重启容器
+22. ##### 重启容器
 ```bash
 docker restart 6f7f870398f2(容器id或容器名称)
 ```
-12. ##### 停止容器
+23. ##### 停止容器
 ```bash
 docker stop 6f7f870398f2(容器id或容器名称)
 ```
-13. ##### 强制停止容器
+24. ##### 强制停止容器
 ```bash
 docker kill 6f7f870398f2(容器id或容器名称)
 ```
-14. ##### 删除停止容器
+25. ##### 删除停止容器
 ```bash
 docker rm 6f7f870398f2(容器id或容器名称)
 ```
