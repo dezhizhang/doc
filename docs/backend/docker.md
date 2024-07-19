@@ -115,6 +115,44 @@ docker image --help
 ```
 
 ### 镜像命令
+1. ##### 列出本地所有境像(含历史境像)
+```bash
+docker images -a 
+```
+2. ##### 只显示境像id
+```bash
+docker images -q
+```
+3. ##### 查询某个境像
+```bash
+docker search mysql(境像名称)
+```
+4. ##### 查询前n个个境像
+```bash
+docker search --limit 5 mysql(境像名称)
+```
+
+5. ##### 拉取某个境像
+```bash
+docker pull mysql:latest(境像名称)
+```
+6. ##### 拉取某个版本号
+```bash
+docker pull mysql:6.0.8 (境像名称:[tag])
+```
+7. ##### 查看境像容器所占的空间
+```bash
+docker system df 
+```
+8. ##### 强制删除某个容器
+```bash
+docker rmi -f feb5d9fea6a5(Image ID)
+```
+9. ##### 删除所有容器
+```bash
+docker rmi -f $(docker images -qa)
+```
+
 ### 容器命令
 
 
@@ -232,27 +270,7 @@ curl -L https://get.daocloud.io/docker/compose/releases/download/1.29.1/docker-c
 ```
 docker run -d -p 8000:8000 -p 9000:9000 --name protainer --restart=always -v/var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
 ```
-<!-- 
 
-docker login --username=3142922546@qq.com registry.cn-guangzhou.aliyuncs.com
-
-
-
-docker run --name one-api -d --restart always -p 8092:8092 -e SQL_DSN="root:123456@tcp(localhost:3306)/oneapi"  -->
-
-
-<!-- 
-external_url 'http://gitlab.xiaozhi.sho'
-
-
-docker run --detach \
-  --hostname gitlab.xiaozhi.sho \
-  --publish 443:443 --publish 80:80 \
-  --name gitlab \
-  --restart always \
-  --volume /srv/gitlab/config:/etc/gitlab \
-  --volume /srv/gitlab/data:/var/opt/gitlab \
-  gitlab/gitlab-ce:latest -->
 
 ### 地址：[docker](https://www.bilibili.com/video/BV1gr4y1U7CY?p=1&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
 
