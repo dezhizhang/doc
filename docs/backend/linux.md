@@ -318,6 +318,16 @@ chgrp newgroup 文件/目录
 chgrp shaolin /home/abc.txt
 chgrp -R shaolin /home/test
 ```
+##### 修改文件的所有者
+
+```bash
+chown tom(用户名) /home/abc.txt(文件名)
+```
+##### 批量设置文件的所有者
+```bash
+chown -R tom(用户名) /home/kkk/(文件名)
+```
+
 ## 任务调度
 
 ##### 开启任务调度
