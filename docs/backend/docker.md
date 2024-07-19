@@ -159,10 +159,37 @@ docker rmi -f $(docker images -qa)
 ```bash
 docker run -it ubuntu(境像名称) /bin/bash
 ```
-
 2. ##### 以名字启动交互式境像, -it:交互式,--name:境像名称
 ```bash
 docker run -it --name=myubuntu ubuntu(境像名称) /bin/bash
+```
+3. ##### 后台守护进程运行
+```bash
+docker run -d redis:6.0.8(容器名)
+```
+4. ##### 查看容器日志
+```bash
+docker logs 3b5d312e445d(容器id)
+```
+5. ##### 查看容器内运行进程
+```bash
+docker top 3b5d312e445d(容器id)
+```
+6. ##### 查看容器内部细节
+```bash
+docker inspect 3b5d312e445d(容器id)
+```
+7. ##### 进入正在运行的容器并以命令行交互
+```bash
+docker exec -it 3b5d312e445d(容器id) /bin/bash
+docker attach -it 3b5d312e445d(容器id) /bin/bash
+```
+
+
+
+5. ##### 列出当前所有正在运行的容器
+```bash
+docker ps 
 ```
 
 6. ##### 列出当前所有正在运行的容器+历史运行过的
@@ -177,7 +204,34 @@ docker ps -l
 ```bash
 docker ps -q
 ```
-
+8. ##### run进容器 exit退出, 容器停止
+```bash
+exit
+```
+9. ##### run进容器 ctrl+p+q退出, 容器不停止
+```bash
+ctrl+p+q
+```
+10. ##### 启动已停止的容器
+```bash
+docker start 6f7f870398f2(容器id或容器名称)
+```
+11. ##### 重启容器
+```bash
+docker restart 6f7f870398f2(容器id或容器名称)
+```
+12. ##### 停止容器
+```bash
+docker stop 6f7f870398f2(容器id或容器名称)
+```
+13. ##### 强制停止容器
+```bash
+docker kill 6f7f870398f2(容器id或容器名称)
+```
+14. ##### 删除停止容器
+```bash
+docker rm 6f7f870398f2(容器id或容器名称)
+```
 
 
 ### 安装 tomcat
