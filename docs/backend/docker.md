@@ -184,6 +184,22 @@ docker inspect 3b5d312e445d(容器id)
 docker exec -it 3b5d312e445d(容器id) /bin/bash
 docker attach -it 3b5d312e445d(容器id) /bin/bash
 ```
+7. ##### 容器内文件烤贝到主机上
+```bash
+docker cp  docker cp d49bf82c61ee:/home/aaa.txt(容器id:容器路径) /home
+```
+8. ##### 容器导出为tar包
+```bash
+docker export d49bf82c61ee(容器id) >  ubuntu.tar
+```
+9. ##### tar导入为容器
+```bash
+cat ubuntu.tar | docker import - ubuntu 
+```
+10. ##### docker commit 
+```bash
+docker commit -m 'vim cmd add ok' -a='zhangdezhi' 199cf9ead58b(容器id) xiaozhi/ubuntu:1.3
+```
 
 
 
