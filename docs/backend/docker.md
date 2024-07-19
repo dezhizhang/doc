@@ -78,7 +78,46 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
 
-### 进行容器
+## docker常用命令
+
+### 帮助启动类命令
+1. ##### 启动docker
+```bash
+systemctl start docker 
+```
+2. ##### 停止docker
+```bash
+systemctl stop docker 
+```
+3. ##### 重启docker
+```bash
+systemctl restart docker 
+```
+4. ##### 查看docker状态
+```bash
+systemctl status docker 
+```
+5. ##### 开机启动docker
+```bash
+systemctl enable docker 
+```
+6. ##### 查看docker信息
+```bash
+docker info
+```
+7. ##### 查看所有命令帮助
+```bash
+docker --help
+```
+8. ##### 查看某个命令帮助
+```bash
+docker image --help 
+```
+
+### 镜像命令
+### 容器命令
+
+
 
 ```
 docker exec --it 容器id /bin/bash
