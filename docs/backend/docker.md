@@ -264,39 +264,48 @@ docker kill 6f7f870398f2(容器id或容器名称)
 ```bash
 docker rm 6f7f870398f2(容器id或容器名称)
 ```
+## 容器数据卷
 
-
-### 安装 tomcat
-
+1. ##### 容器数据卷存储
+```bash
+docker run -it --privileged=true -v /宿主机绝对路径目录:/容器内目录   镜像名
+docker run -it --privileged=true -v /home/data:/home/data ubuntu
 ```
+2. ##### 给容器添加读写权限
+```bash
+docker run -it --privileged=true -v /宿主机绝对路径目录:/容器内目录   镜像名
+docker run -it --privileged=true -v /home/data:/home/data:ro ubuntu
+```
+2. ##### 给容器添加读写权限
+```bash
+docker run -it --privileged=true -v /宿主机绝对路径目录:/容器内目录   镜像名
+docker run -it --privileged=true -v --volumes-form u1 --name=u2 ubuntu
+```
+
+3. ##### 查看数据卷是否挂载成功
+```bash
+dcoker inspect ee7f32630de9(容器id)
+```
+
+
+## 安装常规软件的安装
+
+1. ##### 安装tomcat
+
+```bash
+docker search tomcat
 docker pull tomcat
+docker run -d -p 8080:8080(端口映射) --name t1 tomcat
+docker stop t1
+docker rmi 容器id
 ```
-
-### 运行 tomcat
-
-```
-docker run -d -p 8080:8080 --name t1 tomcat
-```
-
-### 安装 mysql
-
+1. ##### 安装tmysql
 ```bash
-docker search mysql # 查看是否有
-
-docker pull mysq  # 下载境像
-
-docker run -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql # 启动mysql
+docker search mysql
+docker pull mysql:5.7
 ```
 
-### 安装 redis
-
-```bash
-docker search redis
-
-docker pull redis
-
-docker run  -p 6379:6379 --name redis --privileged=true -v /app/redis/redis.conf:/etc/redis/redis.conf -v /app/redis/data:/data  -d redis redis-server /etc/redis/redis.conf #和缩主机关联
-
+<!-- 
 docker ps -a # 列出所有容器
 
 docker start 容器id # 运行容器
@@ -316,7 +325,7 @@ COPY        # 将宿主机目录下的文件拷贝进镜像
 ADD         # 将宿主机目录下的文件拷贝进镜像且会自动处理URL和解压tar压缩包
 CMD         # 指定容后启动后要干的事
 ENTRYPOINT  #类型启动动令
-```
+``` -->
 
 ### Dockerfie 构建境像
 
