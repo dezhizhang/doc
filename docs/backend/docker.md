@@ -71,7 +71,7 @@ https://cr.console.aliyun.com/cn-shenzhen/instances/mirrors
 sudo mkdir -p /etc/docker
 sudo tee /etc/docker/daemon.json <<-'EOF'
 {
-  "registry-mirrors": ["https://ikzlvx21.mirror.aliyuncs.com"]
+  "registry-mirrors": ["https://sjflvx12.mirror.aliyuncs.com"]
 }
 EOF
 sudo systemctl daemon-reload
@@ -163,6 +163,19 @@ docker run -it ubuntu(境像名称) /bin/bash
 2. ##### 以名字启动交互式境像, -it:交互式,--name:境像名称
 ```bash
 docker run -it --name=myubuntu ubuntu(境像名称) /bin/bash
+```
+
+6. ##### 列出当前所有正在运行的容器+历史运行过的
+```bash
+ docker ps -a 
+```
+7. ##### 显示最近创建的容器
+```bash
+docker ps -l
+```
+8. ##### 只显示容器编号
+```bash
+docker ps -q
 ```
 
 
