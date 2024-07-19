@@ -1,16 +1,15 @@
 # mysql
 
-<!-- ### 地址:[mysql]https://www.bilibili.com/video/BV12b411K7Zu?p=130&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) 110 -->
 
-### mysql安装
+##### mysql安装
 [mysql](https://www.jianshu.com/p/1410f1a61f44)
 
-### mac下安装启动不了[mac](https://blog.csdn.net/TyxsjX/article/details/132761350)
+##### mac下安装启动不了[mac](https://blog.csdn.net/TyxsjX/article/details/132761350)
 ```bash
 sudo chown -R mysql /usr/local/mysql/data
 sudo /usr/local/mysql/support-files/mysql.server start
 ```
-### navcat 连接不上mysql 
+##### navcat 连接不上mysql 
 ```bash
 https://blog.csdn.net/dabao87/article/details/80571877
 
@@ -18,7 +17,7 @@ https://blog.csdn.net/dabao87/article/details/80571877
 <!-- ## 没有看（https://www.bilibili.com/video/BV12b411K7Zu?p=124&vd_source=10257e657caa8b54111087a9329462e8） -->
 
 
-### mysql 常见命令
+##### mysql 常见命令
 
 
 1. 显示所有数据库
@@ -69,7 +68,7 @@ select * from info(表名)
 select version()
 ```
 
-### mysql语法规范
+##### mysql语法规范
 1. 不区分大小写，但关建议关键字，表名，列名小写
 2. 每条命令最好用分号结尾
 3. 每条命令根据需要，可以进行缩进或换行
@@ -123,7 +122,7 @@ SELECT DISTINCT department_id from employees
 SELECT CONCAT(last_name,first_name) as 姓名 FROM employees;
 
 ```
-### 条件查询
+##### 条件查询
 1. 按条件表过式筛选
 
 ```bash
@@ -160,7 +159,7 @@ SELECT last_name,job_id FROM employees WHERE job_id IN('IT_PROT','AD_VP','AD_PRE
 ```bash
 SELECT last_name,commission_pct FROM employees WHERE commission_pct IS NULL
 ```
-### 排序查询
+##### 排序查询
 
 1. 从高到低进行排序
 
@@ -184,7 +183,7 @@ SELECT LENGTH(last_name) last_name,salary FROM employees ORDER BY LENGTH(last_na
 SELECT *,LENGTH(email) FROM employees WHERE email LIKE '%e%' ORDER BY LENGTH(email) DESC, department_id ASC;
 ```
 
-### 字符函数
+##### 字符函数
 
 1. 获取字符串的字节个数
 
@@ -235,7 +234,7 @@ SELECT RPAD("刘德华",10,"*") as out_put;
 SELECT REPLACE("张无忌爱上周芷若","周芷若","赵敏") as out_put;
  
 ```
-### 常用数学函当我
+##### 常用数学函当我
 
 1. round 四舍五入
 ```
@@ -262,7 +261,7 @@ SELECT TRUNCATE(1.65,1) as out_put;
 ```bash
 SELECT MOD(10,3) as out_put;
 ```
-### 日期函数
+##### 日期函数
 1. now 返回当前系统日期+时间
 
 ```bash
@@ -284,7 +283,7 @@ SELECT curtime();
 ```bash
 SELECT YEAR(NOW()) as out_put;
 ```
-### 流程控制函数
+##### 流程控制函数
 1. if 函数
 
 ```bash
@@ -305,7 +304,7 @@ END AS 新工资 FROM employees;
 
 ```
 
-### 分组函数
+##### 分组函数
 1. sum求合
 
 ```bash
@@ -341,7 +340,7 @@ SELECT DATEDIFF(MAX(hiredate),MIN(hiredate)) as 差异 FROM employees;
 ```bash
 SELECT COUNT(*) 个数 FROM employees WHERE department_id = 90;
 ```
-### group by函数
+##### group by函数
 
 1. 查询每个工种的最高工资
 
@@ -370,7 +369,7 @@ SELECT MAX(salary),manager_id FROM employees WHERE commission_pct IS NOT NULL GR
 ```bash
 SELECT COUNT(*),department_id FROM employees GROUP BY department_id HAVING COUNT(*) > 2
 ```
-### join连接查询
+##### join连接查询
 
 1. 查询员工名对应的部门名
 
@@ -423,7 +422,7 @@ SELECT last_name,job_title FROM employees e INNER JOIN jobs j ON e.job_id = j.jo
 SELECT city,COUNT(*) AS 部门个数 FROM departments AS d INNER JOIN locations AS l ON d.location_id = l.location_id GROUP BY city HAVING COUNT(*) > 3;
 
 ```
-### 日期与时间
+##### 日期与时间
 1. 
 ```bash
 SELECT CURDATE(),CURRENT_DATE(), CURTIME(), NOW(),SYSDATE(),UTC_DATE(),UTC_TIME() FROM DUAL;
@@ -436,7 +435,7 @@ SELECT FROM_UNIXTIME(1702247160)
 ```
 
 
-### 子查询 
+##### 子查询 
 
 1. 标是子查询 查询工资比Abel高的
 
@@ -462,7 +461,7 @@ HAVING MIN(salary) > (SELECT MIN(salary) FROM employees WHERE department_id = 50
 ```
 
 ```
-### 分页查询
+##### 分页查询
 1. 查询前5条员工信息 
 ```bash
 SELECT * FROM employees LIMIT 0, 5;
@@ -473,7 +472,7 @@ SELECT * FROM employees LIMIT 0, 5;
 SELECT * FROM employees LIMIT 10, 15;
 ```
 ## DDL 语句
-### 插入语法
+##### 插入语法
 1. 插入的值的类型要与列的类型兼容或一致
 
 ```bash
@@ -485,7 +484,7 @@ INSERT INTO beauty(id,`name`,sex,borndate,phone,photo,boyfriend_id) VALUES(13,'�
 ```bash
 INSERT INTO beauty SET id = 15,`name` = "刘涛", borndate = "1978-09-10", phone = "15082256191"
 ```
-### 修改语法
+##### 修改语法
 
 1. 修改单表的记录
 
@@ -494,7 +493,7 @@ UPDATE beauty SET `name` = "阿涛" WHERE id = 15
 UPDATE beauty SET phone = "15083356190" WHERE `name` LIKE "阿%"
 ```
 
-### 删除语语
+##### 删除语语
 1. 单表的删除
 ```bash
 DELETE FROM beauty WHERE id = 15;
@@ -584,7 +583,7 @@ CREATE TABLE copy LIKE book;
 CREATE TABLE copy2 SELECT * FROM book;
 
 ```
-### sql的执行过程
+##### sql的执行过程
 ```bash
 form ... -> on -> (left/ right join) -> where -> group by -> having -> 
 select -> distinct -> order by -> limit
@@ -592,16 +591,16 @@ select -> distinct -> order by -> limit
 ```
 ## 外键约束
 
-### 添加外键关联 
+##### 添加外键关联 
 ```bash
 ALTER TABLE emp add CONSTRAINT fk_emp_dept_id FOREIGN KEY(dept_id) REFERENCES dept(id);
 ```
 
-### 删除外键
+##### 删除外键
 ```bash
 ALTER TABLE emp drop FOREIGN KEY fk_emp_dept_id
 ```
-### 表结构多对多
+##### 表结构多对多
 ```bash
 CREATE TABLE users(
 	id int PRIMARY KEY auto_increment COMMENT "主键",
@@ -717,41 +716,41 @@ INSERT INTO students_course(studentid,courseid) VALUES
 (2,3),
 (3,4);
 ```
-### 隐式内连接
+##### 隐式内连接
 ```bash
 SELECT * FROM emp,dept WHERE emp.dept_id = dept.id;
 ```
 
-### 显示内连接
+##### 显示内连接
 ```bash
 SELECT * FROM emp INNER JOIN dept ON emp.dept_id = dept.id;
 ```
 
-### 外链接
+##### 外链接
 ```bash
 SELECT * FROM emp;
 ```
 
-### 左外链接
+##### 左外链接
 ```bash
 SELECT * FROM emp LEFT OUTER JOIN dept ON emp.dept_id = dept.id;
 ```
 
-### 右外连接
+##### 右外连接
 ```bash
 SELECT * FROM emp RIGHT OUTER JOIN dept ON emp.dept_id = dept.id;
 ```
 
-### 自连接
+##### 自连接
 ```bash
 SELECT e.ename,b.ename FROM emp e,emp b WHERE e.managerid = b.id;
 ```
-### 联合查询
+##### 联合查询
 ```bash
 SELECT * FROM emp WHERE salary < 8400 UNION SELECT * FROM emp WHERE age > 40;
 ```
 
-### 标量子查询
+##### 标量子查询
 ```bash
 SELECT * FROM emp WHERE dept_id = (SELECT id FROM dept WHERE dname = '研发部');
 ```
@@ -761,7 +760,7 @@ SELECT * FROM emp WHERE dept_id = (SELECT id FROM dept WHERE dname = '研发部'
 
 ## mysql高级
 
-### Linux安装mysql
+##### Linux安装mysql
 1. 下载mysql的repo源
 
 ```bash
@@ -807,7 +806,7 @@ service mysqld restar
 /usr/bin/mysqladmin -u root password tungee1024Zhang
 ```
 
-### mysql安装位置
+##### mysql安装位置
 
 1. 查看mysql安装位置
 
@@ -819,7 +818,7 @@ CREATE DATABASE iblog CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 
 ## mysql高级
-### mysql字符集
+##### mysql字符集
 1. 查看mysql字符集
 
 ```bash
@@ -838,7 +837,7 @@ character_set_server=utf8
 systemctl restart mysqld.service
 ```
 
-### 用户管理
+##### 用户管理
 
 1. 创建用户
 
@@ -851,46 +850,45 @@ CREATE USER 'zhangsan' IDENTIFIED by 'abc123';
 ALTER USER 'zhangdezhi' IDENTIFIED by 'tungee1024Zhang';
 ```
 
-### 查看存储引擎
+##### 查看存储引擎
 ```bash
 show engines;
 ```
-### 查看默认存储引擎
+##### 查看默认存储引擎
 ```bash
 select @@default_storage_engine;
 ```
 
 
-### mysql高级
-```
-https://www.bilibili.com/video/BV12b411K7Zu?p=188&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8
-```
+##### mysql高级
 ## 索引
-### 创建索引
+
+##### 创建索引
 
 ```bash
 create index indexName on mytable(columname(length))
 ```
-### 分析查询
+##### 分析查询
 ```bash
 explain select * from tbl_emp;
 ```
-### 查询索引
+##### 查询索引
 ```bash
 show index from table
 ```
-### 创建索引
+##### 创建索引
 ```bash
 create index idx_索引名称 on article(category_id,views);
 ALTER  TABLE  book  ADD  INDEX  Y (`card`);
 ```
 
-### 删除索引
+##### 删除索引
 ```bash
 drop index idx_索引名称 on table(表)
 ```
-### 慢查询的开启
+##### 慢查询的开启
 
 ```bash
 show variables like '%slow_query_log%';
 ```
+<!-- ##### 地址:[mysql]https://www.bilibili.com/video/BV12b411K7Zu?p=130&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) 110 -->

@@ -1,36 +1,35 @@
 # docker
 
-### 地址：[docker](https://www.bilibili.com/video/BV1gr4y1U7CY?p=1&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
 
-### docker 安装
+## docker 安装
 
-1. yum 安装 gcc 相关
+1. ##### yum 安装 gcc 相关
 
 ```bash
 yum -y install gcc
 yum -y install gcc-c++
 ```
 
-2. 安装需要的软件包
+2. ##### 安装需要的软件包
 
 ```bash
 yum install -y yum-utils
 ```
 
-3. 设置 stable 镜像仓库
+3. ##### 设置stable镜像仓库
 
 ```bash
 yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 
 ```
 
-4. 更新 yum 软件包索引
+4. ##### 更新 yum 软件包索引
 
 ```bash
 yum makecache fast
 ```
 
-5. 安装 docker ce
+5. ##### 安装docker-ce
 
 ```bash
 
@@ -38,22 +37,35 @@ yum install docker-ce docker-ce-cli containerd.io
 
 ```
 
-6. 启动 docker
+6. ##### 启动docker
 
 ```bash
 systemctl start docker
 systemctl stop docker
 ```
 
-7. 查看 docker 信息
+7. ##### 测试docker
 
 ```bash
 docker version
+docker run hello-world
+```
+8. ##### 自载docker
+```bash
+systemctl stop docker
+sudo yum remove docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-ce-rootless-extras
+sudo rm -rf /var/lib/docker
+sudo rm -rf /var/lib/containerd
 ```
 
-### 配置阿里云境像
+## 配置阿里云境像
 
-1. 阿里境像工具境像加速器
+1. ##### 境像加速地址
+```bash
+https://cr.console.aliyun.com/cn-shenzhen/instances/mirrors
+```
+
+2. #####  配置镜像加速器
 
 ```bash
 sudo mkdir -p /etc/docker
@@ -190,7 +202,7 @@ docker login --username=3142922546@qq.com registry.cn-guangzhou.aliyuncs.com
 docker run --name one-api -d --restart always -p 8092:8092 -e SQL_DSN="root:123456@tcp(localhost:3306)/oneapi"  -->
 
 
-
+<!-- 
 external_url 'http://gitlab.xiaozhi.sho'
 
 
@@ -201,4 +213,7 @@ docker run --detach \
   --restart always \
   --volume /srv/gitlab/config:/etc/gitlab \
   --volume /srv/gitlab/data:/var/opt/gitlab \
-  gitlab/gitlab-ce:latest
+  gitlab/gitlab-ce:latest -->
+
+### 地址：[docker](https://www.bilibili.com/video/BV1gr4y1U7CY?p=1&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
+
