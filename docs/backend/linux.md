@@ -620,8 +620,7 @@ grep -r 'cat' /home | cut -d ":" -f 1
 find /home -name "*.*" | xargs wc -l 
 ```
 
-<!-- [47-51] -->
-
+<!-- 没有看完部份[47-51] -->
 <!-- [last](https://www.bilibili.com/video/BV1Sv411r7vd?p=145&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) -->
 <!-- [运维面试题](https://www.bilibili.com/video/BV1hF411f7Xf/?spm_id_from=333.788&vd_source=10257e657caa8b54111087a9329462e8) -->
 

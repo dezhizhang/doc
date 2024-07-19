@@ -155,11 +155,17 @@ docker rmi -f $(docker images -qa)
 
 ### 容器命令
 
+1. ##### 使用交互式启动境像,  -i：交互式, -t:终端
+```bash
+docker run -it ubuntu(境像名称) /bin/bash
+```
+
+2. ##### 以名字启动交互式境像, -it:交互式,--name:境像名称
+```bash
+docker run -it --name=myubuntu ubuntu(境像名称) /bin/bash
+```
 
 
-```
-docker exec --it 容器id /bin/bash
-```
 
 ### 安装 tomcat
 
