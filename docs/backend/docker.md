@@ -299,10 +299,18 @@ docker run -d -p 8080:8080(端口映射) --name t1 tomcat
 docker stop t1
 docker rmi 容器id
 ```
-1. ##### 安装tmysql
+1. ##### 安装mysql
 ```bash
 docker search mysql
 docker pull mysql:5.7
+docker run -d -p 3306:3306 --privileged=true 
+-v /var/mysql/log:/var/log/mysql
+-v /var/mysql/data:/var/lib/mysql
+-v /var/mysql/conf.d:/var/mysql/conf.d 
+-e MYSQL_ROOT_PASSWORD=123456
+--name mysql:5.7 mysql:5.7
+docker exec -it 容器id /bin/bash
+mysql -uroot -p
 ```
 
 <!-- 
