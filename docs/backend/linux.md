@@ -548,18 +548,72 @@ echo "执行的结果=$?";
 ```
 ##### 运算符
 
+## 备份与恢复
 
+## 日志管理
 
+##### 查看日志服务
+```bash
+ps aux | grep "rsyslog" 
+```
+##### 查看日志报务启动的方式
 
+```bash
+systemctl list-unit-files | grep rsyslog
+```
 
+## 可视化管理
 
+##  linux面试题
+##### 获取访问的ip地址
+```bash
+http://192.168.200.10/index1.html
+http://192.168.200.10/index2.html
+http://192.168.200.20/index1.html
+http://192.168.200.30/index1.html
+http://192.168.200.40/index1.html
+http://192.168.200.30/index1.html
+http://192.178.200.30/order.html
+http://192.168.200.10/order.html
+cat t.txt | cut -d '/' -f 3 | sort | uniq -c | sort -nr
+```
+##### 获取连接ip
+```bash
+netstat -an | grep  ESTABLISHED | awk -F " " '{print $5}' | awk -F ":" '{print $1}';
+```
 
-
+##### 获取访问量
+```bash
+cat /var/log/nginx/access.log | awk -F " " '{print $1}' | sort | uniq -c | sort -nr | head -2
+```
+##### 查看io读写情况
+```bash
+iotop 
+```
+##### 查看端口占用情况
+```bash
+netstat -tunlp
+```
+##### 计算总得分
+```bash
+张三 40
+李四 50
+王五 60
+      
+cat t2.txt | awk -F " " '{sum+=$2} END {print sum}';
+```
+##### 统计有字符'cat' 文件名称
+```bash
+grep -r 'cat' /home | cut -d ":" -f 1
+```
+```bash
+find /home -name "*.*" | xargs wc -l 
+```
 
 <!-- [47-51] -->
 
-<!-- [last](https://www.bilibili.com/video/BV1Sv411r7vd?p=44&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) -->
-
+<!-- [last](https://www.bilibili.com/video/BV1Sv411r7vd?p=145&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) -->
+<!-- [运维面试题](https://www.bilibili.com/video/BV1hF411f7Xf/?spm_id_from=333.788&vd_source=10257e657caa8b54111087a9329462e8) -->
 
 
 
