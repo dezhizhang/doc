@@ -614,15 +614,6 @@ docker-compose up -d
 
 
 
-
-
-
-
-
-
-
-
-
 ￼
 
 
@@ -637,21 +628,3 @@ docker-compose up -d
 
 
 
-
-
-<!-- # 下载路径是【/usr/local/bin/】下载完之后可以看下【/usr/local/bin】这个目录有没有【docker-compose】文件
-curl -L https://get.daocloud.io/docker/compose/releases/download/1.29.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose -->
-
-```
-
-```
-
-### 安装 portainer
-
-```
-docker run -d -p 8000:8000 -p 9000:9000 --name protainer --restart=always -v/var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
-```
-
-
-<!-- ### 地址：[docker](https://www.bilibili.com/video/BV1gr4y1U7CY?p=41&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8)
- -->
