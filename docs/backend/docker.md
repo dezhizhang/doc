@@ -544,11 +544,17 @@ docker-compose up -d
 docker-compose config -q
 ```
 
+## Docker轻量级可视化工具Portainer
 
-
+1. ##### 安装Portainer
+Portainer
+```bash
+docker run -d -p 8000:8000 -p 9000:9000 --name portainer     --restart=always \
+-v /var/run/docker.sock:/var/run/docker.sock \
+-v portainer_data:/data\
+portainer/portainer
 ```
-docker run -d -p 8000:8000 -p 9000:9000 --name portainer     --restart=always     -v /var/run/docker.sock:/var/run/docker.sock     -v portainer_data:/data     portainer/portainer
-```
+## Docker容器监控之 CAdvisor+InfluxDB+Granfana
 
 
 
