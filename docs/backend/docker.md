@@ -513,6 +513,14 @@ docker network ls
 ```bash
 docker network inspect bridge
 ```
+3. #####  创建自定义网络
+```bash
+docker network create custom_network
+```
+4. #####  加入自定义网络
+```bash
+docker run -d 8081:8080 --network custom_network --name tomcat81 tomcat
+```
 
 ## DockerCompose
 
