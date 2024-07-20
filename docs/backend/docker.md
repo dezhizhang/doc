@@ -504,6 +504,60 @@ CMD /bin/bash
 docker build -t 新境像名:Tag .
 docker build -t centosjava8:1.5 .
 ```
+## Docker网络
+1. #####  查看docker网络
+```bash
+docker network ls
+```
+2. #####  查看网络源数据
+```bash
+docker network inspect bridge
+```
+
+## DockerCompose
+
+1. #####  下载docker-compose
+```bash
+curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+```
+
+2. #####  给docker-compose赋权限
+```bash
+chmod +x /usr/local/bin/docker-compose
+```
+
+3. ##### 查看是否安装成功
+```bash
+docker-compose --version
+```
+4. ##### 启动所有docker-compose服务
+```bash
+docker-compose up 
+```
+
+5. ##### 后台启动所有docker-compose服务
+```bash
+docker-compose up -d
+```
+6. ##### 检测docker-compose编写是否正确
+```bash
+docker-compose config -q
+```
+
+
+
+```
+docker run -d -p 8000:8000 -p 9000:9000 --name portainer     --restart=always     -v /var/run/docker.sock:/var/run/docker.sock     -v portainer_data:/data     portainer/portainer
+```
+
+
+
+
+
+
+
+
+
 
 
 
@@ -522,48 +576,7 @@ docker build -t centosjava8:1.5 .
 
 
 
-1. 构建镜像
 
-```bash
-docker build -t 新镜像名字:tag .
-```
-
-2. 运行境像
-
-```bash
-docker run -it 新境像名字:tag
-```
-
-3. 查看本书所有虚悬镜像
-
-```bash
-docker images ls -f dangling=true
-```
-
-4. 删除所有虚悬镜像
-
-```bash
-docker image prune
-```
-
-### docker 网络命令
-
-```
-docker network --help          # 获取所命令
-docker network connect
-docker network rm 网络名称      # 删除网络
-docker network inspect 网络名称 # 查看网络信息
-```
-
-### 在 Linux 上安装 Docker Compose
-
-步骤 1: 下载 Docker Compose
-
-1. 使用 curl 命令下载 Docker Compose 的最新稳定版本
-
-```bash
-使用 curl 命令下载 Docker Compose 的最新稳定版本
-```
 
 <!-- # 下载路径是【/usr/local/bin/】下载完之后可以看下【/usr/local/bin】这个目录有没有【docker-compose】文件
 curl -L https://get.daocloud.io/docker/compose/releases/download/1.29.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose -->

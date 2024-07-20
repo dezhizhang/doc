@@ -82,3 +82,7 @@ docker run -d  -p 3000:3000  0178f49bf609 --privileged=true xiaozhicloud/intelli
 
 <!-- 
 [last](https://www.bilibili.com/video/BV17u4y1a72B?p=24&vd_source=e38cd951f2ee7bda48ec574f4e9ba363) -->
+
+
+
+docker run -d -p 443:443 -p 8086:80 --name gitlab --restart always -v /var/igola/gitlab/config:/etc/gitlab -v /var/igola/gitlab/logs:/var/log/gitlab -v /var/igola/gitlab/data:/var/opt/gitlab --privileged=true gitlab/gitlab-ce
