@@ -420,11 +420,64 @@ show slave status \G;
 start slave;
 ```
 
+## Dockerfie 构建境像
+### 常用保留字指令
+
+1. #####  FROM 当前境像是基于那个镜像的
+```bash
+FROM
+```
+2. ##### MAINTAINER 镜像的维护者
+```bash
+MAINTAINER
+```
+3. ##### RUN 容器构建时需要运行的命令
+```bash
+RUM
+```
+4. ##### EXPOSE 当前容器对外暴露出的端口
+```bash
+EXPOSE 
+```
+5. ##### WORKDIR 指定在创建容器后，终端默认登陆的进来工作目录，一个落脚点
+```bash
+WORKDIR
+```
+6. ##### USER 指定该镜像以什么样的用户去执行，如果都不指定，默认是root
+```bash
+USER
+```
+7. ##### ENV 用来在构建镜像过程中设置环境变量
+```bash
+ENV
+```
+8. ##### ADD 将宿主机目录下的文件拷贝进镜像且会自动处理URL和解压tar压缩包
+```bash
+ADD
+```
+9. ##### COPY 类似ADD，拷贝文件和目录到镜像中。将从构建上下文目录中 <源路径> 的文件/目录复制到新的一层的镜像内的 <目标路径> 位置
+```bash
+COPY
+```
+10. ##### VOLUME 容器数据卷，用于数据保存和持久化工作
+```bash
+VOLUME
+```
+11. ##### 指定容器启动后的要干的事情
+```bash
+CMD
+```
+12. ##### ENTRYPOINT 也是用来指定一个容器启动时要运行的命令
+```bash
+ ENTRYPOINT
+```
 
 
 
 
-### Dockerfie 构建境像
+
+
+
 
 1. 构建镜像
 
