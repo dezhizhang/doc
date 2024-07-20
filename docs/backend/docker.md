@@ -321,6 +321,106 @@ docker run -d -p 6379:6379 --name redis --privileged=true
 -v /app/redis/data:/data redis redis-server 
 /etc/redis/redis.conf
 ```
+## mysql主从复制
+
+1. ##### 启动主数据库
+```bash
+docker run -p 3307:3306 --name mysql-master \
+-v /mydata/mysql-mater/log:/var/log/mysql \
+-v /mysql/mysql-mater/data:/var/lib/mysql \
+-v /mydata/mysql-mater/conf:/etc/mysql \
+-e MYSQL_ROOT_PASSWORD=root -d mysql:5.7
+```
+2. ##### 宿主机新建my.conf
+```bash
+# 文件路径
+# /mydata/mysql-mater/conf
+[mysqld]
+#设置server_id,同一局域网中需要唯一
+server_id=101
+# 指定不需要同步的数据库名称
+binlog-ignore-db=mysql
+# 开启二进制日志功能
+log_bin=mall-mysql-bin
+# 设置二进制日志使用内存大小
+binlog_cache_size=1M
+# 设置使用的二进制日志格式
+binlog_format=mixed
+# 二进制日志清理时间,默认为0表示
+expire_logs_days=7
+# 跳过主从复制中遇到的所有错误信息
+slave_skip_errors=1062
+```
+3. ##### 重启 mysql-mater
+```bash
+docker restart mysql-mater(容器id或容器名称)
+```
+4. ##### 创建数据同步用户
+```bash
+create user 'slave'@'%' IDENTIFIED BY '123456'
+GRANT REPLICATION SLAVE,REPLICATION CLIENT ON *.* TO 'slave'@'%';
+```
+5. ##### 启动从数据库
+```bash
+docker run -p 3308:3306 --name mysql-slave \
+-v /mydata/mysql-slave/log:/var/log/mysql \
+-v /mydata/mysql-slave/data:/var/lib/mydql \
+-v /mydata/mysql-slave/conf:/etc/mysql \
+-e MYSQL_ROOT_PASSWORD=root -d mysql:5.7
+```
+6. ##### 宿主机新建my.conf
+```bash
+# /mydata/mysql-slave/conf
+[mysqld]
+#设置server_id,同一局域网中需要唯一
+server_id=102
+# 指定不需要同步的数据库名称
+binlog-ignore-db=mysql
+# 开启二进制日志功能
+log_bin=mall-mysql-slave1-bin
+# 设置二进制日志使用内存大小
+binlog_cache_size=1M
+# 设置使用的二进制日志格式
+binlog_format=mixed
+# 二进制日志清理时间,默认为0表示
+expire_logs_days=7
+# 跳过主从复制中遇到的所有错误信息
+slave_skip_errors=1062
+#relay_log配置中继日志
+relay_log=mall-mysql-relay-bin
+# log_slave_updates表示slave将复制事件写进自已的二进制日志
+log_slave_updates=1
+# slave设置为只读(具有super权限的用户除外)
+read_only=1
+```
+7. ##### 重启 mysql-slave
+```bash
+docker restart mysql-slave
+```
+8. ##### 进行slave数据库
+```bash
+docker exec -it mysql-slave /bin/bash
+```
+9. ##### 从服务器上主从复制
+```bash
+change master to master_host="(主服务器ip)",\
+master_user="slave",\
+master_password="123456",\
+master_port=3307,\
+master_log_file="mall-mysql-bin.000001",\
+master_log_pos=154,\
+master_connect_retry=30;
+```
+10.  ##### 从服务器查看主从同步状态
+```bash
+show slave status \G;
+```
+11. ##### 从服务器开启主从复制
+```bash
+start slave;
+```
+
+
 
 
 
@@ -383,5 +483,5 @@ docker run -d -p 8000:8000 -p 9000:9000 --name protainer --restart=always -v/var
 ```
 
 
-### 地址：[docker](https://www.bilibili.com/video/BV1gr4y1U7CY?p=1&vd_source=e38cd951f2ee7bda48ec574f4e9ba363)
-
+<!-- ### 地址：[docker](https://www.bilibili.com/video/BV1gr4y1U7CY?p=41&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8)
+ -->
