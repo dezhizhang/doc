@@ -1,4 +1,7 @@
 # elastic
+[晓智科技]()
+[晓智文档]()
+[源码地址](https://github.com/dezhizhang/java-awesome/tree/main/es)
 
 ## docker安装elastic
 
@@ -315,111 +318,156 @@ GET localhost:9200/user/_search
 }
 ```
 
-### java 操作 es
+## java 操作es
 
-1. 连接客户端
+1.  ##### 添加依赖
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>es</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>22</maven.compiler.source>
+        <maven.compiler.target>22</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+            <version>7.8.0</version>
+        </dependency>
+        <!-- elasticsearch 的客户端 -->
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-high-level-client</artifactId>
+            <version>7.8.0</version>
+        </dependency>
+        <!-- elasticsearch 依赖 2.x 的 log4j -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.8.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.8.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.9</version>
+        </dependency>
+        <!-- junit 单元测试 -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+    </dependencies>
+
+
+</project>
+```
+
+2.  ##### 连接客户端
 
 ```java
-package com.atguigu.es.test;
+package com.xiaozhicloud.es;
 
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.client.transport.TransportClient;
 
-public class EsTest_Client {
-  public static void main(String[] args) throws Exception {
+public class EsClient {
+    
+    public static void main(String[] args) throws Exception {
+        RestHighLevelClient client = new RestHighLevelClient(
+                RestClient.builder(new HttpHost("localhost", 9200, "http"))
+        );
 
-    // 创建es客户端
-    RestHighLevelClient esClient = new RestHighLevelClient(
-      RestClient.builder(new HttpHost("localhost",9200))
-    );
-
-    // 关闭es客户端
-    esClient.close();
-
-  }
+        client.close();
+    }
 }
 
 ```
 
-2. 创建索引
+3. ##### 创建索引
 
 ```java
-package com.atguigu.es.test;
-
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.indices.CreateIndexRequest;
 import org.elasticsearch.client.indices.CreateIndexResponse;
-import org.elasticsearch.client.transport.TransportClient;
 
-public class EsTest_Client {
-  public static void main(String[] args) throws Exception {
+public class EsClient {
 
-    // 创建es客户端
-    RestHighLevelClient esClient = new RestHighLevelClient(
-      RestClient.builder(new HttpHost("localhost",9200))
-    );
+    public static void main(String[] args) throws Exception {
+        RestHighLevelClient client = new RestHighLevelClient(
+                RestClient.builder(new HttpHost("localhost", 9200, "http"))
+        );
 
-    // 创建索引
-    CreateIndexRequest user = new CreateIndexRequest("user");
-    CreateIndexResponse createIndexResponse = esClient.indices().create(user, RequestOptions.DEFAULT);
 
-    // 响应状态
-    boolean acknowledged = createIndexResponse.isAcknowledged();
+        CreateIndexRequest user = new CreateIndexRequest("user");
+        CreateIndexResponse createIndexResponse = client.indices().create(user, RequestOptions.DEFAULT);
 
-    System.out.println("索引操作:" + acknowledged);
-    // 关闭es客户端
-    esClient.close();
+        boolean acknowledged = createIndexResponse.isAcknowledged();
+        System.out.println("索引操作"+acknowledged);
 
-  }
+
+        client.close();
+    }
 }
-
 ```
 
-3. 查询索引
+3.  ##### 查询索引
 
 ```java
-package com.atguigu.es.test;
+package com.xiaozhicloud.es;
+
 
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.client.indices.CreateIndexRequest;
-import org.elasticsearch.client.indices.CreateIndexResponse;
 import org.elasticsearch.client.indices.GetIndexRequest;
 import org.elasticsearch.client.indices.GetIndexResponse;
 
-public class EsTest_Index_Search {
-  public static void main(String[] args) throws Exception {
-    RestHighLevelClient esClient = new RestHighLevelClient(
-      RestClient.builder(new HttpHost("localhost",9200))
-    );
+public class ESSearchIndex {
+    public static void main(String[] args) throws Exception {
+        RestHighLevelClient restHighLevelClient = new RestHighLevelClient(
+                RestClient.builder(new HttpHost("localhost", 9200, "http"))
+        );
 
 
-    // 查询索引
-    GetIndexRequest user = new GetIndexRequest("user");
-    GetIndexResponse getIndexResponse = esClient.indices().get(user, RequestOptions.DEFAULT);
-    System.out.println(getIndexResponse.getAliases());
-    System.out.println(getIndexResponse.getMappings());
-    System.out.println(getIndexResponse.getSettings());
+        GetIndexRequest user = new GetIndexRequest("user");
+        GetIndexResponse response = restHighLevelClient.indices().get(user,RequestOptions.DEFAULT);
+
+        // 响应状态
+        System.out.println(response.getAliases());
+        System.out.println(response.getMappings());
+        System.out.println(response.getSettings());
 
 
-    // 关闭es客户端
-    esClient.close();
-  }
+        restHighLevelClient.close();
+
+    }
 }
-
 ```
 
-4. 删除索引
+4. ##### 删除索引
 
 ```java
-package com.atguigu.es.test;
+package com.xiaozhicloud.es;
 
 import org.apache.http.HttpHost;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
@@ -427,34 +475,30 @@ import org.elasticsearch.action.support.master.AcknowledgedResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.client.indices.CreateIndexRequest;
-import org.elasticsearch.client.indices.CreateIndexResponse;
 
-public class EsTest_Index_Delete {
-  public static void main(String[] args) throws Exception {
-    // 创建es客户端
-    RestHighLevelClient esClient = new RestHighLevelClient(
-      RestClient.builder(new HttpHost("localhost",9200))
-    );
+public class ESIndexDelete {
+    public static void main(String[] args) throws Exception {
 
-    DeleteIndexRequest user = new DeleteIndexRequest("user");
-    AcknowledgedResponse delete = esClient.indices().delete(user, RequestOptions.DEFAULT);
+        RestHighLevelClient client = new RestHighLevelClient(
+                RestClient.builder(new HttpHost("localhost", 9200, "http"))
+        );
 
-    System.out.println(delete.isAcknowledged());
+        // 删除索引
+        DeleteIndexRequest user = new DeleteIndexRequest("user");
+        AcknowledgedResponse delete = client.indices().delete(user, RequestOptions.DEFAULT);
+        System.out.println(delete.isAcknowledged());
 
+        client.close();
 
-
-    // 关闭es客户端
-    esClient.close();
-  }
+    }
 }
 
-```
 
-5. 增加文档
+```
+5. ##### 文档中插入数据
 
 ```java
-package com.atguigu.es.test;
+package com.xiaozhicloud.es;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpHost;
@@ -463,41 +507,38 @@ import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.client.indices.CreateIndexRequest;
-import org.elasticsearch.client.indices.CreateIndexResponse;
 import org.elasticsearch.common.xcontent.XContentType;
 
-public class EsTest_Doc_Insert {
-  public static void main(String[] args) throws Exception {
-    // 创建es客户端
-    RestHighLevelClient esClient = new RestHighLevelClient(
-      RestClient.builder(new HttpHost("localhost",9200))
-    );
+public class ESDocInsert {
+    public static void main(String[] args) throws Exception {
+        RestHighLevelClient client = new RestHighLevelClient(
+                RestClient.builder(new HttpHost("localhost", 9200, "http"))
+        );
 
-    IndexRequest indexRequest = new IndexRequest();
-    indexRequest.index("user").id("1001");
-
-    User user = new User();
-    user.setName("张德志");
-    user.setAge(30);
-    user.setSex("男");
-
-    ObjectMapper objectMapper = new ObjectMapper();
-    String userJson = objectMapper.writeValueAsString(user);
-
-    indexRequest.source(userJson, XContentType.JSON);
+        // 插入数据
+        IndexRequest request = new IndexRequest();
+        request.index("user").id("1001");
+        
+        
+        User user = new User();
+        user.setAge(18);
+        user.setName("张三");
+        user.setSex("男");
 
 
-    IndexResponse response = esClient.index(indexRequest, RequestOptions.DEFAULT);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = objectMapper.writeValueAsString(user);
+        request.source(json, XContentType.JSON);
 
-    System.out.println(response.getResult());
-    System.out.println(response.getId());
+        IndexResponse response = client.index(request, RequestOptions.DEFAULT);
+
+        System.out.println(response.getResult());
 
 
-    // 关闭es客户端
-    esClient.close();
-  }
+        client.close();
+    }
 }
+
 
 ```
 
