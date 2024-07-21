@@ -129,22 +129,23 @@ DELETE localhost:9200/shopping/_doc/id
 
 ## 条件查询
 
-1. 匹配查询
+1.  ##### 匹配查询
 
 ```bash
-GET localhost:9200/shopping/_search?q=title:晓智科技有限公司
+localhost:9200/shopping/_search
 
 GET localhost:9200/shopping/_search
 {
     "query":{
         "match":{
-            "title":"晓智科技有限公司"
+             "category":"小米"
         }
     }
+   
 }
 ```
 
-2. 全量查询
+2. #####  全量查询
 
 ```bash
 GET localhost:9200/shopping/_search
@@ -157,7 +158,7 @@ GET localhost:9200/shopping/_search
 }
 ```
 
-3. 分页查询
+3. ##### 分页查询
 
 ```bash
 GET localhost:9200/shopping/_search
@@ -172,6 +173,42 @@ GET localhost:9200/shopping/_search
 }
 
 ```
+
+4. ##### 只显示某些字段
+```bash
+GET localhost:9200/shopping/_search
+{
+    "query":{
+        "match_all":{
+
+        }
+    },
+    "from":0,
+    "size":10,
+    "_source":["title"]
+}
+```
+5. ##### 排序查询
+
+```bash
+{
+    "query":{
+        "match_all":{
+
+        }
+    },
+    "from":0,
+    "size":10,
+    "_source":["title"],
+    "sort":{
+        "price":{
+            "order":"asc"
+        }
+    }
+   
+}
+```
+
 
 4. 完全匹配
 
