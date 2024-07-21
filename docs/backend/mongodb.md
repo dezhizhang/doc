@@ -290,9 +290,13 @@ db.test.find()
 
 
 
-<!-- [副本集搭建参考文档](https://blog.csdn.net/JJW1002/article/details/136367485) -->
+###
 
 
 
 
+<center>晓智科技公众号</center>
+<div align="center"> <img src="https://devpress.csdnimg.cn/9ea0b4566eb54d54b1b0d2c87ea6c2e0.webp" width = 300 height = 300 /> </div>
 
+<!-- 
+[last](https://www.bilibili.com/video/BV1bJ411x7mq?p=34&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) -->
