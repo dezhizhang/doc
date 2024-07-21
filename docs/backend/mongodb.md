@@ -287,15 +287,7 @@ rs.secondaryOk()
 db.test.find()
 ```
 
-
-
-
-###
-
-
-
-
-<center>晓智科技公众号</center>
+<div align="center">晓智科技公众号</div>
 <div align="center"> <img src="https://devpress.csdnimg.cn/9ea0b4566eb54d54b1b0d2c87ea6c2e0.webp" width = 300 height = 300 /> </div>
 
 <!-- 
