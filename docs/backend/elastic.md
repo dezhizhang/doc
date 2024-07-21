@@ -85,21 +85,21 @@ POST localhost:9200/shopping/_doc
 }
 ```
 
-2. 查看文档
+2. ##### 查看文档
 
 ```bash
 GET localhost:9200/shopping/_doc/1001
 ```
 
-3. 查询所有文档
+3. ##### 查询所有文档
 
 ```bash
 localhost:9200/shopping/_search
 ```
 
-4. 全量修改文档
+4. ##### 全量修改文档
 
-```js
+```bash
 PUT  localhost:9200/shopping/_doc/1001
 {
     "title":"晓智科技",
@@ -108,7 +108,7 @@ PUT  localhost:9200/shopping/_doc/1001
 }
 ```
 
-5. 局部更改数据
+5. ##### 局部更改数据
 
 ```bash
 POST localhost:9200/shopping/_update/1001
@@ -120,14 +120,14 @@ POST localhost:9200/shopping/_update/1001
 }
 ```
 
-6. 删除数据
+6. ##### 删除数据
 
 ```bash
 DELETE localhost:9200/shopping/_doc/id
 
 ```
 
-### 条件查询
+## 条件查询
 
 1. 匹配查询
 
