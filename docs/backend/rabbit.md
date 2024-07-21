@@ -2,6 +2,15 @@
 
 ### rabbitmq安装
 [mac安装rabbitmq](https://blog.csdn.net/CSDNwei/article/details/130965219)
+
+
+
+| 项目              | 地址                                           |
+| :----------------------- | :--------------------------------------- |
+| 晓智科技                 | [晓智科技](https://xiaozhi.shop)|
+| 晓智文档                 | [晓智文档](https://doc.xiaozhi.shop/backend/docker) |
+| 文档源码                 | [文档源码](https://github.com/dezhizhang/doc) |
+
 ### 配置文件
 
 ```xml
