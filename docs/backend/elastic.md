@@ -683,9 +683,11 @@ public class EsDocInsetBatch {
 
 ```
 
-9. 批量删除
+9. ##### 批量删除文档
 
 ```java
+package com.xiaozhicloud.es;
+
 import org.apache.http.HttpHost;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.bulk.BulkResponse;
@@ -694,24 +696,26 @@ import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
 
+public class EsDocDelBatch {
+    public static void main(String[] args) throws Exception {
+        RestHighLevelClient client = new RestHighLevelClient(
+                RestClient.builder(new HttpHost("localhost", 9200, "http"))
+        );
 
-public class EsTest_Doc_Delete_Batch {
-  public static void main(String[] args) throws Exception {
-    RestHighLevelClient esClient = new RestHighLevelClient(
-      RestClient.builder(new HttpHost("localhost",9200))
-    );
+        // 批量删除文档
+        BulkRequest bulkRequest = new BulkRequest();
 
-    BulkRequest request = new BulkRequest();
-    request.add(new DeleteRequest().index("user").id("1001"));
-    request.add(new DeleteRequest().index("user").id("1002"));
-    request.add(new DeleteRequest().index("user").id("1003"));
+        DeleteRequest source1 = new DeleteRequest().index("user").id("1001");
+        DeleteRequest source2 = new DeleteRequest().index("user").id("1002");
+        bulkRequest.add(source1,source2);
 
-    BulkResponse bulk = esClient.bulk(request, RequestOptions.DEFAULT);
-    System.out.println(bulk.getTook());
-    System.out.println(bulk.getItems());
 
-    esClient.close();
-  }
+        BulkResponse bulk = client.bulk(bulkRequest, RequestOptions.DEFAULT);
+
+        System.out.println(bulk.getTook());
+
+        client.close();
+    }
 }
 
 ```
