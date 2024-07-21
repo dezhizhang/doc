@@ -644,10 +644,10 @@ public class EsDocDelete {
 
 ```
 
-8. 批量增加
+8.  ##### 批量增加文档
 
 ```java
-package com.atguigu.es.test;
+package com.xiaozhicloud.es;
 
 import org.apache.http.HttpHost;
 import org.elasticsearch.action.bulk.BulkRequest;
@@ -658,32 +658,28 @@ import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentType;
 
-public class EsTest_Doc_Insert_Batch {
-  public static void main(String[] args) throws Exception {
-    // 创建es客户端
-    RestHighLevelClient esClient = new RestHighLevelClient(
-      RestClient.builder(new HttpHost("localhost",9200))
-    );
+public class EsDocInsetBatch {
+    public static void main(String[] args)  throws Exception {
+        RestHighLevelClient client = new RestHighLevelClient(
+                RestClient.builder(new HttpHost("localhost", 9200, "http"))
+        );
 
-    // 创建索引
-    BulkRequest request = new BulkRequest();
-    IndexRequest source = new IndexRequest().index("user").id("1001").source(XContentType.JSON, "name", "刘德华");
-    IndexRequest source1 = new IndexRequest().index("user").id("1002").source(XContentType.JSON, "name", "周华建");
-    IndexRequest source3 = new IndexRequest().index("user").id("1003").source(XContentType.JSON, "name", "周峰");
-    request.add(source);
-    request.add(source1);
-    request.add(source3);
-
-    BulkResponse bulk = esClient.bulk(request, RequestOptions.DEFAULT);
+        // 批量增加
+        BulkRequest bulkRequest = new BulkRequest();
+        IndexRequest source = new IndexRequest().index("user").id("1001").source(XContentType.JSON, "name", "张三");
+        IndexRequest source1 = new IndexRequest().index("user").id("1002").source(XContentType.JSON,"name","李四");
+        IndexRequest source2 = new IndexRequest().index("user").id("1003").source(XContentType.JSON, "name", "王五");
 
 
-    System.out.println(bulk.getTook());
+        bulkRequest.add(source,source1,source2);
+        BulkResponse bulk = client.bulk(bulkRequest, RequestOptions.DEFAULT);
 
+        System.out.println(bulk.getTook());
 
-    // 关闭es客户端
-    esClient.close();
-  }
+        client.close();
+    }
 }
+
 
 ```
 
