@@ -644,7 +644,7 @@ public class EsDocDelete {
 
 ```
 
-8.  ##### 批量增加文档
+9.  ##### 批量增加文档
 
 ```java
 package com.xiaozhicloud.es;
@@ -683,7 +683,7 @@ public class EsDocInsetBatch {
 
 ```
 
-9. ##### 批量删除文档
+10. ##### 批量删除文档
 
 ```java
 package com.xiaozhicloud.es;
@@ -720,10 +720,10 @@ public class EsDocDelBatch {
 
 ```
 
-10. 全量查询
+11. ##### 全量查询文档
 
 ```java
-package com.atguigu.es.test;
+package com.xiaozhicloud.es;
 
 import org.apache.http.HttpHost;
 import org.elasticsearch.action.search.SearchRequest;
@@ -732,43 +732,30 @@ import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 
-public class EsTest_Doc_Query {
-  public static void main(String[] args) throws Exception {
+public class EsDocQuery {
+    public static void main(String[] args) throws Exception {
+        RestHighLevelClient client = new RestHighLevelClient(
+                RestClient.builder(new HttpHost("localhost", 9200, "http"))
+        );
+        
+        // 全量查询数据
+        SearchRequest request = new SearchRequest();
+        request.indices("user");
 
+        SearchSourceBuilder query = new SearchSourceBuilder().query(QueryBuilders.matchAllQuery());
 
-    // 创建es客户端
-    RestHighLevelClient esClient = new RestHighLevelClient(
-      RestClient.builder(new HttpHost("localhost",9200))
-    );
+        request.source(query);
 
-    SearchRequest searchRequest = new SearchRequest();
-    searchRequest.indices("user");
+        SearchResponse response = client.search(request, RequestOptions.DEFAULT);
 
-    SearchSourceBuilder query = new SearchSourceBuilder().query(QueryBuilders.matchAllQuery());
+        System.out.println(response.getHits().getTotalHits());
+        System.out.println(response.getHits().getHits().getClass());
 
-
-    searchRequest.source(query);
-
-
-    SearchResponse search = esClient.search(searchRequest, RequestOptions.DEFAULT);
-
-    SearchHits hits = search.getHits();
-    System.out.println(hits.getTotalHits());
-    System.out.println(search.getTook());
-
-
-    for (SearchHit hit:hits) {
-      System.out.println(hit.getSourceAsString());
+        client.close();
     }
 
-
-    // 关闭es客户端
-    esClient.close();
-  }
 }
 
 ```
