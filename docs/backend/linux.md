@@ -1,5 +1,13 @@
 # linux
 
+
+| 项目              | 地址                                           |
+| :----------------------- | :--------------------------------------- |
+| 晓智科技                 | [晓智科技](https://xiaozhi.shop)|
+| 晓智文档                 | [晓智文档](https://doc.xiaozhi.shop/backend/linux) |
+| 文档源码                 | [文档源码](https://github.com/dezhizhang/doc) |
+
+
 ##### 查看ip
 ```bash
 ifconfig

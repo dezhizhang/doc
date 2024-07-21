@@ -1,5 +1,11 @@
 # docker
 
+| 项目              | 地址                                           |
+| :----------------------- | :--------------------------------------- |
+| 晓智科技                 | [晓智科技](https://xiaozhi.shop)|
+| 晓智文档                 | [晓智文档](https://doc.xiaozhi.shop/backend/docker) |
+| 文档源码                 | [文档源码](https://github.com/dezhizhang/doc) |
+
 
 ## docker 安装
 [阿里云境像服务登录不上]（https://juejin.cn/post/6954645387542003726）

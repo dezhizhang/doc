@@ -1,7 +1,11 @@
 # elastic
-[晓智科技]()
-[晓智文档]()
-[源码地址](https://github.com/dezhizhang/java-awesome/tree/main/es)
+| 项目              | 地址                                           |
+| :----------------------- | :--------------------------------------- |
+| 晓智科技                 | [晓智科技](https://xiaozhi.shop)|
+| 晓智文档                 | [晓智文档](https://doc.xiaozhi.shop/backend/elastic) |
+| 源码地址                 | [源码地址](https://github.com/dezhizhang/java-awesome/tree/main/es)|
+| 文档源码                 | [文档源码](https://github.com/dezhizhang/doc) |
+
 
 ## docker安装elastic
 
@@ -542,11 +546,11 @@ public class ESDocInsert {
 
 ```
 
-6. 更新文档
+
+6. ##### 更新文档数据
 
 ```java
-package com.atguigu.es.test;
-
+package com.xiaozhicloud.es;
 import org.apache.http.HttpHost;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
@@ -555,56 +559,87 @@ import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentType;
 
-public class EsTest_Doc_Update {
-  public static void main(String[] args) throws Exception {
-    RestHighLevelClient esClient = new RestHighLevelClient(
-      RestClient.builder(new HttpHost("localhost",9200))
-    );
+public class EsDocUpdate {
+    public static void main(String[] args) throws Exception {
 
-    // 更新
-    UpdateRequest request = new UpdateRequest();
-    request.index("user").id("1001");
-    request.doc(XContentType.JSON,"sex","女");
+        RestHighLevelClient client = new RestHighLevelClient(
+                RestClient.builder(new HttpHost("localhost", 9200, "http"))
+        );
+        
+        // 修改数据
+        UpdateRequest updateRequest = new UpdateRequest();
+        UpdateRequest user = updateRequest.index("user").id("1001");
+
+        updateRequest.doc(XContentType.JSON,"sex","女");
+
+        UpdateResponse update = client.update(updateRequest, RequestOptions.DEFAULT);
 
 
-    UpdateResponse update = esClient.update(request, RequestOptions.DEFAULT);
+        System.out.println(update.getResult());
 
-    System.out.println(update.getId());
-    // 关闭es客户端
-    esClient.close();
-  }
+        client.close();
+    }
 }
-
 ```
-
-7. 删除文档
+7. ##### 查询文档数据
 
 ```java
-package com.atguigu.es.test;
+package com.xiaozhicloud.es;
 
 import org.apache.http.HttpHost;
+import org.elasticsearch.action.get.GetRequest;
+import org.elasticsearch.action.get.GetResponse;
+import org.elasticsearch.client.RequestOptions;
+import org.elasticsearch.client.RestClient;
+import org.elasticsearch.client.RestHighLevelClient;
+
+public class EsDocSearch {
+    public static void main(String[] args) throws Exception {
+        RestHighLevelClient client = new RestHighLevelClient(
+                RestClient.builder(new HttpHost("localhost", 9200, "http"))
+        );
+
+
+        GetRequest request = new GetRequest();
+        request.index("user").id("1001");
+
+        GetResponse response = client.get(request, RequestOptions.DEFAULT);
+        System.out.println(response.getSourceAsString());
+        
+        client.close();
+
+    }
+}
+```
+
+8. ##### 删除文档数据
+
+```java
+package com.xiaozhicloud.es;
+
+import org.apache.http.HttpHost;
+import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
 
-public class EsTest_Doc_Delete {
-  public static void main(String[] args) throws Exception {
-    RestHighLevelClient esClient = new RestHighLevelClient(
-      RestClient.builder(new HttpHost("localhost",9200))
-    );
+public class EsDocDelete {
+    public static void main(String[] args) throws Exception {
+        RestHighLevelClient client = new RestHighLevelClient(
+                RestClient.builder(new HttpHost("localhost", 9200, "http"))
+        );
 
-    DeleteRequest request = new DeleteRequest();
-    request.index("user").id("1001");
+        // 删除文档数据
+        DeleteRequest request = new DeleteRequest();
+        request.index("user").id("1001");
 
-    DeleteResponse delete = esClient.delete(request, RequestOptions.DEFAULT);
-    System.out.println(delete.toString());
+        DeleteResponse response = client.delete(request, RequestOptions.DEFAULT);
+        System.out.println(response.getResult());
 
-
-
-    esClient.close();
-  }
+        client.close();
+    }
 }
 
 ```
