@@ -15,7 +15,7 @@ docker network create es-net
 ```
 2. ##### 拉取镜像
 ```bash
-docker pull elasticsearch
+docker pull elasticsearch:8.6.0
 ```
 3. ##### 创建挂载点目录
 ```bash
@@ -760,7 +760,7 @@ public class EsDocQuery {
 
 ```
 
-11. 匹配查询
+12. ##### 匹配查询
 
 ```java
 package com.atguigu.es.test;
@@ -802,7 +802,7 @@ public class EsTest_Doc_Query2 {
 
 ```
 
-12. 分页查询
+13. ##### 分页查询
 
 ```java
 package com.atguigu.es.test;
@@ -850,7 +850,7 @@ public class EsTest_Doc_Query3 {
 
 ```
 
-13. 组合查询
+14. ##### 组合查询
 
 ```java
 package com.atguigu.es.test;
@@ -903,7 +903,7 @@ public class EsTest_Doc_Query5 {
 }
 ```
 
-14. 模湖查询
+14. ##### 模湖查询
 
 ```java
 package com.atguigu.es.test;
@@ -955,7 +955,7 @@ public class EsTest_Doc_Query6 {
 
 ```
 
-15. 高亮查询
+16. ##### 高亮查询
 
 ```java
 package com.atguigu.es.test;
@@ -1014,4 +1014,8 @@ public class EsTest_Doc_Query7 {
 }
 
 ```
+## estic8.0
+
+
+
 <!-- [last](https://www.bilibili.com/video/BV1hh411D7sb?p=1&vd_source=10257e657caa8b54111087a9329462e8) -->
