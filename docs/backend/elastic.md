@@ -1,36 +1,82 @@
 # elastic
 
-### 索引增删改查
+## docker安装elastic
 
-1. 创建索引
+1. ##### 创建自定义网络
+```bash
+docker network create es-net
+```
+2. ##### 拉取镜像
+```bash
+docker pull elasticsearch
+```
+3. ##### 创建挂载点目录
+```bash
+mkdir -p /usr/local/es/data /usr/local/es/config /usr/local/es/plugins
+```
+4. ##### 部署单点es，创建es容器
+```bash
+docker run -d \
+--restart=always \
+--name es \
+--network es-net \
+-p 9200:9200 \
+-p 9300:9300 \
+--privileged \
+-v /usr/local/es/data:/usr/share/elasticsearch/data \
+-v /usr/local/es/plugins:/usr/share/elasticsearch/plugins \
+-e "discovery.type=single-node" \
+-e "ES_JAVA_OPTS=-Xms512m -Xmx512m" \
+elasticsearch
+```
+
+5. ##### 编写elasticsearch.yml
+```bash
+docker exec -it es /bin/bash
+cd config
+echo 'xpack.security.enabled: false' >> elasticsearch.yml
+exit
+```
+6. ##### 重启es容器
+```bash
+docker restart es
+```
+7. ##### 测试是否安装成功
+```bash
+http://localhost:9200/
+```
+
+## 索引增删改查
+
+1. ##### 创建索引
 
 ```bash
 PUT localhost:9200/shopping
 ```
 
-2. 获取索引
+2. ##### 获取索引
 
 ```bash
 GET localhost:9200/shopping
 ```
 
-3. 查看所有索引
+3. ##### 查看所有索引
 
 ```bash
 GET localhost:9200/_cat/indices?v
 ```
 
-4. 删除索引
+4. ##### 删除索引
 
 ```bash
 DELETE localhost:9200/shopping
 ```
 
-### 文档删改查
+## 文档删改查
 
-1. 创建文档
+1. ##### 创建文档
 
-```
+```bash
 POST localhost:9200/shopping/_doc
 {
     "title":"晓智科技",
