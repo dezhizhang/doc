@@ -191,6 +191,7 @@ GET localhost:9200/shopping/_search
 5. ##### 排序查询
 
 ```bash
+GET localhost:9200/shopping/_search
 {
     "query":{
         "match_all":{
@@ -208,24 +209,45 @@ GET localhost:9200/shopping/_search
    
 }
 ```
-
-
-4. 完全匹配
-
+6. ##### 条件查询
 ```bash
 GET localhost:9200/shopping/_search
 {
     "query":{
-        "match":{
-            "title":"晓智"
+        "bool":{
+            "must":[{
+                "match":{
+                    "category":"小米"
+                }   
+            },
+            {
+                "match":{
+                    "price":3999
+                }
+            }
+            ]
         }
     }
 }
 ```
 
-5. 高亮显示
-
+7. ##### 全文检索
+```bash
+GET localhost:9200/shopping/_search
+{
+    "query":{
+        "match":{
+            "category":"米"
+        }
+    }
+}
 ```
+
+
+
+8. ##### 高亮显示
+
+```bash
 GET localhost:9200/shopping/_search
 {
     "query":{
@@ -241,9 +263,9 @@ GET localhost:9200/shopping/_search
 }
 ```
 
-6. 聚合操作
+10. ##### 聚合操作
 
-```
+```bash
 GET localhost:9200/shopping/_search
 {
     "aggs":{
@@ -257,9 +279,9 @@ GET localhost:9200/shopping/_search
 }
 ```
 
-7. 创建映射
+11. ##### 创建映射
 
-```
+```bash
 PUT localhost:9200/user/_mapping
 {
     "properties":{
@@ -279,9 +301,9 @@ PUT localhost:9200/user/_mapping
 }
 ```
 
-8. 映射查询
+12. ##### 映射查询
 
-```
+```bash
 GET localhost:9200/user/_search
 
 {
