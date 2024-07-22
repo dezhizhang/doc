@@ -31,7 +31,7 @@ class Vehicle {
 }
 
 ```
-2. ### 接口隔离原则
+2. ##### 接口隔离原则
 ```java
 package sergregation;
 
@@ -116,6 +116,90 @@ class D implements Interface1,Interface3{
     }
 }
 
+```
+3. ##### 依赖倒置
+```java
+package shop.xiaozhi.inversion;
+
+public class DependInversion {
+    public static void main(String[] args) {
+        Person person = new Person();
+        person.receive(new Email());
+
+        // 微信
+        person.receive(new WeiXin());
+    }
+}
+
+// 定义接口
+interface IReceiver {
+    public String getInfo();
+}
+
+// 电子邮件
+class Email implements IReceiver {
+    @Override
+    public String getInfo() {
+        return "电子邮箱信息：1541609448@qq.com";
+    }
+}
+
+class WeiXin implements IReceiver {
+    public String getInfo() {
+        return "微信信息：15992478448";
+    }
+}
+
+class Person{
+   public void receive(IReceiver receiver) {
+       System.out.println(receiver.getInfo());
+   };
+}
+```
+3. ##### 里氏替换原则
+```java
+package shop.xiaozhi.liskov;
+
+public class Liskov {
+    public static void main(String[] args) {
+        A a = new A();
+        System.out.println("1-3=" + a.func1(11,3));
+        System.out.println("1-8=" + a.func1(1,8));
+
+        System.out.println("--------------------");
+        B b = new B();
+        System.out.println("11+3=" + b.func1(11,3));
+        System.out.println("1+8=" + b.func1(1,8));
+        System.out.println("11-3=" + b.func3(11,3));
+    }
+}
+
+class Base {
+
+}
+
+
+class A extends Base {
+    public int func1(int num1, int num2) {
+        return num1 - num2;
+    }
+}
+
+
+class B extends Base {
+    A a = new A();
+    public int func1(int num1, int num2) {
+        return num1 + num2;
+    }
+
+    public int func2(int num1, int num2) {
+        return func1(num1, num2) + 9;
+    }
+
+    public int func3(int num1, int num2) {
+        return a.func1(num1, num2);
+    }
+}
 ```
 
 ### 依赖倒置

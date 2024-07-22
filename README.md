@@ -16,12 +16,3 @@ $ pnpm run build
 ```
 
 ## LICENSE
-
-MIT
-
-
-
-Password: aHhRWz3X2tsMCh0MS0ir7gqsT/o6zB7CG/7XyWx0hUI=
-
-
-docker login --username=3142922546@qq.com registry.cn-guangzhou.aliyuncs.com
