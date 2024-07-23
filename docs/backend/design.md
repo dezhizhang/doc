@@ -455,6 +455,333 @@ class Singleton{
 }
 
 ```
+7. ##### 枚举类型单例
+- 这借助jdk1.5中添加的枚举来实现单例模式,不仅能避免多线程问题，而且还能防止反序列化重新创建新的对像
+- 这种方式是Effective java 作者Josh Bloch提倡的方式
+```java
+package shop.xiaozhicloud.singleton;
+
+public class SingletonTest7 {
+    public static void main(String[] args) {
+        Singleton s1 =Singleton.INSTANCE;
+        Singleton s2 =Singleton.INSTANCE;
+        System.out.println(s1.hashCode() == s2.hashCode());
+    }
+}
+enum Singleton{
+    INSTANCE;
+    public void sayOk() {
+        System.out.println("sayOk");
+    }
+}
+```
+### 工厂模式
+
+1. ##### 工厂方法模式
+![工厂方法模式](../../public/mthfactory.png)
+```java
+package shop.xiaozhicloud.factory.method;
+
+public abstract class Pizza {
+    protected String name;
+
+    public abstract void prepare();
+
+    public void bake() {
+        System.out.println(this.name + " bake complete.");
+    }
+
+    public void cut() {
+        System.out.println(this.name + " cut complete.");
+    }
+
+    public void box() {
+        System.out.println(this.name + " box complete.");
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+}
+
+//---------------------------------------
+package shop.xiaozhicloud.factory.method;
+
+public class LDPepperPizza extends Pizza {
+    @Override
+    public void prepare() {
+        setName("伦敦的胡椒pizza");
+        System.out.println("伦敦的胡椒pizza准备原材料");
+    }
+}
+
+//---------------------------------------
+package shop.xiaozhicloud.factory.method;
+
+public class LDCheesePizza extends Pizza {
+    @Override
+    public void prepare() {
+        setName("伦敦奶酪pizza");
+        System.out.println("伦敦奶酪准备原材料pizza");
+    }
+}
+
+//---------------------------------------
+package shop.xiaozhicloud.factory.method;
+
+public class BjPepperPizza extends Pizza {
+    @Override
+    public void prepare() {
+        setName("北京胡椒pizza");
+        System.out.println("北京胡椒pizza准备原材料");
+    }
+
+}
+
+//---------------------------------------
+package shop.xiaozhicloud.factory.method;
+
+public class BjCheesePizza extends Pizza {
+
+    public void prepare() {
+        setName("北京奶酪pizza");
+        System.out.println("北京奶酪准备原材料pizza");
+    }
+}
+
+//---------------------------------------
+
+package shop.xiaozhicloud.factory.method.order;
+
+import shop.xiaozhicloud.factory.method.Pizza;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+abstract class OrderPizza {
+   abstract Pizza createPizza(String pizzaName);
+
+   public OrderPizza() {
+       Pizza pizza = null;
+       String pizzaName = null;
+
+       do{
+           pizzaName = getType();
+           pizza = createPizza(pizzaName);
+           pizza.prepare();
+           pizza.bake();
+           pizza.cut();
+           pizza.box();
+
+       }while(true);
+   }
+
+    public String getType() {
+        try{
+            BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+            System.out.println("input pizza type:");
+            return in.readLine();
+        }catch (IOException e) {
+            System.out.println(e);
+            return "";
+        }
+    }
+
+}
+
+//---------------------------------------
+package shop.xiaozhicloud.factory.method.order;
+
+import shop.xiaozhicloud.factory.method.LDCheesePizza;
+import shop.xiaozhicloud.factory.method.LDPepperPizza;
+import shop.xiaozhicloud.factory.method.Pizza;
+
+public class LDOrderPizza extends OrderPizza {
+
+    @Override
+    Pizza createPizza(String pizzaName) {
+        Pizza pizza = null;
+        if(pizzaName.equals("cheese")){
+            pizza = new LDCheesePizza();
+        }else if(pizzaName.equals("pepper")){
+            pizza = new LDPepperPizza();
+        }
+        return pizza;
+    }
+}
+
+//---------------------------------------
+package shop.xiaozhicloud.factory.method.order;
+
+import shop.xiaozhicloud.factory.method.BjCheesePizza;
+import shop.xiaozhicloud.factory.method.BjPepperPizza;
+import shop.xiaozhicloud.factory.method.Pizza;
+
+public class BJOrderPizza extends OrderPizza {
+
+    @Override
+    Pizza createPizza(String pizzaName) {
+        Pizza pizza = null;
+        if(pizzaName.equals("cheese")){
+            pizza = new BjCheesePizza();
+        }else if(pizzaName.equals("pepper")){
+            pizza = new BjPepperPizza();
+        }
+        return pizza;
+    }
+}
+
+//---------------------------------------
+package shop.xiaozhicloud.factory.method.order;
+
+public class PizzaStore {
+    public static void main(String[] args) {
+        // 创建北京
+        new BJOrderPizza();
+    }
+}
+```
+
+2. ##### 抽像工厂模式
+![工厂方法模式](../../public/absfactory.png)
+```java
+package shop.xiaozhicloud.factory.absfactory;
+
+public abstract class Pizza {
+    protected String name;
+
+    public abstract void prepare();
+
+    public void bake() {
+        System.out.println(this.name + " bake complete.");
+    }
+
+    public void cut() {
+        System.out.println(this.name + " cut complete.");
+    }
+
+    public void box() {
+        System.out.println(this.name + " box complete.");
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+}
+//---------------------------------------
+package shop.xiaozhicloud.factory.absfactory;
+
+public class BjPepperPizza extends Pizza {
+    @Override
+    public void prepare() {
+        setName("北京胡椒pizza");
+        System.out.println("北京胡椒pizza准备原材料");
+    }
+
+}
+//---------------------------------------
+package shop.xiaozhicloud.factory.absfactory;
+
+
+public class BjCheesePizza extends Pizza {
+
+    public void prepare() {
+        setName("北京奶酪pizza");
+        System.out.println("北京奶酪准备原材料pizza");
+    }
+}
+//---------------------------------------
+package shop.xiaozhicloud.factory.absfactory.order;
+
+import shop.xiaozhicloud.factory.absfactory.Pizza;
+
+public interface AbsFactory {
+    public Pizza createPizza(String orderType);
+}
+//---------------------------------------
+package shop.xiaozhicloud.factory.absfactory.order;
+
+import shop.xiaozhicloud.factory.absfactory.Pizza;
+import shop.xiaozhicloud.factory.absfactory.BjCheesePizza;
+import shop.xiaozhicloud.factory.absfactory.BjPepperPizza;
+
+public class BJFactory implements AbsFactory {
+
+    @Override
+    public Pizza createPizza(String orderType) {
+
+        Pizza pizza = null;
+        if(orderType.equals("cheese")){
+            pizza = new BjCheesePizza();
+        }else if(orderType.equals("pepper")){
+            pizza = new BjPepperPizza();
+        }
+
+        return pizza;
+    }
+}
+//---------------------------------------
+package shop.xiaozhicloud.factory.absfactory.order;
+
+import shop.xiaozhicloud.factory.absfactory.Pizza;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class OrderPizza {
+  AbsFactory factory;
+
+
+  public OrderPizza(AbsFactory factory) {
+      setFactory(factory);
+  }
+
+  private void setFactory(AbsFactory factory) {
+      Pizza pizza = null;
+      String orderType = "";
+      this.factory = factory;
+
+      do {
+          orderType = getType();
+          pizza = factory.createPizza(orderType);
+
+          if(pizza != null) {
+              pizza.prepare();
+              pizza.bake();
+              pizza.cut();
+              pizza.box();
+          }else{
+              System.out.println("订购失败");
+              break;
+          }
+      }while (true);
+  }
+
+    public String getType() {
+        try{
+            BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+            System.out.println("input pizza type:");
+            return in.readLine();
+        }catch (IOException e) {
+            System.out.println(e);
+            return "";
+        }
+    }
+
+}
+//---------------------------------------
+package shop.xiaozhicloud.factory.absfactory.order;
+
+public class PizzaStore {
+    public static void main(String[] args) {
+        new OrderPizza(new BJFactory());
+    }
+}
+```
 
 
 
