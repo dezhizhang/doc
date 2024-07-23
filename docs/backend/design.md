@@ -1,5 +1,14 @@
 # design
 
+
+
+| 项目              | 地址                                           |
+| :----------------------- | :--------------------------------------- |
+| 晓智科技                 | [晓智科技](https://xiaozhi.shop)|
+| 晓智文档                 | [晓智文档](https://doc.xiaozhi.shop/backend/design) |
+| 文档源码                 | [文档源码](https://github.com/dezhizhang/doc) |
+
+
 ## 设计模式七大原则
 
 1. ##### 单一职责原则
@@ -156,7 +165,7 @@ class Person{
    };
 }
 ```
-3. ##### 里氏替换原则
+4. ##### 里氏替换原则
 ```java
 package shop.xiaozhi.liskov;
 
@@ -201,6 +210,54 @@ class B extends Base {
     }
 }
 ```
+
+4. ##### 开闭原测
+```java
+package shop.xiaozhi.ocp;
+
+public class Ocp {
+    public static void main(String[] args) {
+        GraphicEditor graphicEditor = new GraphicEditor();
+        graphicEditor.drawShape(new Circle());
+        graphicEditor.drawShape(new Rectangle());
+
+    }
+}
+
+class GraphicEditor{
+    public void drawShape(Shape s){
+        s.draw();
+    }
+}
+
+
+abstract class Shape {
+    public abstract void draw();
+}
+
+class Circle extends Shape {
+
+    @Override
+    public void draw() {
+        System.out.println("draw circle");
+    }
+}
+
+class Rectangle extends Shape {
+
+    @Override
+    public void draw() {
+        System.out.println("draw rectangle");
+    }
+}
+
+```
+
+
+
+
+
+
 
 ### 依赖倒置
 ```java
