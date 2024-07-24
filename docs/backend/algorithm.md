@@ -405,7 +405,7 @@ public void update(HeroNode heroNode) {
     System.out.printf("没有找到编号为%d的节点",heroNode.no);
 }
 ```
-4. ##### 单链表按no来删除节点
+3. ##### 单链表按no来删除节点
 ```java
 public void del(int no) {
     HeroNode temp = head;
@@ -428,7 +428,23 @@ public void del(int no) {
     }
     System.out.println("删除的节点不存在");
 }
-````
+```
+4. ##### 统计单链中有效节点的个数
+```java
+ public static  int getLength(HeroNode head) {
+    if(head.next == null) {
+        return 0;
+    }
+    int length = 0;
+    // 定义一个临时变量
+    HeroNode cur = head.next;
+    while (cur != null) {
+        length++;
+        cur = cur.next;
+    }
+    return  length;
+}
+```
 
 
 
