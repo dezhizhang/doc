@@ -475,6 +475,30 @@ public static HeroNode findLastIndexNode(HeroNode head,int index) {
     return cur;
 }
 ```
+6. ##### 单链表反转
+- 遍历原来的链表，每遍历一个节点，就将其取出，并放在新的链表reverseHead的最前端
+![链表](../../public/algorithm/reverselinked.png)
+``` java   
+public static void reverseList(HeroNode head) {
+    // 如果当前链表为空或只有一个节点无需反转直接返回
+    if(head.next == null || head.next.next == null) {
+        return;
+    }
+    // 定义一个临时变量
+    HeroNode cur = head.next;
+    HeroNode next = null;
+    HeroNode reverseHead = new HeroNode(0,"","");
+    // 遍历原来的链表，每遍历一个节点，就将其取出，并放在新的链表reverseHead的最前端
+    while (cur != null) {
+        next = cur.next; // 先暂时保存当前节点换下一个节点，因为后面需要使用
+        cur.next = reverseHead.next; // 将cur的下一个节点指向新的链表的最前端
+        reverseHead.next = cur;
+        cur = next; // 让cur后移
+    }
+    // 将head.next指向reverseHead.next实现单链表的反转
+    head.next = reverseHead.next;
+}
+```
 
 
 
