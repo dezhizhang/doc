@@ -114,4 +114,74 @@ public class SparseArray {
 }
 
 ```
+## 队列
+1. ### 基本介绍
+- 队列是一个有序列表，可以用数组或链表来实现
+- 先入先出的原则，即：先存入队列的数据，要先取出，后存入的数据要后取出
+![队列](../../public/algorithm/queue.png)
+
+2. ### 思路分析
+- 将尾指针往后移near+1当front=near数据为空
+- 苦尾指针near小于队列的最大下标maxSize-1,则将数据存入near所指的数据元素中，否则无法存入数据，near==maxSize-1队列满
+3. ### 代码实现
+```java
+// 使用数组模拟列表
+class ArrayQueue {
+    private final int maxSize; //表示数组的最大容量
+    private int front; // 队列头
+    private int rear; // 队列尾
+    private final int[] array; // 用于存放数据
+    // 创建隐列构造器
+    public ArrayQueue(int maxSize) {
+        this.maxSize = maxSize;
+        this.front = -1;
+        this.rear = -1;
+        this.array = new int[maxSize];
+    }
+    // 判断队列是否满
+    public boolean isFull() {
+        return rear == maxSize - 1;
+    }
+    // 判断隐表是否为空
+    public boolean isEmpty() {
+        return rear == front;
+    }
+    // 添加数据到队列中
+    public void addQueue(int value) {
+        if(isFull()) {
+            System.out.println("队列满不能加入数据");
+            return;
+        }
+        rear++; // 让rear后移
+        array[rear] = value;
+    }
+    public int getQueue() {
+        // 判断队列是否为空
+        if(isEmpty()) {
+            // 通过出异常
+            throw new RuntimeException("队列为空不能取数据");
+        }
+        front++;
+        return array[front];
+    }
+    // 显示队列所有数据
+    public void showQueue() {
+        for(int i=0;i < array.length;i++) {
+            System.out.printf("arr[%d]=%d\n",i,array[i]);
+        }
+    }
+    // 显示队列的头数据,注意不是取数据
+    public int headQueue() {
+        if(isEmpty()) {
+           throw new RuntimeException("队列为空不能取数据");
+        }
+        return array[front+1];
+    }
+
+}
+```
+
+
+
+
 <!-- [https://www.bilibili.com/video/BV1E4411H73v?p=9&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8] -->
