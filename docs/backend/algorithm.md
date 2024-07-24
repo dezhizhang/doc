@@ -273,7 +273,11 @@ class CircleArrayQueue {
 1. ### 基本介绍
 - 链表是以节点的方式来存储，每个节点包含data域,next域指向下一个节点
 - 链表分为带头节点的链表和没有头节点的链表
+2. ### 思路分析
+
 ![链表](../../public/algorithm/linkedlist.png)
+
+3. ### 代码实现
 
 1. ##### 按顺序添加单项链表
 ```java
@@ -443,6 +447,32 @@ public void del(int no) {
         cur = cur.next;
     }
     return  length;
+}
+```
+5. ##### 查找单链表第k个节点
+- 编写一个方法接收head节点同时接收index
+- index表示倒数第index个节点
+- 先把链表从头到尾遍历得到链表的总长度getLength
+- 得到size后从链表的第一个开始遍历(size - index)个就得到倒数第k个节点
+- 如果找到则返回该节点，否则返回null
+```java
+public static HeroNode findLastIndexNode(HeroNode head,int index) {
+    // 判断如果链表为空则返回null
+    if(head.next == null) {
+        return null;
+    }
+    // 遍历得到链表的长度
+    int size = getLength(head);
+    // index超过链界返回null
+    if(index < 0 || index > size) {
+        return null;
+    }
+    // 定义一个临时变量 循环定位到倒数的index
+    HeroNode cur = head.next;
+    for(int i = 0;i < size - index;i++) {
+        cur = cur.next;
+    }
+    return cur;
 }
 ```
 
