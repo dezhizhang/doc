@@ -507,7 +507,8 @@ public static void reverseList(HeroNode head) {
 
 ![链表](../../public/algorithm/doubleliked.png)
 
-3. ### 双向链表增册改查
+3. ### 代码实现
+1. ##### 双向链表增删改查
 ```java
 package shop.xiaozhi.linkedlist;
 class  DoubleLinkedListTest{
@@ -656,9 +657,94 @@ class  HeroNode2{
     }
 }
 ```
+## 单向环形链表
 
+1. ### 基本介绍
+- 约瑟夫问题是个有名的问题：N个人围成一圈，从第一个开始报数，第M个将被杀掉，最后剩下一个，其余人都将被杀掉。例如N=6，M=5，被杀掉的顺序是：5，4，6，2，3。
 
+2. ### 思路分析
+- 先创建第一个节点，让first指向该节点并形成环形
+- 后面当我们每创建一个新的节点，就把该节点加入到已有的环形链表中即可
+- 先让一个辅用力指针temp指向first节点
+- 然后通过while循环遍历该环形链表即可temp.next == first结束
+![链表](../../public/algorithm/circularlinkedlist.png)
 
+3. ### 代码实现
+```java
+package shop.xiaozhi.linkedlist;
+public class SingleCircleLinkedListTest {
+    public static void main(String[] args) {
+        SingleCircleLinkedList singleCircleLinkedList = new SingleCircleLinkedList();
+        singleCircleLinkedList.addBoy(5);
+        singleCircleLinkedList.showBoy();
+    }
+}
+// 创建一个环形链表
+class SingleCircleLinkedList{
+    // 创建一个first节点当前没有编号
+    private Boy first = null;
+    public void addBoy(int nums) {
+        if(nums < 1) {
+            System.out.println("n的值不能小于1");
+            return;
+        }
+        Boy curBoy = null;
+        for(int i = 1;i <=nums;i++) {
+            // 概据编号创建小孩节点
+            Boy boy = new Boy(i);
+            if(i == 1) {
+                first = boy;
+                first.setNext(first); // 构成环
+                curBoy = first; // 让curBoy指向第一个小孩
+            }else {
+                curBoy.setNext(boy);
+                boy.setNext(first);
+                curBoy = boy;
+            }
+        }
+    }
+    // 遍历当前
+    public void showBoy() {
+        if(first == null) {
+            System.out.println("没有任何小孩~~");
+            return;
+        }
+        // 因为first不能动，因些使用一个临时变量
+        Boy curBoy = first;
+        while (true) {
+            System.out.printf("小孩的编号%d\n",curBoy.getNo());
+            if(curBoy.getNext() == first) {
+                break;
+            }
+            curBoy = curBoy.getNext();
+        }
+
+    }
+}
+class Boy{
+    private int no; // 编号
+    private Boy next; // 指向下一个节点默认null
+    public Boy(int no) {
+        this.no = no;
+    }
+
+    public int getNo() {
+        return no;
+    }
+
+    public Boy getNext() {
+        return next;
+    }
+
+    public void setNo(int no) {
+        this.no = no;
+    }
+
+    public void setNext(Boy next) {
+        this.next = next;
+    }
+}
+```
 
 
 <!-- [https://www.bilibili.com/video/BV1E4411H73v?p=9&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8] -->
