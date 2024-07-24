@@ -405,6 +405,30 @@ public void update(HeroNode heroNode) {
     System.out.printf("没有找到编号为%d的节点",heroNode.no);
 }
 ```
+4. ##### 单链表按no来删除节点
+```java
+public void del(int no) {
+    HeroNode temp = head;
+    // 标识是否找到待删除节点
+    boolean flag = false;
+    while (true) {
+        // 已经到链表的最后
+        if(temp.next == null) {
+            break;
+        }
+        if(temp.next.no == no) {
+            flag = true;
+            break;
+        }
+        temp = temp.next;
+    }
+    if(flag) {
+        temp.next = temp.next.next;
+        return;
+    }
+    System.out.println("删除的节点不存在");
+}
+````
 
 
 
