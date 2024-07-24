@@ -1,5 +1,15 @@
 # algorithm
 
+| 项目              | 地址                                           |
+| :----------------------- | :--------------------------------------- |
+| 晓智科技                 | [晓智科技](https://xiaozhi.shop)|
+| 晓智文档                 | [晓智文档](http://localhost:8000/backend/algorithm) |
+| 源码地址                 | [源码地址](https://github.com/dezhizhang/java-awesome/tree/main/algorithm)|
+| 文档源码                 | [文档源码](https://github.com/dezhizhang/doc) |
+
+
+
+
 ## 数据结构和算法的概述
 
 ### 数据结构与算法的关系
@@ -257,9 +267,13 @@ class CircleArrayQueue {
     public int size() {
         return (near + maxSize - front) % maxSize;
     }
-
 }
 ```
+## 链表
+1. ### 基本介绍
+- 链表是以节点的方式来存储，每个节点包含data域,next域指向下一个节点
+- 链表分为带头节点的链表和没有头节点的链表
+![链表](../../public/algorithm/linkedlist.png)
 
 
 
