@@ -8,8 +8,6 @@
 | 文档源码                 | [文档源码](https://github.com/dezhizhang/doc) |
 
 
-
-
 ## 数据结构和算法的概述
 
 ### 数据结构与算法的关系
@@ -858,6 +856,65 @@ class ArrayStack{
     }
 }
 ```
+### 栈的后缀表过式(逆波兰表达式)
+- 从左至右扫描，遇到数字入栈
+- 遇到运算符弹出栈顶元素和次顶元素计算再入栈
+```java
+package shop.xiaozhi.stack;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Stack;
+
+public class PolandNotation {
+    public static void main(String[] args) {
+        // 先定义波兰表达式
+        String suffixExpression = "3 4 + 5 * 6 -";
+        List<String> list = getListString(suffixExpression);
+        int res = calculate(list);
+        System.out.println(res);
+    }
+    // 将一个波兰表达式，依次将数据和运算符放入到ArrayList中
+    public static List<String> getListString(String suffixExpression) {
+        // 将suffixExpression分割
+        String[] split = suffixExpression.split(" ");
+        List<String> list = new ArrayList<String>();
+        Collections.addAll(list, split);
+        return list;
+    }
+    // 完成对逆波兰表达式的运算
+    public static int calculate(List<String> list) {
+        Stack<String> stack = new Stack<String>();
+        for (String item : list) {
+            //正则表过式来取数
+            if (item.matches("\\d+")) {
+                stack.push(item);
+            } else {
+                // pop出两个数并运入再入栈
+                int num2 = Integer.parseInt(stack.pop());
+                int num1 = Integer.parseInt(stack.pop());
+
+                int result = 0;
+
+                if (item.equals("+")) {
+                    result = num1 + num2;
+                } else if (item.equals("-")) {
+                    result = num1 - num2;
+                } else if (item.equals("*")) {
+                    result = num1 * num2;
+                } else if (item.equals("/")) {
+                    result = num1 / num2;
+                } else {
+                    throw new RuntimeException("运算符有误");
+                }
+                stack.push(result + "");
+            }
+        }
+        return Integer.parseInt(stack.pop());
+    }
+}
+```
+
 
 #
 <!-- [https://www.bilibili.com/video/BV1r34y1r7ht/?p=30&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8] -->
