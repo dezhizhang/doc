@@ -247,5 +247,100 @@ public class Solution {
     }
 }
 ```
+### 合并两个有序链表
+- 将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 
+```java
+package shop.xiaozhi.mergetwo;
+public class Solution {
+    public static void main(String[] args) {
 
+    }
+    public static ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        if (list1 == null) return list2;
+        if (list2 == null) return list1;
+        ListNode resultNode = new ListNode(0);
+        ListNode p = resultNode;
+        while (list1 != null && list2 != null) {
+            if (list1.val < list2.val) {
+                p.next = list1;
+                list1 = list1.next;
+            } else {
+                p.next = list2;
+                list2 = list2.next;
+            }
 
+            p = p.next;
+        }
+        if (list1 != null) p.next = list1;
+        if (list2 != null) p.next = list2;
+        return resultNode.next;
+
+    }
+    public static ListNode mergeTwoLists2(ListNode list1, ListNode list2) {
+        if(list1 == null) return list2;
+        if(list2 == null) return list1;
+
+        if(list1.val < list2.val) {
+            list1.next = mergeTwoLists2(list1.next,list2);
+            return list1;
+        }
+        list2.next = mergeTwoLists2(list1,list2.next);
+        return list2;
+
+    }
+}
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode() {
+    }
+    ListNode(int val) {
+        this.val = val;
+    }
+    ListNode(int val, ListNode next) {
+        this.val = val;
+        this.next = next;
+    }
+}
+```
+### 删除排序链表中的重复元素
+- 给定一个已排序的链表的头 head ， 删除所有重复的元素，使每个元素只出现一次 。返回 已排序的链表 。
+```java
+package shop.xiaozhi.deleteDuplicates;
+// 删除排序链表中的重复元素
+// 给定一个已排序的链表的头 head ， 删除所有重复的元素，使每个元素只出现一次 。返回 已排序的链表 。
+// https://leetcode.cn/problems/remove-duplicates-from-sorted-list/description/
+public class Solution {
+    public static void main(String[] args) {
+
+    }
+    public ListNode deleteDuplicates(ListNode head) {
+        if (head == null) {
+            return head;
+        }
+        ListNode currentNode = head;
+        while (null != currentNode.next) {
+            if (currentNode.next.val == currentNode.val) {
+                currentNode.next = currentNode.next.next;
+            } else {
+                currentNode = currentNode.next;
+            }
+        }
+        return head;
+    }
+}
+
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode() {
+    }
+    ListNode(int val) {
+        this.val = val;
+    }
+    ListNode(int val, ListNode next) {
+        this.val = val;
+        this.next = next;
+    }
+}
+```
