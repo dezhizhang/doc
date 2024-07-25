@@ -803,6 +803,61 @@ class Boy {
     }
 }
 ```
+## 栈
 
+1. ### 基本介绍
+- 栈是一个先入后出的有序列表
+- 栈是限制线性表中元素的插入和删除只能在线性表的同一端进行的一种特殊线性表，允许插入和删除的一端为变化的一端，称为栈顶，另一端为固定的一端称为栈底。
+![栈](../../public/algorithm/stack.png)
+2. ### 代码实现
+```java
+class ArrayStack{
+    private int maxSize; // 栈的大小
+    private int[] stack; // 存放数据
+    private int top = -1;
+    public ArrayStack(int maxSize) {
+        this.maxSize = maxSize;
+        stack = new int[this.maxSize];
+    }
+    // 栈满
+    public boolean isFull() {
+        return  top == maxSize -1;
+    }
+    // 栈空
+    public boolean isEmpty() {
+        return  top == -1;
+    }
+    // 入栈
+    public void push(int value) {
+        if(isFull()) {
+            System.out.println("栈满");
+            return;
+        }
+        top++;
+        stack[top] = value;
+    }
+    // 出栈
+    public int pop() {
+        // 判断栈是不为空
+        if(isEmpty()) {
+            throw new RuntimeException("栈空");
+        }
+        int value = stack[top];
+        top--;
+        return value;
+    }
+    // 显示栈
+    public void list() {
+        if(isEmpty()) {
+            System.out.println("栈空");
+            return;
+        }
+        for(int i=top;i >=0;i--) {
+            System.out.printf("stack[%d]=%d\n",i,stack[i]);
+        }
+    }
+}
+```
 
+#
 <!-- [https://www.bilibili.com/video/BV1r34y1r7ht/?p=30&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8] -->
