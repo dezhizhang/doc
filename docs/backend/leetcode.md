@@ -1,7 +1,7 @@
 # leetcode
-## 认识复杂度和简单排序算法
+### 认识复杂度和简单排序算法
 
-### 常数时间的操作
+###### 常数时间的操作
 - 一个操作如果和样本的数量没有关系，每次都是固定时间内完成的操作，叫作常数操作。
 - 时间复杂度在一个算法流程中，常数操作数量的一个指标。常数O（读作big O）来表示，具体来说先要对一个算法流程非常熟悉，然后去写出这个算法流程中发生了多少常数操作，进而总结出常数操作数量的表过式。
 - 在表过式中只要高阶项，不要低阶项，要不要高阶项的系数，剩下的部分如果为f(N),那么时间复杂度为O(f(N));
@@ -108,4 +108,43 @@ public class Solution {
     }
 }
 ```
+### 合并两个有序数组
+- 给你两个按 非递减顺序 排列的整数数组 nums1 和 nums2，另有两个整数 m 和 n ，分别表示 nums1 和 nums2 中的元素数目。
+- 请你 合并 nums2 到 nums1 中，使合并后的数组同样按 非递减顺序 排列。
+- 注意：最终，合并后数组不应由函数返回，而是存储在数组 nums1 中。为了应对这种情况，nums1 的初始长度为 m + n，其中前 m 个元素表示应合并的元素，后 n 个元素为 0 ，应忽略。nums2 的长度为 n 。
+```java
+package shop.xiaozhi.merge;
+import java.util.Arrays;
+
+public class Solution {
+    public static void main(String[] args) {
+        int[] nums1 = {1,2,3,0,0,0};
+        int[] nums2 = {2,5,6};
+        merge(nums1,3,nums2,3);
+        System.out.println(Arrays.toString(nums1));
+    }
+    public static void merge(int[] nums1, int m, int[] nums2, int n) {
+        int k = m + n;
+        int[] temp = new int[k];
+        for(int index = 0,nums1Index = 0,nums2Index = 0;index < k;index++) {
+            if(nums1Index >= m) {
+                //mums1数组已经取完完全取nums2数组的值即可
+                temp[index] = nums2[nums2Index++];
+            }else if(nums2Index >=n) {
+                //mums2数组已经取完，完全取nums1数组的值即可
+                temp[index] = nums1[nums1Index++];
+            }else if(nums1[nums1Index] < nums2[nums2Index]) {
+                // nums1数组的元素小于num2数组,取nums1数据的值
+                temp[index] = nums1[nums1Index++];
+            }else {
+                temp[index] = nums2[nums2Index++];
+            }
+        }
+        for(int i=0;i < k;i++) {
+            nums1[i] = temp[i];
+        }
+    }
+}
+```
+
 
