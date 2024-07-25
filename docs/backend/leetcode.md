@@ -1,4 +1,11 @@
 # leetcode
+| 项目              | 地址                                           |
+| :----------------------- | :--------------------------------------- |
+| 晓智科技                 | [晓智科技](https://xiaozhi.shop)|
+| 晓智文档                 | [晓智文档](https://doc.xiaozhi.shop/backend/elastic) |
+| 源码地址                 | [源码地址](https://github.com/dezhizhang/java-awesome/tree/main/es)|
+| 文档源码                 | [文档源码](https://github.com/dezhizhang/doc) |
+
 ### 认识复杂度和简单排序算法
 
 ###### 常数时间的操作
@@ -7,7 +14,6 @@
 - 在表过式中只要高阶项，不要低阶项，要不要高阶项的系数，剩下的部分如果为f(N),那么时间复杂度为O(f(N));
 - 评价一个算法流程的好坏，先看时间复杂度的指标，然后再分析不同数据样本下的实际运行时间，也就是“常数项时间”。
 
-# leetcode
 ### 爬楼梯
 - 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。
 - 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
@@ -200,6 +206,44 @@ public class Solution {
         for(int i=j;i < nums.length;i++) {
             nums[i] = 0;
         }
+    }
+}
+```
+###  找到所有数组中消失的数字
+- 给你一个含 n 个整数的数组 nums ，其中 nums[i] 在区间 [1, n] 内。请你找出所有在 [1, n] 范围内但没有出现在 nums 中的数字，并以数组的形式返回结果。
+```java
+package shop.xiaozhi.disappeared;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+// 找到所有数组中消失的数字
+// 给你一个含 n 个整数的数组 nums ，其中 nums[i] 在区间 [1, n] 内。请你找出所有在 [1, n] 范围内但没有出现在 nums 中的数字，并以数组的形式返回结果。
+// https://leetcode.cn/problems/find-all-numbers-disappeared-in-an-array/description/
+public class Solution {
+    public static void main(String[] args) {
+        int[] nums = {4, 3, 2, 7, 8, 2, 3, 1};
+        List<Integer> disappearedNumbers = findDisappearedNumbers(nums);
+
+        System.out.println(disappearedNumbers);
+    }
+    public static List<Integer> findDisappearedNumbers(int[] nums) {
+        int n = nums.length;
+        for (int num : nums) {
+            int x = (num - 1) % n;
+
+            nums[x] += n;
+        }
+
+        System.out.println(Arrays.toString(nums));
+
+        List<Integer> result = new ArrayList<Integer>();
+
+        for (int i = 0; i < n; i++) {
+            if (nums[i] <= n) {
+                result.add(i + 1);
+            }
+        }
+        return result;
     }
 }
 ```
