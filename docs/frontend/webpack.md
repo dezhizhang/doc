@@ -100,6 +100,84 @@ npm i stylus stylus-loader -D
 }
 ```
 
+### 修改图片输出路径
+1. ##### 配置
+```js
+{
+    test:/\.(png|jpe?g|gif|webp)$/,
+    type:"asset",
+    parser:{
+        dataUrlCondition:{
+            // 小于10kb
+            maxSize:10 * 1024
+        }
+    },
+    generator:{
+        filename:'img/[hash:8][ext][query]'
+    }
+}
+```
+
+### 字体图标资源处理
+1. ##### 功能介绍
+- 设置 asset/resource ，静态资源文件打包时不会转 base64
+
+2. ##### 配置
+```js
+{
+    test:/\.(ttf|woff2?|eot|ttf|otf)$/,
+    type:'asset/resource',
+    generator:{
+        filename:'font/[hash:8][ext][query]'
+    }
+}
+```
+
+### eslint代码检查
+1. ##### 下载包
+```bash
+npm i eslint eslint-webpack-plugin 
+```
+
+2. ##### 功能介绍
+- 用来检测js和jsx语法的工具，可对代码进行检查
+
+3. ##### 配置文件.eslintrc.js
+```js
+module.exports = {
+  // 继承Eslint规则
+  extends: ["eslint.recommended"],
+  env: {
+    // 启用node中全局变量
+    node: true,
+    // 启用浏览器中全局变量
+    browser: true,
+  },
+  parserOptions: {
+    "ecmaVersion": 2022, // 或者更高的版本
+    "sourceType": "module",
+  },
+  rules: {
+    // 不能使var定义变量
+    "no-var": 2,
+  },
+};
+```
+
+4. ##### 配置
+```js
+const EsLintWebpackPluin = require('eslint-webpack-plugin');
+
+new EsLintWebpackPluin({
+    context:path.resolve(__dirname,'src')
+})
+```
+
+
+
+
+
+
 
 
 
