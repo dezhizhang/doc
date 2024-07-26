@@ -221,6 +221,25 @@ new HtmlWebpackPlugin({
 }),
 ```
 
+### 静态服务器
+1. ##### 下载包
+```bash
+npm i webpack-dev-server -D 
+```
+2. ##### 功能介绍
+- 检测到文件的修改后会自动编译，提高开发效率
+
+3. ##### 配置
+```js
+devServer:{
+    port:8080,
+    open:true,
+}
+"scripts": {
+   "build": "webpack --config webpack.config.js"
+},
+```
+
 
 
 
