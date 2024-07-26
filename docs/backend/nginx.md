@@ -1,7 +1,11 @@
 # nginx 
 
+### nginx的安装
+1. ##### 安装编译工具及库文件
+```bash
+yum -y install make zlib zlib-devel gcc-c++ libtool  openssl openssl-devel pcre-devel
+```
 
-### 反向代理
 
 
 ### nginx 常用命令

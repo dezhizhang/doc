@@ -468,4 +468,116 @@ class ListNode {
     }
 }
 ```
+### 反转链表
+- 给你单链表的头节点 head ，请你反转链表，并返回反转后的链表。
+```java
+//https://leetcode.cn/problems/reverse-linked-list/description/
+package shop.xiaozhi.reverseList;
+public class Solution {
+    public static void main(String[] args) {
+
+    }
+    public ListNode reverseList(ListNode head) {
+        ListNode preNode = null;
+        ListNode cur = head;
+        while (curr != null) {
+            ListNode next = cur.next;
+            cur.next = preNode;
+            preNode = cur;
+            cur = next;
+        }
+        return preNode;
+    }
+}
+class ListNode{
+    int val;
+    ListNode next;
+    ListNode(int val) {
+        this.val = val;
+    }
+}
+```
+### 链表的中间结点
+- 给你单链表的头结点 head ，请你找出并返回链表的中间结点。
+- 如果有两个中间结点，则返回第二个中间结点。
+```java
+package shop.xiaozhi.middleNode;
+public class Solution {
+    // 链表的中间结点
+    // https://leetcode.cn/problems/middle-of-the-linked-list/description/
+    public ListNode middleNode(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return  slow;
+    }
+}
+
+class ListNode{
+    int val;
+    ListNode next;
+    ListNode(int val, ListNode next) {
+        this.val = val;
+        this.next = next;
+    }
+}
+```
+### 用栈实现队列
+- 请你仅使用两个栈实现先入先出队列。队列应当支持一般队列支持的所有操作（push、pop、peek、empty）：
+- 实现 MyQueue 类：
+1. void push(int x) 将元素 x 推到队列的末尾
+2. int pop() 从队列的开头移除并返回元素
+3. int peek() 返回队列开头的元素
+4. boolean empty() 如果队列为空，返回 true ；否则，返回 false
+说明：
+- 你只能 使用标准的栈操作 —— 也就是只有 push to top, peek/pop from top, size, 和 is empty 操作是合法的。
+- 你所使用的语言也许不支持栈。你可以使用 list 或者 deque（双端队列）来模拟一个栈，只要是标准的栈操作即可。
+```java
+package shop.xiaozhi.myqueue;
+import java.util.Stack;
+
+public class MyQueue {
+    private static Stack<Integer> inStack;
+    private static Stack<Integer> outStack;
+
+    public MyQueue() {
+        inStack = new Stack<>();
+        outStack = new Stack<>();
+    }
+
+    public void push(int x) {
+        inStack.push(x);
+    }
+
+    public int pop() {
+        if (outStack.isEmpty()) {
+            in2out();
+        }
+        return outStack.pop();
+    }
+
+    public int peek() {
+        if (outStack.isEmpty()) {
+            in2out();
+        }
+        return outStack.peek();
+    }
+
+    public boolean empty() {
+        return inStack.isEmpty() && outStack.isEmpty();
+    }
+
+    private static void in2out() {
+        while (!inStack.isEmpty()) {
+            outStack.push(inStack.pop());
+        }
+    }
+}
+```
+
+
 [last](https://www.bilibili.com/video/BV1eg411w7gn?p=16&vd_source=10257e657caa8b54111087a9329462e8)
