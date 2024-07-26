@@ -40,6 +40,7 @@ npm install less less-loader -D
 ```js
 {
     test:/\.less$/,
+    // 执行顺序从右到左（从下到上）
     use:['style-loader','css-loader','less-loader']
 }
 ```
@@ -57,11 +58,49 @@ npm i sass saas-loader -D
 
 3. ##### 配置
 ```bash
-{
+{   
     test:/\.s[ac]ss$/,
+    // 执行顺序从右到左（从下到上）
     use:['style-loader','css-loader','sass-loader']
 }
 ```
+### 处理styl资源
+
+1. ##### 下载包
+```bash
+npm i stylus stylus-loader -D
+```
+
+2. ##### 功能介绍
+- stylus-loader负责将styl文件编译成css文件
+
+3. ##### 配置
+```bash
+{
+    test:/\.styl$/,
+    // 执行顺序从右到左（从下到上）
+    use:['style-loader','css-loader','stylus-loader']
+}
+```
+### 图片资源处理
+1. ##### 功能介绍
+- webpack5已经将file-loader和url-loader功能内置到webpack里了，只需要简单配置就可处理图片资源
+
+2. ##### 配置
+```js
+{
+    test:/\.(png|jpe?g|gif|webp)$/,
+    type:"asset",
+    parser:{
+        dataUrlCondition:{
+        // 小于10kb
+        maxSize:10 * 1024
+        }
+    }
+}
+```
+
+
 
 
 
