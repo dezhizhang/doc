@@ -391,5 +391,29 @@ devServer: {
     hot:true, // 开启HMR功能
 }
 ```
+### oneOf
+1. ##### 功能介绍
+- 打包时每个文件都经过所有loader处理，虽然因为test正则原因实际没有处理上，但是都要通过一遍比较慢，用oneOf只能匹配上一个loader余下的就不匹配
+
+2. ##### 配置
+```js
+  module: {
+    rules: [
+      {
+        oneOf:[
+          {
+            test: /\.js$/,
+            exclude: /node_modules/,
+            use: {
+              loader: "babel-loader",
+              options: {
+                presets: ["@babel/preset-env"],
+              },
+            },
+          },
+        ]
+      }]
+  }
+```
 
 
