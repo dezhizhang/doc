@@ -1003,6 +1003,38 @@ public class RecursionTest {
 }
 ```
 
-#
+## 冒泡排序
+
+1. ### 基本介绍
+
+- 冒泡排序的基本思想是：通过对待排序的序列从前向后（从下标较小的元素开始），依次比较相邻元素的值，若发现逆序则交换使值较大的元素渐从前移向后部，就像水底的气泡一样渐向上冒
+
+2. ### 思路图解
+
+![冒泡排序](../../public/algorithm/bubbling.png)
+
+3. ### 代码实现
+```java
+package shop.xiaozhi.sort;
+import java.util.Arrays;
+
+public class Bubble {
+    public static void main(String[] args) {
+        int arr[] = {20,3,9,-1,10};
+        int temp = 0;
+        for(int i=0;i < arr.length - 1;i++) {
+            for(int j= 0; j < arr.length - 1 - i;j++) {
+                // 如果前面的数比后面的数大则交换
+                if(arr[j] > arr[j + 1]) {
+                    temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+        System.out.println(Arrays.toString(arr));
+    }
+}
+```
 
 <!-- [https://www.bilibili.com/video/BV1E4411H73v?p=40&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8] -->
