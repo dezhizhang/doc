@@ -202,6 +202,28 @@ npm i babel-loader @babel/core @babel/preset-env -D
 },
 ```
 
+### 处理html资源
+
+1. ##### 下载包
+```bash
+npm i html-webpack-plugin -D
+```
+
+2. ##### 功能介绍
+- 动创建HTML：在构建过程中自动生成一个HTML5文件，该文件可以包含所有webpack打包过程中生成的bundles。这意味着你不需要手动创建HTML文件，插件会为你处理这一切。
+- 自动注入资源：自动将打包生成的JavaScript、CSS等文件注入到生成的HTML文件中，无需手动添加<script>或<link>标签。这一点特别有用，因为随着使用代码分割等技术，输出文件的名称可能会发生变化。
+
+3. ##### 配置
+```js
+new HtmlWebpackPlugin({
+    inject:'body',
+    template: path.resolve(__dirname,'public/index.html'),
+}),
+```
+
+
+
+
 
 
 
