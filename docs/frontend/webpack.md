@@ -354,3 +354,42 @@ use: [
     ],
 },
 ```
+
+### css 压缩
+
+1. ##### 下载包
+
+```bash
+npm install css-minimizer-webpack-plugin -D
+```
+
+3. ##### 配置
+
+```js
+const CssMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin');
+plugins: [
+    new CssMinimizerWebpackPlugin(),
+]
+```
+### soucemap
+
+1. ##### 配置
+```bash
+module.exports = {
+  devtool:'source-map',
+}
+```
+### HMR
+1. ##### 功能介绍
+- HotModuleReplacement(HMR/热模块替换):在程序运行中，替换添加或删除模块，而无需重新加载整个页面
+
+2. ##### 配置
+```js
+devServer: {
+    port: 8080,
+    open: true,
+    hot:true, // 开启HMR功能
+}
+```
+
+
