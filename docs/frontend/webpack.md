@@ -239,6 +239,33 @@ devServer:{
    "build": "webpack --config webpack.config.js"
 },
 ```
+### 抽离css文件
+1. ##### 下载包
+
+```bash
+sudo npm i mini-extract-plugin -D
+```
+2. ##### 功能介绍
+- css和js共同打包在一个文件会出现闪屏现在用户体验不好
+- 单独抽离css文件这过link标签加载性能才更好
+
+3. ##### 配置
+```js
+//plugin
+new MiniCssExtractPlugin({
+    filename:'css/main.css'
+})
+//rules
+{
+    test: /\.css$/,
+    // 执行顺序从右到左（从下到上）
+    use: [MiniCssExtractPlugin.loader, "css-loader"]
+}
+```
+
+
+
+
 
 
 
