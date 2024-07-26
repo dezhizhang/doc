@@ -1,52 +1,63 @@
 # algorithm
 
-| 项目              | 地址                                           |
-| :----------------------- | :--------------------------------------- |
-| 晓智科技                 | [晓智科技](https://xiaozhi.shop)|
-| 晓智文档                 | [晓智文档](http://localhost:8000/backend/algorithm) |
-| 源码地址                 | [源码地址](https://github.com/dezhizhang/java-awesome/tree/main/algorithm)|
-| 文档源码                 | [文档源码](https://github.com/dezhizhang/doc) |
-
+| 项目     | 地址                                                                       |
+| :------- | :------------------------------------------------------------------------- |
+| 晓智科技 | [晓智科技](https://xiaozhi.shop)                                           |
+| 晓智文档 | [晓智文档](http://localhost:8000/backend/algorithm)                        |
+| 源码地址 | [源码地址](https://github.com/dezhizhang/java-awesome/tree/main/algorithm) |
+| 文档源码 | [文档源码](https://github.com/dezhizhang/doc)                              |
 
 ## 数据结构和算法的概述
 
 ### 数据结构与算法的关系
-- 数据data结构(structue)是一门研究组台企数据方式的学科，有了编程语言就有了数据结构，学好数据结构可以编写出更加漂亮高效的代码。
+
+- 数据 data 结构(structue)是一门研究组台企数据方式的学科，有了编程语言就有了数据结构，学好数据结构可以编写出更加漂亮高效的代码。
 - 要学习好数据结构就要多多考虑如何将生活中遇到的问题用程序去实现解决。
 - 程序=数据结构+算法
 - 数据结构是算法的基础，换言之想要学好算法，需要把数据结构学好。
 
 ### 线性结构与非线性结构
+
 1. ##### 线性结构
+
 - 线性结构作为最常用的数据结构，其特点就是数据元素之前存在一对一的线性关系
 - 线性结构有两种不同的存储结构，即顺序存储结构和链式存储结构。 顺序存储的线性表称为顺序表，顺序表中的存储元素是链续的
 - 链式存储的线性表称为链表，链表中的存储元不一定的连续的，元素节点中存放数据元素以及相邻元素的地址信息。
 - 线性结构常见的有： 数组，队列，链表和栈
 
 2. ##### 非线性结构
+
 - 非线性结构包括： 二维数组，多维数组，广义表，树结构，图结构
 
 ## 稀疏数组
+
 1. ### 基本介绍
-- 当一个数组中大部分元素为0,或者为同一个值的数据时,可以使用稀疏数组来保存该数组
+
+- 当一个数组中大部分元素为 0,或者为同一个值的数据时,可以使用稀疏数组来保存该数组
 
 2. ### 处理方法
+
 - 记录数组一个有几行几列，有多少个不同的值
 - 把具有不同值的元素的行列及值记录在一个小规模的数组中，从而缩小程序的规模
-![稀疏数组](../../public/algorithm/sparsearray1.png)
+  ![稀疏数组](../../public/algorithm/sparsearray1.png)
 
 3. ### 思路分析
+
 ###### 二维数组转稀疏的思路
-1. 遍历原始的二维数组得到有效的个数sum
-2. 根据sum就可以创建稀疏数组sparseArr int[sum+1][3]
+
+1. 遍历原始的二维数组得到有效的个数 sum
+2. 根据 sum 就可以创建稀疏数组 sparseArr int[sum+1][3]
 3. 将二维数组的有效数据存入到稀疏数组
+
 ###### 稀疏数组转原始的二维数组思路
-1. 先读取稀疏的第一行，根据第一行的数据创建原如的二维数组，比如上面的cheeArr=int[11][11]
+
+1. 先读取稀疏的第一行，根据第一行的数据创建原如的二维数组，比如上面的 cheeArr=int[11][11]
 2. 在读取稀疏数组后几行的数据，并赋给原始二维数组即可
 
 ![稀疏数组](../../public/algorithm/sparsearray.png)
 
 4. ### 代码实现
+
 ```java
 package shop.xiaozhi.sparsearray;
 public class SparseArray {
@@ -122,16 +133,22 @@ public class SparseArray {
 }
 
 ```
+
 ## 队列
+
 1. ### 基本介绍
+
 - 队列是一个有序列表，可以用数组或链表来实现
 - 先入先出的原则，即：先存入队列的数据，要先取出，后存入的数据要后取出
-![队列](../../public/algorithm/queue.png)
+  ![队列](../../public/algorithm/queue.png)
 
 2. ### 思路分析
-- 将尾指针往后移near+1当front=near数据为空
-- 苦尾指针near小于队列的最大下标maxSize-1,则将数据存入near所指的数据元素中，否则无法存入数据，near==maxSize-1队列满
+
+- 将尾指针往后移 near+1 当 front=near 数据为空
+- 苦尾指针 near 小于队列的最大下标 maxSize-1,则将数据存入 near 所指的数据元素中，否则无法存入数据，near==maxSize-1 队列满
+
 3. ### 数组实现队列
+
 ```java
 // 使用数组模拟队列
 class ArrayQueue {
@@ -188,11 +205,13 @@ class ArrayQueue {
 
 }
 ```
+
 4. ### 数组实现环形队列
-- front指向队列的第一个元素，也就是说arr[front]就是队列的第一个元素front的初始值为0
-- near指向队列的最后一个元素的后一个位置，因为希望空出一个空间做预留，rear的初始值为0
+
+- front 指向队列的第一个元素，也就是说 arr[front]就是队列的第一个元素 front 的初始值为 0
+- near 指向队列的最后一个元素的后一个位置，因为希望空出一个空间做预留，rear 的初始值为 0
 - 当队列满时条件是(near + 1) % maxSize = front
-- 当队列为空的条件near == front
+- 当队列为空的条件 near == front
 - 队列中有效数据的个数(near + maxSize - front) % maxSize
 
 ```java
@@ -267,10 +286,14 @@ class CircleArrayQueue {
     }
 }
 ```
+
 ## 单向链表
+
 1. ### 基本介绍
-- 链表是以节点的方式来存储，每个节点包含data域,next域指向下一个节点
+
+- 链表是以节点的方式来存储，每个节点包含 data 域,next 域指向下一个节点
 - 链表分为带头节点的链表和没有头节点的链表
+
 2. ### 思路分析
 
 ![链表](../../public/algorithm/linkedlist.png)
@@ -278,6 +301,7 @@ class CircleArrayQueue {
 3. ### 代码实现
 
 1. ##### 按顺序添加单项链表
+
 ```java
 package shop.xiaozhi.linkedlist;
 
@@ -374,7 +398,8 @@ class  HeroNode{
 }
 ```
 
-2. ##### 单链表按no来修改节点
+2. ##### 单链表按 no 来修改节点
+
 ```java
 public void update(HeroNode heroNode) {
     // 判断链表是否为空
@@ -407,7 +432,9 @@ public void update(HeroNode heroNode) {
     System.out.printf("没有找到编号为%d的节点",heroNode.no);
 }
 ```
-3. ##### 单链表按no来删除节点
+
+3. ##### 单链表按 no 来删除节点
+
 ```java
 public void del(int no) {
     HeroNode temp = head;
@@ -431,7 +458,9 @@ public void del(int no) {
     System.out.println("删除的节点不存在");
 }
 ```
+
 4. ##### 统计单链中有效节点的个数
+
 ```java
  public static  int getLength(HeroNode head) {
     if(head.next == null) {
@@ -447,12 +476,15 @@ public void del(int no) {
     return  length;
 }
 ```
-5. ##### 查找单链表第k个节点
-- 编写一个方法接收head节点同时接收index
-- index表示倒数第index个节点
-- 先把链表从头到尾遍历得到链表的总长度getLength
-- 得到size后从链表的第一个开始遍历(size - index)个就得到倒数第k个节点
-- 如果找到则返回该节点，否则返回null
+
+5. ##### 查找单链表第 k 个节点
+
+- 编写一个方法接收 head 节点同时接收 index
+- index 表示倒数第 index 个节点
+- 先把链表从头到尾遍历得到链表的总长度 getLength
+- 得到 size 后从链表的第一个开始遍历(size - index)个就得到倒数第 k 个节点
+- 如果找到则返回该节点，否则返回 null
+
 ```java
 public static HeroNode findLastIndexNode(HeroNode head,int index) {
     // 判断如果链表为空则返回null
@@ -473,10 +505,13 @@ public static HeroNode findLastIndexNode(HeroNode head,int index) {
     return cur;
 }
 ```
+
 6. ##### 单链表反转
-- 遍历原来的链表，每遍历一个节点，就将其取出，并放在新的链表reverseHead的最前端
-![链表](../../public/algorithm/reverselinked.png)
-``` java   
+
+- 遍历原来的链表，每遍历一个节点，就将其取出，并放在新的链表 reverseHead 的最前端
+  ![链表](../../public/algorithm/reverselinked.png)
+
+```java
 public static void reverseList(HeroNode head) {
     // 如果当前链表为空或只有一个节点无需反转直接返回
     if(head.next == null || head.next.next == null) {
@@ -497,16 +532,21 @@ public static void reverseList(HeroNode head) {
     head.next = reverseHead.next;
 }
 ```
+
 ## 双向链表
+
 1. ### 基本介绍
-- 链表是以节点的方式来存储，每个节点包含data域,next域指向下一个节点
+
+- 链表是以节点的方式来存储，每个节点包含 data 域,next 域指向下一个节点
 - 链表分为带头节点的链表和没有头节点的链表
+
 2. ### 思路分析
 
 ![链表](../../public/algorithm/doubleliked.png)
 
 3. ### 代码实现
 1. ##### 双向链表增删改查
+
 ```java
 package shop.xiaozhi.linkedlist;
 class  DoubleLinkedListTest{
@@ -655,19 +695,23 @@ class  HeroNode2{
     }
 }
 ```
+
 ## 单向环形链表
 
 1. ### 基本介绍
-- 约瑟夫问题是个有名的问题：N个人围成一圈，从第一个开始报数，第M个将被杀掉，最后剩下一个，其余人都将被杀掉。例如N=6，M=5，被杀掉的顺序是：5，4，6，2，3。
+
+- 约瑟夫问题是个有名的问题：N 个人围成一圈，从第一个开始报数，第 M 个将被杀掉，最后剩下一个，其余人都将被杀掉。例如 N=6，M=5，被杀掉的顺序是：5，4，6，2，3。
 
 2. ### 思路分析
-- 先创建第一个节点，让first指向该节点并形成环形
+
+- 先创建第一个节点，让 first 指向该节点并形成环形
 - 后面当我们每创建一个新的节点，就把该节点加入到已有的环形链表中即可
-- 先让一个辅用力指针temp指向first节点
-- 然后通过while循环遍历该环形链表即可temp.next == first结束
-![链表](../../public/algorithm/circularlinkedlist.png)
+- 先让一个辅用力指针 temp 指向 first 节点
+- 然后通过 while 循环遍历该环形链表即可 temp.next == first 结束
+  ![链表](../../public/algorithm/circularlinkedlist.png)
 
 3. ### 代码实现
+
 ```java
 package shop.xiaozhi.linkedlist;
 
@@ -801,13 +845,17 @@ class Boy {
     }
 }
 ```
+
 ## 栈
 
 1. ### 基本介绍
+
 - 栈是一个先入后出的有序列表
 - 栈是限制线性表中元素的插入和删除只能在线性表的同一端进行的一种特殊线性表，允许插入和删除的一端为变化的一端，称为栈顶，另一端为固定的一端称为栈底。
-![栈](../../public/algorithm/stack.png)
+  ![栈](../../public/algorithm/stack.png)
+
 2. ### 代码实现
+
 ```java
 class ArrayStack{
     private int maxSize; // 栈的大小
@@ -856,9 +904,12 @@ class ArrayStack{
     }
 }
 ```
+
 ### 栈的后缀表过式(逆波兰表达式)
+
 - 从左至右扫描，遇到数字入栈
 - 遇到运算符弹出栈顶元素和次顶元素计算再入栈
+
 ```java
 package shop.xiaozhi.stack;
 import java.util.ArrayList;
@@ -915,6 +966,43 @@ public class PolandNotation {
 }
 ```
 
+## 递归
+
+1. ### 基本介绍
+
+- 递归算法在计算机科学中是指一种通过重复将问题分解为同类的子问题而解决问题的方法。递归式方法可以被用于解决很多的计算机科学问题，因此它是计算机科学中十分重要的一个概念。绝大多数编程语言支持函数的自调用，在这些语言中函数可以通过调用自身来进行递归。计算理论可以证明递归的作用可以完全取代循环，因此在很多函数编程语言（如 Scheme）中习惯用递归来实现循环。
+
+2. ### 思路图解
+
+   ![栈](../../public/algorithm/recursion.png)
+
+3. ### 代码实现
+
+```java
+package shop.xiaozhi.recursion;
+public class RecursionTest {
+    public static void main(String[] args) {
+        int factorial = factorial(4);
+
+        System.out.println(factorial);
+    }
+    public static void test(int n) {
+        if(n > 2) {
+            test(n - 1);
+        }
+        System.out.println("n=" + n);
+    }
+    // 阶乘问题
+    public static int factorial(int n) {
+        if(n == 1) {
+            return 1;
+        }else {
+            return factorial(n - 1) * n;
+        }
+    }
+}
+```
 
 #
+
 <!-- [https://www.bilibili.com/video/BV1E4411H73v?p=40&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8] -->
