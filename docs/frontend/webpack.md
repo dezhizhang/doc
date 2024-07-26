@@ -172,6 +172,40 @@ new EsLintWebpackPluin({
     context:path.resolve(__dirname,'src')
 })
 ```
+### bebel使用
+
+1. ##### 下载包
+```bash
+npm i babel-loader @babel/core @babel/preset-env -D
+```
+2. ##### 功能介绍
+- bebel主要用于将es6语法编写的代码转换成向后兼容的es5语法，以版能够在浏览器或其它环境中运行
+
+3. ##### 配置文件.babelrc
+```js
+{
+    "presets": ["@babel/preset-env"],
+    "plugins": []
+}
+```
+4. ##### 配置
+```js
+{
+    test: /\.js$/,
+    exclude: /node_modules/,
+    use: {
+        loader: "babel-loader",
+        options: {
+        presets: ["@babel/preset-env"],
+        },
+    },
+},
+```
+
+
+
+
+
 
 
 
