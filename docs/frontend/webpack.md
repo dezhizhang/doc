@@ -1,11 +1,11 @@
 # webpack
 
-| 项目     | 地址                                                                       |
-| :------- | :------------------------------------------------------------------------- |
-| 晓智科技 | [晓智科技](https://xiaozhi.shop)                                           |
-| 晓智文档 | [晓智文档](http://localhost:8000/backend/algorithm)                        |
+| 项目     | 地址                                                                  |
+| :------- | :-------------------------------------------------------------------- |
+| 晓智科技 | [晓智科技](https://xiaozhi.shop)                                      |
+| 晓智文档 | [晓智文档](http://localhost:8000/backend/algorithm)                   |
 | 源码地址 | [源码地址](https://github.com/dezhizhang/interview/tree/main/webpack) |
-| 文档源码 | [文档源码](https://github.com/dezhizhang/doc)                              |
+| 文档源码 | [文档源码](https://github.com/dezhizhang/doc)                         |
 
 ### 处理 css 资源
 
@@ -500,17 +500,21 @@ npm i thread-loader -D
   ]
 },
 ```
-### babal文件处理
+
+### babal 文件处理
 
 1. ##### 下载包
+
 ```bash
 npm i @babel/plugin-transform-runtime -D
 ```
 
 2. ##### 功能介绍
-- @babel/plugin-transform-runtime 禁用了babel自动对每个文件的runtime注入，而是引入@babel/plugin-transform-runtime所辅助代码
+
+- @babel/plugin-transform-runtime 禁用了 babel 自动对每个文件的 runtime 注入，而是引入@babel/plugin-transform-runtime 所辅助代码
 
 3. ##### 配置
+
 ```js
 {
   loader: "babel-loader",
@@ -528,27 +532,30 @@ npm i @babel/plugin-transform-runtime -D
 ### 图片压缩
 
 1. ##### 下载包
+
 ```bash
-npm i image-minimizer-webpack-plugin imagemin -D 
+npm i image-minimizer-webpack-plugin imagemin -D
 ```
 
 2. ##### 功能介绍
+
 - 开发中引用了较多图片，图片休积会比较大，可以对图片进行压缩，减少图片体积
 - 注意：如果图片都是在线链接，那么就不需要压缩
 
 3. ##### 配置
+
 ```js
 module.exports = {
   optimization: {
     minimizer: [
-      "...",
+      '...',
       new ImageMinimizerPlugin({
         minimizer: {
           implementation: ImageMinimizerPlugin.sharpMinify,
         },
         generator: [
           {
-            type: "asset",
+            type: 'asset',
             implementation: ImageMinimizerPlugin.sharpGenerate,
             options: {
               encodeOptions: {
@@ -562,36 +569,38 @@ module.exports = {
       }),
     ],
   },
-  plugins: [new CopyPlugin({ patterns: ["images/**/*.png"] })],
+  plugins: [new CopyPlugin({ patterns: ['images/**/*.png'] })],
 };
 ```
+
 ### 多入口
 
 1. ##### 功能介绍
-- 打包时将所有js文件打包到一个文件中，休积太大了，如果只要渲染首页，就只加载首页的js文件其它文件不应该加载
-- 将打包的文件进行代码分割，生成多个js文件渲染对应的js文件这样加载资源就少速度就快
+
+- 打包时将所有 js 文件打包到一个文件中，休积太大了，如果只要渲染首页，就只加载首页的 js 文件其它文件不应该加载
+- 将打包的文件进行代码分割，生成多个 js 文件渲染对应的 js 文件这样加载资源就少速度就快
 
 3. ##### 配置
+
 ```js
-// 多入口
-entry: {
-  app: "./src/app.js",
-  main: "./src/main.js"
-},
-// 出口
-output: {
-  // 文件输出路径
-  path: path.resolve(__dirname, "build"),
-  // 输出文件名
-  filename: "js/[name].js",
-  // 自动清空上次打包内容
-  clean: true,
-},
+module.exports = {
+  // 多入口
+  entry: {
+    app: './src/app.js',
+    main: './src/main.js',
+  },
+  // 出口
+  output: {
+    // 文件输出路径
+    path: path.resolve(__dirname, 'build'),
+    // 输出文件名
+    filename: 'js/[name].js',
+    // 自动清空上次打包内容
+    clean: true,
+  },
+};
 ```
 
 
 
-
-
-
-<!-- [last](https://www.bilibili.com/video/BV14T4y1z7sw/?p=42&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) -->
+<!-- [last](https://www.bilibili.com/video/BV14T4y1z7sw?p=47&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) -->
