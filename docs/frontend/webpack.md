@@ -434,6 +434,30 @@ devServer: {
 }
 ```
 
+### Cache缓存
+
+1. ##### 功能介绍
+- 每次打包js文件都要经地eslint检查和babel编译，速度比较慢。可以缓存之前的eslint栓查和babel编译结果，这样每二次打包速度就会更快
+
+2. ##### 配置
+```js
+{
+  test: /\.js$/,
+  exclude: /node_modules/,
+    use: {
+      loader: "babel-loader",
+      options: {
+        presets: ["@babel/preset-env"],
+          // 开启babel缓存
+          cacheDirectory: true,
+          // 关闭缓存文件压缩
+          // cacheCompression: false,
+        },
+    },
+}
+```
+
+
 [last](https://www.bilibili.com/video/BV14T4y1z7sw?p=36&vd_source=10257e657caa8b54111087a9329462e8)
 
 
