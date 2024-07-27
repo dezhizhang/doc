@@ -256,6 +256,15 @@ func (l *VideoLogic) Video(req *types.Request) (resp *types.Response, err error)
 }
 
 ```
+4. ##### api前
+```go
+@server (
+	prefix: /api/users
+)
+```
+
+### jwt验证
+
 
 
 
