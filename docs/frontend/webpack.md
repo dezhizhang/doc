@@ -367,23 +367,27 @@ npm install css-minimizer-webpack-plugin -D
 
 ```js
 const CssMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin');
-plugins: [
-    new CssMinimizerWebpackPlugin(),
-]
+plugins: [new CssMinimizerWebpackPlugin()];
 ```
+
 ### soucemap
 
 1. ##### 配置
+
 ```bash
 module.exports = {
   devtool:'source-map',
 }
 ```
+
 ### HMR
+
 1. ##### 功能介绍
+
 - HotModuleReplacement(HMR/热模块替换):在程序运行中，替换添加或删除模块，而无需重新加载整个页面
 
 2. ##### 配置
+
 ```js
 devServer: {
     port: 8080,
@@ -391,36 +395,44 @@ devServer: {
     hot:true, // 开启HMR功能
 }
 ```
+
 ### oneOf
+
 1. ##### 功能介绍
-- 打包时每个文件都经过所有loader处理，虽然因为test正则原因实际没有处理上，但是都要通过一遍比较慢，用oneOf只能匹配上一个loader余下的就不匹配
+
+- 打包时每个文件都经过所有 loader 处理，虽然因为 test 正则原因实际没有处理上，但是都要通过一遍比较慢，用 oneOf 只能匹配上一个 loader 余下的就不匹配
 
 2. ##### 配置
+
 ```js
-  module: {
-    rules: [
-      {
-        oneOf:[
-          {
-            test: /\.js$/,
-            exclude: /node_modules/,
-            use: {
-              loader: "babel-loader",
-              options: {
-                presets: ["@babel/preset-env"],
-              },
+module: {
+  rules: [
+    {
+      oneOf: [
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env'],
             },
           },
-        ]
-      }]
-  }
+        },
+      ],
+    },
+  ];
+}
 ```
+
 ### Include/Exclude
 
 1. ##### 功能介绍
-- 开发时需要使用第三方的库和插件，所有文件都下载到node_modules中，而这些文件是不需要编译可直接使用
+
+- 开发时需要使用第三方的库和插件，所有文件都下载到 node_modules 中，而这些文件是不需要编译可直接使用
 
 2. ##### 配置
+
 ```js
 {
   test: /\.js$/,
@@ -434,12 +446,14 @@ devServer: {
 }
 ```
 
-### Cache缓存
+### Cache 缓存
 
 1. ##### 功能介绍
-- 每次打包js文件都要经地eslint检查和babel编译，速度比较慢。可以缓存之前的eslint栓查和babel编译结果，这样每二次打包速度就会更快
+
+- 每次打包 js 文件都要经地 eslint 检查和 babel 编译，速度比较慢。可以缓存之前的 eslint 栓查和 babel 编译结果，这样每二次打包速度就会更快
 
 2. ##### 配置
+
 ```js
 {
   test: /\.js$/,
@@ -457,7 +471,34 @@ devServer: {
 }
 ```
 
+### 多进程打包
+
+1. ##### 下载包
+
+```bash
+npm i thread-loader -D
+```
+
+2. ##### 功能介绍
+
+- 当项目变来越来越庞大时，打包速度越来越慢，而对 js 文件处理主要是 eslint,babel,terser 三个工具，可以开启多进程同时处理 js 文件，这个速度比单进程快
+
+3. ##### 配置
+
+```js
+{
+  test: /\.js$/,
+  exclude: /node_modules/,
+  use:[
+    {
+      // 需放babel-loader前
+      loader:'thread-loader',
+      options:{
+        threads:threads
+      }
+    },
+  ]
+},
+```
 
 [last](https://www.bilibili.com/video/BV14T4y1z7sw?p=36&vd_source=10257e657caa8b54111087a9329462e8)
-
-
