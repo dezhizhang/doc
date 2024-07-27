@@ -1,96 +1,68 @@
 # go-zero
 
+
+| 项目              | 地址                                           |
+| :----------------------- | :--------------------------------------- |
+| 晓智科技                 | [晓智科技](https://xiaozhi.shop)|
+| 晓智文档                 | [晓智文档](https://doc.xiaozhi.shop/backend/elastic) |
+| 源码地址                 | [源码地址](https://github.com/dezhizhang/java-awesome/tree/main/es)|
+| 文档源码                 | [文档源码](https://github.com/dezhizhang/doc) |
+
+
 ### 环境安装
-1. goctl
+
+1. ##### 安装 goctl
 
 ```bash
 go install github.com/zeromicro/go-zero/tools/goctl@latest
 ```
-2. 安装protoc
+
+2. ##### 安装 protoc
 
 ```bash
 goctl env check --install --verbose --force
 
 go get -u github.com/zeromicro/go-zero@latest
 ```
-3. 快速创建一个api
+
+3. ##### 加载环境变量
+
+```bash
+export GOPATH="/Users/zhangdezhi/Documents/go"
+export GOBIN="${PATH}:/bin"
+```
+
+### 生成 api 服务
 
 ```bash
 goctl api new api
+cd /api
+go run api.go
 ```
 
-### 生成gprc
+### mac 安装etcd
+
+1. ##### 下载etcd
+
 ```bash
-goctl rpc protoc user/rpc/user.proto --go_out=user/rpc/types --go-grpc_out=user/rpc/types --zrpc_out=user/rpc/
+brew install etcd
 ```
-
-### 生成rpc
-
+2. ##### 启动etcd
 ```bash
-goctl rpc protoc user.proto --go_out=types --go-grpc_out=types --zrpc_out=. 
+brew services start etcd 
 ```
-### 生成api
+3. ##### 查看应用列表
 ```bash
- goctl api go -api vido.api --dir ./
+brew services list
 ```
-
-### 响应封装
-```go
-import (
-	"github.com/zeromicro/go-zero/rest/httpx"
-	"net/http"
-)
-
-type Body struct {
-	Code int    `json:"code"`
-	Data any    `json:"data"`
-	Msg  string `json:"msg"`
-}
-
-func Response(r *http.Request, w http.ResponseWriter, data any, err error) {
-	if err != nil {
-		body := &Body{
-			Code: 400,
-			Data: nil,
-			Msg:  "发生错误",
-		}
-		httpx.WriteJson(w, http.StatusOK, body)
-		return
-	}
-
-	body := &Body{
-		Code: 200,
-		Data: data,
-		Msg:  "ok",
-	}
-	httpx.WriteJson(w, http.StatusOK, &body)
-}
-```
-## 单体服务生成
-
-### 标签环境是否安装
+4. ##### 查看应用列表
 ```bash
-goctl env check -i -f --verbose 
+brew services list
 ```
-
-### 生成api
+5. ##### 停止etcd
 ```bash
-goctl api new hello
-```
-
-## 微服务生成
-
-### 生成api
-```bash
-goctl api go -api order.api -dir ./gen
-
+brew services stop etcd 
 ```
 
 
 
-
-
-<!-- goctl api go -api user.api -dir .
-
-时间指针
-[last](https://www.bilibili.com/video/BV1kM411X7Cp/?p=6&spm_id_from=pageDriver&vd_source=e38cd951f2ee7bda48ec574f4e9ba363) -->
