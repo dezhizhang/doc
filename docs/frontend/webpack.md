@@ -4,7 +4,7 @@
 | :------- | :------------------------------------------------------------------------- |
 | 晓智科技 | [晓智科技](https://xiaozhi.shop)                                           |
 | 晓智文档 | [晓智文档](http://localhost:8000/backend/algorithm)                        |
-| 源码地址 | [源码地址](https://github.com/dezhizhang/java-awesome/tree/main/algorithm) |
+| 源码地址 | [源码地址](https://github.com/dezhizhang/interview/tree/main/webpack) |
 | 文档源码 | [文档源码](https://github.com/dezhizhang/doc)                              |
 
 ### 处理 css 资源
@@ -565,9 +565,33 @@ module.exports = {
   plugins: [new CopyPlugin({ patterns: ["images/**/*.png"] })],
 };
 ```
+### 多入口
+
+1. ##### 功能介绍
+- 打包时将所有js文件打包到一个文件中，休积太大了，如果只要渲染首页，就只加载首页的js文件其它文件不应该加载
+- 将打包的文件进行代码分割，生成多个js文件渲染对应的js文件这样加载资源就少速度就快
+
+3. ##### 配置
+```js
+// 多入口
+entry: {
+  app: "./src/app.js",
+  main: "./src/main.js"
+},
+// 出口
+output: {
+  // 文件输出路径
+  path: path.resolve(__dirname, "build"),
+  // 输出文件名
+  filename: "js/[name].js",
+  // 自动清空上次打包内容
+  clean: true,
+},
+```
 
 
 
 
 
-[last](https://www.bilibili.com/video/BV14T4y1z7sw?p=36&vd_source=10257e657caa8b54111087a9329462e8)
+
+<!-- [last](https://www.bilibili.com/video/BV14T4y1z7sw/?p=42&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) -->

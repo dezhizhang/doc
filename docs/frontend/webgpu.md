@@ -1,3 +1,7 @@
+
+# webgpu
+- 所谓
+
 ### 获取webgpu设置对像
 ```js
 async function  init() {
