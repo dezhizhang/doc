@@ -500,5 +500,31 @@ npm i thread-loader -D
   ]
 },
 ```
+### babal文件处理
+
+1. ##### 下载包
+```bash
+npm i @babel/plugin-transform-runtime -D
+```
+
+2. ##### 功能介绍
+- @babel/plugin-transform-runtime 禁用了babel自动对每个文件的runtime注入，而是引入@babel/plugin-transform-runtime所辅助代码
+
+3. ##### 配置
+```js
+{
+  loader: "babel-loader",
+  options: {
+    presets: ["@babel/preset-env"],
+      // 开启babel缓存
+      cacheDirectory: true,
+      // 关闭缓存文件压缩
+      // cacheCompression: false,
+      plugins:['@babel/plugin-transform-runtime']
+    },
+}
+```
+
+
 
 [last](https://www.bilibili.com/video/BV14T4y1z7sw?p=36&vd_source=10257e657caa8b54111087a9329462e8)
