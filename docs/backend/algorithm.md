@@ -1016,23 +1016,29 @@ public class RecursionTest {
 3. ### 代码实现
 ```java
 package shop.xiaozhi.sort;
-import java.util.Arrays;
 
 public class Bubble {
     public static void main(String[] args) {
-        int arr[] = {20,3,9,-1,10};
+        int arr[] = {3, 9, -1,10, 20};
         int temp = 0;
-        for(int i=0;i < arr.length - 1;i++) {
-            for(int j= 0; j < arr.length - 1 - i;j++) {
-                // 如果前面的数比后面的数大则交换
-                if(arr[j] > arr[j + 1]) {
+        boolean flag = false;
+        for (int i = 0; i < arr.length - 1; i++) {
+            for (int j = 0; j < arr.length - 1 - i; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    // 如果发现前面的数大于后面的则交换
+                    flag = true;
                     temp = arr[j];
                     arr[j] = arr[j + 1];
                     arr[j + 1] = temp;
                 }
             }
+
+            System.out.println("第" + (i + 1) + "轮");
+            if(!flag) {
+                break;
+            }
+            flag = false;
         }
-        System.out.println(Arrays.toString(arr));
     }
 }
 ```

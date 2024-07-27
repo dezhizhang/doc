@@ -418,6 +418,22 @@ devServer: {
 ### Include/Exclude
 
 1. ##### 功能介绍
+- 开发时需要使用第三方的库和插件，所有文件都下载到node_modules中，而这些文件是不需要编译可直接使用
+
+2. ##### 配置
+```js
+{
+  test: /\.js$/,
+  exclude: /node_modules/,
+    use: {
+      loader: "babel-loader",
+      options: {
+        presets: ["@babel/preset-env"],
+      },
+    },
+}
+```
+
 [last](https://www.bilibili.com/video/BV14T4y1z7sw?p=36&vd_source=10257e657caa8b54111087a9329462e8)
 
 
