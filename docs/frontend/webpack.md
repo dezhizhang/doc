@@ -525,6 +525,49 @@ npm i @babel/plugin-transform-runtime -D
 }
 ```
 
+### 图片压缩
+
+1. ##### 下载包
+```bash
+npm i image-minimizer-webpack-plugin imagemin -D 
+```
+
+2. ##### 功能介绍
+- 开发中引用了较多图片，图片休积会比较大，可以对图片进行压缩，减少图片体积
+- 注意：如果图片都是在线链接，那么就不需要压缩
+
+3. ##### 配置
+```js
+module.exports = {
+  optimization: {
+    minimizer: [
+      "...",
+      new ImageMinimizerPlugin({
+        minimizer: {
+          implementation: ImageMinimizerPlugin.sharpMinify,
+        },
+        generator: [
+          {
+            type: "asset",
+            implementation: ImageMinimizerPlugin.sharpGenerate,
+            options: {
+              encodeOptions: {
+                webp: {
+                  quality: 90,
+                },
+              },
+            },
+          },
+        ],
+      }),
+    ],
+  },
+  plugins: [new CopyPlugin({ patterns: ["images/**/*.png"] })],
+};
+```
+
+
+
 
 
 [last](https://www.bilibili.com/video/BV14T4y1z7sw?p=36&vd_source=10257e657caa8b54111087a9329462e8)
