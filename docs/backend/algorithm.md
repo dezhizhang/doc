@@ -1051,7 +1051,8 @@ public class Bubble {
 - 选择排序也属于内部排序法，是从欲排序的数据中，按指定的规则选出某一个元素，再依次规定交换位置后达到排序的目的
 
 2. ### 思路图解
-![选择排序](../../public/algorithm/select-sort.png)
+
+   ![选择排序](../../public/algorithm/select-sort.png)
 
 3. ### 代码实现
 
@@ -1086,15 +1087,18 @@ public class SelectSort {
 }
 
 ```
+
 ## 插入排序
 
 1. ### 基本介绍
-- 插入排序的基本思想是:把n个待排序的元素看成为一个有序表和一个无序表，开始时有序表只包含一个元素，无序表中包含n-1个元素，排序过程中每次从无序表中取出第一个元素，把它的排序依次与有序列元素排序码进行比较，将它插入到有序表中的适当位置，使之成为新的有序表
+
+- 插入排序的基本思想是:把 n 个待排序的元素看成为一个有序表和一个无序表，开始时有序表只包含一个元素，无序表中包含 n-1 个元素，排序过程中每次从无序表中取出第一个元素，把它的排序依次与有序列元素排序码进行比较，将它插入到有序表中的适当位置，使之成为新的有序表
 
 2. ### 思路图解
 ![插入排序](../../public/algorithm/inset-sort.png)
 
 3. ### 代码实现
+
 ```java
 package shop.xiaozhi.sort;
 
@@ -1124,6 +1128,46 @@ public class InsertSort {
             }
 
             arr[insetIndex + 1] = insetValue;
+        }
+    }
+}
+```
+
+## 希尔排序
+
+1. ### 基本介绍
+
+- 希尔排序是希尔于 1959 年提出的一种排序算法，希尔排序也是一种插入排序，它是简单插入排序经过改进之后的一个更高效版本，也称为缩小增量排序
+- 希尔排序是把记录按下标的一定增量分组，对每组使用直接插入排序算法排序，随着增量逐渐减少，每组包含的关键词越来越多，当增量减至 1 时，整个文件恰被分成一组，算法便终止
+
+2. ### 思路图解
+![插入排序](../../public/algorithm/shell-sort.png)
+
+3. ### 代码实现
+```java
+package shop.xiaozhi.sort;
+import java.util.Arrays;
+
+public class ShellSort {
+    public static void main(String[] args) {
+        int[] arr = {8, 9, 1, 7, 2, 3, 5, 4, 6, 0};
+        shellSort(arr);
+
+        System.out.println(Arrays.toString(arr));
+    }
+
+    public static void shellSort(int[] arr) {
+        for(int gap = arr.length / 2;gap > 0;gap /=2) {
+            int temp = 0;
+            for(int i=gap;i < arr.length;i++) {
+                for(int j=i - gap;j >=0;j-=gap) {
+                    if(arr[j] > arr[j + gap]) {
+                        temp = arr[j];
+                        arr[j] = arr[j + gap];
+                        arr[j + gap] = temp;
+                    }
+                }
+            }
         }
     }
 }
