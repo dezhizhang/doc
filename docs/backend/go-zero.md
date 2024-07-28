@@ -264,26 +264,176 @@ func (l *VideoLogic) Video(req *types.Request) (resp *types.Response, err error)
 ```
 
 ### 操作mysql
+- go-zero对应文档地址[mysql](https://go-zero.dev/docs/tasks/cli/mysql)
+
+1. ##### 编写proto文件
 
 ```go
+syntax = "proto3";
+package user;
+option go_package = "./user";
+
+message IdRequest  {
+  string  id = 1;
+}
+
+message UserResponse {
+  // 用户id
+  string  id = 1;
+  // 用户名
+  string name = 2;
+  // 性别
+  bool gender = 3;
+}
+message UserRequest{
+  // 生名
+  string name = 1;
+  // 密码
+  string password = 2;
+  // 手机号
+  string mobile = 3;
+}
+message UserOkResponse{
+  string message = 1;
+}
+
+//goctl rpc protoc user.proto --go_out=. --go-grpc_out=. --zrpc_out=.
+
+service User {
+  // createUser创建用户
+  rpc createUser(UserRequest) returns(UserOkResponse);
+  // getUserInfo获取用户信息
+  rpc getUserInfo(IdRequest) returns(UserResponse);
+}
+```
+2. ##### 生成对应的代码
+```bash
+# 切到和user.proto同级目录下
+goctl rpc protoc user.proto --go_out=. --go-grpc_out=. --zrpc_out=.
+```
+3. ##### 编写mydql ddl文件
+```bash
+# user/models
+CREATE TABLE users
+(
+    id        bigint AUTO_INCREMENT,
+    name      varchar(255) NOT NULL DEFAULT '' COMMENT '用户名',
+    password  varchar(255) NOT NULL DEFAULT '' COMMENT '密码',
+    mobile    varchar(255) NOT NULL DEFAULT '' COMMENT '手机号',
+    gender    char(10)     NOT NULL DEFAULT 'male' COMMENT 'gender,male|female|unknown',
+    create_at timestamp NULL,
+    update_at timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE mobile_index (mobile),
+    UNIQUE name_index (name),
+    PRIMARY KEY (id)
+) ENGINE = InnoDB COLLATE utf8mb4_general_ci COMMENT 'users table';
+```
+4. ##### 生成mysql操作代码
+```bash
+cd ~/workspace/model/mysql
+goctl model mysql ddl --src user.sql --dir . -c
+```
+
+5. ##### 编写配置文件
+```yaml
+Name: user.rpc
+ListenOn: 0.0.0.0:8080
+Etcd:
+  Hosts:
+  - 127.0.0.1:2379
+  Key: user.rpc
+
+Mysql:
+  DataSource: "root:12345678@tcp(127.0.0.1:3306)/zero?charset=utf8mb4&parseTime=True&loc=Local"
+
+Cache:
+- Host: "127.0.0.1:6379"
+  Type: "node"
+  Pass:
+```
+6. ##### 添加配置文件
+```go
+//interal/config
 package config
 import (
-	"github.com/zeromicro/go-zero/rest"
+	"github.com/zeromicro/go-zero/core/stores/cache"
 	"github.com/zeromicro/go-zero/zrpc"
 )
-
 type Config struct {
-	rest.RestConf
-	UserRpc zrpc.RpcClientConf
-	Auth    struct {
-		AccessSecret string
-		AccessExpire int64
-	}
+	zrpc.RpcServerConf
 	Mysql struct {
-		Datasource string
+		DataSource string
+	}
+	// redis配置
+	Cache cache.CacheConf
+}
+```
+7. ##### 添加context
+```go
+//interal/srv
+package svc
+import (
+	"github.com/zeromicro/go-zero/core/stores/sqlx"
+	"go-zero/user/internal/config"
+	"go-zero/user/models"
+)
+type ServiceContext struct {
+	Config    config.Config
+	UserModel models.UsersModel
+}
+func NewServiceContext(c config.Config) *ServiceContext {
+	sqlConn := sqlx.NewMysql(c.Mysql.DataSource)
+	return &ServiceContext{
+		Config:    c,
+		UserModel: models.NewUsersModel(sqlConn, c.Cache),
 	}
 }
 ```
+8. ##### 编写业务逻辑
+```go
+//internal/logic
+
+package logic
+
+import (
+	"context"
+	"go-zero/user/models"
+
+	"go-zero/user/internal/svc"
+	"go-zero/user/user"
+
+	"github.com/zeromicro/go-zero/core/logx"
+)
+
+type CreateUserLogic struct {
+	ctx    context.Context
+	svcCtx *svc.ServiceContext
+	logx.Logger
+}
+
+func NewCreateUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *CreateUserLogic {
+	return &CreateUserLogic{
+		ctx:    ctx,
+		svcCtx: svcCtx,
+		Logger: logx.WithContext(ctx),
+	}
+}
+
+// CreateUser 创建用户
+func (l *CreateUserLogic) CreateUser(in *user.UserRequest) (*user.UserOkResponse, error) {
+	_, err := l.svcCtx.UserModel.Insert(l.ctx, &models.Users{
+		Name:     in.Name,
+		Password: in.Password,
+		Mobile:   in.Mobile,
+	})
+	if err != nil {
+		panic(err)
+	}
+	return &user.UserOkResponse{Message: "创建用户成功"}, nil
+}
+```
+
+
 
 
 
