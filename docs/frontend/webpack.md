@@ -4,7 +4,7 @@
 | :------- | :-------------------------------------------------------------------- |
 | 晓智科技 | [晓智科技](https://xiaozhi.shop)                                      |
 | 晓智文档 | [晓智文档](http://localhost:8000/backend/algorithm)                   |
-| 源码地址 | [源码地址](https://github.com/dezhizhang/interview/tree/main/webpack) |
+| 源码地址 | [源码地址](https://github.com/dezhizhang/interview/webpack) |
 | 文档源码 | [文档源码](https://github.com/dezhizhang/doc)                         |
 
 ### 处理 css 资源
@@ -668,5 +668,49 @@ module.exports = {
   plugins: [],
 };
 ```
+### PWA
+
+1. ##### 下载包
+```bash
+npm i workbox-webpack-plugin -D 
+```
+
+2. ##### 功能介绍
+- 渐进式网络应用程序：是一种可以提供类似于navive app(原生应用程序)体验的web app技术
+- 其中最重要的是在离线offline时应用程序能够继续运行功能
+- 内部通过service workers技术实现的
+
+3. ##### 配置
+```js
+// https://www.webpackjs.com/guides/progressive-web-application/#adding-workbox
+//webpack.config.js
+
+new WorkboxPlugin.GenerateSW({
+  // 这些选项帮助快速启用 ServiceWorkers
+  // 不允许遗留任何“旧的” ServiceWorkers
+    clientsClaim: true,
+    skipWaiting: true,
+}),
+//入口index.js
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/service-worker.js")
+      .then((registration) => {
+        console.log("SW registered: ", registration);
+      })
+      .catch((registrationError) => {
+        console.log("SW registration failed: ", registrationError);
+      });
+  });
+}
+
+```
+<div align="center">晓智科技公众号</div>
+<div align="center"> <img src="https://devpress.csdnimg.cn/9ea0b4566eb54d54b1b0d2c87ea6c2e0.webp" width = 300 height = 300 /> </div>
+
+
+
+
 
 <!-- [last](https://www.bilibili.com/video/BV14T4y1z7sw?p=47&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) -->
