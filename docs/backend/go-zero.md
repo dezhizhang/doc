@@ -526,7 +526,107 @@ func (m *LoginVerificationMiddleware) Handle(next http.HandlerFunc) http.Handler
 	}
 }
 ```
+### api服务调用rpc
 
+1. ##### yaml配置rpc服务发现
+```yaml
+Name: user
+Host: 0.0.0.0
+Port: 8888
+## 让ectc发现rpc
+UserRpc:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: user.rpc
+```
+2. ##### 添加rpc调用配置
+```go
+// internal/config
+package config
+import (
+	"github.com/zeromicro/go-zero/rest"
+	"github.com/zeromicro/go-zero/zrpc"
+)
+
+type Config struct {
+	rest.RestConf
+	// 调用rpc配置
+	UserRpc zrpc.RpcClientConf
+}
+```
+3. ##### 添加context
+```go
+// internal/srv
+package svc
+
+import (
+	"github.com/zeromicro/go-zero/rest"
+	"github.com/zeromicro/go-zero/zrpc"
+	"go-zero/api/internal/config"
+	"go-zero/api/internal/middleware"
+	"go-zero/user/userclient"
+)
+
+type ServiceContext struct {
+	Config config.Config
+	// 调用rpc
+	userclient.User
+	LoginVerification rest.Middleware
+}
+
+func NewServiceContext(c config.Config) *ServiceContext {
+	return &ServiceContext{
+		Config:            c,
+		// 调用rpc 
+		User:              userclient.NewUser(zrpc.MustNewClient(c.UserRpc)),
+		LoginVerification: middleware.NewLoginVerificationMiddleware().Handle,
+	}
+}
+```
+4. ##### 编写调用逻辑
+```go
+//internal/logic
+package logic
+import (
+	"context"
+	"go-zero/user/userclient"
+
+	"go-zero/api/internal/svc"
+	"go-zero/api/internal/types"
+
+	"github.com/zeromicro/go-zero/core/logx"
+)
+
+type GetUserInfoLogic struct {
+	logx.Logger
+	ctx    context.Context
+	svcCtx *svc.ServiceContext
+}
+
+func NewGetUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUserInfoLogic {
+	return &GetUserInfoLogic{
+		Logger: logx.WithContext(ctx),
+		ctx:    ctx,
+		svcCtx: svcCtx,
+	}
+}
+func (l *GetUserInfoLogic) GetUserInfo(req *types.URequest) (resp *types.UInfoResponse, err error) {
+	info, err := l.svcCtx.User.GetUserInfo(l.ctx, &userclient.IdRequest{
+		Id: req.Id,
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	return &types.UInfoResponse{
+		Id:     info.Id,
+		Name:   info.Name,
+		Mobile: info.Mobile,
+		Gender: info.Gender,
+	}, nil
+}
+```
 
 
 
