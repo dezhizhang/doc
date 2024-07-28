@@ -1014,6 +1014,7 @@ public class RecursionTest {
 ![冒泡排序](../../public/algorithm/bubbling.png)
 
 3. ### 代码实现
+
 ```java
 package shop.xiaozhi.sort;
 
@@ -1041,6 +1042,49 @@ public class Bubble {
         }
     }
 }
+```
+
+## 选择排序
+
+1. ### 基本介绍
+
+- 选择排序也属于内部排序法，是从欲排序的数据中，按指定的规则选出某一个元素，再依次规定交换位置后达到排序的目的
+
+2. ### 思路图解
+![选择排序](../../public/algorithm/select-sort.png)
+
+3. ### 代码实现
+
+```java
+package shop.xiaozhi.sort;
+import java.util.Arrays;
+
+public class SelectSort {
+    public static void main(String[] args) {
+        int[] arr = {101, 34, 119, 1};
+        selectSort(arr);
+    }
+    public static void selectSort(int[] arr) {
+        for (int i = 0; i < arr.length - 1; i++) {
+            // 最小索引
+            int minIndex = i;
+            // 最小值
+            int min = arr[i];
+            for (int j = 1 + i; j < arr.length; j++) {
+                if (min > arr[j]) {
+                    min = arr[j];
+                    minIndex = j;
+                }
+            }
+            if (minIndex != i) {
+                arr[minIndex] = arr[i];
+                arr[i] = min;
+            }
+
+        }
+    }
+}
+
 ```
 
 <!-- [https://www.bilibili.com/video/BV1E4411H73v?p=40&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8] -->
