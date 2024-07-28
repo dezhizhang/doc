@@ -601,6 +601,41 @@ module.exports = {
 };
 ```
 
+### Preload/Prefetch
+
+1. ##### 下载包
+
+```bash
+npm install --save-dev preload-webpack-plugin
+```
+
+2. ##### 功能介绍
+
+- preload/prefetch 告诉浏览器空闲时间加载需要的资源
+- preload 浏览器立即加载资源
+- prefetch 在空闲时才开始加载资源
+- 都会加载资源，并不执行都有缓存
+- preload 加载优先级高，prefetch 加载优先级低
+- preload 只能加载当前页面需要使用的资源,prefetch 加载当前页面资源，也可以加载下一个页面需要使用的资源
+
+3. ##### 配置 
+```js
+ plugins: [
+    new HtmlWebpackPlugin({
+      inject: "body",
+      template: path.resolve(__dirname, "public/index.html"),
+    }),
+    new MiniCssExtractPlugin({
+      filename: "css/main.css",
+    }),
+    new CssMinimizerWebpackPlugin(),
+    // 开启Preload预加载
+    new PreloadWebpackPlugin({
+      rel: 'preload',
+      as: 'script'
+    })
+  ],
+```
 
 
 <!-- [last](https://www.bilibili.com/video/BV14T4y1z7sw?p=47&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) -->
