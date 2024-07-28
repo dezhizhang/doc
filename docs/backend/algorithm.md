@@ -1086,5 +1086,52 @@ public class SelectSort {
 }
 
 ```
+## 插入排序
+
+1. ### 基本介绍
+- 插入排序的基本思想是:把n个待排序的元素看成为一个有序表和一个无序表，开始时有序表只包含一个元素，无序表中包含n-1个元素，排序过程中每次从无序表中取出第一个元素，把它的排序依次与有序列元素排序码进行比较，将它插入到有序表中的适当位置，使之成为新的有序表
+
+2. ### 思路图解
+![插入排序](../../public/algorithm/inset-sort.png)
+
+3. ### 代码实现
+```java
+package shop.xiaozhi.sort;
+
+import java.util.Arrays;
+
+public class InsertSort {
+    public static void main(String[] args) {
+        int[] arr = {101,34,119,1};
+        insetSort(arr);
+
+        System.out.println(Arrays.toString(arr));
+    }
+
+    public static void insetSort(int[] arr) {
+
+        for(int i=1;i < arr.length;i++) {
+            // 待插入的值
+            int insetValue = arr[i];
+            // 待插入的索引
+            int insetIndex = i - 1;
+            //1. insetIndex>0保证在给insetValue 找位置不越界
+            //2. insetValue < arr[insetIndex]待插入的数，还没有找到插入位置
+            //3. 需要将arr[insetIndex]后移
+            while (insetIndex >=0 && insetValue < arr[insetIndex]) {
+                arr[insetIndex + 1] = arr[insetIndex];
+                insetIndex--;
+            }
+
+            arr[insetIndex + 1] = insetValue;
+        }
+    }
+}
+```
+
+
+
+
+
 
 <!-- [https://www.bilibili.com/video/BV1E4411H73v?p=40&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8] -->
