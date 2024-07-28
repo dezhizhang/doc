@@ -263,7 +263,30 @@ func (l *VideoLogic) Video(req *types.Request) (resp *types.Response, err error)
 )
 ```
 
-### jwt验证
+### 操作mysql
+
+```go
+package config
+import (
+	"github.com/zeromicro/go-zero/rest"
+	"github.com/zeromicro/go-zero/zrpc"
+)
+
+type Config struct {
+	rest.RestConf
+	UserRpc zrpc.RpcClientConf
+	Auth    struct {
+		AccessSecret string
+		AccessExpire int64
+	}
+	Mysql struct {
+		Datasource string
+	}
+}
+```
+
+
+
 
 
 
