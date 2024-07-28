@@ -618,7 +618,8 @@ npm install --save-dev preload-webpack-plugin
 - preload 加载优先级高，prefetch 加载优先级低
 - preload 只能加载当前页面需要使用的资源,prefetch 加载当前页面资源，也可以加载下一个页面需要使用的资源
 
-3. ##### 配置 
+3. ##### 配置
+
 ```js
  plugins: [
     new HtmlWebpackPlugin({
@@ -637,5 +638,35 @@ npm install --save-dev preload-webpack-plugin
   ],
 ```
 
+### js 兼容处理
+
+1. ##### 下载包
+
+```bash
+npm i core-js
+```
+
+2. ##### 功能介绍
+
+- core-js 是专门用来做 es6 以及上 api 处理的 polyfill
+- polyfill 补丁就用用社用上提供的一段代码，让在不兼容某些特性新特性的浏览器上，使用该新特性
+
+3. ##### 配置
+```js
+//app.js
+import 'core-js';
+//动态引入配置
+module.exports = {
+  presets: [
+    "@babel/preset-env",
+    {
+      targets: "> 0.25%, not dead",
+      corejs: { version: 3, proposals: true }, // 设置corejs版本
+      useBuiltIns: 'usage', // 根据使用情况引入polyfill
+    },
+  ],
+  plugins: [],
+};
+```
 
 <!-- [last](https://www.bilibili.com/video/BV14T4y1z7sw?p=47&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) -->
