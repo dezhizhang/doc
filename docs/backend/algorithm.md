@@ -1095,7 +1095,8 @@ public class SelectSort {
 - 插入排序的基本思想是:把 n 个待排序的元素看成为一个有序表和一个无序表，开始时有序表只包含一个元素，无序表中包含 n-1 个元素，排序过程中每次从无序表中取出第一个元素，把它的排序依次与有序列元素排序码进行比较，将它插入到有序表中的适当位置，使之成为新的有序表
 
 2. ### 思路图解
-![插入排序](../../public/algorithm/inset-sort.png)
+
+   ![插入排序](../../public/algorithm/inset-sort.png)
 
 3. ### 代码实现
 
@@ -1141,9 +1142,11 @@ public class InsertSort {
 - 希尔排序是把记录按下标的一定增量分组，对每组使用直接插入排序算法排序，随着增量逐渐减少，每组包含的关键词越来越多，当增量减至 1 时，整个文件恰被分成一组，算法便终止
 
 2. ### 思路图解
+
 ![插入排序](../../public/algorithm/shell-sort.png)
 
 3. ### 代码实现
+
 ```java
 package shop.xiaozhi.sort;
 import java.util.Arrays;
@@ -1173,9 +1176,79 @@ public class ShellSort {
 }
 ```
 
+## 快速排序
 
+1. ### 基本介绍
 
+- 快速排序是对冒沟排序的一种改进，基本思路是：通过一趟排序将要排序的数据分割成独立的两部份，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再此方法对两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变得有序序列
 
+2. ### 思路图解
 
+![快速排序](../../public/algorithm/quick-sort.png)
+
+3. ### 代码实现
+```java
+package shop.xiaozhi.sort;
+import java.util.Arrays;
+
+public class QuickSort {
+    public static void main(String[] args) {
+        int[] arr = {-9, 78, 0, 23, -567, 70};
+        quickSort(arr, 0, arr.length - 1);
+        System.out.println(Arrays.toString(arr));
+    }
+
+    public static void quickSort(int[] arr, int left, int right) {
+        int l = left;
+        int r = right;
+        int temp = 0;
+        int pivot = arr[(left + right) / 2];
+
+        while (l < r) {
+            while (arr[l] < pivot) {
+                l += 1;
+            }
+            while (arr[r] > pivot) {
+                r -= 1;
+            }
+
+            if (l >= r) {
+                break;
+            }
+
+            temp = arr[l];
+            arr[l] = arr[r];
+            arr[r] = temp;
+
+            if (arr[l] == pivot) {
+                r -= 1;
+            }
+
+            if (arr[r] == pivot) {
+                l += 1;
+            }
+        }
+
+        // 如果l==r 必须l++,r--
+        if (l == r) {
+            l += 1;
+            r -= 1;
+        }
+
+        // 向左递归
+        if(left < r) {
+            quickSort(arr,left,r);
+        }
+
+        // 向左递当
+        if(right > l) {
+            quickSort(arr,l,right);
+        }
+    }
+}
+```
+
+<div align="center">晓智科技公众号</div>
+<div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
 
 <!-- [https://www.bilibili.com/video/BV1E4411H73v?p=40&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8] -->
