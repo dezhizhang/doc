@@ -1325,8 +1325,79 @@ public class MergeSort {
 }
 
 ```
+## 基数排序
+1. ### 基本介绍
+
+- 基数排序(Radix Sort)是桶排序的扩展，它的基本思想是：将整数按位数切割成不同的数字，然后按每个位数分别比较。
+- 具体做法是：将所有待比较数值统一为同样的数位长度，数位较短的数前面补零。然后，从最低位开始，依次进行一次排序。这样从最低位排序一直到最高位排序完成以后, 数列就变成一个有序序列
+2. ### 思路图解
+
+![基数排序](../../public/algorithm/radix-sort.png)
+
+3. ### 代码实现
+```java
+package shop.xiaozhi.sort;
+import java.util.Arrays;
+public class RadixSort {
+    public static void main(String[] args) {
+        int arr[] = {53, 3, 542, 748, 14, 214};
+        radixSort(arr);
+        System.out.println(Arrays.toString(arr));
+    }
+
+    public static int getMax(int[] arr) {
+        int max = arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] > max) {
+                max = arr[i];
+            }
+        }
+        return max;
+    }
+
+    // 得到最大数的位数
+    public static int getMaxLeft(int max) {
+        return (max + "").length();
+    }
+
+    public static void radixSort(int[] arr) {
+        int max = getMax(arr);
+
+        int maxLength = getMaxLeft(max);
+
+        int[][] bucket = new int[10][arr.length];
+        // 创建一个一维数据存放每个数据
+        int[] bucketElementCounts = new int[10];
+        for (int i = 0, n = 1; i < maxLength; i++, n *= 10) {
+
+            for (int j = 0; j < arr.length; j++) {
+                // 取出每个元数的个位数的值
+                int digitOfElement = (arr[j] / n) % 10;
+                // 放入到对应的桶中
+                bucket[digitOfElement][bucketElementCounts[digitOfElement]] = arr[j];
+                bucketElementCounts[digitOfElement]++;
+            }
+            // 按照这个桶的顺序放入原来的数组
+            int index = 0;
+            for (int k = 0; k < bucketElementCounts.length; k++) {
+                // 如果桶中有数据才放入到原数组
+                if (bucketElementCounts[k] != 0) {
+                    for (int l = 0; l < bucketElementCounts[k]; l++) {
+                        // 取出元素放入到arr
+                        arr[index++] = bucket[k][l];
+                    }
+                }
+                bucketElementCounts[k] = 0;
+            }
+        }
+
+    }
+}
+
+```
 
 ##
+
 
 
 <div align="center">晓智科技公众号</div>
