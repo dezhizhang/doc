@@ -2,14 +2,33 @@
 # webgpu
 - 所谓
 
-### 获取webgpu设置对像
+###  配置webgpu对像
 ```js
-async function  init() {
+
+async function init() {
+  const canvas = document.createElement('canvas');
+  canvas.width = 500;
+  canvas.height = 500;
+
   const adapter = await navigator.gpu.requestAdapter();
-  const device = await adapter?.requestDevice();
-  console.log('device',device);
-  
+  const device = await adapter.requestDevice();
+
+  const ctx = canvas.getContext('webgpu');
+
+
+  const format = navigator.gpu.getPreferredCanvasFormat();
+
+  // 设置gup设置对像
+  ctx.configure({
+    device,
+    format, //颜色格式
+  });
+
+  document.body.append(canvas);
+
 }
+
+init();
 ```
 ### 配置webgup
 ```ts
