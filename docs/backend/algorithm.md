@@ -3,7 +3,7 @@
 | 项目     | 地址                                                                       |
 | :------- | :------------------------------------------------------------------------- |
 | 晓智科技 | [晓智科技](https://xiaozhi.shop)                                           |
-| 晓智文档 | [晓智文档](http://localhost:8000/backend/algorithm)                        |
+| 晓智文档 | [晓智文档](https://doc.xiaozhi.shop/backend/algorithm)                        |
 | 源码地址 | [源码地址](https://github.com/dezhizhang/java-awesome/tree/main/algorithm) |
 | 文档源码 | [文档源码](https://github.com/dezhizhang/doc)                              |
 
@@ -1187,6 +1187,7 @@ public class ShellSort {
 ![快速排序](../../public/algorithm/quick-sort.png)
 
 3. ### 代码实现
+
 ```java
 package shop.xiaozhi.sort;
 import java.util.Arrays;
@@ -1247,13 +1248,16 @@ public class QuickSort {
     }
 }
 ```
+
 ## 归并排序
 
 1. ### 基本介绍
+
 - 归并排序（Merge sort）是建立在归并操作上的一种有效的排序算法。该算法是采用分治法（Divide and Conquer）的一个非常典型的应用。
 
 2. ### 思路图解
-![归并排序](../../public/algorithm/merge-sort.png)
+
+   ![归并排序](../../public/algorithm/merge-sort.png)
 
 3. ### 代码实现
 
@@ -1325,16 +1329,20 @@ public class MergeSort {
 }
 
 ```
+
 ## 基数排序
+
 1. ### 基本介绍
 
 - 基数排序(Radix Sort)是桶排序的扩展，它的基本思想是：将整数按位数切割成不同的数字，然后按每个位数分别比较。
 - 具体做法是：将所有待比较数值统一为同样的数位长度，数位较短的数前面补零。然后，从最低位开始，依次进行一次排序。这样从最低位排序一直到最高位排序完成以后, 数列就变成一个有序序列
+
 2. ### 思路图解
 
 ![基数排序](../../public/algorithm/radix-sort.png)
 
 3. ### 代码实现
+
 ```java
 package shop.xiaozhi.sort;
 import java.util.Arrays;
@@ -1396,9 +1404,45 @@ public class RadixSort {
 
 ```
 
+## 二分查找
+
+1. ### 基本介绍
+
+- 二分查找也称折半查找（Binary Search），它是一种效率较高的查找方法。但是，折半查找要求线性表必须采用顺序存储结构，而且表中元素按关键字有序排列。
+
+2. ### 思路图解
+
+![二分查找](../../public/algorithm/binary-search.png)
+
+3. ### 代码实现
+```java
+package shop.xiaozhi.search;
+public class BinarySearch {
+    public static void main(String[] args) {
+        int arr[] = {1, 8, 10, 89, 1000, 1234};
+        int i = binarySearch(arr, 0, arr.length - 1, 1234);
+        System.out.println(i);
+    }
+
+    public static int binarySearch(int[] arr, int left, int right, int findValue) {
+        int mid = (left + right) / 2;
+        int midValue = arr[mid];
+        if (left > right) {
+            return -1;
+        }
+        if (findValue > midValue) {
+           return binarySearch(arr, mid + 1, right, findValue);
+        } else if (findValue < midValue) {
+            return binarySearch(arr, left, mid - 1, findValue);
+        } else {
+            return mid;
+        }
+
+    }
+}
+```
+
 ##
-
-
 
 <div align="center">晓智科技公众号</div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
