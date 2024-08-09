@@ -1491,6 +1491,50 @@ public class BinarySearch {
 }
 
 ```
+## 插值查找
+
+1. ### 基本介绍
+- 插值查找，有序表的一种查找方式。插值查找是根据查找关键字与查找表中最大最小记录关键字比较后的查找方法。插值查找基于二分查找，将查找点的选择改进为自适应选择，提高查找效率。
+
+2. ### 思路图解
+![插值查找](../../public/algorithm/difference-search.png)
+
+3. ### 代码实现
+```java
+package shop.xiaozhi.search;
+
+import java.util.Arrays;
+
+public class DifferenceSearch {
+    public static void main(String[] args) {
+        int[] arr = new int[100];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = i + 1;
+        }
+        int index = differenceSearch(arr, 0, arr.length - 1, 10);
+
+        System.out.println(index);
+    }
+
+    public static int differenceSearch(int[] arr, int left, int right, int findValue) {
+        if (left > right || findValue < arr[0] || findValue > arr[arr.length - 1]) {
+            return -1;
+        }
+
+        // 求出mid
+        int mid = left + (right - left) * (findValue - arr[left]) / (arr[right] - arr[left]);
+        int midValue = arr[mid];
+        if (findValue > midValue) {
+            return differenceSearch(arr, mid + 1, right, findValue);
+        } else if (findValue < midValue) {
+            return differenceSearch(arr, left, mid - 1, findValue);
+        } else {
+            return mid;
+        }
+    }
+}
+```
+
 
 ##
 
