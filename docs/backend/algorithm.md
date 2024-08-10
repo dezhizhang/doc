@@ -39,7 +39,7 @@
 
 - 记录数组一个有几行几列，有多少个不同的值
 - 把具有不同值的元素的行列及值记录在一个小规模的数组中，从而缩小程序的规模
-  ![稀疏数组](../../public/algorithm/sparsearray1.png)
+  ![稀疏数组](https://cdn.xiaozhi.shop/doc/algorithm/sparsearray1.png)
 
 3. ### 思路分析
 
@@ -54,7 +54,7 @@
 1. 先读取稀疏的第一行，根据第一行的数据创建原如的二维数组，比如上面的 cheeArr=int[11][11]
 2. 在读取稀疏数组后几行的数据，并赋给原始二维数组即可
 
-![稀疏数组](../../public/algorithm/sparsearray.png)
+![稀疏数组](https://cdn.xiaozhi.shop/doc/algorithm/sparsearray.png)
 
 4. ### 代码实现
 
@@ -140,7 +140,7 @@ public class SparseArray {
 
 - 队列是一个有序列表，可以用数组或链表来实现
 - 先入先出的原则，即：先存入队列的数据，要先取出，后存入的数据要后取出
-  ![队列](../../public/algorithm/queue.png)
+![队列](https://cdn.xiaozhi.shop/doc/algorithm/queue.png)
 
 2. ### 思路分析
 
@@ -296,7 +296,7 @@ class CircleArrayQueue {
 
 2. ### 思路分析
 
-![链表](../../public/algorithm/linkedlist.png)
+![链表](https://cdn.xiaozhi.shop/doc/algorithm/linkedlist.png)
 
 3. ### 代码实现
 
@@ -509,7 +509,7 @@ public static HeroNode findLastIndexNode(HeroNode head,int index) {
 6. ##### 单链表反转
 
 - 遍历原来的链表，每遍历一个节点，就将其取出，并放在新的链表 reverseHead 的最前端
-  ![链表](../../public/algorithm/reverselinked.png)
+  ![链表](https://cdn.xiaozhi.shop/doc/algorithm/reverselinked.png)
 
 ```java
 public static void reverseList(HeroNode head) {
@@ -542,7 +542,7 @@ public static void reverseList(HeroNode head) {
 
 2. ### 思路分析
 
-![链表](../../public/algorithm/doubleliked.png)
+![链表](https://cdn.xiaozhi.shop/doc/algorithm/doubleliked.png)
 
 3. ### 代码实现
 1. ##### 双向链表增删改查
@@ -708,7 +708,7 @@ class  HeroNode2{
 - 后面当我们每创建一个新的节点，就把该节点加入到已有的环形链表中即可
 - 先让一个辅用力指针 temp 指向 first 节点
 - 然后通过 while 循环遍历该环形链表即可 temp.next == first 结束
-  ![链表](../../public/algorithm/circularlinkedlist.png)
+  ![链表](https://cdn.xiaozhi.shop/doc/algorithm/circularlinkedlist.png)
 
 3. ### 代码实现
 
@@ -852,7 +852,7 @@ class Boy {
 
 - 栈是一个先入后出的有序列表
 - 栈是限制线性表中元素的插入和删除只能在线性表的同一端进行的一种特殊线性表，允许插入和删除的一端为变化的一端，称为栈顶，另一端为固定的一端称为栈底。
-  ![栈](../../public/algorithm/stack.png)
+  ![栈](https://cdn.xiaozhi.shop/doc/algorithm/stack.png)
 
 2. ### 代码实现
 
@@ -974,7 +974,7 @@ public class PolandNotation {
 
 2. ### 思路图解
 
-   ![栈](../../public/algorithm/recursion.png)
+   ![栈](https://cdn.xiaozhi.shop/doc/algorithm/recursion.png)
 
 3. ### 代码实现
 
@@ -1011,7 +1011,7 @@ public class RecursionTest {
 
 2. ### 思路图解
 
-![冒泡排序](../../public/algorithm/bubbling.png)
+![冒泡排序](https://cdn.xiaozhi.shop/doc/algorithm/bubbling.png)
 
 3. ### 代码实现
 
@@ -1052,7 +1052,7 @@ public class Bubble {
 
 2. ### 思路图解
 
-   ![选择排序](../../public/algorithm/select-sort.png)
+   ![选择排序](https://cdn.xiaozhi.shop/doc/algorithm/select-sort.png)
 
 3. ### 代码实现
 
@@ -1096,7 +1096,7 @@ public class SelectSort {
 
 2. ### 思路图解
 
-   ![插入排序](../../public/algorithm/inset-sort.png)
+   ![插入排序](https://cdn.xiaozhi.shop/doc/algorithm/inset-sort.png)
 
 3. ### 代码实现
 
@@ -1143,7 +1143,7 @@ public class InsertSort {
 
 2. ### 思路图解
 
-![插入排序](../../public/algorithm/shell-sort.png)
+![插入排序](https://cdn.xiaozhi.shop/doc/algorithm/shell-sort.png)
 
 3. ### 代码实现
 
@@ -1184,7 +1184,7 @@ public class ShellSort {
 
 2. ### 思路图解
 
-![快速排序](../../public/algorithm/quick-sort.png)
+![快速排序](https://cdn.xiaozhi.shop/doc/algorithm/quick-sort.png)
 
 3. ### 代码实现
 
@@ -1257,7 +1257,7 @@ public class QuickSort {
 
 2. ### 思路图解
 
-   ![归并排序](../../public/algorithm/merge-sort.png)
+   ![归并排序](https://cdn.xiaozhi.shop/doc/algorithm/merge-sort.png)
 
 3. ### 代码实现
 
@@ -1339,7 +1339,7 @@ public class MergeSort {
 
 2. ### 思路图解
 
-![基数排序](../../public/algorithm/radix-sort.png)
+![基数排序](https://cdn.xiaozhi.shop/doc/algorithm/radix-sort.png)
 
 3. ### 代码实现
 
@@ -1412,7 +1412,7 @@ public class RadixSort {
 
 2. ### 思路图解
 
-![二分查找](../../public/algorithm/binary-search.png)
+![二分查找](https://cdn.xiaozhi.shop/doc/algorithm/binary-search.png)
 
 3. ### 代码实现
 ```java
@@ -1497,7 +1497,7 @@ public class BinarySearch {
 - 插值查找，有序表的一种查找方式。插值查找是根据查找关键字与查找表中最大最小记录关键字比较后的查找方法。插值查找基于二分查找，将查找点的选择改进为自适应选择，提高查找效率。
 
 2. ### 思路图解
-![插值查找](../../public/algorithm/difference-search.png)
+![插值查找](https://cdn.xiaozhi.shop/doc/algorithm/difference-search.png)
 
 3. ### 代码实现
 ```java
@@ -1541,7 +1541,7 @@ public class DifferenceSearch {
 - 斐波那契搜索就是在二分查找的基础上根据斐波那契数列进行分割的。在斐波那契数列找一个等于略大于查找表中元素个数的数F[n]，将原查找表扩展为长度为F[n](如果要补充元素，则补充重复最后一个元素，直到满足F[n]个元素)，完成后进行斐波那契分割，即F[n]个元素分割为前半部分F[n-1]个元素，后半部分F[n-2]个元素，找出要查找的元素在那一部分并递归，直到找到。
 
 2. ### 思路图解
-![斐波那契搜索](../../public/algorithm/fb-search.png)
+![斐波那契搜索](https://cdn.xiaozhi.shop/doc/algorithm/fb-search.png)
 
 3. ### 代码实现
 ```java
@@ -1606,7 +1606,7 @@ public class FibSearch {
 1. ### 基本介绍
 - 哈希表（Hash table，也叫散列表）是根据‌关键码值（Key value）直接进行访问的数据结构。它通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度。这个映射函数叫做‌散列函数，存放记录的数组叫做散列表。‌1
 2. ### 思路图解
-![哈希表](../../public/algorithm/hash.png)
+![哈希表](https://cdn.xiaozhi.shop/doc/algorithm/hash.png)
 
 3. ### 代码实现
 ```java
@@ -1722,7 +1722,128 @@ class EmpLinkedList {
 }
 ```
 
-##
+## 二叉树前序中序后序遍历
+
+1. ### 基本介绍
+- 访问根节点；② 先序遍历左子树；③ 先序遍历右子树。
+- 二叉树的子节点分为左节和右节点
+
+2. ### 思路图解
+![二叉树前序中序后序遍历](../../public/algorithm/binary-tree.png)
+
+3. ### 代码实现
+```java
+package shop.xiaozhi.tree;
+
+public class BinaryTreeTest {
+    public static void main(String[] args) {
+        // 创建二叉树
+        BinaryTree binaryTree = new BinaryTree();
+
+        HeroNode root = new HeroNode(1, "宋江");
+        HeroNode node2 = new HeroNode(2, "吴用");
+        HeroNode node3 = new HeroNode(3, "卢俊义");
+        HeroNode node4 = new HeroNode(4, "宋江");
+
+        root.left = node2;
+        root.right = node3;
+        node3.right = node4;
+
+        binaryTree.setRoot(root);
+        binaryTree.infixOrder();
+    }
+}
+
+class BinaryTree {
+    private HeroNode root;
+
+    public void setRoot(HeroNode root) {
+        this.root = root;
+    }
+
+    // 前序遍历
+    public void preOrder() {
+        if (this.root != null) {
+            this.root.preOrder();
+        }
+    }
+
+    // 中序遍历
+    public void infixOrder() {
+        if (this.root != null) {
+            this.root.infixOrder();
+        }
+    }
+
+    // 后序遍历
+    public void postOrder() {
+        if (this.root != null) {
+            this.root.postOrder();
+        }
+    }
+}
+
+class HeroNode {
+    public int no;
+    public String name;
+    public HeroNode left;
+    public HeroNode right;
+
+    public HeroNode(int no, String name) {
+        this.no = no;
+        this.name = name;
+    }
+    // 前序遍历
+    public void preOrder() {
+        // 先输出根节点
+        System.out.println(this);
+        // 递归左子树前序遍历
+        if (this.left != null) {
+            this.left.preOrder();
+        }
+        // 递归向右子树遍历
+        if (this.right != null) {
+            this.right.preOrder();
+        }
+    }
+    // 中序遍历
+    public void infixOrder() {
+        // 递归向左子树遍历
+        if (this.left != null) {
+            this.left.infixOrder();
+        }
+        // 输入父节点
+        System.out.println(this);
+        // 递归向右子树遍历
+        if (this.right != null) {
+            this.right.infixOrder();
+        }
+    }
+
+    // 后序遍历
+    public void postOrder() {
+        // 递归向左子树遍历
+        if (this.left != null) {
+            this.left.postOrder();
+        }
+        // 递归向右子树遍历
+        if (this.right != null) {
+            this.right.postOrder();
+        }
+        System.out.println(this);
+    }
+
+
+    @Override
+    public String toString() {
+        return "HeroNode{" + "no=" + no + ", name='" + name + '\'' + '}';
+    }
+}
+
+```
+
+
+
 
 <div align="center">晓智科技公众号</div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
