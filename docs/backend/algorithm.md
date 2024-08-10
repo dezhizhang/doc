@@ -1541,8 +1541,67 @@ public class DifferenceSearch {
 - 斐波那契搜索就是在二分查找的基础上根据斐波那契数列进行分割的。在斐波那契数列找一个等于略大于查找表中元素个数的数F[n]，将原查找表扩展为长度为F[n](如果要补充元素，则补充重复最后一个元素，直到满足F[n]个元素)，完成后进行斐波那契分割，即F[n]个元素分割为前半部分F[n-1]个元素，后半部分F[n-2]个元素，找出要查找的元素在那一部分并递归，直到找到。
 
 2. ### 思路图解
+![斐波那契搜索](../../public/algorithm/fb-search.png)
 
 3. ### 代码实现
+```java
+package shop.xiaozhi.search;
+import java.util.Arrays;
+
+public class FibSearch {
+    public static int maxSize = 20;
+
+    public static void main(String[] args) {
+        int[] arr = {1, 8, 10, 89, 1000, 1234};
+        int i = fibSearch(arr, 10);
+        System.out.println(i);
+
+    }
+
+    public static int[] fib() {
+        int[] f = new int[maxSize];
+
+        f[0] = 1;
+        f[1] = 1;
+
+        for (int i = 2; i < maxSize; i++) {
+            f[i] = f[i - 1] + f[i - 2];
+        }
+        return f;
+    }
+
+    public static int fibSearch(int[] a, int key) {
+        int low = 0;
+        int high = a.length - 1;
+        int k = 0;
+        int mid = 0;
+        int[] f = fib();
+        while (high > f[k] - 1) {
+            k++;
+        }
+
+        int[] temp = Arrays.copyOf(a, f[k]);
+
+        for (int i = high + 1; i < temp.length; i++) {
+            temp[i] = a[high];
+        }
+        //使用while来循环处理找到key
+        while (low <= high) {
+            mid = low + f[k - 1] - 1;
+            if (key < temp[mid]) {
+                high = mid - 1;
+                k--;
+            } else if (key > temp[mid]) {
+                low = mid + 1;
+                k -= 2;
+            } else {
+                return Math.min(mid, high);
+            }
+        }
+        return -1;
+    }
+}
+```
 
 
 ##
