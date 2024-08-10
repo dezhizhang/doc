@@ -1,4 +1,4 @@
-# go
+# interview
 
 ### go get
 
@@ -6,4 +6,6 @@
 2. 执行go install命令
 3. 可以指定-d参数仅下载不安装
 
-### go get
+### go build
+
+### go modules
