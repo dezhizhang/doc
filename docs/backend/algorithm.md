@@ -1944,6 +1944,53 @@ class HeroNode {
 
 ```
 
+## 顺序存储二叉树
+
+1. ### 基本介绍
+- 从数据存储来看，数据存储方式和树的存储方式可以相互转换，即数组可以转换成树，树也可以转换数据
+2. ### 思路图解
+![顺序存储二叉树](../../public/algorithm/array-binary.png)
+3. ### 代码实现
+```java
+package shop.xiaozhi.tree;
+
+public class ArrayBinaryTreeTest {
+    public static void main(String[] args) {
+        int[] arr = {1,2,3,4,5,6,7};
+        ArrayBinaryTree arrayBinaryTree = new ArrayBinaryTree(arr);
+        arrayBinaryTree.preOrder();
+    }
+}
+
+class ArrayBinaryTree {
+    private final int[] arr;
+
+    public ArrayBinaryTree(int[] arr) {
+        this.arr = arr;
+    }
+
+    public void preOrder() {
+        this.preOrder(0);
+    }
+    public void preOrder(int index) {
+        if (arr == null || arr.length == 0) {
+            System.out.println("数组为空不能遍历");
+            return;
+        }
+        // 输出当前这个元素
+        System.out.println(arr[index]);
+        // 向左递归遍历
+        if ((index * 2 + 1) < arr.length) {
+            preOrder(2 * index + 1);
+        }
+        // 向右递归遍历
+        if ((index * 2 + 2) < arr.length) {
+            preOrder(2 * index + 2);
+        }
+        
+    }
+}
+```
 
 
 
