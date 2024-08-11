@@ -3,7 +3,7 @@
 | 项目     | 地址                                                                       |
 | :------- | :------------------------------------------------------------------------- |
 | 晓智科技 | [晓智科技](https://xiaozhi.shop)                                           |
-| 晓智文档 | [晓智文档](https://doc.xiaozhi.shop/backend/algorithm)                        |
+| 晓智文档 | [晓智文档](https://doc.xiaozhi.shop/backend/algorithm)                     |
 | 源码地址 | [源码地址](https://github.com/dezhizhang/java-awesome/tree/main/algorithm) |
 | 文档源码 | [文档源码](https://github.com/dezhizhang/doc)                              |
 
@@ -140,7 +140,7 @@ public class SparseArray {
 
 - 队列是一个有序列表，可以用数组或链表来实现
 - 先入先出的原则，即：先存入队列的数据，要先取出，后存入的数据要后取出
-![队列](https://cdn.xiaozhi.shop/doc/algorithm/queue.png)
+  ![队列](https://cdn.xiaozhi.shop/doc/algorithm/queue.png)
 
 2. ### 思路分析
 
@@ -1415,6 +1415,7 @@ public class RadixSort {
 ![二分查找](https://cdn.xiaozhi.shop/doc/algorithm/binary-search.png)
 
 3. ### 代码实现
+
 ```java
 package shop.xiaozhi.search;
 
@@ -1491,15 +1492,19 @@ public class BinarySearch {
 }
 
 ```
+
 ## 插值查找
 
 1. ### 基本介绍
+
 - 插值查找，有序表的一种查找方式。插值查找是根据查找关键字与查找表中最大最小记录关键字比较后的查找方法。插值查找基于二分查找，将查找点的选择改进为自适应选择，提高查找效率。
 
 2. ### 思路图解
-![插值查找](https://cdn.xiaozhi.shop/doc/algorithm/difference-search.png)
+
+   ![插值查找](https://cdn.xiaozhi.shop/doc/algorithm/difference-search.png)
 
 3. ### 代码实现
+
 ```java
 package shop.xiaozhi.search;
 
@@ -1538,12 +1543,15 @@ public class DifferenceSearch {
 ## 斐波那契搜索
 
 1. ### 基本介绍
-- 斐波那契搜索就是在二分查找的基础上根据斐波那契数列进行分割的。在斐波那契数列找一个等于略大于查找表中元素个数的数F[n]，将原查找表扩展为长度为F[n](如果要补充元素，则补充重复最后一个元素，直到满足F[n]个元素)，完成后进行斐波那契分割，即F[n]个元素分割为前半部分F[n-1]个元素，后半部分F[n-2]个元素，找出要查找的元素在那一部分并递归，直到找到。
+
+- 斐波那契搜索就是在二分查找的基础上根据斐波那契数列进行分割的。在斐波那契数列找一个等于略大于查找表中元素个数的数 F[n]，将原查找表扩展为长度为 F[n](如果要补充元素，则补充重复最后一个元素，直到满足F[n]个元素)，完成后进行斐波那契分割，即 F[n]个元素分割为前半部分 F[n-1]个元素，后半部分 F[n-2]个元素，找出要查找的元素在那一部分并递归，直到找到。
 
 2. ### 思路图解
-![斐波那契搜索](https://cdn.xiaozhi.shop/doc/algorithm/fb-search.png)
+
+   ![斐波那契搜索](https://cdn.xiaozhi.shop/doc/algorithm/fb-search.png)
 
 3. ### 代码实现
+
 ```java
 package shop.xiaozhi.search;
 import java.util.Arrays;
@@ -1602,13 +1610,19 @@ public class FibSearch {
     }
 }
 ```
+
 ## 哈希表
+
 1. ### 基本介绍
-- 哈希表（Hash table，也叫散列表）是根据‌关键码值（Key value）直接进行访问的数据结构。它通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度。这个映射函数叫做‌散列函数，存放记录的数组叫做散列表。‌1
+
+- 哈希表（Hash table，也叫散列表）是根据 ‌ 关键码值（Key value）直接进行访问的数据结构。它通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度。这个映射函数叫做 ‌ 散列函数，存放记录的数组叫做散列表。‌1
+
 2. ### 思路图解
-![哈希表](https://cdn.xiaozhi.shop/doc/algorithm/hash.png)
+
+   ![哈希表](https://cdn.xiaozhi.shop/doc/algorithm/hash.png)
 
 3. ### 代码实现
+
 ```java
 // 创建hashTab 管理多条链表
 class HashTab {
@@ -1725,13 +1739,16 @@ class EmpLinkedList {
 ## 二叉树前序中序后序遍历
 
 1. ### 基本介绍
+
 - 访问根节点；② 先序遍历左子树；③ 先序遍历右子树。
 - 二叉树的子节点分为左节和右节点
 
 2. ### 思路图解
-![二叉树前序中序后序遍历](../../public/algorithm/binary-tree.png)
+
+   ![二叉树前序中序后序遍历](../../public/algorithm/binary-tree.png)
 
 3. ### 代码实现
+
 ```java
 package shop.xiaozhi.tree;
 
@@ -1947,10 +1964,14 @@ class HeroNode {
 ## 顺序存储二叉树
 
 1. ### 基本介绍
+
 - 从数据存储来看，数据存储方式和树的存储方式可以相互转换，即数组可以转换成树，树也可以转换数据
+
 2. ### 思路图解
 ![顺序存储二叉树](../../public/algorithm/array-binary.png)
+
 3. ### 代码实现
+
 ```java
 package shop.xiaozhi.tree;
 
@@ -1987,12 +2008,81 @@ class ArrayBinaryTree {
         if ((index * 2 + 2) < arr.length) {
             preOrder(2 * index + 2);
         }
-        
+
     }
 }
 ```
 
+## 线索化二叉树
 
+1. ### 基本介绍
+- n个结点的二叉链表中含有n+1 [公式2n-(n-1)=n+1]个空指针域，利用二叉链表中空指针域，存放指向该节点在某种遍历次序下的前驱和后继结点的指针
+
+2. ### 思路图解
+
+## 堆排序
+
+1. ### 基本介绍
+- 堆排序（英语:Heapsort）是指利用堆这种数据结构所设计的一种排序算法。堆是一个近似完全二叉树的结构，并同时满足堆积的性质：即子结点的键值或索引总是小于（或者大于）它的父节点
+
+2. ### 思路图解
+
+![堆排序](../../public/algorithm/heap-search.png)
+
+3. ### 代码实现
+
+```java
+package shop.xiaozhi.tree;
+
+import java.util.Arrays;
+
+public class HeapSort {
+    public static void main(String[] args) {
+        int arr[] = {4, 6, 8, 5, 9};
+        heapSort(arr);
+        System.out.println(Arrays.toString(arr));
+    }
+
+    // 堆排序
+    public static void heapSort(int[] arr) {
+        int temp = 0;
+        // 将元序序列构建成一个大顶堆
+        for (int i = arr.length / 2 - 1; i >= 0; i--) {
+            adjustHeap(arr, i, arr.length);
+        }
+
+        for (int j = arr.length - 1; j > 0; j--) {
+            temp = arr[j];
+            arr[j] = arr[0];
+            arr[0] = temp;
+            adjustHeap(arr, 0, j);
+        }
+    }
+
+    // 将数组调整成大顶堆
+    public static void adjustHeap(int[] arr, int i, int length) {
+        // 取出当前元素的值，存在在临时变量
+        int temp = arr[i];
+
+        for (int k = i * 2 + 1; k < length; k = k * 2 + 1) {
+            // 左子节点的值小于右子节点的值
+            if (k + 1 < length && arr[k] < arr[k + 1]) {
+                k++;
+            }
+
+            if (arr[k] < temp) {
+                break;
+            }
+
+            arr[i] = arr[k];
+            i = k;
+
+        }
+        arr[i] = temp;
+    }
+}
+
+```
 
 <div align="center">晓智科技公众号</div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
