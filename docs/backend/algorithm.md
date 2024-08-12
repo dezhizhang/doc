@@ -2297,6 +2297,12 @@ class Node {
     }
 }
 ```
+## 平衡二叉树
+
+1. ### 基本介绍
+- 深度为n的均衡二叉树是指：如果去掉叶结点及相应的树枝，它应该是深度为n-1的完全二叉树。在这里，树高等于叶节点的最大深度，根节点的深度为0。
+
+
 
 <div align="center">晓智科技公众号</div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>

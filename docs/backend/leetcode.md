@@ -3,7 +3,7 @@
 | :----------------------- | :--------------------------------------- |
 | 晓智科技                 | [晓智科技](https://xiaozhi.shop)|
 | 晓智文档                 | [晓智文档](https://doc.xiaozhi.shop/backend/elastic) |
-| 源码地址                 | [源码地址](https://github.com/dezhizhang/java-awesome/tree/main/es)|
+| 源码地址                 | [源码地址](https://github.com/dezhizhang/java-awesome/tree/main/leetcode)|
 | 文档源码                 | [文档源码](https://github.com/dezhizhang/doc) |
 
 ### 认识复杂度和简单排序算法
