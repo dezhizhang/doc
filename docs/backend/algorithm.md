@@ -1968,7 +1968,8 @@ class HeroNode {
 - 从数据存储来看，数据存储方式和树的存储方式可以相互转换，即数组可以转换成树，树也可以转换数据
 
 2. ### 思路图解
-![顺序存储二叉树](../../public/algorithm/array-binary.png)
+
+   ![顺序存储二叉树](../../public/algorithm/array-binary.png)
 
 3. ### 代码实现
 
@@ -2016,13 +2017,15 @@ class ArrayBinaryTree {
 ## 线索化二叉树
 
 1. ### 基本介绍
-- n个结点的二叉链表中含有n+1 [公式2n-(n-1)=n+1]个空指针域，利用二叉链表中空指针域，存放指向该节点在某种遍历次序下的前驱和后继结点的指针
+
+- n 个结点的二叉链表中含有 n+1 [公式 2n-(n-1)=n+1]个空指针域，利用二叉链表中空指针域，存放指向该节点在某种遍历次序下的前驱和后继结点的指针
 
 2. ### 思路图解
 
 ## 堆排序
 
 1. ### 基本介绍
+
 - 堆排序（英语:Heapsort）是指利用堆这种数据结构所设计的一种排序算法。堆是一个近似完全二叉树的结构，并同时满足堆积的性质：即子结点的键值或索引总是小于（或者大于）它的父节点
 
 2. ### 思路图解
@@ -2083,15 +2086,19 @@ public class HeapSort {
 }
 
 ```
+
 ## 赫夫曼树
 
 1. ### 基本介绍
-- 给定N个权值作为N个叶子结点，构造一棵二叉树，若该树的带权路径长度达到最小，称这样的二叉树为最优二叉树，也称为哈夫曼树(Huffman Tree)。哈夫曼树是带权路径长度最短的树，权值较大的结点离根较近。
+
+- 给定 N 个权值作为 N 个叶子结点，构造一棵二叉树，若该树的带权路径长度达到最小，称这样的二叉树为最优二叉树，也称为哈夫曼树(Huffman Tree)。哈夫曼树是带权路径长度最短的树，权值较大的结点离根较近。
 
 2. ### 思路图解
-![赫夫曼树](../../public/algorithm/huffman-tree.png)
+
+   ![赫夫曼树](../../public/algorithm/huffman-tree.png)
 
 3. ### 代码实现
+
 ```java
 package shop.xiaozhi.tree;
 import java.util.ArrayList;
@@ -2188,6 +2195,108 @@ class Node implements Comparable<Node> {
 
 ```
 
+## 二叉排序数
+
+1. ### 基本介绍
+
+- 二叉排序数：BST(Binary Sort Tree) 对于二叉排序树的任何一个非叶子节点，要求左子节点的值比当前节点的值小，右子节点的值比当前节点的值大
+
+2. ### 思路图解
+![二叉排序数](../../public/algorithm/binary-sort.png)
+
+3. ### 代码实现
+
+```java
+package shop.xiaozhi.binary;
+
+public class BinarySortTreeTest {
+    public static void main(String[] args) {
+        int[] arr = {7, 3, 10, 12, 5, 1, 9};
+
+        BinarySortTree binarySortTree = new BinarySortTree();
+
+        for (int j : arr) {
+            binarySortTree.add(new Node(j));
+        }
+
+        binarySortTree.infixOrder();
+    }
+}
+
+// 创建二叉排序树
+class BinarySortTree {
+    private Node root;
+
+    public void add(Node node) {
+
+        if (root != null) {
+            root.add(node);
+            return;
+        }
+        root = node;
+    }
+
+    // 中序遍历
+    public void infixOrder() {
+        if (root == null) {
+            System.out.println("树为空");
+            return;
+        }
+        root.infixOrder();
+    }
+}
+
+
+class Node {
+    public int value;
+    public Node left;
+    public Node right;
+
+    public Node(int value) {
+        this.value = value;
+    }
+
+    // 添加节点
+    public void add(Node node) {
+        if (node == null) {
+            return;
+        }
+
+        // 判断当前传入的值和当前树节点的值关系
+        if (node.value < this.value) {
+            // 当前节点不为空递归添加
+            if (this.left != null) {
+                this.left.add(node);
+                return;
+            }
+            this.left = node;
+        } else {
+            // 左子树不为空递归添加
+            if (this.right != null) {
+                this.right.add(node);
+                return;
+            }
+            this.right = node;
+        }
+    }
+
+    // 中序遍历二叉树
+    public void infixOrder() {
+        if (this.left != null) {
+            this.left.infixOrder();
+        }
+        System.out.println(this);
+        if (this.right != null) {
+            this.right.infixOrder();
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Node{" + "value=" + value + '}';
+    }
+}
+```
 
 <div align="center">晓智科技公众号</div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
