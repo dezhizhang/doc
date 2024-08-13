@@ -2202,7 +2202,8 @@ class Node implements Comparable<Node> {
 - 二叉排序数：BST(Binary Sort Tree) 对于二叉排序树的任何一个非叶子节点，要求左子节点的值比当前节点的值小，右子节点的值比当前节点的值大
 
 2. ### 思路图解
-![二叉排序数](../../public/algorithm/binary-sort.png)
+
+   ![二叉排序数](../../public/algorithm/binary-sort.png)
 
 3. ### 代码实现
 
@@ -2297,12 +2298,100 @@ class Node {
     }
 }
 ```
+
 ## 平衡二叉树
 
 1. ### 基本介绍
-- 深度为n的均衡二叉树是指：如果去掉叶结点及相应的树枝，它应该是深度为n-1的完全二叉树。在这里，树高等于叶节点的最大深度，根节点的深度为0。
+
+- 深度为 n 的均衡二叉树是指：如果去掉叶结点及相应的树枝，它应该是深度为 n-1 的完全二叉树。在这里，树高等于叶节点的最大深度，根节点的深度为 0。
+
+## 图
+
+1. ### 基本介绍
+
+- 图 G 是一个有序二元组(V,E)，其中 V 称为顶集(Vertices Set)，E 称为边集(Edges set)，E 与 V 不相交。它们亦可写成 V(G)和 E(G)。其中，顶集的元素被称为顶点(Vertex)，边集的元素被称为边(edge)。
+
+3. ### 代码实现
+```java
+package shop.xiaozhi.graph;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class Graph {
+    public static void main(String[] args) {
+        int n = 5;
+        String[] vertexs = {"A", "B", "C", "D"};
+        Graph graph = new Graph(n);
+
+        for(String value:vertexs) {
+            graph.insertVertex(value);
+        }
+
+        // 添加边
+        //A-B A-C B-C B-D B-E
+        graph.insertEdge(0,1,1);
+        graph.insertEdge(0,2,1);
+        graph.insertEdge(1,2,1);
+        graph.insertEdge(1,3,1);
+        graph.insertEdge(1,4,1);
+
+        graph.showGraph();
 
 
+    }
+
+    private ArrayList<String> vertexList; // 存储顶点集合
+    private int[][] edges; // 存储图对应的邻结矩阵
+    private int numOfEdges; // 表示边的数目
+
+
+    public Graph(int n) {
+        edges = new int[n][n];
+        vertexList = new ArrayList<String>(n);
+        numOfEdges = 0;
+    }
+
+    // 插入结点
+    public void insertVertex(String vertex) {
+        vertexList.add(vertex);
+    }
+
+    // 添加边
+    public void insertEdge(int v1, int v2, int weight) {
+        edges[v1][v2] = weight;
+        edges[v2][v1] = weight;
+        numOfEdges++;
+    }
+
+    // 返回节点的个数
+    public int getNumOfVertex() {
+        return vertexList.size();
+    }
+
+    // 获取边的数目
+    public int getNumOfEdges() {
+        return numOfEdges;
+    }
+
+    // 返回节点对应的数据
+    public String getValueByIndex(int i) {
+        return vertexList.get(i);
+    }
+
+    // 返回v1和v2的权值
+    public int getWeight(int v1, int v2) {
+        return edges[v1][v2];
+    }
+
+    // 显示图对应的矩阵
+    public void showGraph() {
+        for (int[] link : edges) {
+            System.out.println(Arrays.toString(link));
+        }
+    }
+}
+```
 
 <div align="center">晓智科技公众号</div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
