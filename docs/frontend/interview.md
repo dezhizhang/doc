@@ -1,6 +1,12 @@
 # inverview
 
 # 前端面试
+| 项目              | 地址                                           |
+| :----------------------- | :--------------------------------------- |
+| 晓智科技                 | [晓智科技](https://xiaozhi.shop)|
+| 晓智文档                 | [晓智文档](https://doc.xiaozhi.shop/frontend/interview) |
+| 源码地址                 | [源码地址](https://github.com/dezhizhang/interview)|
+| 文档源码                 | [文档源码](https://github.com/dezhizhang/doc) |
 
 <!-- # 面试视频https://www.bilibili.com/video/BV1sN411974w/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8 -->
 
