@@ -1613,3 +1613,5 @@ function createPromise(val) {
 - 创建 eval 作用域
 - 禁止 this 指向 window
 - 函数参数不能重名
+
+### http 跨域请求为何发送 options 请求
