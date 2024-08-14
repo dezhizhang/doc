@@ -2305,7 +2305,7 @@ class Node {
 
 - 深度为 n 的均衡二叉树是指：如果去掉叶结点及相应的树枝，它应该是深度为 n-1 的完全二叉树。在这里，树高等于叶节点的最大深度，根节点的深度为 0。
 
-## 图
+## 图的实现
 
 1. ### 基本介绍
 
@@ -2395,6 +2395,10 @@ public class Graph {
 
 ## 动态归化
 
+1. ### 基本介绍
+动态规划（Dynamic Programming，DP）是运筹学的一个分支，是求解决策过程最优化的过程。20世纪50年代初，美国数学家贝尔曼（R.Bellman）等人在研究多阶段决策过程的优化问题时，提出了著名的最优化原理，从而创立了动态规划。动态规划的应用极其广泛，包括工程技术、经济、工业生产、军事以及自动化控制等领域，并在背包问题、生产经营问题、资金管理问题、资源分配问题、最短路径问题和复杂系统可靠性问题等中取得了显著的效果
+
+2. ### 代码实现
 ```java
 package shop.xiaozhi.dynamic;
 import java.util.Arrays;
@@ -2453,6 +2457,75 @@ public class Knapsack {
 }
 ```
 
+## kmp算法
+
+1. ### 基本介绍
+
+- KMP算法是一种改进的字符串匹配算法，由D.E.Knuth，J.H.Morris和V.R.Pratt提出的，因此人们称它为克努特—莫里斯—普拉特操作（简称KMP算法）。KMP算法的核心是利用匹配失败后的信息，尽量减少模式串与主串的匹配次数以达到快速匹配的目的。具体实现就是通过一个next()函数实现，函数本身包含了模式串的局部匹配信息。KMP算法的时间复杂度O(m+n)
+
+2. ### 代码实现
+```java
+package shop.xiaozhi.kmp;
+
+import java.util.Arrays;
+
+public class KmpViolence {
+    public static void main(String[] args) {
+        String str1 = "BBC ABCDAB ABCDABCDABDE";
+        String str2 = "ABCDABD";
+
+        int[] next = kmpNext("ABCDABD");
+        System.out.println(Arrays.toString(next));
+
+        int index = kmpSearch(str1, str2, next);
+        System.out.println(index);
+
+    }
+
+    // kmp搜索算法
+    public static int kmpSearch(String str1, String str2, int[] next) {
+        for (int i = 0, j = 0; i < str1.length(); i++) {
+
+            // 处理str1.charAt(i) != str2.charAt(j)
+            while (j > 0 && str1.charAt(i) != str2.charAt(j)) {
+                j = next[j - 1];
+            }
+            if (str1.charAt(i) == str2.charAt(j)) {
+                j++;
+            }
+
+            if (j == str2.length()) {
+                return i - j + 1;
+            }
+        }
+        return -1;
+    }
+
+    // 获取一个字符串部份匹配值
+    public static int[] kmpNext(String dest) {
+        // 创建一个next数组保存部份匹配值
+        int[] next = new int[dest.length()];
+        // 如果字符串是长度为1部份匹配值就是0
+        next[0] = 0;
+        for (int i = 1, j = 0; i < dest.length(); i++) {
+            // kmp算法核心
+            while (j > 0 && dest.charAt(i) != dest.charAt(j)) {
+                j = next[j - 1];
+            }
+
+            if (dest.charAt(i) == dest.charAt(j)) {
+                j++;
+            }
+            next[i] = j;
+        }
+        return next;
+    }
+}
+
+```
+
+
+### 
 
 <div align="center">晓智科技公众号</div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
