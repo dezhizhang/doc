@@ -8,7 +8,7 @@
 | 源码地址                 | [源码地址](https://github.com/dezhizhang/interview)|
 | 文档源码                 | [文档源码](https://github.com/dezhizhang/doc) |
 
-<!-- # 面试视频https://www.bilibili.com/video/BV1sN411974w/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8 -->
+<!-- # https://www.bilibili.com/video/BV18j411M74W/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8 -->
 
 ### Promise
 
@@ -1624,3 +1624,6 @@ function createPromise(val) {
 
 - options 请求是跨域请求之前的预检查
 - 浏览器自行发起不需我们干预
+
+
+
