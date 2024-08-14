@@ -1513,8 +1513,9 @@ class MyStatis {
 - Fetch 浏览器原生api
 - Axios，是一个http第三方库
 
-### 节流和防抖
-- 防抖：防止抖动，“你先抖动着，啥时”
+### 防抖
+
+- 防抖：限制执行次数，多次密集的触发只执行一次
 ```js
 function debounce(fn,delay = 200) {
     let timer = 0;
@@ -1527,6 +1528,23 @@ function debounce(fn,delay = 200) {
         },delay)
     }
 }
+```
+
+### 节流
+- 节流：限制执行频率，有节奏的执行
+
+```js
+function throttle(fn, delay = 200) {
+  let timer = 0;
+  return function () {
+    if (timer) return;
+    timer = setTimeout(() => {
+      fn.applay(this, arguments);
+      timer = 0;
+    }, delay);
+  };
+}
+
 ```
 
 
