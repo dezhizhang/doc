@@ -1573,3 +1573,10 @@ function throttle(fn, delay = 200) {
 - 动态上下文回调函数
 - Vue 生命周期 method
 
+### for...in
+
+- for...in 用于可枚举数据，如对像，数组，字符串
+
+### for...of
+
+- for...of 用于可迭代数据，如数组，字符串，Map,Set
