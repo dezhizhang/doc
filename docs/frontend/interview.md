@@ -1,5 +1,7 @@
 # inverview
 
+# 前端面试
+
 <!-- # 面试视频https://www.bilibili.com/video/BV1sN411974w/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8 -->
 
 ### Promise
@@ -1552,3 +1554,22 @@ function throttle(fn, delay = 200) {
 
 - px 基本单位，绝对单位（）
 - % 相对于父元素的宽度比例
+
+### em 和 rem
+
+- em 相对于当前元素的 font-size
+- rem 相对于根节点的 font-size
+
+### vw 和 vh
+
+- vw 屏幕宽度的 1%
+- vh 屏幕高度的 1%
+
+### 不适用箭头函数的场景
+
+- 对像方法
+- 对像原型
+- 构造函数
+- 动态上下文回调函数
+- Vue 生命周期 method
+
