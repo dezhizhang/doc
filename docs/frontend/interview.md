@@ -1615,3 +1615,6 @@ function createPromise(val) {
 - 函数参数不能重名
 
 ### http 跨域请求为何发送 options 请求
+
+- options 请求是跨域请求之前的预检查
+- 浏览器自行发起不需我们干预
