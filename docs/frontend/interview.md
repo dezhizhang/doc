@@ -1,6 +1,5 @@
 # inverview
 
-
 <!-- # 面试视频https://www.bilibili.com/video/BV1sN411974w/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8 -->
 
 ### Promise
@@ -1275,7 +1274,7 @@ console.log(MyInstance([], Array));
 console.log(MyInstance('123', Number));
 ```
 
-### 自定义bind
+### 自定义 bind
 
 ```js
 Function.prototype.mybind = function (context, ...bindArgs) {
@@ -1294,12 +1293,14 @@ function fn(a, b, c) {
 const fn1 = fn.mybind({ x: 100 }, 10);
 fn1(20, 30);
 ```
-### 自定义call
-```js
-Function.prototype.myCall = function(context,...args) {
-  if(context == null) context = globalThis;
 
-  if(typeof context !== 'object') context = new Object(context);
+### 自定义 call
+
+```js
+Function.prototype.myCall = function (context, ...args) {
+  if (context == null) context = globalThis;
+
+  if (typeof context !== 'object') context = new Object(context);
 
   const fnKey = Symbol();
   context[fnKey] = this;
@@ -1308,17 +1309,17 @@ Function.prototype.myCall = function(context,...args) {
   delete context[fnKey];
 
   return result;
+};
+
+function fn(a, b, c) {
+  console.log(a, b, c);
 }
 
-
-function fn(a,b,c) {
-  console.log(a,b,c);
-}
-
-fn.myCall({x:123},1,2,3);
-
+fn.myCall({ x: 123 }, 1, 2, 3);
 ```
-### 自定义EventBus事件总线
+
+### 自定义 EventBus 事件总线
+
 ```js
 class EventBus {
   constructor() {
@@ -1365,32 +1366,31 @@ class EventBus {
 
 const events = new EventBus();
 
-function fn1(a,b) {
-  console.log('fn1',a,b);
+function fn1(a, b) {
+  console.log('fn1', a, b);
 }
 
-function fn2(a,b) {
-  console.log('fn2',a,b);
+function fn2(a, b) {
+  console.log('fn2', a, b);
 }
 
-function fn3(a,b) {
-  console.log('fn3',a,b);
+function fn3(a, b) {
+  console.log('fn3', a, b);
 }
 
+events.on('key1', fn1);
+events.on('key1', fn2);
+events.once('key1', fn3);
 
-events.on('key1',fn1);
-events.on('key1',fn2);
-events.once('key1',fn3);
+events.emit('key1', 10, 20);
 
-events.emit('key1',10,20);
-
-events.off('key1',fn1);
-events.emit('key1',10,20);
+events.off('key1', fn1);
+events.emit('key1', 10, 20);
 // events.emit('key1',10,20);
-
 ```
 
-### LRU缓存
+### LRU 缓存
+
 ```js
 class LRUCache {
   constructor(length) {
@@ -1415,33 +1415,34 @@ class LRUCache {
 
   get(key) {
     const data = this.data;
-    if(!data.has(key)) return null;
+    if (!data.has(key)) return null;
     const value = data.get(key);
 
     data.delete(key);
 
-    data.set(key,value);
+    data.set(key, value);
 
     return value;
   }
 }
 
 const lruCache = new LRUCache(2);
-lruCache.set(1,1);
-lruCache.set(2,2);
+lruCache.set(1, 1);
+lruCache.set(2, 2);
 
 console.log(lruCache.get(1));
-lruCache.set(3,3);
+lruCache.set(3, 3);
 
 console.log(lruCache.get(2));
 
-lruCache.set(4,4);
+lruCache.set(4, 4);
 console.log(lruCache.get(1));
 console.log(lruCache.get(3));
 console.log(lruCache.get(4));
-
 ```
-### 统计sdk
+
+### 统计 sdk
+
 ```js
 class MyStatis {
   constructor(productId) {
@@ -1503,34 +1504,35 @@ class MyStatis {
     this.send(url, { message, stack, ...info });
   }
 }
-
 ```
 
-### 请说明Ajax Fetch Axios 三者的区别
+### 请说明 Ajax Fetch Axios 三者的区别
 
 - 三者都用于网络请求，但是不同维度
 - Ajax(Asynchorous javascript and xml) 一种技术统称
-- Fetch 浏览器原生api
-- Axios，是一个http第三方库
+- Fetch 浏览器原生 api
+- Axios，是一个 http 第三方库
 
 ### 防抖
 
 - 防抖：限制执行次数，多次密集的触发只执行一次
-```js
-function debounce(fn,delay = 200) {
-    let timer = 0;
-    return function() {
-        if(timer) clearTimeout(timer);
 
-        timer = setTimeout(() =>{
-            fn.applay(this,arguments);
-            timer = 0;
-        },delay)
-    }
+```js
+function debounce(fn, delay = 200) {
+  let timer = 0;
+  return function () {
+    if (timer) clearTimeout(timer);
+
+    timer = setTimeout(() => {
+      fn.applay(this, arguments);
+      timer = 0;
+    }, delay);
+  };
 }
 ```
 
 ### 节流
+
 - 节流：限制执行频率，有节奏的执行
 
 ```js
@@ -1544,14 +1546,9 @@ function throttle(fn, delay = 200) {
     }, delay);
   };
 }
-
 ```
 
+### px 和%
 
-
-
-
-
-
-
-
+- px 基本单位，绝对单位（）
+- % 相对于父元素的宽度比例
