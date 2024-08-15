@@ -1803,10 +1803,44 @@ btn.addEventListener('click', () => {
 - xss Cross Site Script 跨站脚本攻击 手段：黑客将 js 代码插入到网页内容中，渲染时执行 js 代码,预孩：特殊字符替换
 - csrf Cross Site Request Forgery 跨站请求伪造，手段：黑客诱导用户去访问另一个网站的接口，伪造请求，预防：严格的跨域限制+ 验证码机制
 - click jacking 手段：透导界面上蒙一个透明的 iframe,诱导用户点击 预防：让 iframe 不能跨域加载
-- DDos Distribute denial-of-service 分布式拒绝服务，手段：分布式的大规模的流量访问，使服务器瘫痪，预防：如阿里云waf
-- SQL注入 手段：黑客提交内容时写入sql语句，破坏数据库,预防：处理输入的内容，替换特殊字符
+- DDos Distribute denial-of-service 分布式拒绝服务，手段：分布式的大规模的流量访问，使服务器瘫痪，预防：如阿里云 waf
+- SQL 注入 手段：黑客提交内容时写入 sql 语句，破坏数据库,预防：处理输入的内容，替换特殊字符
 
+### webSocket 和 http 区别
 
+- webSocket 协议名是 ws://,可以双端发起请求
+- webSocket 没有跨域限制
+- 通过 send 和 onmessage 通讯(http 通过 req 和 res)
+
+```js
+// sever
+const { WebSocketServer } = require('ws');
+
+const wsServer = new WebSocketServer({
+  port: 3000,
+});
+
+wsServer.on('connection', (ws) => {
+  console.log('connected');
+  ws.on('message', (msg) => {
+    console.log('收到消息', msg.toString());
+    setTimeout(() => {
+      ws.send('服务端已经收到了信息：' + msg.toString());
+    }, 2000);
+  });
+});
+// client
+const ws = new WebSocket('ws://127.0.0.1:3000');
+ws.onopen = () => {
+  console.log('opened');
+
+  ws.send('client opened');
+};
+
+ws.onmessage = (event) => {
+  console.log('收到了信息', event.data);
+};
+```
 
 <div align="center">晓智科技公众号</div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
