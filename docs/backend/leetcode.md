@@ -1,20 +1,23 @@
 # leetcode
-| 项目              | 地址                                           |
-| :----------------------- | :--------------------------------------- |
-| 晓智科技                 | [晓智科技](https://xiaozhi.shop)|
-| 晓智文档                 | [晓智文档](https://doc.xiaozhi.shop/backend/elastic) |
-| 源码地址                 | [源码地址](https://github.com/dezhizhang/java-awesome/tree/main/leetcode)|
-| 文档源码                 | [文档源码](https://github.com/dezhizhang/doc) |
+
+| 项目     | 地址                                                                      |
+| :------- | :------------------------------------------------------------------------ |
+| 晓智科技 | [晓智科技](https://xiaozhi.shop)                                          |
+| 晓智文档 | [晓智文档](https://doc.xiaozhi.shop/backend/elastic)                      |
+| 源码地址 | [源码地址](https://github.com/dezhizhang/java-awesome/tree/main/leetcode) |
+| 文档源码 | [文档源码](https://github.com/dezhizhang/doc)                             |
 
 ### 认识复杂度和简单排序算法
 
 ###### 常数时间的操作
+
 - 一个操作如果和样本的数量没有关系，每次都是固定时间内完成的操作，叫作常数操作。
-- 时间复杂度在一个算法流程中，常数操作数量的一个指标。常数O（读作big O）来表示，具体来说先要对一个算法流程非常熟悉，然后去写出这个算法流程中发生了多少常数操作，进而总结出常数操作数量的表过式。
-- 在表过式中只要高阶项，不要低阶项，要不要高阶项的系数，剩下的部分如果为f(N),那么时间复杂度为O(f(N));
+- 时间复杂度在一个算法流程中，常数操作数量的一个指标。常数 O（读作 big O）来表示，具体来说先要对一个算法流程非常熟悉，然后去写出这个算法流程中发生了多少常数操作，进而总结出常数操作数量的表过式。
+- 在表过式中只要高阶项，不要低阶项，要不要高阶项的系数，剩下的部分如果为 f(N),那么时间复杂度为 O(f(N));
 - 评价一个算法流程的好坏，先看时间复杂度的指标，然后再分析不同数据样本下的实际运行时间，也就是“常数项时间”。
 
 ### 爬楼梯
+
 - 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。
 - 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
 
@@ -62,9 +65,12 @@ public class Solution {
     }
 }
 ```
+
 ### 两数之和
-- 给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那 两个 整数，并返回它们的数组下标。
+
+- 给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target 的那 两个 整数，并返回它们的数组下标。
 - 你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。你可以按任意顺序返回答案。
+
 ```java
 package shop.xiaozhi.twosum;
 
@@ -114,10 +120,13 @@ public class Solution {
     }
 }
 ```
+
 ### 合并两个有序数组
+
 - 给你两个按 非递减顺序 排列的整数数组 nums1 和 nums2，另有两个整数 m 和 n ，分别表示 nums1 和 nums2 中的元素数目。
 - 请你 合并 nums2 到 nums1 中，使合并后的数组同样按 非递减顺序 排列。
 - 注意：最终，合并后数组不应由函数返回，而是存储在数组 nums1 中。为了应对这种情况，nums1 的初始长度为 m + n，其中前 m 个元素表示应合并的元素，后 n 个元素为 0 ，应忽略。nums2 的长度为 n 。
+
 ```java
 package shop.xiaozhi.merge;
 import java.util.Arrays;
@@ -175,9 +184,12 @@ public class Solution {
     }
 }
 ```
+
 ### 移动零
+
 - 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
 - 请注意 ，必须在不复制数组的情况下原地对数组进行操作。
+
 ```java
 package shop.xiaozhi.movezero;
 import java.util.Arrays;
@@ -209,8 +221,11 @@ public class Solution {
     }
 }
 ```
-###  找到所有数组中消失的数字
+
+### 找到所有数组中消失的数字
+
 - 给你一个含 n 个整数的数组 nums ，其中 nums[i] 在区间 [1, n] 内。请你找出所有在 [1, n] 范围内但没有出现在 nums 中的数字，并以数组的形式返回结果。
+
 ```java
 package shop.xiaozhi.disappeared;
 import java.util.ArrayList;
@@ -247,8 +262,11 @@ public class Solution {
     }
 }
 ```
+
 ### 合并两个有序链表
-- 将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 
+
+- 将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。
+
 ```java
 package shop.xiaozhi.mergetwo;
 public class Solution {
@@ -303,8 +321,11 @@ class ListNode {
     }
 }
 ```
+
 ### 删除排序链表中的重复元素
+
 - 给定一个已排序的链表的头 head ， 删除所有重复的元素，使每个元素只出现一次 。返回 已排序的链表 。
+
 ```java
 package shop.xiaozhi.deleteDuplicates;
 // 删除排序链表中的重复元素
@@ -344,10 +365,13 @@ class ListNode {
     }
 }
 ```
+
 ### 环形链表
+
 - 给你一个链表的头节点 head ，判断链表中是否有环。
 - 如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。注意：pos 不作为参数进行传递 。仅仅是为了标识链表的实际情况。
 - 如果链表中存在环 ，则返回 true 。 否则，返回 false 。
+
 ```java
 package shop.xiaozhi.hasCycle;
 //环形链表
@@ -383,10 +407,13 @@ class ListNode {
     }
 }
 ```
+
 ### 环形链表 II
-- 给定一个链表的头节点  head ，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。
+
+- 给定一个链表的头节点 head ，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。
 - 如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。如果 pos 是 -1，则在该链表中没有环。注意：pos 不作为参数进行传递，仅仅是为了标识链表的实际情况。
 - 不允许修改 链表
+
 ```java
 package shop.xiaozhi.detectCycle;
 //  环形链表 II
@@ -434,10 +461,13 @@ class ListNode {
     }
 }
 ```
+
 ### 相交链表
+
 - 给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表不存在相交节点，返回 null 。
 - 题目数据 保证 整个链式结构中不存在环。
 - 注意，函数返回结果后，链表必须 保持其原始结构 。
+
 ```java
 package shop.xiaozhi.intersect;
 // 相交链表
@@ -468,8 +498,11 @@ class ListNode {
     }
 }
 ```
+
 ### 反转链表
+
 - 给你单链表的头节点 head ，请你反转链表，并返回反转后的链表。
+
 ```java
 //https://leetcode.cn/problems/reverse-linked-list/description/
 package shop.xiaozhi.reverseList;
@@ -497,9 +530,12 @@ class ListNode{
     }
 }
 ```
+
 ### 链表的中间结点
+
 - 给你单链表的头结点 head ，请你找出并返回链表的中间结点。
 - 如果有两个中间结点，则返回第二个中间结点。
+
 ```java
 package shop.xiaozhi.middleNode;
 public class Solution {
@@ -526,16 +562,21 @@ class ListNode{
     }
 }
 ```
+
 ### 用栈实现队列
+
 - 请你仅使用两个栈实现先入先出队列。队列应当支持一般队列支持的所有操作（push、pop、peek、empty）：
 - 实现 MyQueue 类：
+
 1. void push(int x) 将元素 x 推到队列的末尾
 2. int pop() 从队列的开头移除并返回元素
 3. int peek() 返回队列开头的元素
 4. boolean empty() 如果队列为空，返回 true ；否则，返回 false
-说明：
+   说明：
+
 - 你只能 使用标准的栈操作 —— 也就是只有 push to top, peek/pop from top, size, 和 is empty 操作是合法的。
 - 你所使用的语言也许不支持栈。你可以使用 list 或者 deque（双端队列）来模拟一个栈，只要是标准的栈操作即可。
+
 ```java
 package shop.xiaozhi.myqueue;
 import java.util.Stack;
@@ -578,6 +619,5 @@ public class MyQueue {
     }
 }
 ```
-
 
 [last](https://www.bilibili.com/video/BV1eg411w7gn?p=16&vd_source=10257e657caa8b54111087a9329462e8)

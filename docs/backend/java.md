@@ -1,5 +1,13 @@
 # java
+| 项目     | 地址                                                                      |
+| :------- | :------------------------------------------------------------------------ |
+| 晓智科技 | [晓智科技](https://xiaozhi.shop)                                          |
+| 晓智文档 | [晓智文档](https://doc.xiaozhi.shop/backend/java)                      |
+| 源码地址 | [源码地址](https://github.com/dezhizhang/java) |
+| 文档源码 | [文档源码](https://github.com/dezhizhang/doc)    
+
 ### 求取最大值
+
 ```java
 class A02 {
     public int find(String str, String[] arr) {
@@ -23,7 +31,9 @@ public class This02 {
     }
 }
 ```
-### this的使用
+
+### this 的使用
+
 ```java
 class Book {
     double price;
@@ -60,7 +70,9 @@ public class This03 {
 }
 
 ```
+
 ### 包的使用
+
 ```java
 public class Inof01 {
   public static void main(String[] args) {
@@ -72,7 +84,9 @@ public class Inof01 {
 }
 
 ```
+
 ### 继承的使用
+
 ```java
 class GrandPa {
   String name = "大头爷爷";
@@ -96,7 +110,9 @@ public class ExtendsTheory {
 }
 
 ```
+
 ### 方法的重写
+
 ```java
 class Animal{
   public void cry() {
@@ -117,7 +133,9 @@ public class Override01 {
   }
 }
 ```
+
 ### 动态类型帮定
+
 ```java
 package com.xiaozhi.pkg.dynamic;
 
@@ -157,7 +175,9 @@ class B extends A{
 }
 
 ```
+
 ### 多态数组
+
 ```java
 public class PolyArray {
   public static void main(String[] args) {
@@ -184,7 +204,9 @@ public class PolyArray {
 }
 
 ```
+
 ### 动态参数
+
 ```java
 public class PolyParameter {
   public static void main(String[] args) {
@@ -212,7 +234,9 @@ public class PolyParameter {
 }
 
 ```
-### 对像的toString方法
+
+### 对像的 toString 方法
+
 ```java
 public class ToString {
   public static void main(String[] args) {
@@ -234,7 +258,9 @@ class Monster{
 
 }
 ```
+
 ### 静态属性
+
 ```java
 public class VisitStatic {
   public static void main(String[] args) {
@@ -247,7 +273,9 @@ class A{
 }
 
 ```
+
 ### 静态方法
+
 ```java
 public class StaticMethod {
   public static void main(String[] args) {
@@ -279,7 +307,9 @@ class  Student{
 
 }
 ```
+
 ### 静态方法与非静态方法
+
 ```java
 public class StaticDetail1 {
   public static void main(String[] args) {
@@ -309,7 +339,9 @@ class D{
 }
 
 ```
+
 ### 代码块
+
 ```java
 public class CodeBlock {
   public static void main(String[] args) {
@@ -342,7 +374,9 @@ class Movie{
 }
 
 ```
+
 ### 代码块的使用细节
+
 ```java
 public class CodeDetail {
   public static void main(String[] args) {
@@ -375,7 +409,9 @@ class AA extends BB {
 
 
 ```
+
 ### 如果使用类的静态面员，普通代码块不会执行
+
 ```java
 public class CodeBlock02 {
   public static void main(String[] args) {
@@ -396,7 +432,9 @@ class DD{
 }
 
 ```
+
 ### 静态代码块的调用
+
 ```java
 public class CodeBlock03 {
   public static void main(String[] args) {
@@ -425,7 +463,9 @@ class A {
   }
 }
 ```
+
 ### 继承的普通代码块
+
 ```java
 public class CodeBlock04 {
   public static void main(String[] args) {
@@ -455,7 +495,9 @@ class AAA extends  BBB {
 }
 
 ```
+
 ### 代码块的执行顺序
+
 ```java
 public class CodeBlock05 {
   public static void main(String[] args) {
@@ -517,7 +559,9 @@ class A extends B {
 
 }
 ```
-### final可以在代码块和构造器中赋值
+
+### final 可以在代码块和构造器中赋值
+
 ```java
 public class Final01 {
   public static void main(String[] args) {
@@ -544,7 +588,9 @@ class AA {
   }
 }
 ```
-### final修改的静态属性
+
+### final 修改的静态属性
+
 ```java
 public class Final03 {
   public static void main(String[] args) {
@@ -569,7 +615,9 @@ class BB{
 }
 
 ```
-### final方法
+
+### final 方法
+
 ```java
 public class Final04 {
   public static void main(String[] args) {
@@ -595,7 +643,9 @@ class D extends C{
 }
 
 ```
-### final的使用
+
+### final 的使用
+
 ```java
 public class Final05 {
   public static void main(String[] args) {
@@ -623,7 +673,9 @@ class Circle {
 }
 
 ```
+
 ### 抽像方法
+
 ```java
 
 public class Abstract01 {
@@ -657,7 +709,9 @@ class Dog extends Animal{
   }
 }
 ```
+
 ### 抽像类的实现
+
 ```java
 public class Abstract03 {
   public static void main(String[] args) {
@@ -722,7 +776,9 @@ class Manager extends CommonEmployee {
   }
 }
 ```
+
 ### 接口的实现
+
 ```java
 public class Interface {
   public static void main(String[] args) {
@@ -767,7 +823,9 @@ class Camera implements UsbInterface {
   }
 }
 ```
+
 ### 一个类可以同时实现多个接口
+
 ```java
 public class Interface02 {
   public static void main(String[] args) {
@@ -798,7 +856,9 @@ class Pig implements IB, IC {
   }
 }
 ```
+
 ### 接口的练习
+
 ```java
 public class Interface03 {
   public static void main(String[] args) {
@@ -819,7 +879,9 @@ class  B implements A {
 }
 
 ```
+
 ### 接口多态性
+
 ```java
 public class Interface04 {
   public static void main(String[] args) {
@@ -858,7 +920,9 @@ class MyCamera implements Usb {
   }
 }
 ```
+
 ### 内部类
+
 ```java
 public class Inner01 {
   public static void main(String[] args) {
@@ -890,7 +954,9 @@ class Outer{
   }
 }
 ```
+
 ### 基于接口的内部类
+
 ```java
 public class Inner02 {
   public static void main(String[] args) {
@@ -916,7 +982,9 @@ interface IA {
 }
 
 ```
+
 ### 枚举
+
 ```java
 public class Enum02 {
   public static void main(String[] args) {
@@ -945,7 +1013,9 @@ enum Season2{
   }
 }
 ```
+
 ### 枚举的常用
+
 ```java
 public class Enum03 {
   public static void main(String[] args) {
@@ -964,7 +1034,9 @@ enum Gender{
 
 
 ```
+
 ### 常用方法的使用
+
 ```java
 public class Enum02 {
   public static void main(String[] args) {
@@ -996,7 +1068,9 @@ enum Season2{
 
 }
 ```
+
 ### enum 方式的使用
+
 ```java
 public class Enum04 {
   public static void main(String[] args) {
@@ -1026,7 +1100,9 @@ enum Week {
   }
 }
 ```
-### 重写Override
+
+### 重写 Override
+
 ```java
 class Father{
   public void fly() {
@@ -1041,7 +1117,9 @@ class Son extends  Father {
   }
 }
 ```
+
 ### 异常处理
+
 ```java
 public class Exception01 {
   public static void main(String[] args) {
@@ -1060,7 +1138,9 @@ public class Exception01 {
 }
 
 ```
+
 ### 包装类
+
 ```java
 public class Wrapper {
   public static void main(String[] args) {
@@ -1079,7 +1159,9 @@ public class Wrapper {
 }
 
 ```
-### 包装类型转string
+
+### 包装类型转 string
+
 ```java
 public class Wrapper2 {
   public static void main(String[] args) {
@@ -1092,7 +1174,9 @@ public class Wrapper2 {
   }
 }
 ```
-### string转成包装类
+
+### string 转成包装类
+
 ```java
 public class Wrapper2 {
   public static void main(String[] args) {
@@ -1104,7 +1188,9 @@ public class Wrapper2 {
 }
 
 ```
-### Integer的使用
+
+### Integer 的使用
+
 ```java
 public class Wrapper4 {
   public static void main(String[] args) {
@@ -1118,7 +1204,9 @@ public class Wrapper4 {
   }
 }
 ```
-### intern方法的使用
+
+### intern 方法的使用
+
 ```java
 public class String1 {
   public static void main(String[] args) {
@@ -1131,7 +1219,9 @@ public class String1 {
 }
 
 ```
-### String转StringBuffer
+
+### String 转 StringBuffer
+
 ```java
 public class StringBuffer2 {
   public static void main(String[] args) {
@@ -1147,7 +1237,9 @@ public class StringBuffer2 {
 }
 
 ```
-### StringBuffer转成String
+
+### StringBuffer 转成 String
+
 ```java
 public class StringBuffer2 {
   public static void main(String[] args) {
@@ -1162,7 +1254,9 @@ public class StringBuffer2 {
 }
 
 ```
-### Math方法的学中
+
+### Math 方法的学中
+
 ```java
 public class Math01 {
   public static void main(String[] args) {
@@ -1205,7 +1299,9 @@ public class Math01 {
   }
 }
 ```
-### Arrays方法的使用
+
+### Arrays 方法的使用
+
 ```java
 public class Math02 {
   public static void main(String[] args) {
@@ -1225,7 +1321,9 @@ public class Math02 {
 }
 
 ```
+
 ### 二分查找法
+
 ```java
 public class Arrays01 {
   public static void main(String[] args) {
@@ -1236,7 +1334,9 @@ public class Arrays01 {
 }
 
 ```
+
 ### 数组的拷贝
+
 ```java
 public class Array02 {
   public static void main(String[] args) {
@@ -1247,7 +1347,9 @@ public class Array02 {
   }
 }
 ```
+
 ### 数组的填充
+
 ```java
 public class Array03 {
   public static void main(String[] args) {
@@ -1258,7 +1360,9 @@ public class Array03 {
 }
 
 ```
+
 ### 返回两个数组元数是否相等
+
 ```java
 public class Array04 {
   public static void main(String[] args) {
@@ -1270,7 +1374,9 @@ public class Array04 {
   }
 }
 ```
-###  数组的排序
+
+### 数组的排序
+
 ```java
 package com.xiaozhi.pkg.arrays;
 
@@ -1319,7 +1425,9 @@ class Book {
 }
 
 ```
-### exit退出程序
+
+### exit 退出程序
+
 ```java
 public class Array06 {
   public static void main(String[] args) {
@@ -1331,7 +1439,9 @@ public class Array06 {
   }
 }
 ```
-### arraycopy数组的拷贝
+
+### arraycopy 数组的拷贝
+
 ```java
 public class Array07 {
   public static void main(String[] args) {
@@ -1343,7 +1453,9 @@ public class Array07 {
   }
 }
 ```
+
 ### 获取当前时间
+
 ```java
 public class Date01 {
   public static void main(String[] args) {
@@ -1358,7 +1470,9 @@ public class Date01 {
 }
 
 ```
+
 ### 第一代日期
+
 ```java
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -1379,7 +1493,9 @@ public class Date01 {
 }
 
 ```
-### 第二代日期Calendar
+
+### 第二代日期 Calendar
+
 ```java
 import java.util.Calendar;
 
@@ -1397,7 +1513,9 @@ public class Date02 {
 }
 
 ```
-### 第三代日期LocalDateTime
+
+### 第三代日期 LocalDateTime
+
 ```java
 public class Date03 {
   public static void main(String[] args) {
@@ -1429,7 +1547,9 @@ public class Date04 {
 }
 
 ```
-### 第三代日期的使用plusDays
+
+### 第三代日期的使用 plusDays
+
 ```java
 public class Date05 {
   public static void main(String[] args) {
@@ -1444,7 +1564,9 @@ public class Date05 {
 }
 
 ```
+
 ### 字符串的反转
+
 ```java
 public class Date06 {
   public static void main(String[] args) {
@@ -1467,7 +1589,9 @@ public class Date06 {
 }
 
 ```
-### ArrayList集合的常用方法
+
+### ArrayList 集合的常用方法
+
 ```java
 public class Collection1 {
   public static void main(String[] args) {
@@ -1504,7 +1628,9 @@ public class Collection1 {
   }
 }
 ```
-### Iterator的使用
+
+### Iterator 的使用
+
 ```java
 import java.util.ArrayList;
 import java.util.Collection;
@@ -1544,7 +1670,9 @@ class Book {
   }
 }
 ```
-### 增加for循环
+
+### 增加 for 循环
+
 ```java
 import java.util.ArrayList;
 import java.util.Collection;
@@ -1563,7 +1691,9 @@ public class Collection3 {
 }
 
 ```
+
 ### Iterator 练习题
+
 ```java
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -1602,7 +1732,9 @@ class Dog {
   }
 }
 ```
-### list接口和常用方法
+
+### list 接口和常用方法
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -1631,7 +1763,9 @@ public class List1 {
   }
 }
 ```
-### List练习
+
+### List 练习
+
 ```java
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -1668,7 +1802,9 @@ public class List2 {
   }
 }
 ```
+
 ### 集合的排序
+
 ```java
 public class List3 {
   public static void main(String[] args) {
@@ -1726,7 +1862,9 @@ class Book {
   }
 }
 ```
-### set的常用方法
+
+### set 的常用方法
+
 ```java
 import java.util.HashSet;
 import java.util.Iterator;
@@ -1747,7 +1885,9 @@ public class Set1 {
   }
 }
 ```
-### set的练习
+
+### set 的练习
+
 ```java
 public class Set2 {
   public static void main(String[] args) {
@@ -1763,7 +1903,9 @@ public class Set2 {
   }
 }
 ```
+
 ### 链表的使用
+
 ```java
 public class Set05 {
   public static void main(String[] args) {
@@ -1790,7 +1932,9 @@ class Node{
   }
 }
 ```
+
 ### 型
+
 ```java
 public class Generic01 {
   public static void main(String[] args) {
@@ -1805,7 +1949,9 @@ public class Generic01 {
 }
 
 ```
-### HashMap的使用
+
+### HashMap 的使用
+
 ```java
 public class Generic02 {
   public static void main(String[] args) {
@@ -1871,7 +2017,9 @@ class Student{
   }
 }
 ```
+
 ### 泛型只能是引用类型不能是基本类型
+
 ```java
 import java.util.ArrayList;
 import java.util.List;
@@ -1884,7 +2032,9 @@ public class Generic03 {
 }
 
 ```
+
 ### 泛型能传入子类
+
 ```java
 package com.xiaozhi.pkg.generic;
 
@@ -1894,7 +2044,7 @@ import java.util.List;
 public class Generic03 {
   public static void main(String[] args) {
     List<Integer> list = new ArrayList<Integer>();
-    
+
     Pig<A> pig = new Pig<A>(new A());
     Pig<A> pig1 = new Pig<A>(new B());
   }
@@ -1921,7 +2071,9 @@ class Pig<T> {
 }
 
 ```
+
 ### 自定义泛型
+
 ```java
 package com.xiaozhi.pkg.generic;
 
@@ -1989,7 +2141,9 @@ class Tiger<T,R,M> {
   }
 }
 ```
+
 ### 泛型的使用
+
 ```java
 public class Generic07 {
   public static void main(String[] args) {
@@ -2014,7 +2168,9 @@ class Dog1{
 }
 
 ```
+
 ### 泛型的通配符
+
 ```java
 package com.xiaozhi.pkg.generic;
 
@@ -2076,7 +2232,9 @@ class CC extends BB {
 }
 
 ```
-### JUnit测试框架的使用
+
+### JUnit 测试框架的使用
+
 ```java
 public class JUnit {
   public static void main(String[] args) {
@@ -2096,7 +2254,9 @@ public class JUnit {
 }
 
 ```
+
 ### 文件相关操作
+
 ```java
 
 public class Io02 {
@@ -2116,7 +2276,9 @@ public class Io02 {
 }
 
 ```
+
 ### 输入流
+
 ```java
 public class Io04 {
   public static void main(String[] args) {
@@ -2145,7 +2307,9 @@ public class Io04 {
   }
 }
 ```
+
 ### 文件的写入
+
 ```java
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -2178,7 +2342,9 @@ public class Io05 {
 }
 
 ```
+
 ### 文件的拷贝
+
 ```java
 public class Io06 {
   public static void main(String[] args) {
@@ -2218,7 +2384,9 @@ public class Io06 {
 }
 
 ```
+
 ### FileReader
+
 ```java
 public class Io07 {
   public static void main(String[] args) {
@@ -2239,7 +2407,9 @@ public class Io07 {
 
 }
 ```
-### FileReader批量读取
+
+### FileReader 批量读取
+
 ```java
 import java.io.FileReader;
 import java.io.IOException;
@@ -2270,7 +2440,9 @@ public class Io08 {
 }
 
 ```
+
 ### 文件写入
+
 ```java
 public class Io09 {
   public static void main(String[] args) {
@@ -2294,7 +2466,9 @@ public class Io09 {
   }
 }
 ```
+
 ### BufferedReader 文件的读取
+
 ```java
 public class Io10 {
   public static void main(String[] args) {
@@ -2313,7 +2487,9 @@ public class Io10 {
 }
 
 ```
-### bufferedWriter文件的写入
+
+### bufferedWriter 文件的写入
+
 ```java
 public class Io11 {
   public static void main(String[] args) {
@@ -2329,7 +2505,9 @@ public class Io11 {
 }
 
 ```
+
 ### 文件的拷贝
+
 ```java
 public class Io12 {
   public static void main(String[] args) {
@@ -2370,7 +2548,9 @@ public class Io12 {
   }
 }
 ```
+
 ### 解决中文乱码问题
+
 ```java
 public class Standard {
   public static void main(String[] args) throws IOException {
@@ -2384,7 +2564,9 @@ public class Standard {
   }
 }
 ```
+
 ### 写入文件的格式
+
 ```java
 public class Standard01 {
   public static void main(String[] args) throws IOException {
@@ -2398,7 +2580,9 @@ public class Standard01 {
 }
 
 ```
+
 ### 正则表过式
+
 ```java
 public class Regexp01 {
   public static void main(String[] args) {
@@ -2410,7 +2594,9 @@ public class Regexp01 {
 }
 
 ```
+
 ### 正则表过式
+
 ```java
 public class Regexp02 {
   public static void main(String[] args) {
@@ -2429,7 +2615,9 @@ public class Regexp02 {
   }
 }
 ```
+
 ### 正则表过式的转义字符
+
 ```java
 public class RegExp03 {
   public static void main(String[] args) {
@@ -2445,7 +2633,9 @@ public class RegExp03 {
   }
 }
 ```
+
 ### 匹配字符
+
 ```java
 public class RegExp05 {
   public static void main(String[] args) {
@@ -2461,7 +2651,9 @@ public class RegExp05 {
 }
 
 ```
+
 ### 选择匹配符
+
 ```java
 public class RegExp07 {
   public static void main(String[] args) {
@@ -2478,7 +2670,9 @@ public class RegExp07 {
 }
 
 ```
+
 ### 限定符
+
 ```java
 public class RegExp {
   public static void main(String[] args) {
@@ -2495,7 +2689,9 @@ public class RegExp {
 }
 
 ```
+
 ### 定位匹配符
+
 ```java
 public class RegExp11 {
     public static void main(String[] args) {
@@ -2512,7 +2708,9 @@ public class RegExp11 {
 }
 
 ```
+
 ### 非捕获分组
+
 ```java
 public class RegExp15 {
   public static void main(String[] args) {
@@ -2528,7 +2726,9 @@ public class RegExp15 {
   }
 }
 ```
+
 ### 非捕获分组
+
 ```java
 public class RegExp16 {
   public static void main(String[] args) {
@@ -2545,7 +2745,9 @@ public class RegExp16 {
 }
 
 ```
+
 ### 反向引用
+
 ```java
 public class RegExp18 {
   public static void main(String[] args) {
@@ -2559,7 +2761,9 @@ public class RegExp18 {
   }
 }
 ```
+
 ### 实现接口
+
 ```java
 public class Mysql02 {
   public static void main(String[] args) {
@@ -2571,7 +2775,9 @@ public class Mysql02 {
   }
 }
 ```
+
 ### 连接数据库的第二种方式
+
 ```java
 public class Mysql04 {
   public static void main(String[] args) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
@@ -2603,7 +2809,9 @@ public class Mysql04 {
   }
 }
 ```
+
 ### 第三种连接数据库的方式
+
 ```java
 public class Mysql05 {
   public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
@@ -2626,7 +2834,9 @@ public class Mysql05 {
   }
 }
 ```
+
 ### 第四种方式连接
+
 ```java
 public class Mysql06 {
   public static void main(String[] args) throws Exception {
@@ -2642,11 +2852,13 @@ public class Mysql06 {
 }
 
 ```
+
 ### 第五种方式连接数据库
+
 ```java
 public class Mysql08 {
   public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException {
-    
+
     Properties properties = new Properties();
     properties.load(new FileInputStream("./mysql.properties"));
 
@@ -2660,7 +2872,9 @@ public class Mysql08 {
   }
 }
 ```
-### resultSet获取查询数据
+
+### resultSet 获取查询数据
+
 ```java
 public class Mysql08 {
   public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException {
@@ -2696,7 +2910,9 @@ public class Mysql08 {
 }
 
 ```
+
 ### 预处理
+
 ```java
 public class Mysql10 {
   public static void main(String[] args) throws IOException, ClassNotFoundException, SQLException {
@@ -2731,7 +2947,9 @@ public class Mysql10 {
 }
 
 ```
-### mysql的连接封装
+
+### mysql 的连接封装
+
 ```java
 public class JDBCUtils {
   private static String user;
@@ -2779,7 +2997,9 @@ public class JDBCUtils {
   }
 }
 ```
+
 ### 封装方法操作
+
 ```java
 public class Mysql12 {
   public static void main(String[] args) {
@@ -2806,7 +3026,9 @@ public class Mysql12 {
   }
 }
 ```
+
 ### 事务
+
 ```java
 public class Mysql14 {
   public static void main(String[] args) throws SQLException {
@@ -2833,7 +3055,9 @@ public class Mysql14 {
   }
 }
 ```
+
 ### 德鲁伊的封装
+
 ```java
 public class JDBCUtilsByDruid {
   private static DataSource dataSource;
@@ -2876,7 +3100,9 @@ public class JDBCUtilsByDruid {
 }
 
 ```
+
 ### 封装到集合中
+
 ```java
 package com.xiaozhi.pkg.mysql;
 
@@ -2918,7 +3144,9 @@ public class Mysql18 {
 }
 
 ```
-### QueryRunner包的使用
+
+### QueryRunner 包的使用
+
 ```java
 public class Mysql19 {
   public static void main(String[] args) {
@@ -2963,7 +3191,9 @@ public class Mysql19 {
   }
 }
 ```
+
 ### 查询单条数据
+
 ```java
 
 package com.xiaozhi.pkg.mysql;
@@ -3071,8 +3301,11 @@ public class Mysql19 {
 
 
 ```
+
 ## 异常模块
+
 ### 空指钟异常
+
 ```java
 public class Error {
   public static void main(String[] args) {
@@ -3081,7 +3314,9 @@ public class Error {
   }
 }
 ```
+
 ### 数组下标越界
+
 ```java
 public class Error01 {
   public static void main(String[] args) {
@@ -3092,7 +3327,9 @@ public class Error01 {
   }
 }
 ```
+
 ### 类型转换异常
+
 ```java
 public class Error02 {
   public static void main(String[] args) {
@@ -3112,7 +3349,9 @@ class B extends A {
 class C extends A {
 }
 ```
-###  数字转换异常
+
+### 数字转换异常
+
 ```java
 public class Error03 {
   public static void main(String[] args) {
@@ -3123,8 +3362,11 @@ public class Error03 {
 }
 
 ```
+
 ## 数据结构与算法
+
 ### 栈
+
 ```java
 import java.util.Scanner;
 
@@ -3219,7 +3461,9 @@ class ArrayStack {
 }
 
 ```
+
 ### 逆波兰计算器
+
 ```java
 package com.xiaozhi.algorithm.stack;
 
@@ -3275,7 +3519,9 @@ public class Stack01 {
 }
 
 ```
+
 ### 泡冒排序
+
 ```java
 public class BubbleSort {
   public static void main(String[] args) {
@@ -3295,7 +3541,9 @@ public class BubbleSort {
   }
 }
 ```
+
 ### 冒泡排序优化
+
 ```java
 public class BubbleSortOptimize {
   public static void main(String[] args) {
@@ -3321,7 +3569,9 @@ public class BubbleSortOptimize {
   }
 }
 ```
+
 ### 线性查找
+
 ```java
 public class Search {
   public static void main(String[] args) {
@@ -3341,7 +3591,9 @@ public class Search {
 }
 
 ```
+
 ### 二分查找
+
 ```java
 public class BinarySearch {
   public static void main(String[] args) {
@@ -3364,7 +3616,9 @@ public class BinarySearch {
 }
 
 ```
+
 ### 二分查找返回多个值
+
 ```java
 public class BinarySearch01 {
   public static void main(String[] args) {
@@ -3410,7 +3664,9 @@ public class BinarySearch01 {
   }
 }
 ```
+
 ### 插值查找
+
 ```java
 public class Interpolation {
   public static void main(String[] args) {
@@ -3439,7 +3695,9 @@ public class Interpolation {
   }
 }
 ```
+
 ### hashTable
+
 ```java
 public class Hash01 {
   public static void main(String[] args) {
@@ -3601,7 +3859,9 @@ class EmployeeLinkList {
   }
 }
 ```
+
 ### 二叉树遍历
+
 ```java
 public class Tree01 {
   public static void main(String[] args) {
@@ -3854,7 +4114,9 @@ class HeroNode {
 }
 
 ```
+
 ### 数组转树
+
 ```java
 public class TreeToArray {
   public static void main(String[] args) {
@@ -3891,7 +4153,9 @@ class ArrayBinaryTree {
 }
 
 ```
+
 ### 堆排序
+
 ```java
 public class TreeSort {
   public static void main(String[] args) {
@@ -3938,7 +4202,9 @@ public class TreeSort {
 }
 
 ```
+
 ### 赫夫曼树
+
 ```java
 public class HuffmanTree {
   public static void main(String[] args) {
@@ -4019,7 +4285,9 @@ class Node implements Comparable<Node> {
   }
 }
 ```
+
 ### 赫夫慢树
+
 ```java
 package com.xiaozhi.algorithm.huffman;
 
@@ -4128,7 +4396,9 @@ class Node implements Comparable<Node> {
 }
 
 ```
+
 ### 二叉排序数
+
 ```java
 package com.xiaozhi.algorithm.binarysort;
 
@@ -4143,7 +4413,7 @@ public class BinarySort {
     }
 
     binarySortTree.infixOrder();
-    
+
   }
 }
 
@@ -4219,7 +4489,9 @@ class Node {
 }
 
 ```
+
 ### 平衡二叉树
+
 ```java
 package com.xiaozhi.algorithm.balancetree;
 
@@ -4373,7 +4645,9 @@ class Node {
 }
 
 ```
+
 ### 分治算法
+
 ```java
 public class Divide {
   public static void main(String[] args) {
@@ -4392,7 +4666,9 @@ public class Divide {
 }
 
 ```
+
 ### 设计模式
+
 ```java
 public class Single {
   public static void main(String[] args) {
@@ -4409,7 +4685,9 @@ class Vehicle {
 }
 
 ```
+
 ### 单例设计模式
+
 ```java
 public class Single01 {
   public static void main(String[] args) {
@@ -4433,7 +4711,9 @@ class SingleTon{
 }
 
 ```
+
 ### 单例设计模式
+
 ```java
 public class Single02 {
   public static void main(String[] args) {
@@ -4460,7 +4740,9 @@ class SingleTon02 {
 }
 
 ```
+
 ### 懒汉式单例模式
+
 ```java
 public class Single03 {
   public static void main(String[] args) {
@@ -4486,7 +4768,9 @@ class SingleTon03{
 }
 
 ```
+
 ### 懒汉式单例模式（线程安全）
+
 ```java
 public class Single04 {
   public static void main(String[] args) {
@@ -4513,7 +4797,9 @@ class SingleTon04 {
 }
 
 ```
+
 ### 单例线程安全
+
 ```java
 public class Single05 {
   public static void main(String[] args) {
@@ -4544,7 +4830,9 @@ class SingleTon05 {
   }
 }
 ```
+
 ### 静态内部内实现单例模式
+
 ```java
 public class Single06 {
   public static void main(String[] args) {
@@ -4570,7 +4858,9 @@ class SingleTon06 {
   }
 }
 ```
+
 ### 枚养实现
+
 ```java
 public class Single07 {
   public static void main(String[] args) {
@@ -4591,7 +4881,9 @@ enum SingleTon07 {
 }
 
 ```
+
 ### 原型模式
+
 ```java
 package com.xiaozhi.desigin.prototype;
 
@@ -4651,7 +4943,9 @@ public class Sheep implements Cloneable {
 }
 
 ```
+
 ### 深拷贝的实现
+
 ```java
 public class DeepProtoType implements Serializable, Cloneable {
   public String name;
@@ -4674,7 +4968,9 @@ public class DeepProtoType implements Serializable, Cloneable {
 }
 
 ```
+
 ### 建造者模式
+
 ```java
 public class CommonHouse extends AbstractHouse {
   @Override
@@ -4694,6 +4990,7 @@ public class CommonHouse extends AbstractHouse {
 }
 
 ```
+
 ```java
 
 public abstract class AbstractHouse {
@@ -4716,7 +5013,8 @@ public abstract class AbstractHouse {
 
 ```
 
-## 算法leetcode
+## 算法 leetcode
+
 ```java
 public class TwoSum {
   public static void main(String[] args) {
@@ -4741,7 +5039,9 @@ public class TwoSum {
   }
 }
 ```
+
 ### 数组的合并
+
 ```java
 public class Merge {
   public static void main(String[] args) {
@@ -4762,7 +5062,9 @@ public class Merge {
   }
 }
 ```
+
 ### 移动非零远素
+
 ```java
 public class MoveZero {
   public static void main(String[] args) {
@@ -4787,7 +5089,9 @@ public class MoveZero {
   }
 }
 ```
-### 
+
+###
+
 ```java
 public class DisappearNum {
   public static void main(String[] args) {
@@ -4811,7 +5115,9 @@ public class DisappearNum {
   }
 }
 ```
+
 ### 链表的反转
+
 ```java
 public class Prim {
   public static void main(String[] args) {
@@ -4858,7 +5164,9 @@ class Node {
   }
 }
 ```
+
 ### 救素数
+
 ```java
 public class PrimeNumber {
   public static void main(String[] args) {
@@ -4896,7 +5204,9 @@ public class PrimeNumber {
   }
 }
 ```
+
 ### 双指钟算法
+
 ```java
 public class ArrayDuplicates {
   public static void main(String[] args) {
@@ -4918,7 +5228,9 @@ public class ArrayDuplicates {
   }
 }
 ```
+
 ### 相等中间索引
+
 ```java
 public class CenterIndex {
   public static void main(String[] args) {
@@ -4940,7 +5252,9 @@ public class CenterIndex {
 }
 
 ```
+
 ### 二分查找求平方根
+
 ```java
 public class SqrtX {
   public static void main(String[] args) {
@@ -4966,6 +5280,7 @@ public class SqrtX {
 ```
 
 ### 求取最大值
+
 ```java
 public class MaxArea {
   public static void main(String[] args) {
@@ -4981,7 +5296,9 @@ public class MaxArea {
 }
 
 ```
+
 ### 二数之和
+
 ```java
 import java.util.Arrays;
 import java.util.HashMap;
@@ -5018,7 +5335,9 @@ public class TwoSum {
   }
 }
 ```
+
 ### 两数之后
+
 ```java
 public class ToSearch {
   public static void main(String[] args) {
@@ -5065,7 +5384,9 @@ public class ToSearch {
 }
 
 ```
+
 ### 判断是否是循环链表
+
 ```java
 package com.xiaozhi.algorithm.linkCycle;
 
@@ -5129,7 +5450,9 @@ public class LinkCycle {
 }
 
 ```
+
 ### 求最大平均数
+
 ```java
 public class MaxAverage {
   public static void main(String[] args) {
@@ -5153,7 +5476,9 @@ public class MaxAverage {
   }
 }
 ```
+
 ### 深度优先遍历
+
 ```java
 package com.xiaozhi.algorithm.treeNode;
 
@@ -5209,14 +5534,16 @@ class Node {
 }
 
 ```
+
 ### 求取最大字串
+
 ```java
 public class MaxSeq {
   public static void main(String[] args) {
     int[] nums = new int[]{1, 2, 3, 2, 3, 4, 3, 4, 5, 6, 7};
     System.out.println(findLength(nums));
   }
-  
+
   public static int findLength(int[] nums) {
     int start = 0;
     int max = 0;
@@ -5230,14 +5557,16 @@ public class MaxSeq {
   }
 }
 ```
+
 ### 求最大周长
+
 ```java
 public class Triangles {
   public static void main(String[] args) {
     int[] nums = new int[]{3,6,2,3};
     System.out.println(largesPerimeter(nums));
   }
-  
+
   public static int largesPerimeter(int[] nums) {
     Arrays.sort(nums);
     for(int i = nums.length - 1;i >= 2;i--) {
@@ -5250,7 +5579,9 @@ public class Triangles {
 }
 
 ```
+
 ### 选择排序
+
 ```java
 public class SelectSort {
   public static void main(String[] args) {
@@ -5281,7 +5612,9 @@ public class SelectSort {
 
 }
 ```
+
 ### 插入排序
+
 ```java
 public class InsertSort {
   public static void main(String[] args) {
@@ -5308,7 +5641,9 @@ public class InsertSort {
 }
 
 ```
+
 ### 希尔排序
+
 ```java
 public class ShellSort {
   public static void main(String[] args) {
@@ -5335,8 +5670,3 @@ public class ShellSort {
 }
 
 ```
-
-
-
-
-

@@ -1793,3 +1793,20 @@ btn.addEventListener('click', () => {
 - http 协议在应用程，TCP UDP 是传输层
 - TCP 有连接有断开稳定传输
 - UDP 无连接无断开不稳定传输，但效率高
+
+### 标签 script defer 和 async 有什么区别
+
+![defer和async有什么区别](../../public/interview/defer.png)
+
+### 你知道哪些前端攻击？该如何预防？
+
+- xss Cross Site Script 跨站脚本攻击 手段：黑客将 js 代码插入到网页内容中，渲染时执行 js 代码,预孩：特殊字符替换
+- csrf Cross Site Request Forgery 跨站请求伪造，手段：黑客诱导用户去访问另一个网站的接口，伪造请求，预防：严格的跨域限制+ 验证码机制
+- click jacking 手段：透导界面上蒙一个透明的 iframe,诱导用户点击 预防：让 iframe 不能跨域加载
+- DDos Distribute denial-of-service 分布式拒绝服务，手段：分布式的大规模的流量访问，使服务器瘫痪，预防：如阿里云waf
+- SQL注入 手段：黑客提交内容时写入sql语句，破坏数据库,预防：处理输入的内容，替换特殊字符
+
+
+
+<div align="center">晓智科技公众号</div>
+<div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
