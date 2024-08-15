@@ -1654,6 +1654,83 @@ let n2 = 0;
 arr.forEach(() => n2++);
 console.timeEnd('forEach');
 ```
+### nodejs开启多进程
+```js
+// 主进程
+const http = require('http');
+const fork = require('child_process').fork;
+
+const server = http.createServer((req,res) => {
+    if(req.url === '/get-sum') {
+        console.log('主进程id',process.pid);
+
+        // 开启子进程
+        const computeProcess = fork('./compute.js');
+        computeProcess.send('开始计算');
+
+        computeProcess.on('message',data => {
+            console.log('主进程接受到的信息:',data);
+            res.end('sum is ' + data);
+        });
+
+        computeProcess.on('close',() => {
+            console.log('子进程报错退出');
+            computeProcess.kill();
+            res.end('error');
+        })
+    }
+});
+
+server.listen(3000,() => {
+    console.log('localhost:3000');
+});
+
+// 子进程
+function getSum() {
+  let sum = 0;
+  for (let i = 0; i < 10000; i++) {
+    sum += i;
+  }
+  return sum;
+}
+
+
+process.on('message',data => {
+    console.log('子进程id',process.pid);
+    console.log('子进程接受到消息',data);
+
+    const sum = getSum();
+    process.send(sum);
+})
+
+```
+
+### jsbrage
+```js
+const sdk = {
+    invoke(url,data={},onSuccess,onError) {
+        const iframe = document.createElement('iframe');
+        iframe.style.visibility = 'hidden';
+        document.body.appendChild(iframe);
+
+        iframe.onload = function() {
+            const content = iframe.contentWindow.document.body.innerHTML;
+            onSuccess(JSON.parse(content));
+            iframe.remove();
+        }
+        iframe.onerror = () => {
+            onError();
+            iframe.remove();
+        }
+        iframe.src = `${url}?data=${JSON.stringify(data)}`
+    },
+    fn1(data,onSuccess,onError) {
+        this.invoke('https://xiaozhi.shop',data,onSuccess,onError)
+    }
+}
+
+sdk.fn1({},()=>{},() =>{})
+```
 
 
 
