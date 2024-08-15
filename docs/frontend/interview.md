@@ -1625,5 +1625,35 @@ function createPromise(val) {
 - options 请求是跨域请求之前的预检查
 - 浏览器自行发起不需我们干预
 
+### for和forEach那个更快
+- for更快 forEach每次都会创建一个函数来调用，而for不会创建函数
+- 函数需要独立的作用域，会有额外的开销
+
+```js
+const arr = [];
+
+for(let i=0;i < 100 * 10000;i++) {
+    arr.push(i);
+}
+
+const length = arr.length;
+
+
+console.time('for');
+
+let n1 = 0;
+
+for(let i = 0;i < length;i++) {
+    n1++;
+}
+console.timeEnd('for');
+
+
+console.time('forEach');
+let n2 = 0;
+arr.forEach(() => n2++);
+console.timeEnd('forEach');
+```
+
 
 
