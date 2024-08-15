@@ -1,12 +1,13 @@
 # inverview
 
 # 前端面试
-| 项目              | 地址                                           |
-| :----------------------- | :--------------------------------------- |
-| 晓智科技                 | [晓智科技](https://xiaozhi.shop)|
-| 晓智文档                 | [晓智文档](https://doc.xiaozhi.shop/frontend/interview) |
-| 源码地址                 | [源码地址](https://github.com/dezhizhang/interview)|
-| 文档源码                 | [文档源码](https://github.com/dezhizhang/doc) |
+
+| 项目     | 地址                                                    |
+| :------- | :------------------------------------------------------ |
+| 晓智科技 | [晓智科技](https://xiaozhi.shop)                        |
+| 晓智文档 | [晓智文档](https://doc.xiaozhi.shop/frontend/interview) |
+| 源码地址 | [源码地址](https://github.com/dezhizhang/interview)     |
+| 文档源码 | [文档源码](https://github.com/dezhizhang/doc)           |
 
 <!-- # https://www.bilibili.com/video/BV18j411M74W/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8 -->
 
@@ -1625,64 +1626,65 @@ function createPromise(val) {
 - options 请求是跨域请求之前的预检查
 - 浏览器自行发起不需我们干预
 
-### for和forEach那个更快
-- for更快 forEach每次都会创建一个函数来调用，而for不会创建函数
+### for 和 forEach 那个更快
+
+- for 更快 forEach 每次都会创建一个函数来调用，而 for 不会创建函数
 - 函数需要独立的作用域，会有额外的开销
 
 ```js
 const arr = [];
 
-for(let i=0;i < 100 * 10000;i++) {
-    arr.push(i);
+for (let i = 0; i < 100 * 10000; i++) {
+  arr.push(i);
 }
 
 const length = arr.length;
-
 
 console.time('for');
 
 let n1 = 0;
 
-for(let i = 0;i < length;i++) {
-    n1++;
+for (let i = 0; i < length; i++) {
+  n1++;
 }
 console.timeEnd('for');
-
 
 console.time('forEach');
 let n2 = 0;
 arr.forEach(() => n2++);
 console.timeEnd('forEach');
 ```
-### nodejs开启多进程
+
+### nodejs 开启多进程
+
 ```js
 // 主进程
 const http = require('http');
 const fork = require('child_process').fork;
 
-const server = http.createServer((req,res) => {
-    if(req.url === '/get-sum') {
-        console.log('主进程id',process.pid);
+const server = http.createServer((req, res) => {
+  if (req.url === '/get-sum') {
+    console.log('主进程id', process.pid);
 
-        // 开启子进程
-        const computeProcess = fork('./compute.js');
-        computeProcess.send('开始计算');
+    // 开启子进程
+    const computeProcess = fork('./compute.js');
+    computeProcess.send('开始计算');
 
-        computeProcess.on('message',data => {
-            console.log('主进程接受到的信息:',data);
-            res.end('sum is ' + data);
-        });
+    computeProcess.on('message', (data) => {
+      console.log('主进程接受到的信息:', data);
+      res.end('sum is ' + data);
+    });
 
-        computeProcess.on('close',() => {
-            console.log('子进程报错退出');
-            computeProcess.kill();
-            res.end('error');
-        })
-    }
+    computeProcess.on('close', () => {
+      console.log('子进程报错退出');
+      computeProcess.kill();
+      res.end('error');
+    });
+  }
 });
 
-server.listen(3000,() => {
-    console.log('localhost:3000');
+server.listen(3000, () => {
+  console.log('localhost:3000');
 });
 
 // 子进程
@@ -1694,68 +1696,82 @@ function getSum() {
   return sum;
 }
 
+process.on('message', (data) => {
+  console.log('子进程id', process.pid);
+  console.log('子进程接受到消息', data);
 
-process.on('message',data => {
-    console.log('子进程id',process.pid);
-    console.log('子进程接受到消息',data);
-
-    const sum = getSum();
-    process.send(sum);
-})
-
+  const sum = getSum();
+  process.send(sum);
+});
 ```
 
 ### jsbrage
+
 ```js
 const sdk = {
-    invoke(url,data={},onSuccess,onError) {
-        const iframe = document.createElement('iframe');
-        iframe.style.visibility = 'hidden';
-        document.body.appendChild(iframe);
+  invoke(url, data = {}, onSuccess, onError) {
+    const iframe = document.createElement('iframe');
+    iframe.style.visibility = 'hidden';
+    document.body.appendChild(iframe);
 
-        iframe.onload = function() {
-            const content = iframe.contentWindow.document.body.innerHTML;
-            onSuccess(JSON.parse(content));
-            iframe.remove();
-        }
-        iframe.onerror = () => {
-            onError();
-            iframe.remove();
-        }
-        iframe.src = `${url}?data=${JSON.stringify(data)}`
-    },
-    fn1(data,onSuccess,onError) {
-        this.invoke('https://xiaozhi.shop',data,onSuccess,onError)
-    }
-}
+    iframe.onload = function () {
+      const content = iframe.contentWindow.document.body.innerHTML;
+      onSuccess(JSON.parse(content));
+      iframe.remove();
+    };
+    iframe.onerror = () => {
+      onError();
+      iframe.remove();
+    };
+    iframe.src = `${url}?data=${JSON.stringify(data)}`;
+  },
+  fn1(data, onSuccess, onError) {
+    this.invoke('https://xiaozhi.shop', data, onSuccess, onError);
+  },
+};
 
-sdk.fn1({},()=>{},() =>{})
+sdk.fn1(
+  {},
+  () => {},
+  () => {},
+);
 ```
-### requestIdleCallback和requestAnimationFramer区别
+
+### requestIdleCallback 和 requestAnimationFramer 区别
 
 - requestAnimationFramer 每次渲染完都会执行高优
 - requestIdleCallback 空闲时才执行，低优
+
 ```js
 const box = document.getElementById('box');
 
 const btn = document.getElementById('btn');
 
-btn.addEventListener('click',() => {
-    let curWidth = 100;
-    let maxWidth = 400;
+btn.addEventListener('click', () => {
+  let curWidth = 100;
+  let maxWidth = 400;
 
-    function addWidth() {
-        curWidth = curWidth + 3;
-        box.style.width = `${curWidth}px`;
-        if(curWidth < maxWidth) {
-            requestIdleCallback(addWidth);
-        }
+  function addWidth() {
+    curWidth = curWidth + 3;
+    box.style.width = `${curWidth}px`;
+    if (curWidth < maxWidth) {
+      requestIdleCallback(addWidth);
     }
+  }
 
-    addWidth();
-})
+  addWidth();
+});
 ```
 
+### h5 click 有 300ms 延迟 如果何解决
 
+- FastClick
+- 浏览器响应式 width=device-width
 
+### 网络请求中 token 和 cooke 的区别
+
+- cookie： HTTP 标准,跨域限制，配合 session 使用
+- token：无标准，无跨域限制，用于 jwt
+
+### session和jwt那个更好
 
