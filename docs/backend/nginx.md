@@ -77,8 +77,8 @@ ps -ef | grep nginx
 ### 核心配置文件
 
 1. ##### nginx.conf 配置文件
-```bash
 
+```bash
 user www-data;
 #master_process on| off #指定是否开启工作进程
 worker_processes auto; #设置工作进程个数
@@ -92,15 +92,18 @@ events {
 }
 
 http {
-    sendfile on;
-    tcp_nopush on;
+    sendfile on; #是否使用sendfile()传输文件，可以大大提高nginx文件传输
+    tcp_nopush on; #
     types_hash_max_size 2048;
     # server_tokens off;
     # server_names_hash_bucket_size 64;
     # server_name_in_redirect off;
 
+    keepalive_timeout 75s #用来设置长链接的超时时间
+    keepalive_requests 100; #用来设置一个keep-alive连接使用的次数
+
     include /etc/nginx/mime.types;
-    default_type application/octet-stream;
+    default_type application/octet-stream; #响应浏览器请求默认MIME类型
 
     ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3; # Dropping SSLv3, ref: POODLE
     ssl_prefer_server_ciphers on;
@@ -111,5 +114,27 @@ http {
     gzip on;
 }
 ```
+
+2. ##### 配置返回不同 MIME 类型
+
+```bash
+server
+{
+    listen 80;
+    server_name 47.107.101.79;
+    index index.html index.htm default.htm default.html;
+
+    location /get_text {
+        default_type text/html; #返回html类型
+        return 200 "<h1>this is a text</h1>";
+    }
+
+    location /get_json {
+        default_type application/json; #返回json类型
+        return 200 "{'name':'hello'}";
+    }
+}
+```
+
 
 <!-- https://njavtv.com/cn/my-779-uncensored-leak -->
