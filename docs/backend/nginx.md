@@ -68,4 +68,48 @@ systemctl start nginx
 ps -ef | grep nginx
 ```
 
+### 目录结构
+
+1. ##### nginx 常用目录
+
+![alt text](../../public/nginx/dir.png)
+
+### 核心配置文件
+
+1. ##### nginx.conf 配置文件
+```bash
+
+user www-data;
+#master_process on| off #指定是否开启工作进程
+worker_processes auto; #设置工作进程个数
+daemon off; #是否以守护进程运行
+pid /run/nginx.pid; #用来配置nginx进程id存放位置
+include /etc/nginx/modules-enabled/\*.conf;
+
+events {
+    worker_connections 768; #单个worker进程最大连接数
+    multi_accept on; #设置是否允许周时接收多个网络链接
+}
+
+http {
+    sendfile on;
+    tcp_nopush on;
+    types_hash_max_size 2048;
+    # server_tokens off;
+    # server_names_hash_bucket_size 64;
+    # server_name_in_redirect off;
+
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3; # Dropping SSLv3, ref: POODLE
+    ssl_prefer_server_ciphers on;
+
+    access_log /var/log/nginx/access.log;
+    error_log /var/log/nginx/error.log; #配置错误日志
+
+    gzip on;
+}
+```
+
 <!-- https://njavtv.com/cn/my-779-uncensored-leak -->
