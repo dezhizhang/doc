@@ -1,212 +1,71 @@
-# nginx 
+# nginx
 
-### nginx的安装
-1. ##### 安装编译工具及库文件
-```bash
-yum -y install make zlib zlib-devel gcc-c++ libtool  openssl openssl-devel pcre-devel
-```
+| 项目     | 地址                                                                       |
+| :------- | :------------------------------------------------------------------------- |
+| 晓智科技 | [晓智科技](https://xiaozhi.shop)                                           |
+| 晓智文档 | [晓智文档](https://doc.xiaozhi.shop/backend/algorithm)                     |
+| 源码地址 | [源码地址](https://github.com/dezhizhang/java-awesome/tree/main/algorithm) |
+| 文档源码 | [文档源码](https://github.com/dezhizhang/doc)                              |
 
+### yum 安装 nginx
 
-
-### nginx 常用命令
-1. 查看nginx 版本号
-
-```bash
-nginx -v 
-```
-2. 启动nginx 
-```
-nginx -s start
-```
-3. 关闭nginx
-```bash
-nginx -s stop
-```
-4. 重新加载
-```bash
-nginx -s reload
-```
-
-5. 查看nginx进程
-```bash
-ps -ef | grep nginx     
-```
-
-6. 通过信号量关闭nginx
-```bash
-kill -TERM 进程id
-```
-
-### http块
-
-1. 自定义MIME-TYPE
+1. ##### 安装 yum-utils
 
 ```bash
-include       /etc/nginx/mime.types;
-default_type  application/octet-stream;
-```
-2. default_type的MIME类型
-```
-                       
-```
-3. 自定义服务日志
+sudo yum  install -y yum-utils
 ```
 
-```
-4. 配置防盗链
-```bash
-location /image/ {
-    valid_referers blocked www.baidu.com;
-    if ($invalid_referer) {
-        return 403;
-    }
-    alias /home/image/;
-    index img.jpg;
-}
-```
-5. rewrite if条件
+2. ##### 添加 yum 源文件
 
 ```bash
-location /testif {
-    set $username 'Rose';
-    default_type text/plain;
-    # args 方法
-    if ($args) {
-        return 200 success;
-    }
-    # 参数形式
-    if ($request_method = POST) {
-        return 405;
-    }
-    
-    # 正则表达式形式
-    if ($http_user_agent ~ Safari) {
-        return 200 Chrome;
-    }
+# 新建文件
+vim /etc/yum.repos.d/nginx.repo
+# 添加文件源
+[nginx-stable]
+name=nginx stable repo
+baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
+gpgcheck=1
+enabled=1
+gpgkey=https://nginx.org/keys/nginx_signing.key
+module_hotfixes=true
 
-    # 判断文件是否存在
-    if (!-f $request_filename) {
-        return 200 '<h1>文件不存在</h1>';
-    }
-
-    return 200 error;
-}
+[nginx-mainline]
+name=nginx mainline repo
+baseurl=http://nginx.org/packages/mainline/centos/$releasever/$basearch/
+gpgcheck=1
+enabled=0
+gpgkey=https://nginx.org/keys/nginx_signing.key
+module_hotfixes=true
 ```
 
-6. rewrite break 条件
+3. ##### 使用 yum 进行安装
 
 ```bash
-location /textbreak {
-    default_type text/plain;
-    set $username TOM;
-
-    if ($args) {
-        set $username jerry;
-        break;
-        set $username rose;
-    }
-
-    add_header username $username;
-    return 200 $username;
-}
+yum install -y nginx
 ```
-7. testreturn 返回
-```bash
-location /testreturn {
-    default_type application/json;
-    #return 200 '{"name":"hello world"}';
-    return https://www.baidu.com;
-}
-```
-8. rewrite 重写路由
-```bash
-location /rewrite {
-    rewrite ^/rewrite/url\w*$ https://www.baidu.com;
-    rewrite ^/rewrite/(test)\w*$ /$1 break;
-    rewrite ^/rewrite/(demo)\w*$ /$1 break;
 
-}
-location /test {
-    default_type text/plain;
-    return 200 'text_success';
-
-}
-```
-## 负载均衡
-9. 负载均衡轮询
+4. ##### 查看是否安装成功
 
 ```bash
-upstream backend {
-  server 8.134.182.122:3000;
-  server 8.134.182.122:8082;
-}
-
-location / {
-    proxy_pass http://backend;
-    #try_files $uri $uri/ /index.html;
-}
-
+yum list | grep nginx
 ```
-10. 负载均衡最少连接
+
+5. ##### 查看 nginx 的安装位置
+
 ```bash
-upstream backend {
-  least_conn;
-  server 8.134.182.122:3000;
-  server 8.134.182.122:8082;
-}
-
-location / {
-    proxy_pass http://backend;
-    #try_files $uri $uri/ /index.html;
-}
+whereis nginx
 ```
-11. 负载均衡权重
+
+6. ##### 启动 nginx
+
 ```bash
-upstream backend {
-  server 8.134.182.122:3000 weight=10;
-  server 8.134.182.122:8082 weight=1;
-}
-
-location / {
-    proxy_pass http://backend;
-    #try_files $uri $uri/ /index.html;
-}
-```
-12. 负载均衡url_hash
-```bash
-
-upstream backend {
-  hash $request_uri;
-  server 8.134.182.122:3000;
-  server 8.134.182.122:8082;
-}
-
-location / {
-    proxy_pass http://backend;
-    #try_files $uri $uri/ /index.html;
-}
-```
-## 缓存
-```bash
-upstream backend {
-
-  server 8.134.182.122:8082;
-}
-
-location / {
-    proxy_cache digit;
-    proxy_cache_key $scheme$proxy_host$request_uri;
-    proxy_cache_valid 200 5d;
-    proxy_cache_valid 404 10s;
-    proxy_cache_valid any 1m;
-    proxy_cache_min_uses 5;
-    add_header nginx-cache "$upstream_cache_status";
-    proxy_pass http://backend;
-        #try_files $uri $uri/ /index.html;
-}
+systemctl start nginx
 ```
 
+7. ##### 查看 nginx 是否启动成功
 
- proxy_cache_path /usr/local/proxy_cache levels=2:1 keys_zone=digit:200m inactive=1d;
+```
+ps -ef | grep nginx
+```
 
-[last](https://www.bilibili.com/video/BV1ov41187bq/?p=55&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8)
+<!-- https://njavtv.com/cn/my-779-uncensored-leak -->
