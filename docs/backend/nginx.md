@@ -68,6 +68,44 @@ systemctl start nginx
 ps -ef | grep nginx
 ```
 
+### nginx 常用系统命令
+
+1. ##### 启动 nginx
+
+```bash
+systemctl start nginx
+```
+
+2. ##### 停止 nginx
+
+```bash
+systemctl stop nginx
+```
+
+3. ##### 重启 nginx
+
+```bash
+systemctl restart nginx
+```
+
+4. ##### 重新加载配置文件
+
+```bash
+systemctl reload nginx
+```
+
+5. ##### 查看 nginx 状态
+
+```bash
+systemctl status nginx
+```
+
+6. ##### 开机启动
+
+```bash
+systemctl enable nginx
+```
+
 ### 目录结构
 
 1. ##### nginx 常用目录
@@ -136,5 +174,25 @@ server
 }
 ```
 
+### nginx 配置到系统变量
+
+1. ##### 修改/etc/profile 文件
+
+```bash
+vim /etc/profile
+export PATH=$PATH:/usr/sbin;
+```
+
+2. ##### 使之立即生效
+
+```bash
+source /etc/profile
+```
+
+3. ##### 验证是否生效
+
+```bash
+nginx -v
+```
 
 <!-- https://njavtv.com/cn/my-779-uncensored-leak -->

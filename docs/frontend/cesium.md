@@ -1,5 +1,13 @@
 
-# cesium 基础教程
+# cesium
+
+| 项目     | 地址                                                                       |
+| :------- | :------------------------------------------------------------------------- |
+| 晓智科技 | [晓智科技](https://xiaozhi.shop)                                           |
+| 晓智文档 | [晓智文档](http://localhost:8000/frontend/cesium)                     |
+| 源码地址 | [源码地址](https://github.com/dezhizhang/metaverse/tree/main/cesium) |
+| 文档源码 | [文档源码](https://github.com/dezhizhang/doc)                              |
+
 
 ### tiles3d 模型数据加载
 ```ts
@@ -931,7 +939,7 @@ viewer.scene.primitives.add(tileset);
 // 3d物体调式
 viewer.extend(Cesium.viewerCesium3DTilesInspectorMixin);
 ```
+###
 
-[源码地址](https://github.com/dezhizhang/metaverse/tree/main/cesium)  
-[晓智科技](https://xiaozhi.shop/)     
-[晓智文档](https://doc.xiaozhi.shop/)
+<div align="center">晓智科技公众号</div>
+<div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
