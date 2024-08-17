@@ -2008,5 +2008,42 @@ const arr = [1, 2, 3, [4, 5, [6, 7, [8, 9]]], 10];
 console.log(flattenDeep(arr));
 ```
 
+### 获取数据类型
+
+```js
+function getDataType(x) {
+  const originType = Object.prototype.toString.call(x);
+  const spaceIndex = originType.indexOf(' ');
+  const type = originType.slice(spaceIndex + 1, -1);
+  return type.toLowerCase();
+}
+console.log(getDataType('hello'));
+```
+
+### new 一个对像发生了什么？请手写代码表示
+```js
+function constomNew(constructor, ...args) {
+  //1. 创建空对像继承constructor的原型
+  const obj = Object.create(constructor.prototype);
+  console.log(constructor);
+  //2. 将object作为this 执行constructor传入参数
+  constructor.apply(obj, args);
+  // 返回obj
+  return obj;
+}
+
+function Foo(name) {
+  this.name = name;
+}
+
+Foo.prototype.getNmae = function() {
+    return this.name;
+}
+
+const f = constomNew(Foo, "tom");
+console.log(f);
+
+```
+
 <div align="center">晓智科技公众号</div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
