@@ -234,6 +234,55 @@ server
 }
 ```
 
+### location 匹配规则
+
+1. ##### 不带任何符号,以指定模式开始
+
+```bash
+location /abc {
+    default_type text/plain;
+    return 200 "success";
+
+}
+```
+
+2. ##### 精确模式匹配（=）
+
+```bash
+location =/abc {
+    default_type text/plain;
+    return 200 "success";
+
+}
+```
+
+3. ##### 区分大小写正则表达式匹配（~）
+
+```bash
+location ~/abc\w$ {
+    default_type text/plain;
+    return 200 "success";
+}
+```
+
+4. ##### 不区分大小写正则表达式匹配（~\*）
+
+```bash
+location ~*^/abc\w$ {
+    default_type text/plain;
+    return 200 "success";
+}
+```
+
+5. ##### 停止向后搜索模式(^~)
+
+```bash
+location ^~/abcd {
+    default_type text/plain;
+    return 200 "abcd success";
+}
+```
+
 <!-- https://www.bilibili.com/video/BV1ov41187bq?p=38&vd_source=10257e657caa8b54111087a9329462e8 -->
 
 <!-- https://njavtv.com/cn/my-779-uncensored-leak -->
