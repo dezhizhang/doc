@@ -1865,24 +1865,28 @@ ws.onmessage = (event) => {
 2. ##### 通过 localStorage 通讯
 
 - 同域的 A 和 B 两个页面
+
 ```js
 // A页面
-const btn = document.getElementById("btn");
+const btn = document.getElementById('btn');
 
-btn.addEventListener("click", () => {
+btn.addEventListener('click', () => {
   const info = {
     id: 100,
-    name: "标题",
+    name: '标题',
   };
-  localStorage.setItem("changeInfo", JSON.stringify(info));
+  localStorage.setItem('changeInfo', JSON.stringify(info));
 });
 // B页面
-window.addEventListener('storage',(event) => {
-    console.log(event.changeInfo);
-})
+window.addEventListener('storage', (event) => {
+  console.log(event.changeInfo);
+});
 ```
-3. ##### 通过 ShadedWorker通讯
+
+3. ##### 通过 ShadedWorker 通讯
+
 - webWorker 可以单独开启一个进程，用于同域间通讯
+
 ```js
 const set = new Set();
 
@@ -1891,26 +1895,69 @@ onconnect = (event) => {
 
   set.add(port);
 
-  port.onmessage = e => {
+  port.onmessage = (e) => {
     // 广播消息
-    set.forEach(p => {
+    set.forEach((p) => {
       p.postMessage(e.data);
-    })
-  }
+    });
+  };
   // 发送消息
   port.postMessage('worker.js done');
-}
+};
 
-// 
+//
 const worker = new SharedWorker('./worker.js');
 
-const btn = document.getElementById("btn");
+const btn = document.getElementById('btn');
 
-btn.addEventListener("click", () => {
-    worker.port.postMessage('detail go ....');
+btn.addEventListener('click', () => {
+  worker.port.postMessage('detail go ....');
 });
 ```
 
+### 网页和 iframe 如何通信
+
+```js
+const btn = document.getElementById('btn');
+
+btn.addEventListener('click', () => {
+  console.log('clicked');
+  window.parent.postMessage('world', '*');
+});
+
+window.addEventListener('message', (event) => {
+  console.log(event.origin);
+});
+```
+
+### 请描述 koa2 洋葱圈模型
+
+![koa2 洋葱圈模型](../../public/interview/koa2.png)
+
+```js
+const Koa = require('koa2');
+const app = new Koa();
+
+app.use(async (ctx, next) => {
+  await next();
+  const rt = ctx.response.get('X-Response-Time');
+  console.log(`${ctx.method} ${ctx.url} - ${rt}`);
+});
+
+app.use(async (ctx, next) => {
+  const start = Date.now();
+  await next();
+
+  const ms = Date.now() - start;
+  ctx.set('X-Response-Time', `${ms}ms`);
+});
+
+app.use(async (ctx) => {
+  ctx.body = 'hello world';
+});
+
+app.listen(3000);
+```
 
 <div align="center">晓智科技公众号</div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
