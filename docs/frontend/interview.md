@@ -14,7 +14,6 @@
 ### Promise
 
 1. await 相当于 Promise.then 处理不了 Promise.reject
-2.
 
 ```js
 !(async function () {
@@ -1985,6 +1984,28 @@ function flatten2(arr) {
 
 const arr = [1, 2, [3, 4, [5, 6], 7]];
 console.log(flatten(arr));
+```
+
+### 数组深度拍平
+
+```js
+function flattenDeep(arr) {
+  const result = [];
+
+  arr.forEach((item) => {
+    if (Array.isArray(item)) {
+      const flatItem = flattenDeep(item);
+      flatItem.forEach((n) => result.push(n));
+    } else {
+      result.push(item);
+    }
+  });
+
+  return result;
+}
+
+const arr = [1, 2, 3, [4, 5, [6, 7, [8, 9]]], 10];
+console.log(flattenDeep(arr));
 ```
 
 <div align="center">晓智科技公众号</div>
