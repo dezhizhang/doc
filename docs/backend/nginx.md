@@ -306,6 +306,38 @@ location /images {
 }
 ```
 
+### index 加载静态资源
+
+1. ##### 可以跟多个请求资源，依次查找，找到第一个为止
+
+```bash
+location /images {
+    root /mnt/html;
+    index index.html 1.png;
+}
+```
+
+### error_page 错误访问页面
+
+1. ##### 可以指定具体跳转的地址
+
+```bash
+server{
+    error_page 404 https://xiaozhi.shop;
+}
+```
+
+2. ##### 可以指定重定向地址
+
+```bash
+server{
+        error_page 404 500 502 503 504 /50x.html;
+    location /50x.html{
+        root /mnt/html;
+    }
+}
+```
+
 <!-- https://www.bilibili.com/video/BV1ov41187bq?p=38&vd_source=10257e657caa8b54111087a9329462e8 -->
 
 <!-- https://njavtv.com/cn/my-779-uncensored-leak -->
