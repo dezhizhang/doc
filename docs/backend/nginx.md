@@ -195,4 +195,45 @@ source /etc/profile
 nginx -v
 ```
 
+### server_name 匹配规则
+
+1. ##### 匹配优先级
+
+- 精确区配 > 前通配符匹配 > 后通配符匹配 > 正则表过式匹配 > 默认匹配
+
+2. ##### 精确匹配
+
+```bash
+server
+{
+    listen 80;
+    server_name www.xiaozhi.shop m.xiaozhi.shop doc.xiaozhi.shop;
+    ...
+}
+```
+
+3. ##### 通配符匹配
+
+```bash
+server
+{
+    listen 80;
+    server_name *.xiaozhi.shop;
+    ...
+}
+```
+
+4. ##### 正则表达式匹配
+
+```bash
+server
+{
+    listen 80;
+    server_name ~^www\.(\w+)\.shop;
+    ....
+}
+```
+
+<!-- https://www.bilibili.com/video/BV1ov41187bq?p=38&vd_source=10257e657caa8b54111087a9329462e8 -->
+
 <!-- https://njavtv.com/cn/my-779-uncensored-leak -->
