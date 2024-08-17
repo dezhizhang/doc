@@ -338,6 +338,15 @@ server{
 }
 ```
 
-<!-- https://www.bilibili.com/video/BV1ov41187bq?p=38&vd_source=10257e657caa8b54111087a9329462e8 -->
+### 静态资源优化
+
+- 请求静态资源的过程：客户端通过网络接口向服务端发送请求，操作系统将这些客户端的请求传递给服务器端应用程序，服务器端应用程序会处理这些请求，请求处理完成以后，操作系统还需要将处理得到的结果通过网络适配器传递回去。
+
+```bash
+sendfile on;
+tcp_nopush on;
+```
+
+<!-- https://www.bilibili.com/video/BV1ov41187bq?p=50&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8 -->
 
 <!-- https://njavtv.com/cn/my-779-uncensored-leak -->

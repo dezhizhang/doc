@@ -1842,5 +1842,20 @@ ws.onmessage = (event) => {
 };
 ```
 
+### 描述从输入 url 到页面展示的完整过程
+
+1. 网络请求： dns 解析，http 请求
+2. 解析：DOM 树,CSSOM 树,Render Tree
+3. 渲染：计算，绘制，同时执行 js
+
+![描述从输入 url 到页面展示的完整过程](../../public/interview/render.png)
+
+### 重绘 repaint 和重排 reflow 有什么区别
+
+- 重绘： 元素外观改变，如颜色，背景色，但元素的尺寸，定位不变，不影响其它元素的位置
+- 重排： 重新计算尺寸和布局，可能会影响其它元素的位置，
+- 区别：重排比重绘影响更大，消耗也更大
+
+
 <div align="center">晓智科技公众号</div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
