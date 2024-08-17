@@ -1856,6 +1856,61 @@ ws.onmessage = (event) => {
 - 重排： 重新计算尺寸和布局，可能会影响其它元素的位置，
 - 区别：重排比重绘影响更大，消耗也更大
 
+### 如果实现多 tab 通讯
+
+1. ##### webstocket
+
+- 无跨域限制，需要服务端支持成本高
+
+2. ##### 通过 localStorage 通讯
+
+- 同域的 A 和 B 两个页面
+```js
+// A页面
+const btn = document.getElementById("btn");
+
+btn.addEventListener("click", () => {
+  const info = {
+    id: 100,
+    name: "标题",
+  };
+  localStorage.setItem("changeInfo", JSON.stringify(info));
+});
+// B页面
+window.addEventListener('storage',(event) => {
+    console.log(event.changeInfo);
+})
+```
+3. ##### 通过 ShadedWorker通讯
+- webWorker 可以单独开启一个进程，用于同域间通讯
+```js
+const set = new Set();
+
+onconnect = (event) => {
+  const port = event.ports[0];
+
+  set.add(port);
+
+  port.onmessage = e => {
+    // 广播消息
+    set.forEach(p => {
+      p.postMessage(e.data);
+    })
+  }
+  // 发送消息
+  port.postMessage('worker.js done');
+}
+
+// 
+const worker = new SharedWorker('./worker.js');
+
+const btn = document.getElementById("btn");
+
+btn.addEventListener("click", () => {
+    worker.port.postMessage('detail go ....');
+});
+```
+
 
 <div align="center">晓智科技公众号</div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
