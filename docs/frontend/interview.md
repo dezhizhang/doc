@@ -1959,5 +1959,33 @@ app.use(async (ctx) => {
 app.listen(3000);
 ```
 
+### 数组扁平化(push 和 concat)
+
+```js
+function flatten(arr) {
+  const result = [];
+  arr.forEach((item) => {
+    if (Array.isArray(item)) {
+      item.forEach((n) => result.push(n));
+    } else {
+      result.push(item);
+    }
+  });
+
+  return result;
+}
+
+function flatten2(arr) {
+  let result = [];
+  arr.forEach((item) => {
+    result = result.concat(item);
+  });
+  return result;
+}
+
+const arr = [1, 2, [3, 4, [5, 6], 7]];
+console.log(flatten(arr));
+```
+
 <div align="center">晓智科技公众号</div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
