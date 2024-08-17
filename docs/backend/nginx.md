@@ -283,6 +283,29 @@ location ^~/abcd {
 }
 ```
 
+### 请求资源目录 root/alias
+
+- root 的处理结果是： root 路径+location 路径
+- alias 的处理结果：使用 alias 路径替换 location 路径
+- alias 目一个目录别名的定义,root 则是最上层目录的含义
+- 如果 location 路径以'/'结尾，则 alias 也必须以'/'结尾，root 没有要求
+
+1. ##### root 为 root 路径+location 路径
+
+```bash
+location /images {
+    root /mnt/html;
+}
+```
+
+2. ##### alias 为 alias 路径替换 location 路径
+
+```bash
+location /images {
+    alias /mnt/html/images;
+}
+```
+
 <!-- https://www.bilibili.com/video/BV1ov41187bq?p=38&vd_source=10257e657caa8b54111087a9329462e8 -->
 
 <!-- https://njavtv.com/cn/my-779-uncensored-leak -->
