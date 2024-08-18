@@ -2021,6 +2021,7 @@ console.log(getDataType('hello'));
 ```
 
 ### new 一个对像发生了什么？请手写代码表示
+
 ```js
 function constomNew(constructor, ...args) {
   //1. 创建空对像继承constructor的原型
@@ -2036,13 +2037,93 @@ function Foo(name) {
   this.name = name;
 }
 
-Foo.prototype.getNmae = function() {
-    return this.name;
+Foo.prototype.getNmae = function () {
+  return this.name;
+};
+
+const f = constomNew(Foo, 'tom');
+console.log(f);
+```
+
+### new 深度优先遍历 DOM 树
+
+```js
+// 访问节点
+function visitNode(n) {
+  if (n instanceof Comment) {
+    // 注释
+    console.log('Comment', n.textContent);
+  }
+  if (n instanceof Text) {
+    // 文本
+    console.log('text node---', n.textContent && n.textContent.trim());
+  }
+  if (n instanceof HTMLElement) {
+    console.log('element node', `<${n.tagName.toLowerCase()}>`);
+  }
 }
 
-const f = constomNew(Foo, "tom");
-console.log(f);
+// 深度优先遍历
+function deptchFirstTraverse(root) {
+  visitNode(root);
 
+  const childNodes = root.childNodes;
+
+  if (childNodes.length) {
+    childNodes.forEach((child) => {
+      deptchFirstTraverse(child);
+    });
+  }
+}
+
+const box = document.getElementById('box');
+if (box == null) throw new Error('box is null');
+deptchFirstTraverse(box);
+```
+
+### 广度优先遍历 DOM 节点
+
+```js
+// 访问节点
+function visitNode(n) {
+  if (n instanceof Comment) {
+    // 注释
+    console.log('Comment', n.textContent);
+  }
+  // 文本
+  if (n instanceof Text) {
+    console.log('text node', n.textContent && n.textContent.trim());
+  }
+  // 元素
+  if (n instanceof HTMLElement) {
+    console.log('element node', `<${n.tagName.toLowerCase()}>`);
+  }
+}
+
+// 广度优先遍历
+function breadthFirstTraverse(root) {
+  const queue = [];
+
+  // 根节点入队列
+  queue.unshift(root);
+
+  while (queue.length > 0) {
+    const curNode = queue.pop();
+    if (curNode == null) break;
+
+    visitNode(curNode);
+
+    // 子节点入队列
+    const childNodes = curNode.childNodes;
+    if (childNodes.length) {
+      childNodes.forEach((child) => queue.unshift(child));
+    }
+  }
+}
+
+const box = document.getElementById('box');
+if (box == null) throw new Error('box is null');
+breadthFirstTraverse(box);
 ```
 
 <div align="center">晓智科技公众号</div>

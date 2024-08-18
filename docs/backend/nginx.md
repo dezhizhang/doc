@@ -356,7 +356,7 @@ http {
     gzip_proxied any; # 对服务端返回结时进行gip压缩
     gzip_comp_level 6; # 压缩级别
     gzip_disable "Mozilla/*"; # 选择情的开启或开闭gip压缩
-    gzip_buffers 16 8k; # 压缩大小
+    gzip_buffers 16 8k; # 缓存空间大小
     gzip_http_version 1.1; # 选择压缩最低版本
     gzip_min_length 20; # 传输数据的大小
     gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
@@ -364,5 +364,3 @@ http {
 ```
 
 <!-- https://www.bilibili.com/video/BV1ov41187bq?p=50&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8 -->
-
-<!-- https://njavtv.com/cn/my-779-uncensored-leak -->
