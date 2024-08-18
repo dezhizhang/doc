@@ -1194,18 +1194,21 @@ console.log(getType('123'));
 ### 函数柯里化
 
 ```js
-export function curry(fn) {
+function curry(fn) {
   const fnArgsLength = fn.length;
   let args = [];
 
-  return function calc(...newArgs) {
+  function calc(...newArgs) {
     args = [...args, ...newArgs];
     if (args.length < fnArgsLength) {
+      // 参数不够返回函数
       return calc;
     } else {
+      // 参数够了返回执行结果
       return fn.apply(this, args.slice(0, fnArgsLength));
     }
-  };
+  }
+  return calc;
 }
 
 function add(a, b, c) {
@@ -1220,17 +1223,19 @@ console.log(curryAdd(10)(20)(30));
 
 ```js
 class LazyMan {
-  tasks = [];
   constructor(name) {
     this.name = name;
+    this.tasks = [];
     setTimeout(() => {
       this.next();
     });
   }
+
   next() {
     const task = this.tasks.shift();
-    if (task) task();
+    task && task();
   }
+
   eat(food) {
     const task = () => {
       console.log(`${this.name} eat ${food}`);
@@ -1242,8 +1247,9 @@ class LazyMan {
 
   sleep(seconds) {
     const task = () => {
+      console.log(`${this.name} 开始睡觉`);
       setTimeout(() => {
-        console.log(`${this.name} 已经睡完了 ${seconds}s`);
+        console.log(`${this.name} 已经睡完了 ${seconds}s 开始执行下一个任务`);
         this.next();
       }, seconds * 1000);
     };
@@ -1252,11 +1258,11 @@ class LazyMan {
   }
 }
 
-const m = new LazyMan('tom');
-m.eat('苹果').eat('香蕉').sleep(2).eat('葡萄').sleep(1).eat('西瓜');
+const man = new LazyMan('tom');
+man.eat('苹果').eat('香蕉').sleep(2).eat('葡萄');
 ```
 
-### 自定义 InstanceOf
+### 自定义 InstanceOf 原理是什么，请用代码表示
 
 ```js
 export function MyInstance(instance, origin) {
@@ -2124,6 +2130,31 @@ function breadthFirstTraverse(root) {
 const box = document.getElementById('box');
 if (box == null) throw new Error('box is null');
 breadthFirstTraverse(box);
+```
+
+### 自定义 apply
+
+```js
+Function.prototype.myApply = function (context, args) {
+  if (context === null) context = globalThis;
+  if (typeof context !== 'object') context = new Object(context);
+
+  const fnKey = Symbol();
+
+  context[fnKey] = this;
+
+  const result = context[fnKey](...args);
+
+  // 清理掉fn
+  delete context[fnKey];
+  return result;
+};
+
+function fn(a, b, c) {
+  console.log(this, a, b, c);
+}
+
+fn.myApply({ x: 100 }, [10, 20, 30]);
 ```
 
 <div align="center">晓智科技公众号</div>
