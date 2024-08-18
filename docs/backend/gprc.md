@@ -1,5 +1,50 @@
 # grpc
 
+### rpc服务调和客户端报务调用
+```go
+// server---------------------------------
+
+type HelloService struct{}
+
+func (s *HelloService) Hello(request string, reply *string) error {
+	*reply = "Hello " + request
+	return nil
+}
+
+func main() {
+	//1. 实例化server
+	listen, err := net.Listen("tcp", ":8080")
+	if err != nil {
+		panic(err)
+	}
+	//2. 注册服务
+	err = rpc.RegisterName("HelloService", &HelloService{})
+	if err != nil {
+		panic(err)
+	}
+	// 启动服务
+	conn, err := listen.Accept()
+	rpc.ServeConn(conn)
+}
+// client---------------------------------
+func main() {
+	//1.建立连接
+	conn, err := rpc.Dial("tcp", "127.0.0.1:8080")
+	if err != nil {
+		panic("连接失败")
+	}
+	var reply string
+	err = conn.Call("HelloService.Hello", "world", &reply)
+	if err != nil {
+		panic("服务调用失败")
+	}
+	fmt.Println(reply)
+}
+```
+
+
+
+
 ### protobuf的安装
 ```
 
