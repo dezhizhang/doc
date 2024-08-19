@@ -365,7 +365,11 @@ http {
 
 ### 静态资源缓存
 
-![静态资源缓存](../../public/nginx/cache.png)
+1. ##### 缓存流程图
+
+   ![静态资源缓存](../../public/nginx/cache.png)
+
+2. ##### 配置代码
 
 ```bash
 server{
@@ -374,6 +378,23 @@ server{
         add_header Cache-Control no-store;
         root /mnt/html;
     }
+}
+```
+
+### 跨域问题
+
+1. ##### 基本介绍
+
+- 同源策略是一种约定，由 Netscape 公司 1995 年引入浏览器，它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，浏览器很容易受到 XSS、CSFR 等攻击。所谓同源是指"协议+域名+端口"三者相同， 即便两个不同的域名指向同一个 ip 地址，也非同源。
+
+2. ##### 配置代码
+
+```bash
+location /api/v1 {
+    add_header Access-Control-Allow-Origin *;
+    add_header Access-Control-Allow-Methods GET,POST,PUT,DELETE;
+    default_type application/json;
+    return 200 '{"id":1,"name":"tom"}';
 }
 ```
 
