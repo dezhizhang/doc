@@ -398,4 +398,23 @@ location /api/v1 {
 }
 ```
 
+### 防盗链实现
+
+1. ##### 基本介绍
+
+- Referer 是 Header 的一部分，当浏览器向 Web 服务器发送请求的时候，一般会带上 Referer，告诉服务器该请求是从哪个页面链接过来的，服务器就可以禁止或允许某些来源的网站访问资源。
+- 如果直接在浏览器直接打开文件链接https://examplebucket-1250000000.cos.ap-guangzhou.myqcloud.com/1.jpg，请求 Header 里不会带有 Referer。
+
+2. ##### 配置代码
+
+```bash
+location ~.*\.(jpeg|jpg|png)$ {
+    valid_referers no backed www.xiaozhi.shop;
+    if ($invalid_referer) {
+            return 403;
+    }
+    root /mnt/html;
+}
+```
+
 <!-- https://www.bilibili.com/video/BV1ov41187bq?p=50&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8 -->
