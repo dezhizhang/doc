@@ -17,7 +17,108 @@
 - protobuf（Protocol Buffers）协议 😉 protobuf 是一种由 google 开发的二进制序列化格式和相关的技术，它用于高效地序列化和反序列化结构化数据，通常用于网络通信、数据存储等场景
 
 2. ##### 优点与缺点
-![优点与缺点](../../public/grpc/protobuf.png)
+   ![优点与缺点](../../public/grpc/protobuf.png)
+
+### gprc 开发环境准备
+
+1. ##### 安装 protoc 工具
+
+```bash
+https://github.com/protocolbuffers/protobuf/releases
+```
+
+2. ##### 安装依赖包
+
+```bash
+go get github.com/golang/protobuf/protoc-gen-go
+```
+
+### grpc 简单入门
+
+1. ##### 编写 protobuf 文件
+
+```go
+syntax = "proto3";
+option go_package = ".;proto";
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloReply{
+  string message = 1;
+}
+
+service Greeter{
+  rpc SayHello(HelloRequest) returns(HelloReply);
+}
+```
+
+2. ##### 生成 grpc 对应代码
+
+```bash
+cd /proto
+
+protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go_opt=paths=source_relative helloworld.proto
+```
+
+3. ##### 编写服务端代码
+
+```go
+type Server struct {
+	proto.UnimplementedGreeterServer
+}
+
+// SayHello rpc服务调用
+func (s *Server) SayHello(ctx context.Context, req *proto.HelloRequest) (*proto.HelloReply, error) {
+	return &proto.HelloReply{Message: req.Name + "hello"}, nil
+}
+
+func main() {
+	//1. 实例化grpc
+	g := grpc.NewServer()
+	// 注册服务
+	proto.RegisterGreeterServer(g, &Server{})
+	// 启动服务
+	l, err := net.Listen("tcp", ":8080")
+	if err != nil {
+		panic("启动服务失败" + err.Error())
+	}
+
+	err = g.Serve(l)
+	if err != nil {
+		panic(err)
+	}
+}
+```
+
+4. ##### 编写客户端代码
+
+```go
+func main() {
+	conn, err := grpc.Dial("localhost:8080", grpc.WithInsecure())
+	if err != nil {
+		panic(err)
+	}
+
+	defer func(conn *grpc.ClientConn) {
+		err := conn.Close()
+		if err != nil {
+			panic(err)
+		}
+	}(conn)
+
+	c := proto.NewGreeterClient(conn)
+
+	r, err := c.SayHello(context.Background(), &proto.HelloRequest{
+		Name: "tom",
+	})
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(r.Message)
+}
+
+```
 
 ### rpc 服务调和客户端报务调用
 
