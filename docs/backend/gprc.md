@@ -1,6 +1,26 @@
 # grpc
 
-### rpc服务调和客户端报务调用
+### 什么是 grpc
+
+1. ##### 基本介绍
+
+- grpc 是一个高性能，开源和通用 rpc 框架，面向移动和 http/2 设计，目前提供 c,java 和 go 语言版本。
+
+2. ##### 调用图解
+
+![调用图解](../../public/grpc/grpc.png)
+
+### 什么是 protobuf
+
+1. ##### 基本介绍
+
+- protobuf（Protocol Buffers）协议 😉 protobuf 是一种由 google 开发的二进制序列化格式和相关的技术，它用于高效地序列化和反序列化结构化数据，通常用于网络通信、数据存储等场景
+
+2. ##### 优点与缺点
+![优点与缺点](../../public/grpc/protobuf.png)
+
+### rpc 服务调和客户端报务调用
+
 ```go
 // server---------------------------------
 
@@ -41,19 +61,21 @@ func main() {
 	fmt.Println(reply)
 }
 ```
-### jsonrpc报务间调用
+
+### jsonrpc 报务间调用
+
+```
+
+```
+
+### protobuf 的安装
+
 ```
 
 ```
 
+### proto 文件的编写
 
-
-
-### protobuf的安装
-```
-
-```
-### proto文件的编写
 ```go
 syntax = "proto3";
 
@@ -68,6 +90,7 @@ message User {
   int32  age = 2;
 }
 ```
+
 ### 序列化与反序列化
 
 ```go
@@ -99,22 +122,25 @@ func main() {
 }
 
 ```
-### message介绍
+
+### message 介绍
 
 ### 字段映射字段
 
-|protobuf  |notes  |c++      |python   |go       |
-| -------- | ------| ------- | ------- | ------- |
-| double   | ----- | double  | float   | float64 |
-| float    | ----- | float   | float   | float32 |
-| int32    | 使用变长编码|int32| int/long| unint32 | 
-| uint32   | 使用变长编码|int32| int/long| unint32 | 
-| sint32   | 使用变长编码|int32| int/long| int32   | 
-| sint64   | 使用变长编码|int32| int/long| int64   | 
-| bool     |           |  bool    | bool| bool   | 
+| protobuf | notes        | c++    | python   | go      |
+| -------- | ------------ | ------ | -------- | ------- |
+| double   | -----        | double | float    | float64 |
+| float    | -----        | float  | float    | float32 |
+| int32    | 使用变长编码 | int32  | int/long | unint32 |
+| uint32   | 使用变长编码 | int32  | int/long | unint32 |
+| sint32   | 使用变长编码 | int32  | int/long | int32   |
+| sint64   | 使用变长编码 | int32  | int/long | int64   |
+| bool     |              | bool   | bool     | bool    |
 
-### gprc调用
+### gprc 调用
+
 1. 服务端方法的生成
+
 ```go
 package service
 
@@ -131,7 +157,9 @@ func (p *productService) GetProductStock(ctx context.Context, request *ProductRe
 }
 
 ```
+
 2. 服务端提供服务
+
 ```go
 package main
 
@@ -160,7 +188,9 @@ func main() {
 }
 
 ```
+
 3. 客户端调用
+
 ```go
 package main
 
@@ -193,7 +223,9 @@ func main() {
 }
 
 ```
+
 ### 生成自签名证书
+
 ```
 
 ```

@@ -554,7 +554,7 @@ location / {
 
 2. ##### 负载均衡图解
 
-![负载均衡](image-1.png)
+![负载均衡](../../public/nginx/balancing.png)
 
 
 
