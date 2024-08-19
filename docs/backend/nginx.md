@@ -417,4 +417,64 @@ location ~.*\.(jpeg|jpg|png)$ {
 }
 ```
 
+### rewrite重写url
+
+1. ##### 基本介绍
+
+- 在实际工作中往往会遇到很多跳转（重写 URL）的需求。比如：更换域名后需要保持旧的域名能够跳转到新的域名上、某网页发生改变需要跳转到新的页面、网站防盗链等等需求，使用 nginx 跳转效率会更高
+
+2. ##### set 指令
+
+```bash
+location /write {
+    set $name tom;
+    set $age 18;
+    default_type application/json;
+    return 200 '{"name":$name,"age":$age}';
+}
+```
+
+3. ##### if 指令
+
+```bash
+location /testif {
+    default_type text/plain;
+    set $username 'hello';
+    if ($username) {
+        return 200 $username;
+    }
+    return 200 'username is empty';
+}
+```
+
+4. ##### break 指令
+
+```bash
+location /testbreak{
+    default_type text/plain;
+    set $username tom;
+    if ($args) {
+        set $username jeray;
+        break;
+        set $username rose;
+    }
+    add_header username $username;
+    return 200 $username;
+}
+```
+
+4. ##### return 指令
+
+- 该指令用于完成对请求的处理，直接向客户端返回，在 return 后的所有 nginx 配置都是无效的。
+
+```bash
+location /testreturn {
+    default_type application/json;
+    return  200 '{"name":"tom","age":20}';
+}
+```
+5. ##### rewrite 指令
+- 该指令通过正则表过式的使用来改变URI，可以同时存在一外或多个指令，按照顺序依次对URL进行匹配和处理
+
+
 <!-- https://www.bilibili.com/video/BV1ov41187bq?p=50&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8 -->
