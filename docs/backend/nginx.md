@@ -473,8 +473,27 @@ location /testreturn {
     return  200 '{"name":"tom","age":20}';
 }
 ```
-5. ##### rewrite 指令
-- 该指令通过正则表过式的使用来改变URI，可以同时存在一外或多个指令，按照顺序依次对URL进行匹配和处理
 
+5. ##### rewrite 指令
+
+- 该指令通过正则表过式的使用来改变 URI，可以同时存在一外或多个指令，按照顺序依次对 URL 进行匹配和处理
+
+```bash
+location /rewrite {
+    rewrite ^/rewrite/url\w*$ https://www.baidu.com;
+    rewrite ^/rewrite/(test)\w*$ /$1;
+    rewrite ^/rewrite/(demo)\w*$ /$1;
+}
+
+location /test {
+    default_type text/plain;
+    return 200 'test success';
+}
+
+location /demo {
+    default_type text/plain;
+    return 200 'demo success';
+}
+```
 
 <!-- https://www.bilibili.com/video/BV1ov41187bq?p=50&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8 -->
