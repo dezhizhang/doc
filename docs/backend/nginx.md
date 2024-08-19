@@ -366,8 +366,7 @@ http {
 ### 静态资源缓存
 
 1. ##### 缓存流程图
-
-   ![静态资源缓存](../../public/nginx/cache.png)
+![静态资源缓存](../../public/nginx/cache.png)
 
 2. ##### 配置代码
 
@@ -417,7 +416,7 @@ location ~.*\.(jpeg|jpg|png)$ {
 }
 ```
 
-### rewrite重写url
+### rewrite 重写url
 
 1. ##### 基本介绍
 
@@ -493,6 +492,29 @@ location /test {
 location /demo {
     default_type text/plain;
     return 200 'demo success';
+}
+```
+
+5. ##### rewrite_log 指令
+
+- 该指令配置是否开启 URL 重写日志输出功能
+
+```bash
+rewrite_log on;
+error_log /var/log/nginx/error.log notice;
+```
+
+6. ##### 防盗链
+
+- 盗链，用通俗易懂的话来说，就是别人未经您的允许，在他们的网站上直接链接到您网站的资源，让访问他们网站的用户可以直接获取您的资源。比如，您的网站上有一张精美的图片，另一个网站通过"您网站上图片的链接"这样的方式把您的图片展示在他们的页面上，这就是盗链。
+
+```bash
+location / {
+    root /mnt;
+    valid_referers none blocked *.xiaozhi.shop;
+    if ($invalid_referer) {
+        return 403;
+    }
 }
 ```
 
