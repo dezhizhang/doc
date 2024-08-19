@@ -363,4 +363,18 @@ http {
 }
 ```
 
+### 静态资源缓存
+
+![静态资源缓存](../../public/nginx/cache.png)
+
+```bash
+server{
+    location ~.*\.(html|js|css|png)$ {
+        expires 1000;
+        add_header Cache-Control no-store;
+        root /mnt/html;
+    }
+}
+```
+
 <!-- https://www.bilibili.com/video/BV1ov41187bq?p=50&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8 -->

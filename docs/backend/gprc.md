@@ -41,6 +41,10 @@ func main() {
 	fmt.Println(reply)
 }
 ```
+### jsonrpc报务间调用
+```
+
+```
 
 
 
