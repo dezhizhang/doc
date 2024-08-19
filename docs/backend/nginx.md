@@ -366,7 +366,8 @@ http {
 ### 静态资源缓存
 
 1. ##### 缓存流程图
-![静态资源缓存](../../public/nginx/cache.png)
+
+   ![静态资源缓存](../../public/nginx/cache.png)
 
 2. ##### 配置代码
 
@@ -408,7 +409,7 @@ location /api/v1 {
 
 ```bash
 location ~.*\.(jpeg|jpg|png)$ {
-    valid_referers no backed www.xiaozhi.shop;
+    valid_referers no backed *.xiaozhi.shop;
     if ($invalid_referer) {
             return 403;
     }
@@ -416,7 +417,7 @@ location ~.*\.(jpeg|jpg|png)$ {
 }
 ```
 
-### rewrite 重写url
+### rewrite 重写链接地址
 
 1. ##### 基本介绍
 
@@ -504,17 +505,44 @@ rewrite_log on;
 error_log /var/log/nginx/error.log notice;
 ```
 
-6. ##### 防盗链
+### 反向代理
 
-- 盗链，用通俗易懂的话来说，就是别人未经您的允许，在他们的网站上直接链接到您网站的资源，让访问他们网站的用户可以直接获取您的资源。比如，您的网站上有一张精美的图片，另一个网站通过"您网站上图片的链接"这样的方式把您的图片展示在他们的页面上，这就是盗链。
+1. ##### 基本介绍
+
+- 反向代理是一种代理服务器的配置模式，它代表服务器向客户端提供服务。客户端发送请求到反向代理服务器，然后反向代理服务器将请求转发到后端的真实服务器上，并将响应返回给客户端。简单理解为用户直接访问反向代理服务器就可以获得目标服务器的资源。这一过程叫反向代理
+
+2. ##### 反向代理图解
+
+![反向代理](../../public/nginx/proxy.png)
+
+3. ##### proxy_pass 指令
+
+- 该指令用来设置被代理服务器地址，可以是主机名称，ip 地址+port(端口形式)
 
 ```bash
 location / {
-    root /mnt;
-    valid_referers none blocked *.xiaozhi.shop;
-    if ($invalid_referer) {
-        return 403;
-    }
+    proxy_pass https://8.134.182.122;
+}
+```
+
+4. ##### proxy_set_header 指令
+
+- 该指令可以更改 nginx 服务器接收到的客户端请求的请求头信息，然后将新的请求头信息发送给代理服务器
+
+```bash
+location / {
+    proxy_set_header username tom;
+    proxy_pass https://8.134.182.122;
+}
+```
+
+5. ##### proxy_redirect 指令
+
+- 该指令是用来重置头信息的 location 和 refresh 的值
+
+```bash
+location / {
+    proxy_redirect http://47.107.101.79/ http://8.134.182.122/;
 }
 ```
 
