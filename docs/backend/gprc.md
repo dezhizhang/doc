@@ -1,5 +1,98 @@
 # grpc
 
+
+### 什么是 protobuf
+
+1. ##### 基本介绍
+
+- protobuf（Protocol Buffers）协议 😉 protobuf 是一种由 google 开发的二进制序列化格式和相关的技术，它用于高效地序列化和反序列化结构化数据，通常用于网络通信、数据存储等场景
+
+2. ##### 优点与缺点
+
+![优点与缺点](../../public/grpc/protobuf.png)
+
+3. ##### protobuf 对应 go 类型
+
+![protobuf对应go类型](../../public/grpc/protobuf-go.png)
+
+4. ##### 类型引用
+
+```go
+//common.proto
+syntax = "proto3";
+
+option go_package = ".;proto";
+
+message Pong{
+  string id = 1;
+}
+// hello.proto
+syntax = "proto3";
+option  go_package = ".;proto";
+
+import "google/protobuf/empty.proto";
+import "common.proto"; // 调用公共protobuf
+
+message HelloRequest{
+  string name = 1;
+}
+
+message HelloReply {
+  string message = 1;
+}
+
+service Greeter{
+  rpc SayHello (HelloRequest) returns(HelloReply);
+  rpc Ping(google.protobuf.Empty) returns(Pong);
+}
+```
+
+5. ##### 嵌套的 message
+
+```go
+message HelloReply {
+  string message = 1;
+  message Result {
+    string name = 1;
+    string url = 2;
+  }
+}
+```
+
+6. ##### 枚举类型
+
+```go
+enum Gender{
+  MALE =0;
+  FEMALE = 1;
+}
+
+message HelloRequest{
+  string name = 1;
+  Gender g = 3;
+}
+```
+
+7. ##### map 类型
+
+```go
+message HelloRequest{
+  string name = 1;
+  Gender g = 3;
+  map<string,string> mp = 4;
+}
+```
+
+8. ##### timestamp类型
+```go
+message HelloRequest{
+  string name = 1;
+  Gender g = 2;
+  map<string,string> mp = 3;
+  google.protobuf.Timestamp createTime = 4;
+}
+```
+
 ### 什么是 grpc
 
 1. ##### 基本介绍
@@ -154,94 +247,4 @@ func main() {
 }
 ```
 
-### 什么是 protobuf
 
-1. ##### 基本介绍
-
-- protobuf（Protocol Buffers）协议 😉 protobuf 是一种由 google 开发的二进制序列化格式和相关的技术，它用于高效地序列化和反序列化结构化数据，通常用于网络通信、数据存储等场景
-
-2. ##### 优点与缺点
-
-![优点与缺点](../../public/grpc/protobuf.png)
-
-3. ##### protobuf 对应 go 类型
-
-![protobuf对应go类型](../../public/grpc/protobuf-go.png)
-
-4. ##### 类型引用
-
-```go
-//common.proto
-syntax = "proto3";
-
-option go_package = ".;proto";
-
-message Pong{
-  string id = 1;
-}
-// hello.proto
-syntax = "proto3";
-option  go_package = ".;proto";
-
-import "google/protobuf/empty.proto";
-import "common.proto"; // 调用公共protobuf
-
-message HelloRequest{
-  string name = 1;
-}
-
-message HelloReply {
-  string message = 1;
-}
-
-service Greeter{
-  rpc SayHello (HelloRequest) returns(HelloReply);
-  rpc Ping(google.protobuf.Empty) returns(Pong);
-}
-```
-
-5. ##### 嵌套的 message
-
-```go
-message HelloReply {
-  string message = 1;
-  message Result {
-    string name = 1;
-    string url = 2;
-  }
-}
-```
-
-6. ##### 枚举类型
-
-```go
-enum Gender{
-  MALE =0;
-  FEMALE = 1;
-}
-
-message HelloRequest{
-  string name = 1;
-  Gender g = 3;
-}
-```
-
-7. ##### map 类型
-
-```go
-message HelloRequest{
-  string name = 1;
-  Gender g = 3;
-  map<string,string> mp = 4;
-}
-```
-
-8. ##### timestamp类型
-```go
-message HelloRequest{
-  string name = 1;
-  Gender g = 2;
-  map<string,string> mp = 3;
-  google.protobuf.Timestamp createTime = 4;
-}
-```
