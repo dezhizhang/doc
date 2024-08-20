@@ -261,7 +261,7 @@ func main() {
 - gRPC 中的 Metadata 类似于 HTTP Header 的概念，用于描述数据和消息的数据信息，可以理解为一个键值对集合，用于在 gRPC 客户端和服务端之间传递元数据信息，提供一种在消息中传递数据和追加关键信息的机制。
 - Metadata 主要有两个作用：提供 RPC 调用的元数据信息，例如用于链路追踪的 traceId、调用时间、应用版本等等。控制 gRPC 消息的格式，例如是否压缩或是否加密。在 gRPC 中，元数据可以在客户端和服务器之间进行交换。客户端可以在发送请求时，通过添加元数据，向服务器传递特定的信息，例如授权令牌、用户标识、链路追踪 ID 等。服务器可以使用这些元数据来进行身份验证、授权、跟踪请求等作。使用 gRPC 的元数据可以通过 gRPC API 提供的 Metadata 对象来实现。在客户端，可以在调用服务方法时使用 Metadata 对象，并将元数据添加到对象中，服务端可以在接收请求时从 RPC 上下文中提取 Metadata。
 
-2. ##### protobuf文件
+2. ##### protobuf 文件
 
 ```go
 syntax = "proto3";
@@ -288,6 +288,7 @@ type Server struct {
 }
 
 func (s *Server) SayHello(ctx context.Context, request *proto.HelloRequest) (*proto.HelloReply, error) {
+	// metdata
 	md, ok := metadata.FromIncomingContext(ctx)
 	if !ok {
 		panic(errors.New("metadata not nil"))
@@ -322,7 +323,7 @@ func main() {
 	defer conn.Close()
 
 	c := proto.NewGreeterClient(conn)
-
+    // metdata
 	md := metadata.Pairs("timestamp", time.Now().Format("2006-01-02 15:04:05"))
 	ctx := metadata.NewOutgoingContext(context.Background(), md)
 
@@ -335,4 +336,81 @@ func main() {
 	fmt.Println(h.Message)
 }
 
+```
+
+### grpc 的拦戴器
+
+1. ##### 基本介绍
+
+- gRPC 的拦截器（interceptor）类似各种 Web 框架里的请求中间件，请求中间件大家都知道是利用装饰器模式对最终处理请求的 handler 程序进行装饰，这样中间件就可以在处理请求前和完成处理后这两个时机上，拦截到发送给 handler 的请求以及 handler 返回给客户端的响应 。
+- 中间件的最大的用处是可以把一些 handler 的前置和后置操作从 handler 程序中解耦出来，比如最常见的记录响应时长、记录请求和响应数据日志等操作往往是通过中间件程序实现的。
+- 与 Web 框架的中间件同理，可以对 gRPC 的请求和响应进行拦截处理，而且既可以在客户端进行拦截，也可以对服务器端进行拦截。利用拦截器，可以对 gRPC 进行很好的扩展，把一些业务逻辑外的冗余操作从 handler 中抽离，提升项目的开发效率和扩展性。
+
+2. ##### protobuf 文件
+
+```go
+syntax = "proto3";
+
+option go_package = ".;proto";
+
+message HelloRequest {
+  string name = 1;
+}
+message HelloReply{
+  string message = 1;
+}
+service Greeter{
+  rpc SayHello(HelloRequest) returns(HelloReply);
+}
+```
+
+3. ##### 服务端
+
+```go
+type Server struct {
+	proto.UnimplementedGreeterServer
+}
+
+func (s *Server) SayHello(ctx context.Context, in *proto.HelloRequest) (*proto.HelloReply, error) {
+	return &proto.HelloReply{Message: "Hello " + in.Name}, nil
+}
+func main() {
+	//拦戴器处理逻辑
+	interceptor := func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
+		fmt.Println("--------interceptor")
+		return handler(ctx, req)
+	}
+	opt := grpc.UnaryInterceptor(interceptor)
+	g := grpc.NewServer(opt)
+	proto.RegisterGreeterServer(g, &Server{})
+	listen, err := net.Listen("tcp", ":8082")
+	if err != nil {
+		panic(err)
+	}
+	err = g.Serve(listen)
+	if err != nil {
+		panic(err)
+	}
+}
+```
+
+4. ##### 客户端
+
+```go
+func main() {
+	conn, err := grpc.Dial(":8082", grpc.WithInsecure())
+	if err != nil {
+		panic(err)
+	}
+	defer conn.Close()
+
+	c := proto.NewGreeterClient(conn)
+	h, err := c.SayHello(context.Background(), &proto.HelloRequest{
+		Name: "tom",
+	})
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(h.Message)
+}
 ```
