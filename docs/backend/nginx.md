@@ -574,4 +574,67 @@ server
 }
 ```
 
+3. ##### 负载均衡 backup
+
+- 将该服务器标记为备份服务器，当主服务器不可用时，将用来传递请求。
+
+```bash
+upstream backend {
+    server 8.134.182.122;
+    server 106.15.74.79 backup;
+}
+server
+{
+    listen 80;
+    server_name 47.107.101.79;
+
+    location / {
+            proxy_pass http://backend;
+    }
+}
+```
+
+3. ##### 负载均衡 max_fails 和 fail_timeout
+
+- max_fails 设置允许请求代理服务器失败的次数默认为 1。
+- fail_timeout=time;设置经过 max_fails 失败后，服务器暂停的时间，默认是 10 秒。
+
+```bash
+upstream backend {
+    server 8.134.182.122 max_fails=3 fail_timeout=15;
+    server 106.15.74.79;
+}
+
+server
+{
+    listen 80;
+    server_name 47.107.101.79;
+
+    location / {
+        proxy_pass http://backend;
+    }
+}
+```
+
+3. ##### weight 加权[加权轮询]
+
+- weight=number：用来设置服务器权重，默认为 1，权重数据越大，被分配到请求的几越大，该权重值,主要是针对实际工作环境中的不同的后端服务器硬件配置进行调整的，所有此策略比较适合服务器硬件配置差别较大的情况。
+
+```bash
+upstream backend {
+    server 8.134.182.122 weight=1;
+    server 106.15.74.79 weight=10;
+}
+
+server
+{
+    listen 80;
+    server_name 47.107.101.79;
+
+    location / {
+        proxy_pass http://backend;
+    }
+}
+```
+
 <!-- https://www.bilibili.com/video/BV1ov41187bq?p=96 -->
