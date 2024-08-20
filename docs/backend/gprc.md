@@ -10,14 +10,7 @@
 
 ![调用图解](../../public/grpc/grpc.png)
 
-### 什么是 protobuf
 
-1. ##### 基本介绍
-
-- protobuf（Protocol Buffers）协议 😉 protobuf 是一种由 google 开发的二进制序列化格式和相关的技术，它用于高效地序列化和反序列化结构化数据，通常用于网络通信、数据存储等场景
-
-2. ##### 优点与缺点
-   ![优点与缺点](../../public/grpc/protobuf.png)
 
 ### gprc 开发环境准备
 
@@ -163,167 +156,73 @@ func main() {
 }
 ```
 
-### grpc 简单入门
+### 什么是 protobuf
 
+1. ##### 基本介绍
 
-### protobuf 的安装
+- protobuf（Protocol Buffers）协议 😉 protobuf 是一种由 google 开发的二进制序列化格式和相关的技术，它用于高效地序列化和反序列化结构化数据，通常用于网络通信、数据存储等场景
 
-```
+2. ##### 优点与缺点
+![优点与缺点](../../public/grpc/protobuf.png)
 
-```
+3. ##### protobuf 对应 go 类型
 
-### proto 文件的编写
+![protobuf对应go类型](../../public/grpc/protobuf-go.png)
+
+4. ##### protobuf 类型引用
 
 ```go
+//common.proto
 syntax = "proto3";
 
-option go_package="../service";
+option go_package = ".;proto";
 
-package service;
+message Pong{
+  string id = 1;
+}
+// hello.proto
+syntax = "proto3";
+option  go_package = ".;proto";
 
-// 传输的对像
+import "google/protobuf/empty.proto";
+import "common.proto"; // 调用公共protobuf
 
-message User {
-  string username = 1;
-  int32  age = 2;
+message HelloRequest{
+  string name = 1;
+}
+
+message HelloReply {
+  string message = 1;
+}
+
+service Greeter{
+  rpc SayHello (HelloRequest) returns(HelloReply);
+  rpc Ping(google.protobuf.Empty) returns(Pong);
 }
 ```
 
-### 序列化与反序列化
+5. ##### protobuf 嵌套的 message
 
 ```go
-package main
-
-import (
-	"fmt"
-	"google.golang.org/protobuf/proto"
-	"grpc/service"
-)
-
-func main() {
-	user := &service.User{
-		Username: "张三",
-		Age:      18,
-	}
-
-	// 序列化过程
-	marshal, err := proto.Marshal(user)
-	if err != nil {
-		panic(err)
-	}
-
-	newUser := service.User{}
-	proto.Unmarshal(marshal, &newUser)
-
-	fmt.Println(newUser.String())
-
+message HelloReply {
+  string message = 1;
+  message Result {
+    string name = 1;
+    string url = 2;
+  }
 }
-
 ```
 
-### message 介绍
-
-### 字段映射字段
-
-| protobuf | notes        | c++    | python   | go      |
-| -------- | ------------ | ------ | -------- | ------- |
-| double   | -----        | double | float    | float64 |
-| float    | -----        | float  | float    | float32 |
-| int32    | 使用变长编码 | int32  | int/long | unint32 |
-| uint32   | 使用变长编码 | int32  | int/long | unint32 |
-| sint32   | 使用变长编码 | int32  | int/long | int32   |
-| sint64   | 使用变长编码 | int32  | int/long | int64   |
-| bool     |              | bool   | bool     | bool    |
-
-### gprc 调用
-
-1. 服务端方法的生成
+6. ##### protobuf 枚举类型
 
 ```go
-package service
-
-import "context"
-
-type productService struct {
-	UnimplementedProductServiceServer
+enum Gender{
+  MALE =0;
+  FEMALE = 1;
 }
 
-var ProductService = &productService{}
-
-func (p *productService) GetProductStock(ctx context.Context, request *ProductRequest) (*ProductResponse, error) {
-	return &ProductResponse{ProdStock: 12355}, nil
+message HelloRequest{
+  string name = 1;
+  Gender g = 3;
 }
-
-```
-
-2. 服务端提供服务
-
-```go
-package main
-
-import (
-	"fmt"
-	"google.golang.org/grpc"
-	"grpc/service"
-	"net"
-)
-
-func main() {
-	srv := grpc.NewServer()
-	service.RegisterProductServiceServer(srv, service.ProductService)
-
-	// 启动服务
-	listen, err := net.Listen("tcp", ":8002")
-	if err != nil {
-		panic(err)
-	}
-
-	err1 := srv.Serve(listen)
-	if err1 != nil {
-		panic(err)
-	}
-	fmt.Println("启动grpc服务端成功")
-}
-
-```
-
-3. 客户端调用
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
-	service "grpc/client/pb"
-)
-
-func main() {
-	conn, err := grpc.Dial(":8002", grpc.WithTransportCredentials(insecure.NewCredentials()))
-	if err != nil {
-		panic(err)
-	}
-
-	defer conn.Close()
-
-	client := service.NewProductServiceClient(conn)
-
-	request := &service.ProductRequest{
-		ProdId: 56,
-	}
-	stock, err := client.GetProductStock(context.Background(), request)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(stock)
-}
-
-```
-
-### 生成自签名证书
-
-```
-
 ```
