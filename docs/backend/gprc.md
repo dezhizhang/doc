@@ -163,11 +163,8 @@ func main() {
 }
 ```
 
-### jsonrpc 报务间调用
+### grpc 简单入门
 
-```
-
-```
 
 ### protobuf 的安装
 

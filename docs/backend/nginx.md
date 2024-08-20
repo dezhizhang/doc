@@ -556,6 +556,22 @@ location / {
 
 ![负载均衡](../../public/nginx/balancing.png)
 
+3. ##### 负载均衡配置
 
+```bash
+upstream backend {
+    server 8.134.182.122;
+    server 106.15.74.79;
+}
+server
+{
+    listen 80;
+    server_name 47.107.101.79;
+
+    location / {
+            proxy_pass http://backend;
+    }
+}
+```
 
 <!-- https://www.bilibili.com/video/BV1ov41187bq?p=96 -->
