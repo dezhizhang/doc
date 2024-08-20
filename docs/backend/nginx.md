@@ -110,7 +110,7 @@ systemctl enable nginx
 
 1. ##### nginx 常用目录
 
-![alt text](../../public/nginx/dir.png)
+![alt text](https://cdn.xiaozhi.shop/doc/nginx/dir.png)
 
 ### 核心配置文件
 
@@ -367,7 +367,7 @@ http {
 
 1. ##### 缓存流程图
 
-   ![静态资源缓存](../../public/nginx/cache.png)
+   ![静态资源缓存](https://cdn.xiaozhi.shop/doc/nginx/cache.png)
 
 2. ##### 配置代码
 
@@ -513,7 +513,7 @@ error_log /var/log/nginx/error.log notice;
 
 2. ##### 反向代理图解
 
-![反向代理](../../public/nginx/proxy.png)
+![反向代理](https://cdn.xiaozhi.shop/doc/nginx/proxy.png)
 
 3. ##### proxy_pass 指令
 
@@ -554,7 +554,7 @@ location / {
 
 2. ##### 负载均衡图解
 
-![负载均衡](../../public/nginx/balancing.png)
+![负载均衡](https://cdn.xiaozhi.shop/doc/nginx/balancing.png)
 
 3. ##### 负载均衡配置
 
