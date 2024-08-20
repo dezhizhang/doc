@@ -1403,6 +1403,60 @@ events.emit('key1', 10, 20);
 // events.emit('key1',10,20);
 ```
 
+### 拆分 EventBus
+
+```js
+class EventBus {
+  constructor() {
+    this.events = {};
+    this.onceEvents = {};
+  }
+
+  on(type, fn) {
+    const events = this.events;
+    if (!events[type]) events[type] = [];
+    events[type].push(fn);
+  }
+
+  once(type, fn) {
+    const onceEvents = this.onceEvents;
+    if (!onceEvents[type]) onceEvents[type] = [];
+    onceEvents[type].push(fn);
+  }
+  off(type, fn) {
+    if (fn) {
+      //解绑所有事件
+      this.events[type] = [];
+      this.onceEvents[type] = [];
+    } else {
+      // 解绑单个事件
+      const fnList = this.events[type];
+      const onceFnList = this.onceEvents[type];
+
+      if (fnList) {
+        this.events[type] = fnList.filter((curFn) => curFn !== fn);
+      }
+
+      if (onceFnList) {
+        this.onceEvents[type] = onceFnList.filter((curFn) => curFn !== fn);
+      }
+    }
+  }
+  emit(type, ...args) {
+    const fnList = this.events[type];
+    const onceFnList = this.onceEvents[type];
+
+    if (fnList) {
+      fnList.forEach((fn) => fn(...args));
+    }
+    if (onceFnList) {
+      onceFnList.forEach((fn) => fn(...args));
+      this.onceEvents = [];
+    }
+  }
+}
+```
+
 ### LRU 缓存
 
 ```js
