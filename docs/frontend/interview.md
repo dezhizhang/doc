@@ -1403,7 +1403,7 @@ events.emit('key1', 10, 20);
 // events.emit('key1',10,20);
 ```
 
-### 拆分 EventBus
+### 拆分存诸 EventBus
 
 ```js
 class EventBus {
@@ -1458,24 +1458,28 @@ class EventBus {
 ```
 
 ### LRU 缓存
+- LRU是Least Recently Used的缩写，意思是最近最少使用，它是一种Cache替换算法。 什么是Cache？狭义的Cache指的是位于CPU和主存间的快速RAM， 通常它不像系统主存那样使用 DRAM技术，而使用昂贵但较快速的SRAM技术。 广义上的Cache指的是位于速度相差较大的两种 硬件之间， 用于协调两者数据传输速度差异的结构。除了CPU与主存之间有Cache， 内存与硬盘 之间也有Cache，乃至在硬盘与网络之间也有某种意义上的Cache── 称为Internet临时文件夹或 网络内容缓存等。
 
 ```js
 class LRUCache {
   constructor(length) {
-    if (length < 1) throw new Error('无效的length');
+    if (length < 1) throw new Error("invalid length");
     this.length = length;
     this.data = new Map();
   }
-
-  set(key, value) {
+  set(key,value) {
     const data = this.data;
-    if (data.has(key)) {
+
+    // 如果存在key则删除
+    if(data.has(key)) {
       data.delete(key);
     }
 
-    data.set(key, value);
+    // 重新设置key
+    data.set(key,value);
 
-    if (data.size > this.length) {
+    if(data.size > this.length) {
+      // 如果超出了容量，则删除map最老元素
       const delKey = data.keys().next().value;
       data.delete(delKey);
     }
@@ -1483,30 +1487,25 @@ class LRUCache {
 
   get(key) {
     const data = this.data;
-    if (!data.has(key)) return null;
+    // 如果不存在则返回null
+    if(!data.has(key)) return null;
+
     const value = data.get(key);
 
     data.delete(key);
-
-    data.set(key, value);
-
+    // 重新设置
+    data.set(key,value);
     return value;
   }
 }
 
 const lruCache = new LRUCache(2);
-lruCache.set(1, 1);
-lruCache.set(2, 2);
-
+lruCache.set(1,1);
+lruCache.set(2,2);
 console.log(lruCache.get(1));
-lruCache.set(3, 3);
 
+lruCache.set(3,3);
 console.log(lruCache.get(2));
-
-lruCache.set(4, 4);
-console.log(lruCache.get(1));
-console.log(lruCache.get(3));
-console.log(lruCache.get(4));
 ```
 
 ### 统计 sdk
