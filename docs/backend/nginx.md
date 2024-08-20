@@ -726,7 +726,7 @@ server
 }
 ```
 
-### web 缓存服务
+### nginx 缓存设置
 
 1. ##### 基本介绍
 
@@ -754,6 +754,8 @@ location / {
     proxy_pass http://backend;
 }
 ```
+### 
+<div align="center">贵州晓智信息科技有限公司</div>
+<div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
 
-
-<!-- https://www.bilibili.com/video/BV1ov41187bq?p=96 -->
+<!-- https://www.bilibili.com/video/BV1ov41187bq?p=136&vd_source=10257e657caa8b54111087a9329462e8 -->
