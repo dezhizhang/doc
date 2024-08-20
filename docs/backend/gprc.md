@@ -1,5 +1,11 @@
 # grpc
 
+| 项目     | 地址                                                                            |
+| :------- | :------------------------------------------------------------------------------ |
+| 晓智科技 | [晓智科技](https://xiaozhi.shop)                                                |
+| 晓智文档 | [晓智文档](https://doc.xiaozhi.shop/backend/gprc)                               |
+| 源码地址 | [源码地址](https://github.com/dezhizhang/cloud-native/tree/main/starfruit/test) |
+| 文档源码 | [文档源码](https://github.com/dezhizhang/doc)                                   |
 
 ### 什么是 protobuf
 
@@ -83,7 +89,8 @@ message HelloRequest{
 }
 ```
 
-8. ##### timestamp类型
+8. ##### timestamp 类型
+
 ```go
 message HelloRequest{
   string name = 1;
@@ -247,4 +254,85 @@ func main() {
 }
 ```
 
+### grpc 的 metadata
 
+1. ##### 基本介绍
+
+- gRPC 中的 Metadata 类似于 HTTP Header 的概念，用于描述数据和消息的数据信息，可以理解为一个键值对集合，用于在 gRPC 客户端和服务端之间传递元数据信息，提供一种在消息中传递数据和追加关键信息的机制。
+- Metadata 主要有两个作用：提供 RPC 调用的元数据信息，例如用于链路追踪的 traceId、调用时间、应用版本等等。控制 gRPC 消息的格式，例如是否压缩或是否加密。在 gRPC 中，元数据可以在客户端和服务器之间进行交换。客户端可以在发送请求时，通过添加元数据，向服务器传递特定的信息，例如授权令牌、用户标识、链路追踪 ID 等。服务器可以使用这些元数据来进行身份验证、授权、跟踪请求等作。使用 gRPC 的元数据可以通过 gRPC API 提供的 Metadata 对象来实现。在客户端，可以在调用服务方法时使用 Metadata 对象，并将元数据添加到对象中，服务端可以在接收请求时从 RPC 上下文中提取 Metadata。
+
+2. ##### protobuf文件
+
+```go
+syntax = "proto3";
+
+option go_package = ".;proto";
+
+message HelloRequest {
+  string name = 1;
+}
+message HelloReply{
+  string message = 1;
+}
+
+service Greeter{
+  rpc SayHello(HelloRequest) returns(HelloReply);
+}
+```
+
+3. ##### 服务端
+
+```go
+type Server struct {
+	proto.UnimplementedGreeterServer
+}
+
+func (s *Server) SayHello(ctx context.Context, request *proto.HelloRequest) (*proto.HelloReply, error) {
+	md, ok := metadata.FromIncomingContext(ctx)
+	if !ok {
+		panic(errors.New("metadata not nil"))
+	}
+	for key, val := range md {
+		fmt.Println(string(key), val)
+	}
+	return &proto.HelloReply{Message: "Hello " + request.Name}, nil
+}
+
+func main() {
+	g := grpc.NewServer()
+	proto.RegisterGreeterServer(g, &Server{})
+	lis, err := net.Listen("tcp", ":8081")
+	if err != nil {
+		panic(err)
+	}
+
+	err = g.Serve(lis)
+}
+```
+
+4. ##### 客户端
+
+```go
+func main() {
+	conn, err := grpc.Dial(":8081", grpc.WithInsecure())
+	if err != nil {
+		panic(err)
+	}
+
+	defer conn.Close()
+
+	c := proto.NewGreeterClient(conn)
+
+	md := metadata.Pairs("timestamp", time.Now().Format("2006-01-02 15:04:05"))
+	ctx := metadata.NewOutgoingContext(context.Background(), md)
+
+	h, err := c.SayHello(ctx, &proto.HelloRequest{
+		Name: "tom",
+	})
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(h.Message)
+}
+
+```
