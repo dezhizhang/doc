@@ -10,8 +10,6 @@
 
 ![调用图解](../../public/grpc/grpc.png)
 
-
-
 ### gprc 开发环境准备
 
 1. ##### 安装 protoc 工具
@@ -163,13 +161,14 @@ func main() {
 - protobuf（Protocol Buffers）协议 😉 protobuf 是一种由 google 开发的二进制序列化格式和相关的技术，它用于高效地序列化和反序列化结构化数据，通常用于网络通信、数据存储等场景
 
 2. ##### 优点与缺点
+
 ![优点与缺点](../../public/grpc/protobuf.png)
 
 3. ##### protobuf 对应 go 类型
 
 ![protobuf对应go类型](../../public/grpc/protobuf-go.png)
 
-4. ##### protobuf 类型引用
+4. ##### 类型引用
 
 ```go
 //common.proto
@@ -201,7 +200,7 @@ service Greeter{
 }
 ```
 
-5. ##### protobuf 嵌套的 message
+5. ##### 嵌套的 message
 
 ```go
 message HelloReply {
@@ -213,7 +212,7 @@ message HelloReply {
 }
 ```
 
-6. ##### protobuf 枚举类型
+6. ##### 枚举类型
 
 ```go
 enum Gender{
@@ -224,5 +223,25 @@ enum Gender{
 message HelloRequest{
   string name = 1;
   Gender g = 3;
+}
+```
+
+7. ##### map 类型
+
+```go
+message HelloRequest{
+  string name = 1;
+  Gender g = 3;
+  map<string,string> mp = 4;
+}
+```
+
+8. ##### timestamp类型
+```go
+message HelloRequest{
+  string name = 1;
+  Gender g = 2;
+  map<string,string> mp = 3;
+  google.protobuf.Timestamp createTime = 4;
 }
 ```
