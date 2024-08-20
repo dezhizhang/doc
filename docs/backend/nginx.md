@@ -688,8 +688,8 @@ server
 ```bash
 upstream backend {
     hash &request_uri;
-    server 8.134.182.122 weight=1;
-    server 106.15.74.79 weight=10;
+    server 8.134.182.122;
+    server 106.15.74.79;
 }
 
 server
@@ -700,6 +700,58 @@ server
     location / {
         proxy_pass http://backend;
     }
+}
+```
+
+9. ##### 负载均衡策略 fair
+
+- fair 采用的不是内建负载均衡使用的轮换的均衡算法，而是可以根据页面大小，加载时间长短智能进行负载均衡
+
+```bash
+upstream backend {
+    fair;
+    server 8.134.182.122;
+    server 106.15.74.79;
+}
+
+server
+{
+    listen 80;
+    server_name 47.107.101.79;
+
+    location / {
+        proxy_pass http://backend;
+
+    }
+}
+```
+
+### web 缓存服务
+
+1. ##### 基本介绍
+
+- web 缓存（或 HTTP 缓存）是用于临时存储（缓存）web 文档（如 HTML 页面和图像），以减少服务器延迟的一种信息技术。web 缓存系统会保存下通过这套系统的文档的副本；如果满足某些条件，则可以由缓存满足后续请求。 Web 缓存系统既可以指设备，也可以指计算机程序。
+
+2. ##### proxy_cache_path
+
+- 该指令用于设置缓存文件存放的路径
+
+```bash
+http{
+    proxy_cache_path /var/log/nginx/cache levels=2:1 keys_zone=xiaozhi:200m inactive=1d max_size=20g;
+}
+```
+
+3. ##### proxy_cache
+
+- 该指令用来开启或关闭代理缓存,如果是开启则自定义使用那个缓存区来进行缓存
+
+```bash
+location / {
+    proxy_cache xiaozhi;
+    proxy_cache_key xiaozhi;
+    proxy_cache_valid 200 5d;
+    proxy_pass http://backend;
 }
 ```
 
