@@ -2470,25 +2470,45 @@ Foo.a(); // 1
 // 第一拍 promise 需要由pending变志fulfilled
 // 第二拍 then函数挂载到MicoTaskQueue
 Promise.resolve()
-.then(() => {
-  console.log(0);
-  return Promise.resolve(4);
-}).then((res) => {
-  console.log(res);
-});
+  .then(() => {
+    console.log(0);
+    return Promise.resolve(4);
+  })
+  .then((res) => {
+    console.log(res);
+  });
 
 Promise.resolve()
-.then(() => {
-  console.log(1);
-}).then(() => {
-  console.log(2);
-}).then(() => {
-  console.log(3);
-}).then(() => {
-  console.log(5);
-}).then(() => {
-  console.log(6);
-})
+  .then(() => {
+    console.log(1);
+  })
+  .then(() => {
+    console.log(2);
+  })
+  .then(() => {
+    console.log(3);
+  })
+  .then(() => {
+    console.log(5);
+  })
+  .then(() => {
+    console.log(6);
+  });
+```
+
+### 对象和属性的连续赋值
+
+![对象和属性的连续赋值](../../public/interview/object.png)
+
+```js
+// a.x 比赋值的优先级高
+let a = {n:1};
+let b = a;
+a.x = a = {n:2};
+
+console.log(a);
+console.log(b.x);
+
 ```
 
 <div align="center">晓智科技公众号</div>
