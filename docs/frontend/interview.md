@@ -2502,39 +2502,72 @@ Promise.resolve()
 
 ```js
 // a.x 比赋值的优先级高
-let a = {n:1};
+let a = { n: 1 };
 let b = a;
-a.x = a = {n:2};
+a.x = a = { n: 2 };
 
 console.log(a);
 console.log(b.x);
-
 ```
+
 ### 对象属性类型的问题
 
 ```js
 // key只能是字符串和Symbol期它类型会调用tostring
-let a = {},b = '123',c = 123;
+let a = {},
+  b = '123',
+  c = 123;
 a[b] = 'b';
 a[c] = 'c';
 
 console.log(a[b]); // c
 
-let a = {},b = Symbol('123'),c = Symbol('123');
+let a = {},
+  b = Symbol('123'),
+  c = Symbol('123');
 
 a[b] = 'b';
 a[c] = 'c';
 
 console.log(a[b]); // b
 
-
-let a = {},b = {key:'123'},c = {key:'456'}
+let a = {},
+  b = { key: '123' },
+  c = { key: '456' };
 a[b] = 'b';
 a[c] = 'c';
 
 console.log(a[b]); // c
-
 ```
+
+### React 中的 setState
+
+- 默认情况下合并异步更新
+- 同步更新不在 React 上下文件触发 setTimeout,setInterval,promise.then
+
+```js
+//
+componentDidMount() {
+  this.setState({val:this.state.val + 1})
+  console.log('a-----',this.state.val);
+
+  this.setState({val:this.state.val + 1})
+  console.log('b----',this.state.val);
+
+
+  setTimeout(() => {
+    this.setState({val:this.state.val + 1});
+    console.log('----c',this.state.val);
+
+    this.setState({val:this.state.val + 1});
+    console.log('----d',this.state.val);
+  },0)
+
+}
+// 0,0,2,3
+```
+
+###
 
 <div align="center">晓智科技公众号</div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
