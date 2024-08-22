@@ -61,13 +61,13 @@ export default defineConfig({
   publicPath: publicPath,
   outputPath: `${PKG.name}`,
   chainWebpack(memo: any) {
-    memo.plugin('WebpackAliyunOssPlugin').use(WebpackAliyunOssPlugin, [
-      {
-        ...OSS_CONFIG,
-        filter: function (build:any) {
-          return !/\.html$/.test(build);
-        },
-      },
-    ]);
+    // memo.plugin('WebpackAliyunOssPlugin').use(WebpackAliyunOssPlugin, [
+    //   {
+    //     ...OSS_CONFIG,
+    //     filter: function (build:any) {
+    //       return !/\.html$/.test(build);
+    //     },
+    //   },
+    // ]);
   },
 });

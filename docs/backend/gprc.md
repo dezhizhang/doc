@@ -15,11 +15,11 @@
 
 2. ##### 优点与缺点
 
-![优点与缺点](../../public/grpc/protobuf.png)
+![优点与缺点](https://cdn.xiaozhi.shop/doc/grpc/protobuf.png)
 
 3. ##### protobuf 对应 go 类型
 
-![protobuf对应go类型](../../public/grpc/protobuf-go.png)
+![protobuf对应go类型](https://cdn.xiaozhi.shop/doc/grpc/protobuf-go.png)
 
 4. ##### 类型引用
 
@@ -108,7 +108,7 @@ message HelloRequest{
 
 2. ##### 调用图解
 
-![调用图解](../../public/grpc/grpc.png)
+![调用图解](https://cdn.xiaozhi.shop/doc/grpc/grpc.png)
 
 ### gprc 开发环境准备
 
@@ -414,6 +414,8 @@ func main() {
 	fmt.Println(h.Message)
 }
 ```
+###
+
 <div align="center">贵州晓智信息科技公众号</div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
 

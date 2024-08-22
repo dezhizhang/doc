@@ -2270,5 +2270,126 @@ a.self = a;
 console.log(cloneDeep(a));
 ```
 
+### 执行['1','2','3'].map(parseInt)返回什么
+
+```js
+const arr = ['1', '2', '3'];
+const nums = arr.map((item, index) => {
+  return parseInt(item, index);
+});
+
+console.log(nums);
+//[1, NaN, NaN]
+```
+
+### 以下代码输出什么
+
+```js
+function changeArg(x) {
+  x = 200;
+}
+
+let num = 100;
+changeArg(num);
+
+console.log('changeArg num', num); // 100
+
+let obj = {
+  name: 'tom',
+};
+changeArg(obj);
+console.log('changeArg', obj); //obj={name:'tom'}
+```
+
+### 数组转成树
+
+```js
+const arr = [
+  {
+    id: 1,
+    name: '部门A',
+    parentId: 0,
+  },
+  {
+    id: 2,
+    name: '部门B',
+    parentId: 1,
+  },
+  {
+    id: 3,
+    name: '部门C',
+    parentId: 1,
+  },
+  {
+    id: 4,
+    name: '部门D',
+    parentId: 2,
+  },
+  {
+    id: 5,
+    name: '部门E',
+    parentId: 2,
+  },
+  {
+    id: 6,
+    name: '部门F',
+    parentId: 3,
+  },
+];
+
+function convert(arr) {
+  let root = null;
+  const map = new Map();
+  arr.forEach((item) => {
+    const { id, name, parentId } = item;
+
+    // 定义treeNode
+    const treeNode = {
+      id,
+      name,
+    };
+    map.set(id, treeNode);
+
+    // 找到parentNode并加入到children
+    const parentNode = map.get(parentId);
+
+    if (parentNode) {
+      if (!parentNode.children) parentNode.children = [];
+      parentNode.children.push(treeNode);
+    }
+    if (parentId === 0) root = treeNode;
+  });
+  return root;
+}
+
+console.log(convert(arr));
+```
+
+### prototype 执行
+
+```js
+function Foo() {
+  Foo.a = function () {
+    console.log(1);
+  };
+  console.log(this);
+  this.a = function () {
+    console.log(2);
+  };
+}
+Foo.prototype.a = function () {
+  console.log(3);
+};
+Foo.a = function () {
+  console.log(4);
+};
+
+Foo.a(); // 4
+
+let obj = new Foo(); //
+obj.a(); // 2
+Foo.a(); // 1
+```
+
 <div align="center">晓智科技公众号</div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
