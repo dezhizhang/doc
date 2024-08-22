@@ -2510,6 +2510,31 @@ console.log(a);
 console.log(b.x);
 
 ```
+### 对象属性类型的问题
+
+```js
+// key只能是字符串和Symbol期它类型会调用tostring
+let a = {},b = '123',c = 123;
+a[b] = 'b';
+a[c] = 'c';
+
+console.log(a[b]); // c
+
+let a = {},b = Symbol('123'),c = Symbol('123');
+
+a[b] = 'b';
+a[c] = 'c';
+
+console.log(a[b]); // b
+
+
+let a = {},b = {key:'123'},c = {key:'456'}
+a[b] = 'b';
+a[c] = 'c';
+
+console.log(a[b]); // c
+
+```
 
 <div align="center">晓智科技公众号</div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
