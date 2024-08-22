@@ -2366,42 +2366,41 @@ console.log(convert(arr));
 ```
 
 ### 广度优先遍历将树转换成数组
+
 ```js
 const obj = {
   id: 1,
-  name: "部门A",
+  name: '部门A',
   children: [
     {
       id: 2,
-      name: "部门B",
+      name: '部门B',
       children: [
         {
           id: 4,
-          name: "部门D",
+          name: '部门D',
         },
         {
           id: 5,
-          name: "部门E",
+          name: '部门E',
         },
       ],
     },
     {
       id: 3,
-      name: "部门C",
+      name: '部门C',
       children: [
         {
           id: 6,
-          name: "部门F",
+          name: '部门F',
         },
       ],
     },
   ],
 };
 
-
 // 队列实现广度优先遍历
 function convert(root) {
-  
   const map = new Map();
 
   let arr = [];
@@ -2410,23 +2409,23 @@ function convert(root) {
   const queue = [];
   queue.unshift(root); // 入队
 
-  while(queue.length > 0) {
+  while (queue.length > 0) {
     const curNode = queue.pop();
 
-    if(curNode == null) break;
+    if (curNode == null) break;
 
-    const {id,name,children = []} = curNode;
+    const { id, name, children = [] } = curNode;
 
     // 创建数据item并push
     const parentNode = map.get(curNode);
 
     const parentId = (parentNode && parentNode.id) || 0;
-    const item = {id,name,parentId};
+    const item = { id, name, parentId };
     arr.push(item);
 
-    children.forEach(child => {
-      map.set(child,curNode);
-      
+    children.forEach((child) => {
+      map.set(child, curNode);
+
       // 入队
       queue.unshift(child);
     });
@@ -2460,6 +2459,40 @@ Foo.a(); // 4
 let obj = new Foo(); //
 obj.a(); // 2
 Foo.a(); // 1
+```
+
+### Promise 执行顺序
+
+```js
+// fulfilled then交替执行
+// then中返回promise实例，会出现慢两拍的效果
+// 第一拍 promise需要由pending变成fulfilled
+// 第二拍 then函数挂载到MicoTaskQueue
+Promise.resolve()
+  .then(() => {
+    console.log(0); // 0
+    return Promise.resolve(4);
+  })
+  .then((res) => {
+    console.log(res); // 4
+  });
+
+Promise.resolve()
+  .then(() => {
+    console.log(1); // 1
+  })
+  .then(() => {
+    console.log(2);
+  })
+  .then(() => {
+    console.log(3);
+  })
+  .then((res) => {
+    console.log(5);
+  })
+  .then(() => {
+    console.log(6);
+  });
 ```
 
 <div align="center">晓智科技公众号</div>
