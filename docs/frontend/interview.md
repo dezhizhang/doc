@@ -2567,6 +2567,8 @@ componentDidMount() {
 // 0,0,2,3
 ```
 
+### React 中的 setState是微任务还是宏任务
+
 ###
 
 <div align="center">晓智科技公众号</div>
