@@ -105,14 +105,86 @@ func main() {
 ```go
 func handleGetInfo(c *gin.Context) {
 	id := c.Param("id")
+	action := c.Param("action")
 	c.JSON(http.StatusOK, gin.H{
-		"id": id,
+		"id":     id,
+		"action": action,
 	})
 }
 
 func main() {
 	r := gin.Default()
-	r.GET("/info/:id", handleGetInfo)
+	r.GET("/info/:id/:action", handleGetInfo)
 	_ = r.Run(":8080")
 }
+```
+
+### get 参数获取
+
+- 获取 GET 参数可以使用 c.Query 函数。这个函数接受一个参数名作为字符串，并返回匹配该参数名的第一个值。如果参数不存在，则返回空字符串。
+
+```go
+func handlerGetParams(c *gin.Context) {
+	name := c.DefaultQuery("name", "tom")
+	age := c.DefaultQuery("age", "18")
+	c.JSON(http.StatusOK, gin.H{
+		"name": name,
+		"age":  age,
+	})
+}
+
+func main() {
+	r := gin.Default()
+	r.GET("/get-params", handlerGetParams)
+	_ = r.Run(":8080")
+}
+
+```
+
+### 绑定结构体数据
+
+- 我们可以使用 ShouldBind 系列方法来绑定请求中的数据到 Go 的结构体。这些方法支持 JSON，XML，form 等数据格式。
+
+```go
+type Person struct {
+	Id   int    `uri:"id" binding:"required" json:"id"`
+	Name string `uri:"name" binding:"required" json:"name"`
+}
+
+func handleParams(c *gin.Context) {
+	var person Person
+	if err := c.ShouldBindUri(&person); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, person)
+}
+
+func main() {
+	r := gin.Default()
+	r.GET("/ping", handleParams)
+	_ = r.Run(":8080")
+}
+```
+
+### post 参数获取 form-data 数据
+
+- 获取 POST 参数可以通过 Context.PostForm()方法来实现。这个方法可以获取到 application/x-www-form-urlencoded 类型的数据。
+
+```go
+func handlePostParams(c *gin.Context) {
+	name := c.PostForm("name")
+	age := c.PostForm("age")
+	c.JSON(http.StatusOK, gin.H{
+		"name": name,
+		"age":  age,
+	})
+}
+
+func main() {
+	r := gin.Default()
+	r.POST("/post-params", handlePostParams)
+	_ = r.Run(":8080")
+}
+
 ```
