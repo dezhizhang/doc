@@ -2665,5 +2665,32 @@ const my = new MyStatic('xiaozhi');
 my.send('vip', { close: 'hello' });
 ```
 
-<div align="center">晓智科技公众号</div>
+### sourcemap 有什么作用?如何配置
+
+- js 上线时要压缩,混淆
+- 线上的 js 报错信息，将无法识别行，列
+- sorcemap 即可以解决这个问题
+- 开发环境 eval,eval-source-map
+- 线上环境 source-map
+
+### 前端负责人，如何做技术选型
+
+- 技术没有好坏之分，看是否适合自已
+- 社区是否足够成熟
+- 公司是否已有经验
+- 团队成员学习成本
+
+### 如何做 Code review 要考虑哪些内容
+
+- 代码规范(eslint 不能全检查，如变量命名，代码语义)
+- 重复代码要抽离，复用
+- 单个函数内容过长，需要拆分
+- 自法复杂度是否可用？是否可以继续优化
+- 是否有安全漏洞
+- 扩展性如休？（不用为了扩展而扩展，不封闭即可）
+- 是否和现有的功能重复了？
+- 是否有完善的单元测试
+- 组件设计是否合理
+
+<div align="center">贵州晓智信息科技有限公司</div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
