@@ -2692,5 +2692,13 @@ my.send('vip', { close: 'hello' });
 - 是否有完善的单元测试
 - 组件设计是否合理
 
-<div align="center">贵州晓智信息科技有限公司</div>
+### 如何学习一门新语言，要考虑哪些方面
+
+- 它的优势和应用场景
+- 语法(常量，变量，数据类型，运算符，函数等)
+- 内置模块和 API
+- 常用的第三方框架和库
+- 开发环境和调试工具
+
+<div align="center"><a target="_blank" href="https://xiaozhi.shop">贵州晓智信息科技有限公司</a></div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
