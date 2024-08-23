@@ -307,3 +307,83 @@ func main() {
 }
 
 ```
+
+### 中间件 middleware
+
+- 中间件(middleware)是一种独立的组件或模块，通常是一个函数或一组函数，常被用于处理请求或事件的过程中
+- 中间件常用来实现一些通用的功能，如日志记录、权限校验、数据加工等
+- 中间件流程控制函数包括：
+
+1. c.Next(): 调用该函数会将控制权交给下一个中间件函数，如果没有下一个中间件函数，则将控制权交给处理请求的路由处理函数
+2. c.Abort(): 调用该函数会立即终止当前中间件函数的执行，并且不会再调用后续的中间件函数或路由处理函数
+3. c.AbortWithStatus(code int): 调用该函数会终止当前中间件函数的执行，并返回指定的 HTTP 状态码给客户端
+4. c.NextWithError(): 调用该函数会将控制权交给下一个中间件函数，同时传递一个错误给下一个中间件函数或路由处理函数
+5. c.IsAborted(): 该函数用于判断当前请求是否已经被终止，返回一个布尔值表示请求是否已经被终止
+
+```go
+
+func handleUserInfo(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"code": 200,
+		"name": "tom",
+	})
+}
+
+func main() {
+	r := gin.Default()
+	v1 := r.Group("/api/v1").Use(middleware.Logger())
+	{
+		v1.GET("/info", handleUserInfo)
+	}
+
+	_ = r.Run(":8080")
+}
+//------------------------------------------------
+// middleware
+
+func Logger() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		t := time.Now()
+		c.Set("name", "tom")
+		c.Next()
+		end := time.Since(t)
+		fmt.Println(end)
+	}
+}
+
+```
+
+### 优雅退出
+
+- 在 Web 开发中，一个应用程序可能因为多种原因需要关闭，比如接收到关闭信号、处理完所有的请求或者遇到不可恢复的错误。优雅的退出机制可以确保应用程序在关闭过程中，能够完成正在处理的任务，释放资源，并向客户端提供适当的响应，从而保证服务的高可用性和数据的完整性。
+
+```go
+func handleExit(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"code": 200,
+		"name": "tom",
+	})
+}
+
+func main() {
+	r := gin.Default()
+	r.GET("/", handleExit)
+
+	go func() {
+		_ = r.Run(":8080")
+	}()
+
+	// 接收信号
+	quit := make(chan os.Signal)
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+	<-quit
+
+	fmt.Println("服务关闭中....")
+}
+
+```
+### 
+
+<div align="center"><a target="_blank" href="https://xiaozhi.shop/">贵州晓智信息科技有限公司</a></div>
+<div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
+
