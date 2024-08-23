@@ -2571,6 +2571,9 @@ componentDidMount() {
 
 - setState 是同步，只不过让 React 做成了异步的样子
 - 因为要考虑性能，多次 state 修改,只进行一次 DOM 沉浸
+- setState 是同步执行，state 都是同步更新
+- 即在微任务 Promise.then 开始之前,state 已经计算完了
+- 同步不是微任务或宏任务
 
 ```js
 componentDidMount() {
@@ -2588,7 +2591,79 @@ componentDidMount() {
 }
 ```
 
-###
+### 前端统计 sdk
+
+![前端统计](../../public/interview/performance.png)
+
+```js
+const PV_URL_SET = new Set();
+
+class MyStatic {
+  constructor(productId) {
+    this.productId = productId;
+
+    this.initPerformance();
+    this.initError();
+  }
+
+  // 发送数据
+  send(url, params = {}) {
+    console.log(this.productId);
+    params.productId = this.productId;
+
+    const paramsArr = [];
+
+    for (let key in params) {
+      const val = params[key];
+      paramsArr.push(`${key}=${val}`);
+    }
+    const newUrl = `${url}?${paramsArr.join('&')}`;
+
+    // 1. 可跨域，2兼容性非常好
+    const img = document.createElement('img');
+    img.src = newUrl;
+  }
+  // 初始化性能统计
+  initPerformance() {
+    const url = 'https://xiaozhi.shop';
+    this.send(url, performance.timing);
+  }
+  // 初始化错误监控
+  initError() {
+    window.addEventListener('error', (event) => {
+      const { error, lineno, colno } = event;
+      this.error(error, { lineno, colno });
+    });
+    // Promise 未catch住的报错
+    window.addEventListener('unhandledrejection', (event) => {
+      this.error(new Error(event.reason), { type: 'unhandledrejection' });
+    });
+  }
+
+  pv() {
+    const href = location.href;
+    // 不重复发送pv
+    if (PV_URL_SET.get(href)) return;
+
+    this.event('pv');
+    PV_URL_SET.add(href);
+  }
+
+  event(key, val) {
+    // 自定义事件
+    const url = 'https://xiaozhi.shop';
+    this.send(url, { key, val });
+  }
+  error(error, info) {
+    const url = 'https://xiaozhi.shop';
+    const { message, stack } = error;
+    this.send(url, { message, stack, ...info });
+  }
+}
+
+const my = new MyStatic('xiaozhi');
+my.send('vip', { close: 'hello' });
+```
 
 <div align="center">晓智科技公众号</div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>

@@ -941,5 +941,6 @@ viewer.extend(Cesium.viewerCesium3DTilesInspectorMixin);
 ```
 ###
 
-<div align="center">晓智科技公众号</div>
+
+<div align="center"><a target="_blank" href="https://xiaozhi.shop/">贵州晓智信息科技有限公司</a></div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
