@@ -2567,7 +2567,26 @@ componentDidMount() {
 // 0,0,2,3
 ```
 
-### React 中的 setState是微任务还是宏任务
+### React 中的 setState 是微任务还是宏任务
+
+- setState 是同步，只不过让 React 做成了异步的样子
+- 因为要考虑性能，多次 state 修改,只进行一次 DOM 沉浸
+
+```js
+componentDidMount() {
+  setTimeout(() => {
+    console.log('------start------');
+
+    Promise.resolve().then(() => console.log('promise then'));
+
+    this.setState({
+      val:this.state.val + 1
+    });
+    console.log('state...',this.state);
+    console.log('-----end------')
+  })
+}
+```
 
 ###
 
