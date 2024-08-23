@@ -246,3 +246,64 @@ func main() {
 }
 
 ```
+
+### from 表单验证 from-data
+
+- 若要将请求体绑定到结构体中，需要使用模型绑定，支持 JSON、XML、YAML 和标准表单的绑定，设置时需要在绑定的字段上设置 tag，其只要有两套绑定方法
+- Must bind
+
+1. 方法： Bind 、BindJSON、BindXML、BindQuery、BindYAML
+2. 行为：这些方法底层使用 MustBindWith 方法，如果存在绑定错误，请求将被终止，响应代码会被设置成 400
+
+- Should bind
+
+1. 方法： ShouldBind、ShouldBindJSON、ShouldBindXML、ShouldBindQuery、ShouldBindYAML
+2. 行为：底层使用 ShouldBindWith 方法，如果存在绑定错误，则返回 go 语言的错误形式，开发人员可以处理错误，请求不会被终
+
+```go
+type LoginForm struct {
+	Name     string `form:"name" binding:"required,min=2,max=10"`
+	Password string `form:"password" binding:"required,min=8,max=20"`
+}
+
+func handleLogin(c *gin.Context) {
+	var loginForm LoginForm
+	if err := c.ShouldBind(&loginForm); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, &loginForm)
+}
+
+func main() {
+	r := gin.Default()
+	r.POST("/login", handleLogin)
+	_ = r.Run(":8080")
+}
+
+```
+
+### from 表单验证 json
+
+```go
+type User struct {
+	Name     string `json:"name" binding:"required,min=2,max=20"`
+	Password string `json:"password" binding:"required,min=8,max=20"`
+}
+
+func handleLogin(c *gin.Context) {
+	var user User
+	if err := c.ShouldBindJSON(&user); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, &user)
+}
+
+func main() {
+	r := gin.Default()
+	r.POST("/login", handleLogin)
+	_ = r.Run(":8080")
+}
+
+```
