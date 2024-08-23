@@ -188,3 +188,61 @@ func main() {
 }
 
 ```
+
+### post 参数获取 json
+
+- 要获取 POST JSON 数据，你可以使用 Context.BindJSON()方法。
+
+```go
+type User struct {
+	Name string `json:"name"`
+	Age  int    `json:"age"`
+}
+
+func handlePostJson(c *gin.Context) {
+	var user User
+	if err := c.ShouldBindJSON(&user); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusCreated, user)
+}
+
+func main() {
+	r := gin.Default()
+	r.POST("/post-json", handlePostJson)
+	_ = r.Run(":8080")
+}
+
+```
+
+### 返回 protobuf 数据
+
+- 你需要做的是先将 Protobuf 数据序列化成二进制格式，然后设置正确的响应头，最后将二进制数据写入到 Response 中
+
+```go
+//protobuf
+syntax = "proto3";
+
+option go_package = ".;proto";
+
+message Teacher{
+  string name = 1;
+  repeated  string course = 2;
+}
+//---------------------------------------
+func handleProtobuf(c *gin.Context) {
+	teacher := proto.Teacher{
+		Name:   "tom",
+		Course: []string{"python", "java", "go"},
+	}
+	c.ProtoBuf(http.StatusOK, &teacher)
+}
+
+func main() {
+	r := gin.Default()
+	r.GET("/protobuf", handleProtobuf)
+	_ = r.Run(":8080")
+}
+
+```
