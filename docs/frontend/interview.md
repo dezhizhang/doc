@@ -2765,5 +2765,40 @@ const App = () => {
 export default App;
 ```
 
+### useReducer
+
+- 在某些场景下，useReducer 会比 useState 更适用，例如 state 逻辑较复杂且包含多个子值，或者下一个 state 依赖于之前的 state 等。并且，使用 useReducer 还能给那些会触发深更新的组件做性能优化，因为你可以向子组件传递 dispatch 而不是回调函数。
+
+```jsx
+import React, { useReducer } from "react";
+
+const initialState = { count: 0 };
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "increment":
+      return { count: state.count + 1 };
+    case "decrement":
+      return { count: state.count - 1 };
+    default:
+      return state;
+  }
+};
+
+const App = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <div>
+      <div>{state.count}</div>
+      <button onClick={() => dispatch({ type: "increment" })}>increment</button>
+      <button onClick={() => dispatch({ type: "decrement" })}>decrement</button>
+    </div>
+  );
+};
+
+export default App;
+
+```
+
 <div align="center"><a target="_blank" href="https://xiaozhi.shop">贵州晓智信息科技有限公司</a></div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
