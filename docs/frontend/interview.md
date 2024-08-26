@@ -2822,7 +2822,7 @@ const App = () => {
 export default App;
 ```
 
-### 自定义hooks
+### 自定义 hooks
 
 - 当你优化渲染性能的时候，有时需要缓存传递给子组件的函数。让我们先关注一下如何实现，稍后去理解在哪些场景中它是有用的。
 - 为了缓存组件中多次渲染的函数，你需要将其定义在 useCallback Hook 中
@@ -2845,6 +2845,28 @@ function useAxios(url) {
   }, [url]);
 
   return [loading, data, error];
+}
+```
+
+### hooks 组件逻辑复用
+
+```jsx
+function useMousePosition() {
+  const [x, setX] = useState(0);
+  const [y, setY] = useState(0);
+
+  useEffect(() => {
+    function handlerMouseMove(event) {
+      setX(event.clientX);
+      setY(event.clientY);
+    }
+
+    document.body.addEventListener('mousemove', handlerMouseMove);
+    return () => {
+      document.body.removeEventListener('mousemove', handlerMouseMove);
+    };
+  }, []);
+  return [x, y];
 }
 ```
 
