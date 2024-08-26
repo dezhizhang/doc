@@ -2708,11 +2708,62 @@ my.send('vip', { close: 'hello' });
 
 ### State Hook
 
-### useEffect 使用总结
+### useEffect
 
 - 模拟 componentDidMount -> useEffect 依赖为空数组
 - 模拟 componentDidUpdate -> useEffect 无依赖或者依赖[a,b]
 - 模拟 componentWillUnMount -> useEffect 中返回一个函数
+
+### useRef
+
+- useRef 返回一个可变的 ref 对象，其 .current 属性被初始化为传入的参数（initialValue）。返回的 ref 对象在组件的整个生命周期内保持不变。
+
+```jsx
+import React, { useEffect, useRef } from 'react';
+
+const App = () => {
+  const ref = useRef();
+  useEffect(() => {
+    console.log('ref', ref);
+  }, []);
+  return <div ref={ref}>hello</div>;
+};
+
+export default App;
+```
+
+### useContext
+
+- 开发者都是使用的 class 组件，通过 props 传值。现在使用方法组件（Function）开发了，没有 constructor 构造函数也就没有了 props 的接收，所以父子组件的传值就成了一个问题。 React Hooks 就为我们准备了 useContext 来解决这个问题。
+
+```jsx
+import React, { useContext } from 'react';
+
+const themes = {
+  light: {
+    foreground: '#000',
+    background: '#eee',
+  },
+};
+
+const ThemeContext = React.createContext(themes.light);
+
+const ThemeButton = () => {
+  const theme = useContext(ThemeContext);
+  console.log('theme');
+  return <div style={{ background: theme.background }}>thene button</div>;
+};
+
+const App = () => {
+  return (
+    <ThemeContext.Provider value={themes.light}>
+      <ThemeButton />
+    </ThemeContext.Provider>
+  );
+};
+
+export default App;
+```
 
 <div align="center"><a target="_blank" href="https://xiaozhi.shop">贵州晓智信息科技有限公司</a></div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
