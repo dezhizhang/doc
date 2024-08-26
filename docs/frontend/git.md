@@ -50,5 +50,48 @@ git config --global user.name "Your Name"
 git config --global user.email "email@example.com"
 ```
 
-<div align="center">晓智科技公众号</div>
+### 常用命令
+
+1. ##### 设置用户签名
+
+- 签名的作用是区分不同操作者身份。用户的签名信息在每一个版本的提交信息中能够看 到，以此确认本次提交是谁做的。Git 首次安装必须设置一下用户签名，否则无法提交代码。
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "email@example.com"
+```
+
+2. ##### 初始化本地库
+
+- 要在本地初始化一个 git 库，运行命令 git init，这将在当前目录创建一个空的 git 库。
+
+```bash
+git init
+```
+
+3. ##### 查看本地库状态
+
+```bash
+git status
+```
+
+4. ##### 添加暂存区
+
+- 命令用于将文件从工作目录添加到暂存区（Staging Area），这是提交文件更改到 Git 仓库之前的中间步骤。通过使用 git add，你可以选择性地或者批量地准备文件，以便在下一次提交时包含它们。以下是几种常见的使用场景和语法：
+
+```bash
+git add .
+```
+
+5. ##### 提交本地库
+
+- 提交是指将你的代码保存到 Git 本地存储库，就像用 Word 写长篇论文时进行保存文件一样。每次 Git 提交时都会创建一个唯一的版本，除了记录本次新增或发生修改的代码外，还可以包含提交信息，来概括自己这次提交的改动内容。
+
+```bash
+git commit -m 'feat: 提交'
+```
+
+###
+
+<div align="center"><a href="https://xiaozhi.shop">贵州晓智信息科技公众号</a></div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
