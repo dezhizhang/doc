@@ -2870,5 +2870,103 @@ function useMousePosition() {
 }
 ```
 
+### hooks 坑 1
+
+- useState 初始化值，只能第一次有效
+
+```JSX
+import { useState } from "react";
+
+function Child({ userInfo }) {
+  const [name, setName] = useState(userInfo.name);
+
+  return (
+    <div>
+      <p>Child, props name:{userInfo.name}</p>
+      <p>Child, state name:{name}</p>
+    </div>
+  );
+}
+
+function App() {
+  const [name, setName] = useState("tom");
+  const userInfo = { name };
+  return (
+    <div>
+      <div>
+        parent
+        <button onClick={() => setName("hello")}>setName</button>
+      </div>
+      <Child userInfo={userInfo} />
+    </div>
+  );
+}
+
+export default App;
+```
+
+### hooks 坑 2
+
+- useEffect 内部依赖为空不能修改 state
+
+```jsx
+import { useEffect, useState } from 'react';
+
+function App() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    console.log('useEffect...', count);
+
+    const timer = setInterval(() => {
+      console.log('setIntercal...', count);
+      setCount(count + 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  return <div>count:{count}</div>;
+}
+
+export default App;
+```
+
+### hooks 坑 3
+
+- useState 可以出现死循环
+
+```jsx
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+
+function useAxios(url, config = {}) {
+  const [data, setData] = useState();
+  const [error, setError] = useState();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get(url)
+      .then((res) => setData(res.data))
+      .catch((err) => setError(err))
+      .finally(() => setLoading(false));
+  }, [url, config]);
+
+  return [loading, data, error];
+}
+
+function App() {
+  const [x, y] = useAxios(' https://cnodejs.org/api/v1/topics');
+
+  console.log({ x, y });
+
+  return <div>hello</div>;
+}
+
+export default App;
+```
+
 <div align="center"><a target="_blank" href="https://xiaozhi.shop">贵州晓智信息科技有限公司</a></div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
