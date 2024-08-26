@@ -2804,23 +2804,48 @@ export default App;
 - 把“创建”函数和依赖项数组作为参数传入 useMemo，它仅会在某个依赖项改变时才重新计算 memoized 值。这种优化有助于避免在每次渲染时都进行高开销的计算。
 
 ```jsx
-import React, { memo, useMemo, useState } from "react";
+import React, { memo, useMemo, useState } from 'react';
 
 const Child = memo(({ userInfo }) => {
-  console.log({userInfo})
+  console.log({ userInfo });
   return <div>hello</div>;
 });
 
 const App = () => {
   const [name, setName] = useState();
   const userInfo = useMemo(() => {
-    return { name: "hello" };
+    return { name: 'hello' };
   }, [name]);
   return <Child userInfo={userInfo} />;
 };
 
 export default App;
+```
 
+### 自定义hooks
+
+- 当你优化渲染性能的时候，有时需要缓存传递给子组件的函数。让我们先关注一下如何实现，稍后去理解在哪些场景中它是有用的。
+- 为了缓存组件中多次渲染的函数，你需要将其定义在 useCallback Hook 中
+
+```jsx
+function useAxios(url) {
+  const [data, setData] = useState();
+  const [error, setError] = useState();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get(url)
+      .then((res) => setData(res.data))
+      .catch((err) => {
+        setError(err);
+      })
+      .finally(() => setLoading(false));
+  }, [url]);
+
+  return [loading, data, error];
+}
 ```
 
 <div align="center"><a target="_blank" href="https://xiaozhi.shop">贵州晓智信息科技有限公司</a></div>
