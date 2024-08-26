@@ -2708,6 +2708,11 @@ my.send('vip', { close: 'hello' });
 
 ### State Hook
 
+### useEffect 使用总结
+
+- 模拟 componentDidMount -> useEffect 依赖为空数组
+- 模拟 componentDidUpdate -> useEffect 无依赖或者依赖[a,b]
+- 模拟 componentWillUnMount -> useEffect 中返回一个函数
 
 <div align="center"><a target="_blank" href="https://xiaozhi.shop">贵州晓智信息科技有限公司</a></div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
