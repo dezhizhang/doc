@@ -2700,5 +2700,14 @@ my.send('vip', { close: 'hello' });
 - 常用的第三方框架和库
 - 开发环境和调试工具
 
+### class 组件的问题
+
+- 大型组件很难拆分和重构，很难测试（即 class 不易拆分）
+- 相同业务逻辑分散到各个方法中，逻辑混乱
+- 复用逻辑变得复杂，如 Minxins HOC,Render Props
+
+### State Hook
+
+
 <div align="center"><a target="_blank" href="https://xiaozhi.shop">贵州晓智信息科技有限公司</a></div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
