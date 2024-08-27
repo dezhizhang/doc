@@ -3475,10 +3475,57 @@ export default App;
 ```
 
 ### redux
+
 ![异步action](../../public/interview/action.png)
 ![alt text](../../public/interview/redux.png)
 
+### 说一下 React 的合成事件机制
 
+- 所有事件都挂载到 document 上
+- event 不是原生的，是 SyntheticEvent 合成事件对像
+- 更好的兼容性和跨平台
+- 挂载到 document,减少内存消耗，避免频繁解绑
+- 方便事件的统一管理
+  ![event](../../public/interview/event2.png)
+
+```js
+import React from 'react';
+
+function App() {
+  const handleClick = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    console.log('target', event.target);
+    console.log('current target', event.currentTarget);
+  };
+  return (
+    <div style={{ height: '500px' }}>
+      <a onClick={handleClick} target="" role="button">
+        click me
+      </a>
+    </div>
+  );
+}
+
+export default App;
+```
+
+### 说一下 React 的 batchUpdate 机制
+
+![betchupdate](../../public/interview/betch-update.png)
+
+### transaction 事务机制
+
+![alt text](../../public/interview/transaction.png)
+
+### 组件渲染和更新的过程
+![alt text](../../public/interview/update.png)
+
+### 数组旋转k步
+```
+
+```
 
 <div align="center"><a target="_blank" href="https://xiaozhi.shop">贵州晓智信息科技有限公司</a></div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
