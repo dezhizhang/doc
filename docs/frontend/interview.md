@@ -2873,7 +2873,7 @@ function useMousePosition() {
 - useState 初始化值，只能第一次有效
 
 ```js
-import { useState } from "react";
+import { useState } from 'react';
 
 function Child({ userInfo }) {
   const [name, setName] = useState(userInfo.name);
@@ -2887,13 +2887,13 @@ function Child({ userInfo }) {
 }
 
 function App() {
-  const [name, setName] = useState("tom");
+  const [name, setName] = useState('tom');
   const userInfo = { name };
   return (
     <div>
       <div>
         parent
-        <button onClick={() => setName("hello")}>setName</button>
+        <button onClick={() => setName('hello')}>setName</button>
       </div>
       <Child userInfo={userInfo} />
     </div>
@@ -3189,7 +3189,6 @@ function App() {
     // setValue(value + 1);
     // setValue(value + 1);
     // console.log(value);
-
     // setTimeout(() => {
     //   // 合并+异点更新
     //   setValue(value + 1);
@@ -3223,9 +3222,173 @@ function App() {
 
 export default App;
 ```
+
 ### 组件生命周期
+
 ![alt text](../../public/interview/lifecycle.png)
 
+### 非受控组件
+
+- 必须手动操作 dom 元素，setState 实现不了
+
+```js
+import React from 'react';
+
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      name: 'hello',
+    };
+    this.inputRef = React.createRef();
+  }
+
+  handleClick = () => {
+    const name = this.inputRef.current.value;
+    console.log('name', name);
+  };
+
+  render() {
+    return (
+      <div>
+        <input defaultValue={this.state.name} ref={this.inputRef} />
+        <p>{this.state.name}</p>
+        <p>
+          <button onClick={this.handleClick}>click name</button>
+        </p>
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
+### Portals
+
+- zIndex 层级太小
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './App.css';
+
+class PortalDemo extends React.Component {
+  render() {
+    return ReactDOM.createPortal(
+      <div>{this.props.children}</div>,
+      document.body,
+    );
+  }
+}
+
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      name: 'hello',
+    };
+    this.inputRef = React.createRef();
+  }
+
+  handleClick = () => {
+    const name = this.inputRef.current.value;
+    console.log('name', name);
+  };
+
+  render() {
+    return <PortalDemo>hello world</PortalDemo>;
+  }
+}
+
+export default App;
+```
+
+### context
+
+- 公共信息(语言、主题)传第给每个组件
+- 用 props 太复杂
+
+```js
+import React from 'react';
+
+const ThemeContext = React.createContext('light');
+
+function ThemeLink(props) {
+  return (
+    <ThemeContext.Consumer>
+      {(value) => <p>link's theme is {value}</p>}
+    </ThemeContext.Consumer>
+  );
+}
+
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      theme: 'light',
+    };
+    this.inputRef = React.createRef();
+  }
+
+  handleClick = () => {
+    const name = this.inputRef.current.value;
+    console.log('name', name);
+  };
+
+  render() {
+    return (
+      <ThemeContext.Provider value={this.state.theme}>
+        <ThemeLink />
+        <button onClick={() => this.setState({ theme: 'dark' })}>
+          click me
+        </button>
+      </ThemeContext.Provider>
+    );
+  }
+}
+
+export default App;
+```
+
+### 加载异步组件
+
+- import()
+- React.lazy
+- React.Suspense
+
+```js
+import React from 'react';
+
+const ContextDemo = React.lazy(() => import('./ReactLazy'));
+
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      theme: 'light',
+    };
+    this.inputRef = React.createRef();
+  }
+
+  handleClick = () => {
+    const name = this.inputRef.current.value;
+    console.log('name', name);
+  };
+
+  render() {
+    return (
+      <div>
+        <React.Suspense>
+          <ContextDemo fallback={<div>loading...</div>} />
+        </React.Suspense>
+      </div>
+    );
+  }
+}
+
+export default App;
+```
 
 <div align="center"><a target="_blank" href="https://xiaozhi.shop">贵州晓智信息科技有限公司</a></div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
