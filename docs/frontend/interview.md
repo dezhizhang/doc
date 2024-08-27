@@ -607,8 +607,6 @@ const sum = arr.reduce((sum, curVal, index, arr) => {
 console.log('sun', sum);
 ```
 
-## 算法与数据结构
-
 ### 旋转数组 key 步 pop 和 unshift
 
 ```js
@@ -2963,6 +2961,215 @@ function App() {
   console.log({ x, y });
 
   return <div>hello</div>;
+}
+
+export default App;
+```
+
+### event bind this
+
+```jsx
+import React from 'react';
+
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      name: 'hello',
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.setState({
+      name: 'lish',
+    });
+  }
+  render() {
+    return <p onClick={this.handleClick}>{this.state.name}</p>;
+  }
+}
+
+export default App;
+```
+
+### 事件绑定
+
+![event](../../public/interview/event.png)
+
+### 受控组件
+
+```js
+import React from 'react';
+
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      name: 'hello',
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(event) {
+    this.setState({
+      name: event.target.value,
+    });
+  }
+  render() {
+    return (
+      <div>
+        <p>{this.state.name}</p>
+        <label htmlFor="username">姓名</label>
+        <input value={this.state.name} onChange={this.handleClick} />
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
+### setState 不可变值
+
+```jsx
+import React from 'react';
+
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      count: 0,
+    };
+    this.handleIncrement = this.handleIncrement.bind(this);
+  }
+
+  handleIncrement() {
+    // this.state.count ++
+    this.setState({
+      count: this.state.count + 1,
+    });
+  }
+  render() {
+    return (
+      <div>
+        <p>{this.state.count}</p>
+        <button onClick={this.handleIncrement}>累加</button>
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
+### setState 可能是同步可能是异步更新
+
+```jsx
+import React from 'react';
+
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      count: 0,
+    };
+    this.handleIncrement = this.handleIncrement.bind(this);
+  }
+
+  handleIncrement() {
+    this.setState({
+      count: this.state.count + 1,
+    });
+    // 异步
+    console.log('count', this.state.count);
+
+    // setTimeout 是同步的
+    setTimeout(() => {
+      this.setState({
+        count: this.state.count + 1,
+      });
+      console.log('count', this.state.count);
+    }, 0);
+  }
+
+  handleClickHandler = () => {
+    this.setState({
+      count: this.state.count + 1,
+    });
+    console.log('count in body event', this.state.count);
+  };
+
+  componentDidMount() {
+    // 自定义dom事件 setState是同步的
+    document.body.addEventListener('click', this.handleClickHandler);
+  }
+  render() {
+    return (
+      <div>
+        <p>{this.state.count}</p>
+        <button onClick={this.handleIncrement}>累加</button>
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
+### 可能被合并,函数不会被合并
+
+```jsx
+import React from 'react';
+
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      count: 0,
+    };
+    this.handleIncrement = this.handleIncrement.bind(this);
+  }
+
+  handleIncrement() {
+    // 可能被合并
+    this.setState({
+      count: this.state.count + 1,
+    });
+
+    this.setState({
+      count: this.state.count + 1,
+    });
+
+    this.setState({
+      count: this.state.count + 1,
+    });
+
+    // 函数不会被合并
+    this.setState((prevSteate,props) => {
+      return {
+        count:prevSteate.count + 1
+      }
+    })
+    this.setState((prevSteate,props) => {
+      return {
+        count:prevSteate.count + 1
+      }
+    })
+    this.setState((prevSteate,props) => {
+      return {
+        count:prevSteate.count + 1
+      }
+    })
+  }
+  render() {
+    return (
+      <div>
+        <p>{this.state.count}</p>
+        <button onClick={this.handleIncrement}>累加</button>
+      </div>
+    );
+  }
 }
 
 export default App;
