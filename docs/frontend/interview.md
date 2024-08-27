@@ -3390,5 +3390,90 @@ class App extends React.Component {
 export default App;
 ```
 
+### immutable.js
+
+- 彻底拥抱“不可变质”
+- 基于共享数据(不是深拷贝)
+- 按需使用&state 层级
+
+### 高阶组件 HOC
+
+```js
+import React from 'react';
+
+const HOCFactory = (Component) => {
+  class HOC extends React.Component {
+    // 在此定义多个组件的公共逻辑
+    render() {
+      return <Component {...this.props} />;
+    }
+  }
+  return HOC;
+};
+
+const Info = () => {
+  return <div>info</div>;
+};
+
+const Info2 = HOCFactory(Info);
+
+function App() {
+  return <Info2 />;
+}
+
+export default App;
+```
+
+### Render props
+
+```js
+import React from "react";
+import PropTypes from "prop-types";
+
+class Mouse extends React.Component {
+  constructor(props) {
+    super();
+    this.state = {
+      x: 0,
+      y: 0,
+    };
+  }
+  handleMouseMove = (event) => {
+    this.setState({
+      x: event.clientX,
+      y: event.clientY,
+    });
+  };
+  render() {
+    return (
+      <div onMouseMove={this.handleMouseMove}>
+        {this.props.render(this.state)}
+      </div>
+    );
+  }
+}
+
+Mouse.propTypes = {
+  render: PropTypes.func.isRequired,
+};
+
+function App() {
+  return (
+    <div style={{ height: "500px" }}>
+      <Mouse
+        render={({ x, y }) => (
+          <h1>
+            The mouse position is{x},
+            {y}
+          </h1>
+        )}
+      />
+    </div>
+  );
+}
+
+export default App;
+```
+
 <div align="center"><a target="_blank" href="https://xiaozhi.shop">贵州晓智信息科技有限公司</a></div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
