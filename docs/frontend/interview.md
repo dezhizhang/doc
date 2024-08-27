@@ -2716,7 +2716,7 @@ my.send('vip', { close: 'hello' });
 
 - useRef 返回一个可变的 ref 对象，其 .current 属性被初始化为传入的参数（initialValue）。返回的 ref 对象在组件的整个生命周期内保持不变。
 
-```jsx
+```js
 import React, { useEffect, useRef } from 'react';
 
 const App = () => {
@@ -2734,7 +2734,7 @@ export default App;
 
 - 开发者都是使用的 class 组件，通过 props 传值。现在使用方法组件（Function）开发了，没有 constructor 构造函数也就没有了 props 的接收，所以父子组件的传值就成了一个问题。 React Hooks 就为我们准备了 useContext 来解决这个问题。
 
-```jsx
+```js
 import React, { useContext } from 'react';
 
 const themes = {
@@ -2767,7 +2767,7 @@ export default App;
 
 - 在某些场景下，useReducer 会比 useState 更适用，例如 state 逻辑较复杂且包含多个子值，或者下一个 state 依赖于之前的 state 等。并且，使用 useReducer 还能给那些会触发深更新的组件做性能优化，因为你可以向子组件传递 dispatch 而不是回调函数。
 
-```jsx
+```js
 import React, { useReducer } from 'react';
 
 const initialState = { count: 0 };
@@ -2801,7 +2801,7 @@ export default App;
 
 - 把“创建”函数和依赖项数组作为参数传入 useMemo，它仅会在某个依赖项改变时才重新计算 memoized 值。这种优化有助于避免在每次渲染时都进行高开销的计算。
 
-```jsx
+```js
 import React, { memo, useMemo, useState } from 'react';
 
 const Child = memo(({ userInfo }) => {
@@ -2825,7 +2825,7 @@ export default App;
 - 当你优化渲染性能的时候，有时需要缓存传递给子组件的函数。让我们先关注一下如何实现，稍后去理解在哪些场景中它是有用的。
 - 为了缓存组件中多次渲染的函数，你需要将其定义在 useCallback Hook 中
 
-```jsx
+```js
 function useAxios(url) {
   const [data, setData] = useState();
   const [error, setError] = useState();
@@ -2848,7 +2848,7 @@ function useAxios(url) {
 
 ### hooks 组件逻辑复用
 
-```jsx
+```js
 function useMousePosition() {
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
@@ -2872,7 +2872,7 @@ function useMousePosition() {
 
 - useState 初始化值，只能第一次有效
 
-```JSX
+```js
 import { useState } from "react";
 
 function Child({ userInfo }) {
@@ -2907,7 +2907,7 @@ export default App;
 
 - useEffect 内部依赖为空不能修改 state
 
-```jsx
+```js
 import { useEffect, useState } from 'react';
 
 function App() {
@@ -2934,7 +2934,7 @@ export default App;
 
 - useState 可以出现死循环
 
-```jsx
+```js
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -2968,7 +2968,7 @@ export default App;
 
 ### event bind this
 
-```jsx
+```js
 import React from 'react';
 
 class App extends React.Component {
@@ -3032,7 +3032,7 @@ export default App;
 
 ### setState 不可变值
 
-```jsx
+```js
 import React from 'react';
 
 class App extends React.Component {
@@ -3065,7 +3065,7 @@ export default App;
 
 ### setState 可能是同步可能是异步更新
 
-```jsx
+```js
 import React from 'react';
 
 class App extends React.Component {
@@ -3119,7 +3119,7 @@ export default App;
 
 ### 可能被合并,函数不会被合并
 
-```jsx
+```js
 import React from 'react';
 
 class App extends React.Component {
@@ -3146,21 +3146,21 @@ class App extends React.Component {
     });
 
     // 函数不会被合并
-    this.setState((prevSteate,props) => {
+    this.setState((prevSteate, props) => {
       return {
-        count:prevSteate.count + 1
-      }
-    })
-    this.setState((prevSteate,props) => {
+        count: prevSteate.count + 1,
+      };
+    });
+    this.setState((prevSteate, props) => {
       return {
-        count:prevSteate.count + 1
-      }
-    })
-    this.setState((prevSteate,props) => {
+        count: prevSteate.count + 1,
+      };
+    });
+    this.setState((prevSteate, props) => {
       return {
-        count:prevSteate.count + 1
-      }
-    })
+        count: prevSteate.count + 1,
+      };
+    });
   }
   render() {
     return (
@@ -3174,6 +3174,58 @@ class App extends React.Component {
 
 export default App;
 ```
+
+### react18 所有事件都自动批处理
+
+```js
+import React, { useEffect, useState } from 'react';
+
+function App() {
+  const [value, setValue] = useState(100);
+  function handleClick() {
+    // 合并+异步更新
+    // setValue(value + 1);
+    // setValue(value + 1);
+    // setValue(value + 1);
+    // setValue(value + 1);
+    // console.log(value);
+
+    // setTimeout(() => {
+    //   // 合并+异点更新
+    //   setValue(value + 1);
+    //   setValue(value + 1);
+    //   setValue(value + 1);
+    //   setValue(value + 1);
+    //   console.log(value);
+    // });
+  }
+
+  useEffect(() => {
+    // 合并+异点更新
+    const btn = document.getElementById('btn');
+    btn.addEventListener('click', () => {
+      setValue(value + 1);
+      setValue(value + 1);
+      setValue(value + 1);
+      setValue(value + 1);
+      console.log(value);
+    });
+  });
+
+  return (
+    <div>
+      <p>{value}</p>
+      <button onClick={handleClick}>increment</button>
+      <button id="btn">increment</button>
+    </div>
+  );
+}
+
+export default App;
+```
+### 组件生命周期
+![alt text](../../public/interview/lifecycle.png)
+
 
 <div align="center"><a target="_blank" href="https://xiaozhi.shop">贵州晓智信息科技有限公司</a></div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
