@@ -3427,8 +3427,8 @@ export default App;
 ### Render props
 
 ```js
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 class Mouse extends React.Component {
   constructor(props) {
@@ -3459,12 +3459,11 @@ Mouse.propTypes = {
 
 function App() {
   return (
-    <div style={{ height: "500px" }}>
+    <div style={{ height: '500px' }}>
       <Mouse
         render={({ x, y }) => (
           <h1>
-            The mouse position is{x},
-            {y}
+            The mouse position is{x},{y}
           </h1>
         )}
       />
@@ -3474,6 +3473,12 @@ function App() {
 
 export default App;
 ```
+
+### redux
+![异步action](../../public/interview/action.png)
+![alt text](../../public/interview/redux.png)
+
+
 
 <div align="center"><a target="_blank" href="https://xiaozhi.shop">贵州晓智信息科技有限公司</a></div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
