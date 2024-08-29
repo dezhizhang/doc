@@ -10,6 +10,7 @@
 | 文档源码 | [文档源码](https://github.com/dezhizhang/doc)           |
 
 <!-- # https://www.bilibili.com/video/BV18j411M74W/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8 -->
+<!-- https://www.bilibili.com/video/BV14s411E7qf/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8 -->
 
 ### Promise
 
@@ -3522,10 +3523,53 @@ export default App;
 ### 组件渲染和更新的过程
 ![alt text](../../public/interview/update.png)
 
-### 数组旋转k步
-```
+### 对像的prototype
+```js
+function Fn() {
+    // 内部语句 this.prototype={}
+}
+// 每个函数function 都有一个prototype 即显示原型属性，默认指向一个空的Object对像
+console.log(Fn.prototype);
+// 每个实例对像都有一个__proto__ 可称为隐式原型
+var fn = new Fn();
+console.log(fn.__proto__);
 
+// 对像的隐式原型的值为其对应构造函数的显示原型的值
+console.log(Fn.prototype === fn.__proto__); // true
+Fn.prototype.test = function() {
+    console.log('test()');
+}
+fn.test();
 ```
+![prototype](../../public/interview/prototype.png)
+
+### 原型链
+```js
+// 原型边先在自身属性中查找，找到返回
+// 如果没有，再沿着__proto__ 这条链向上查找找到返回
+// 如果最终没有找到返回undefined
+
+function Fn() {
+    this.test1 = function() {
+        console.log('test1')
+    }
+}
+
+Fn.prototype.test2 = function() {
+ console.log('test2');   
+}
+
+var fn = new Fn();
+fn.test1();
+fn.test2();
+
+console.log(fn.toString())
+
+console.log(Fn.prototype.__proto__ === Object.prototype);
+console.log(Object.__proto__); // undefined
+```
+![protolink](../../public/interview/protolink.png)
+
 
 <div align="center"><a target="_blank" href="https://xiaozhi.shop">贵州晓智信息科技有限公司</a></div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
