@@ -3694,22 +3694,38 @@ console.log('global end:' + i); // 1
 
 ```js
 // 先执行变量提升再执行函数提升
-function a() {
-}
+function a() {}
 var a;
-console.log(typeof a); 'function'
+console.log(typeof a);
+('function');
 
-if(!(b in window)) {
-    var b = 1;
+if (!(b in window)) {
+  var b = 1;
 }
 
-console.log(b);// undefined
+console.log(b); // undefined
 
 var c = 1;
 function c(c) {
-    console.log(c);
+  console.log(c);
 }
 c(2); // 报错
+```
+
+### 函数作用域
+
+```js
+var x = 10;
+
+function fn() {
+  console.log(x); // 10
+}
+
+function show(fn) {
+  var x = 20;
+  fn();
+}
+show(fn);
 ```
 
 <!-- https://www.bilibili.com/video/BV14s411E7qf/?p=21&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8 -->
