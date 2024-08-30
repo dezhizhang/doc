@@ -3629,10 +3629,10 @@ F.b(); // 'b()'
 ```js
 var a = 3;
 function fn() {
-    // 变量声明提升
-    // var a = undefined;
-    console.log(a);
-    var a = 4;
+  // 变量声明提升
+  // var a = undefined;
+  console.log(a);
+  var a = 4;
 }
 
 fn(); // undefined
@@ -3640,14 +3640,15 @@ fn(); // undefined
 fn2(); // 'fn2'
 fn3(); // 报错
 function fn2() {
-    console.log('fn2');
+  console.log('fn2');
 }
-var fn3 = function() {
-    console.log('fn3');
-}
+var fn3 = function () {
+  console.log('fn3');
+};
 ```
 
 ### 函数执行上下文
+
 ```js
 function fn(a1) {
   console.log(a1); // 2
@@ -3660,12 +3661,55 @@ function fn(a1) {
 
   var a2 = 3;
   function a3() {
-    console.log("a3()");
+    console.log('a3()');
   }
 }
 
 fn(2, 3);
+```
 
+### 函数执行调用栈
+
+```js
+console.log('global begin:' + i); // undefined
+var i = 1;
+
+foo(1);
+
+function foo(i) {
+  if (i == 4) {
+    return;
+  }
+
+  console.log('foo() begin:' + i); // 1,2,3
+  foo(i + 1);
+  console.log('foo() end:' + i); // 3,2,1
+}
+console.log('global end:' + i); // 1
+```
+
+![函数执行调用栈](../../public/interview/stack.png)
+
+### 变量提升与函数提升
+
+```js
+// 先执行变量提升再执行函数提升
+function a() {
+}
+var a;
+console.log(typeof a); 'function'
+
+if(!(b in window)) {
+    var b = 1;
+}
+
+console.log(b);// undefined
+
+var c = 1;
+function c(c) {
+    console.log(c);
+}
+c(2); // 报错
 ```
 
 <!-- https://www.bilibili.com/video/BV14s411E7qf/?p=21&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8 -->
