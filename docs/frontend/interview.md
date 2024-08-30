@@ -3521,12 +3521,14 @@ export default App;
 ![alt text](../../public/interview/transaction.png)
 
 ### 组件渲染和更新的过程
+
 ![alt text](../../public/interview/update.png)
 
-### 对像的prototype
+### 对像的 prototype
+
 ```js
 function Fn() {
-    // 内部语句 this.prototype={}
+  // 内部语句 this.prototype={}
 }
 // 每个函数function 都有一个prototype 即显示原型属性，默认指向一个空的Object对像
 console.log(Fn.prototype);
@@ -3536,28 +3538,30 @@ console.log(fn.__proto__);
 
 // 对像的隐式原型的值为其对应构造函数的显示原型的值
 console.log(Fn.prototype === fn.__proto__); // true
-Fn.prototype.test = function() {
-    console.log('test()');
-}
+Fn.prototype.test = function () {
+  console.log('test()');
+};
 fn.test();
 ```
+
 ![prototype](../../public/interview/prototype.png)
 
 ### 原型链
+
 ```js
 // 原型边先在自身属性中查找，找到返回
 // 如果没有，再沿着__proto__ 这条链向上查找找到返回
 // 如果最终没有找到返回undefined
 
 function Fn() {
-    this.test1 = function() {
-        console.log('test1');
-    }
+  this.test1 = function () {
+    console.log('test1');
+  };
 }
 
-Fn.prototype.test2 = function() {
-    console.log('test2');
-}
+Fn.prototype.test2 = function () {
+  console.log('test2');
+};
 
 var fn = new Fn();
 fn.test1();
@@ -3566,9 +3570,105 @@ fn.test2();
 console.log(Fn.prototype.__proto__ === Object.prototype); // true
 console.log(fn.__proto__ === Fn.prototype); // true
 
+// 函数的显示原型默认是空Object实例对像(但Object不满足)
+console.log(Fn.prototype instanceof Object); //
+console.log(Object.prototype instanceof Object); // false
+
+// 所有函数都是Function实列包括Function
+console.log(Function.__proto__ === Function.prototype);
+
+// Object的原型对像是原型链的尽头
+console.log(Object.prototype.__proto__); // null
 ```
+
 ![protolink](../../public/interview/protolink.png)
 
+### 原型链面试题
+
+```js
+function A() {}
+
+A.prototype.n = 1;
+
+var b = new A();
+
+A.prototype = {
+  n: 2,
+  m: 3,
+};
+
+var c = new A();
+console.log(b.n, b.m, c.n, c.m); // 1,undefined,2,3
+```
+
+![原型链面试题](../../public/interview/linked1.png)
+
+### 原型链面试题
+
+```js
+var F = function () {};
+Object.prototype.a = function () {
+  console.log('a()');
+};
+
+Function.prototype.b = function () {
+  console.log('b()');
+};
+
+var f = new F();
+f.a(); // 'a()'
+f.b(); // 报错![alt text](image.png)
+F.a(); // 'a()'
+F.b(); // 'b()'
+```
+
+![原型链面试题](../../public/interview/linked2.png)
+
+### 变量和声明方式函数提升
+
+```js
+var a = 3;
+function fn() {
+    // 变量声明提升
+    // var a = undefined;
+    console.log(a);
+    var a = 4;
+}
+
+fn(); // undefined
+// 函数提升只能使用声明的方式
+fn2(); // 'fn2'
+fn3(); // 报错
+function fn2() {
+    console.log('fn2');
+}
+var fn3 = function() {
+    console.log('fn3');
+}
+```
+
+### 函数执行上下文
+```js
+function fn(a1) {
+  console.log(a1); // 2
+  console.log(a2); // undefined
+
+  a3(); // 'a3()'
+
+  console.log(this); // 'window'
+  console.log(arguments); // 2,3
+
+  var a2 = 3;
+  function a3() {
+    console.log("a3()");
+  }
+}
+
+fn(2, 3);
+
+```
+
+<!-- https://www.bilibili.com/video/BV14s411E7qf/?p=21&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8 -->
 
 <div align="center"><a target="_blank" href="https://xiaozhi.shop">贵州晓智信息科技有限公司</a></div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
