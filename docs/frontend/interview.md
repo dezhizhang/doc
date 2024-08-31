@@ -9,6 +9,12 @@
 | 源码地址 | [源码地址](https://github.com/dezhizhang/interview)     |
 | 文档源码 | [文档源码](https://github.com/dezhizhang/doc)           |
 
+
+[面试题1](https://www.bilibili.com/video/BV121sTeQEDJ/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8)
+[面试题2](https://www.bilibili.com/video/BV121sTeQEDJ/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8)
+[面试题3](https://www.bilibili.com/video/BV1Dt42147h4/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8)
+[微前端面试](https://www.bilibili.com/video/BV1H34y117fe/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8)
+
 <!-- # https://www.bilibili.com/video/BV18j411M74W/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8 -->
 <!-- https://www.bilibili.com/video/BV14s411E7qf/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8 -->
 
@@ -3726,6 +3732,51 @@ function show(fn) {
   fn();
 }
 show(fn);
+
+var fn = function() {
+    console.log(fn); // function
+}
+
+fn();
+var obj = {
+    fn2:function() {
+        console.log(fn2);// 报错
+    }
+}
+
+obj.fn2();
+```
+### this 指向问题
+```js
+var name = 'The window';
+
+var object = {
+    name:'My Object',
+    getNameFunc:function() {
+        return function() {
+            console.log(this);
+            return this.name;
+        }
+    }
+}
+
+console.log(object.getNameFunc()()); // The window
+
+
+var name = 'The window';
+
+var object = {
+    name:'My Object',
+    getNameFunc:function() {
+        var that = this;
+        return function() {
+            console.log(this);
+            return that.name;
+        }
+    }
+}
+
+console.log(object.getNameFunc()()); // 'My Object
 ```
 
 <!-- https://www.bilibili.com/video/BV14s411E7qf/?p=21&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8 -->
