@@ -9,10 +9,9 @@
 | 源码地址 | [源码地址](https://github.com/dezhizhang/interview)     |
 | 文档源码 | [文档源码](https://github.com/dezhizhang/doc)           |
 
-
-[面试题1](https://www.bilibili.com/video/BV121sTeQEDJ/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8)
-[面试题2](https://www.bilibili.com/video/BV121sTeQEDJ/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8)
-[面试题3](https://www.bilibili.com/video/BV1Dt42147h4/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8)
+[面试题 1](https://www.bilibili.com/video/BV121sTeQEDJ/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8)
+[面试题 2](https://www.bilibili.com/video/BV121sTeQEDJ/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8)
+[面试题 3](https://www.bilibili.com/video/BV1Dt42147h4/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8)
 [微前端面试](https://www.bilibili.com/video/BV1H34y117fe/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8)
 
 <!-- # https://www.bilibili.com/video/BV18j411M74W/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8 -->
@@ -3733,50 +3732,108 @@ function show(fn) {
 }
 show(fn);
 
-var fn = function() {
-    console.log(fn); // function
-}
+var fn = function () {
+  console.log(fn); // function
+};
 
 fn();
 var obj = {
-    fn2:function() {
-        console.log(fn2);// 报错
-    }
-}
+  fn2: function () {
+    console.log(fn2); // 报错
+  },
+};
 
 obj.fn2();
 ```
+
 ### this 指向问题
+
 ```js
 var name = 'The window';
 
 var object = {
-    name:'My Object',
-    getNameFunc:function() {
-        return function() {
-            console.log(this);
-            return this.name;
-        }
-    }
-}
+  name: 'My Object',
+  getNameFunc: function () {
+    return function () {
+      console.log(this);
+      return this.name;
+    };
+  },
+};
 
 console.log(object.getNameFunc()()); // The window
-
 
 var name = 'The window';
 
 var object = {
-    name:'My Object',
-    getNameFunc:function() {
-        var that = this;
-        return function() {
-            console.log(this);
-            return that.name;
-        }
-    }
-}
+  name: 'My Object',
+  getNameFunc: function () {
+    var that = this;
+    return function () {
+      console.log(this);
+      return that.name;
+    };
+  },
+};
 
 console.log(object.getNameFunc()()); // 'My Object
+```
+
+### 原型链的继承
+
+```js
+function Supper() {
+  this.supProp = 'Supper property';
+}
+
+Supper.prototype.getSupProp = function () {
+  console.log(this.supProp);
+};
+
+function Sub() {
+  this.subProp = 'Sub property';
+}
+
+// 子尖型的原型为父类型的实例对像
+Sub.prototype = new Supper();
+
+Sub.prototype.getSubProp = function () {
+  console.log(this.subProp);
+};
+
+var sub = new Sub();
+sub.getSupProp();
+```
+![alt text](../../public/interview/extend.png)
+
+### 原型链+构造函数继承
+```js
+// 原型链 + 构造函数继承
+function Person(name,age) {
+    this.name = name;
+    this.age = age;
+
+}
+
+Person.prototype.setName = function(name) {
+    this.name = name;
+}
+
+function Student(name,age,price) {
+    Person(this,name,age);
+    this.price = price;
+}
+
+Student.prototype = new Person();
+Student.prototype.constructor = Student;
+
+Student.prototype.setPrice = function(price) {
+    this.price = price;
+}
+
+var st = new Student('tom',18,123);
+console.log(st instanceof Person)
+
 ```
 
 <!-- https://www.bilibili.com/video/BV14s411E7qf/?p=21&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8 -->
