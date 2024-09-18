@@ -17,6 +17,12 @@
 <!-- # https://www.bilibili.com/video/BV18j411M74W/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8 -->
 <!-- https://www.bilibili.com/video/BV14s411E7qf/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8 -->
 
+[last]
+
+<!-- https://www.bilibili.com/video/BV121sTeQEDJ?p=22&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8 -->
+
+[线性代数](https://www.bilibili.com/video/BV1aW411Q7x1/?p=3&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8)
+
 ### Promise
 
 1. await 相当于 Promise.then 处理不了 Promise.reject
@@ -3804,39 +3810,105 @@ Sub.prototype.getSubProp = function () {
 var sub = new Sub();
 sub.getSupProp();
 ```
+
 ![alt text](../../public/interview/extend.png)
 
 ### 原型链+构造函数继承
+
 ```js
 // 原型链 + 构造函数继承
-function Person(name,age) {
-    this.name = name;
-    this.age = age;
-
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
 }
 
-Person.prototype.setName = function(name) {
-    this.name = name;
-}
+Person.prototype.setName = function (name) {
+  this.name = name;
+};
 
-function Student(name,age,price) {
-    Person(this,name,age);
-    this.price = price;
+function Student(name, age, price) {
+  Person(this, name, age);
+  this.price = price;
 }
 
 Student.prototype = new Person();
 Student.prototype.constructor = Student;
 
-Student.prototype.setPrice = function(price) {
-    this.price = price;
-}
+Student.prototype.setPrice = function (price) {
+  this.price = price;
+};
 
-var st = new Student('tom',18,123);
-console.log(st instanceof Person)
-
+var st = new Student('tom', 18, 123);
+console.log(st instanceof Person);
 ```
 
-<!-- https://www.bilibili.com/video/BV14s411E7qf/?p=21&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8 -->
+### 浏览器支持 JS 形式有哪些?
+
+```html
+<!-- 方式1: 直接加载js -->
+<script src="./static/a.js"></script>
+<script src="./static/123.js"></script>
+<script async src="./static/123.js"></script>
+<script defer src="./static/123.js"></script>
+
+<!--方式2：类似于 async -->
+<script>
+  const script = document.createElement('script');
+
+  script.src = './async.x.js';
+  script.type = 'text/javascript';
+  script.onload = handleLoad;
+  script.onerror = handleError;
+
+  document.head.append(script);
+
+  //--------------------------
+
+  const loadScript = (src) => {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+
+      script.src = './async.x.js';
+      script.type = 'text/javascript';
+      script.onload = handleLoad;
+      script.onerror = handleError;
+
+      document.head.append(script);
+    });
+  };
+</script>
+
+<!--方式3：类似于 loadfunc -->
+<script>
+  var a = 3;
+  var b = 4;
+</script>
+
+<!--方式4：类似于 loadfunc -->
+<script type="module">
+  import { bar } from './bar.js';
+</script>
+```
+
+### 构建一个公共库，要考虑那些构建产特？
+
+- 支持 ESM 的引入方式: 更灵活，同时结合 treeshaking 的能力，可以实现按需引入
+
+```js
+import { Card } from '@ui/shuqin';
+```
+
+- 支持 commonjs 的引入方式
+
+```js
+const { Card } = require('@ui/shuqin');
+```
+
+- 支持 umd/iife 的引入方式
+
+```js
+<script src="www.cdn/xxx/@ui/shuqin.umd.min.js">
+```
 
 <div align="center"><a target="_blank" href="https://xiaozhi.shop">贵州晓智信息科技有限公司</a></div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
