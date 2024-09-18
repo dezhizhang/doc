@@ -3910,5 +3910,38 @@ const { Card } = require('@ui/shuqin');
 <script src="www.cdn/xxx/@ui/shuqin.umd.min.js">
 ```
 
+### react 项目中, 如何使用 ts 的编译器？
+
+- tsc 官方编译器,依赖于 tsconfig.json
+- webpack 有一个 ts-loader, 内部调用了 ts 所以一搬 ts-loader,默认可以使用 tsconfig.json
+- @babel/preset-typescript 只做编译，不做类型检查
+- 一个大型项目中，为了保证编译的统一，一搬我们不用 tsc 作为代码产出，仅仅做类型检查，
+- 没有 babelr 的情况下，tsc + ts-loader
+- 有 babel 的情况下 @babel/preset-typescript + tsc 的类型检查
+
+### 前端的 css 方案
+
+1. ##### css in js 的方案
+
+```js
+import {css,cx} from 'emotion';
+
+const app = css`
+  background-color:blue
+`
+return <div classname={cx(app)}>
+```
+
+2. ##### css-module 的方案
+
+- 搬情况下，webpack 是直接支持的，我们配置一下 css-loader 即可
+
+```js
+import styles from 'index.less';
+return <div classname={styles.title}>
+```
+3. ##### utility-css 的方案
+
+
 <div align="center"><a target="_blank" href="https://xiaozhi.shop">贵州晓智信息科技有限公司</a></div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
