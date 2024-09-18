@@ -3940,7 +3940,33 @@ return <div classname={cx(app)}>
 import styles from 'index.less';
 return <div classname={styles.title}>
 ```
+
 3. ##### utility-css 的方案
+
+### 如果提高 webpack 的打包速度
+
+- 不用 webpack,使用 esbuild,vite,本质上是利用 go,rust 等语言的特点来处理 js 的 ast 部分耗时。
+- 利于缓存或第三方的能力 dllplugin，避免重构构建没有变化的代码。
+- 使用多进程/多线程的能力，使用 tread-loader,happypack 等插件, 将构建的过程分解为多个进程或线程。
+
+### 如果缩小打包的包体积
+
+- 代码分割（code splitting): 将应用程序的代码分为多个代码块，按需加载
+- babel polyfill 使用 useBuiltin:usage-> 首屏的代码在相应的浏览器环境中，始终是最小量加载
+- tree shaking 不必要用到的代码给 shaking 掉
+- 压缩和 uglify
+
+### pnpm 比 npm 快?
+
+- pnpm 比 npm 快的原因,主要在于其有了文件存储方式，依赖管理方式与并行下载能力
+- pnpm 在下载和安装依赖的时候，采用了并行下载的能力，也能提高安装的速度。
+
+### 为什么要做测试，有那些工程方法
+- 稳定健状: 当代码被用例复盖了以后，健状性更强
+- 设计先行
+
+<!-- [last](https://www.bilibili.com/video/BV121sTeQEDJ?p=67&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) -->
+
 
 
 <div align="center"><a target="_blank" href="https://xiaozhi.shop">贵州晓智信息科技有限公司</a></div>
