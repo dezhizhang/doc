@@ -4028,6 +4028,23 @@ process.on('message', (str) => {
 - 子进程：一搬直接处理业务
 - node 中可以通过 fork 复制出子进程，需要 30ms 和 10MB 内存空间。
 
+### child_process 有啊几种子线程的方法，区别是什么
+
+- spawn: 最基础的，所有的其它方法，都基于 spawn 派生的，异步方法。
+
+```js
+require('child_process').spawn('node', ['index.js', 'create'], {
+  cwd: path.resolve('xxx'),
+  stdio: ['pipe', 'pipe', process.stderr],
+});
+```
+- fork: 在源码里加了一个RPC，默认只能走RPC通信。
+- execfile：专门用于运行某个可执行文件拿不到系统环境,参数是数组。
+- excl：能拿到系统环境，将参数进行了格式化。
+
+
+
+
 <!-- [last](https://www.bilibili.com/video/BV121sTeQEDJ?p=67&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) -->
 
 <div align="center"><a target="_blank" href="https://xiaozhi.shop">贵州晓智信息科技有限公司</a></div>
