@@ -3962,12 +3962,28 @@ return <div classname={styles.title}>
 - pnpm 在下载和安装依赖的时候，采用了并行下载的能力，也能提高安装的速度。
 
 ### 为什么要做测试，有那些工程方法
+
 - 稳定健状: 当代码被用例复盖了以后，健状性更强
 - 设计先行
 
+### npm 包的依赖关于，为什么有 devDependencies
+
+- dependencies: 直接项目依赖,项目中打包实际要用到的
+- devDependencies: 开发依赖,不会被自动下载，打包是否会依赖，取决于项目是否声明
+- peerDependencies: 同版本依赖，插件依赖，插件不能单独运行，插件运行的前提是核心库必须安装了。
+- bundledDependencies: 捆绑依赖 npm pack 命令时 压缩包时会有对应的 bundle
+- optionsDependencies: 可选依赖
+
+### npm ci 和 npm install 有什么区别？
+
+- npm ci 要求项目中必须存在 lock 文件
+- npm ci 完全根据 package-lock.json 去安装依赖,可以保存整个团队开发都是用版本一致的依赖
+- npm ci 不需要计算依赖树，所以速度更快
+- npm ci 安装时候会先删除 node_modules
+- npm ci 无法单独安装某一个依赖包，只能一次安装整个项目的依赖包
+- npm ci 是非常稳定的安装方式，完全不会改变 package.json 和 lock 文件
+
 <!-- [last](https://www.bilibili.com/video/BV121sTeQEDJ?p=67&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) -->
-
-
 
 <div align="center"><a target="_blank" href="https://xiaozhi.shop">贵州晓智信息科技有限公司</a></div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
