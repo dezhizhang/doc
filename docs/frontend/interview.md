@@ -3989,6 +3989,36 @@ return <div classname={styles.title}>
 - npm 在 v5.1.0 ~ v5.4.2 如果 package.json 有符合的更新版本 忽略 package-lock.json 按照 package.json 进行安装
 - npm 在 v5.4.2 以上，如果 package.json 和 package-lock.json 之前兼容，则根据 lock 进行安装，如果不兼容，则根据 package.json 来安装，然后更新 lock 文件
 
+### process 对像是什么，一搬用来做什么?
+
+- process 代表的就是 node 的应用程序，它获取到程序运行时的各种环境
+
+```js
+process.argv.forEach((item, index) => console.log(`参数${index}:${item}`));
+```
+
+### 如何创建子进程,以及子进程 crash 以后如何重启
+
+```js
+// master
+
+const child_process = require('child_process');
+
+const processMaster = child_process.fork(__dirname + '/child.js');
+
+processMaster.send('hello');
+
+processMaster.on('message', (str) => {
+  console.log('master:', str);
+});
+
+// child
+process.on('message', (str) => {
+  console.log('child:', str);
+  console.log('child');
+});
+```
+
 <!-- [last](https://www.bilibili.com/video/BV121sTeQEDJ?p=67&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) -->
 
 <div align="center"><a target="_blank" href="https://xiaozhi.shop">贵州晓智信息科技有限公司</a></div>
