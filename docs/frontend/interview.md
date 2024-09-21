@@ -4019,6 +4019,15 @@ process.on('message', (str) => {
 });
 ```
 
+### 简述一下你的 node 多进程架构的理解
+
+- 多进程架构又称为 master-worker 架构，或者主从架构。
+- 进程分主进程，工作进程
+- 典型分布式的并行处理任务模式，具有较好的稳定性，扩展性和伸缩性。
+- 进进程：一搬用来调度和管理子进程
+- 子进程：一搬直接处理业务
+- node 中可以通过 fork 复制出子进程，需要 30ms 和 10MB 内存空间。
+
 <!-- [last](https://www.bilibili.com/video/BV121sTeQEDJ?p=67&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) -->
 
 <div align="center"><a target="_blank" href="https://xiaozhi.shop">贵州晓智信息科技有限公司</a></div>
