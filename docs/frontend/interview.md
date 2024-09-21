@@ -3983,6 +3983,12 @@ return <div classname={styles.title}>
 - npm ci 无法单独安装某一个依赖包，只能一次安装整个项目的依赖包
 - npm ci 是非常稳定的安装方式，完全不会改变 package.json 和 lock 文件
 
+### npm 和 yarn 之间有什么区别
+
+- npm 在 v5.0.x 根据 package-lock.json 来下载的
+- npm 在 v5.1.0 ~ v5.4.2 如果 package.json 有符合的更新版本 忽略 package-lock.json 按照 package.json 进行安装
+- npm 在 v5.4.2 以上，如果 package.json 和 package-lock.json 之前兼容，则根据 lock 进行安装，如果不兼容，则根据 package.json 来安装，然后更新 lock 文件
+
 <!-- [last](https://www.bilibili.com/video/BV121sTeQEDJ?p=67&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) -->
 
 <div align="center"><a target="_blank" href="https://xiaozhi.shop">贵州晓智信息科技有限公司</a></div>
