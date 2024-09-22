@@ -4043,7 +4043,7 @@ require('child_process').spawn('node', ['index.js', 'create'], {
 - execfile：专门用于运行某个可执行文件拿不到系统环境,参数是数组。
 - excl：能拿到系统环境，将参数进行了格式化。
 
-### 如果实现一个 require.js
+### 如何实现一个 require.js
 
 ```js
 const fs = require('fs');
