@@ -4038,11 +4038,48 @@ require('child_process').spawn('node', ['index.js', 'create'], {
   stdio: ['pipe', 'pipe', process.stderr],
 });
 ```
-- fork: 在源码里加了一个RPC，默认只能走RPC通信。
+
+- fork: 在源码里加了一个 RPC，默认只能走 RPC 通信。
 - execfile：专门用于运行某个可执行文件拿不到系统环境,参数是数组。
 - excl：能拿到系统环境，将参数进行了格式化。
 
+### 如果实现一个 require.js
 
+```js
+const fs = require('fs');
+const path = require('path');
+const vm = require('vm');
+
+function myRequire(filename) {
+  const fileContent = fs.readFileSync(
+    path.resolve(__dirname, filename),
+    'utf-8',
+  );
+  const wrapper = `(function(require,module,exports){
+        ${fileContent}
+    })`;
+
+  const scripts = new vm.Script(wrapper, {
+    filename: 'index.js',
+  });
+
+  const module = {
+    exports: {},
+  };
+
+  const func = scripts.runInThisContext();
+  func(myRequire, module, module.exports);
+
+  return module.exports;
+}
+
+console.log(myRequire('./module.js'));
+```
+
+### readfile 和 createReadStream 有什么区别?
+
+- readfile： 异步的文件读取函数， 读取的内容是一次读取，存储在内存中再传给用户。
+- createReadStream：可读流，逐块的读取文件，而不是一次性全部放在内存中。
 
 
 <!-- [last](https://www.bilibili.com/video/BV121sTeQEDJ?p=67&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) -->
