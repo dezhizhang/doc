@@ -4081,8 +4081,60 @@ console.log(myRequire('./module.js'));
 - readfile： 异步的文件读取函数， 读取的内容是一次读取，存储在内存中再传给用户。
 - createReadStream：可读流，逐块的读取文件，而不是一次性全部放在内存中。
 
+### 实现简单发布订阅
 
-<!-- [last](https://www.bilibili.com/video/BV121sTeQEDJ?p=67&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) -->
+```js
+class EventEmitter {
+  constructor() {
+    this.event = {};
+  }
+
+  on(type, cb) {
+    if (this.event[type]) {
+      this.event[type].push(cb);
+    } else {
+      this.event[type] = [cb];
+    }
+  }
+  emit(type, ...args) {
+    if (this.event[type]) {
+      this.event[type].forEach((cb) => {
+        cb(...args);
+      });
+    }
+  }
+  once(type, cb) {
+    const fn = (...args) => {
+      cb(...args);
+      this.off(type, fn);
+    };
+    this.on(type, fn);
+  }
+  off(type, cb) {
+    if (this.event[type]) {
+      this.event[type] = this.event[type].filter((item) => item === cb);
+    }
+  }
+}
+
+const ev = new EventEmitter();
+ev.on('data', (...args) => {
+  console.log('event1', args);
+});
+
+ev.on('data', (...args) => {
+  console.log('event2', args);
+});
+
+ev.once('data', (...args) => {
+  console.log('event3', args);
+});
+
+ev.emit('data', 'a', 'b', 'c', 'd');
+```
+
+<!-- [last](https://www.bilibili.com/video/BV1mH4y1Q7Z7/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8) -->
+<!-- [last](https://www.bilibili.com/video/BV19K411C7Ko/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8) -->
 
 <div align="center"><a target="_blank" href="https://xiaozhi.shop">贵州晓智信息科技有限公司</a></div>
 <div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
