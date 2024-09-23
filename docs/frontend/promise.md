@@ -102,4 +102,48 @@ setTimeout(() => {
 console.log('new Promise之后');
 ```
 
+### Promise API 说明
+
+- excutor 函数：同步执行（resolve,reject） => {}
+- resolve 函数：执行器内部定义成功时的调用函数
+- reject 函数：内部定义失败时调用的函数
+
+1. ##### Promise 正常调用
+
+```js
+const p = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve('成功时的数据');
+  }, 1000);
+})
+  .then(
+    (value) => {
+      console.log('value', value);
+    },
+    (reson) => {
+      console.log('reson', reson);
+    },
+  )
+  .catch((reson) => {
+    console.log('onRejected', reson);
+  });
+```
+
+2. ##### Promise 静态方法
+
+```js
+new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve('失败的数据');
+  }, 1000);
+});
+
+const p1 = Promise.resolve(1);
+const p2 = Promise.reject(2);
+
+p1.then((value) => console.log('p1', value));
+p2.then((value) => console.log('p2', value));
+p2.catch((reson) => console.log('p2', reson));
+```
+
 <!-- [last](https://www.bilibili.com/video/BV1MJ41197Eu/?p=4&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) -->
