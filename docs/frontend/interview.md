@@ -4132,6 +4132,7 @@ ev.once('data', (...args) => {
 
 ev.emit('data', 'a', 'b', 'c', 'd');
 ```
+<!-- [last](https://www.bilibili.com/video/BV121sTeQEDJ?p=1&vd_source=10257e657caa8b54111087a9329462e8) -->
 
 <!-- [last](https://www.bilibili.com/video/BV1mH4y1Q7Z7/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8) -->
 <!-- [last](https://www.bilibili.com/video/BV19K411C7Ko/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8) -->

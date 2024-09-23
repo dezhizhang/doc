@@ -5,7 +5,7 @@
  * :copyright: (c) 2023, Tungee
  * :date created: 2023-10-21 21:31:50
  * :last editor: 张德志
- * :date last edited: 2024-04-29 07:22:27
+ * :date last edited: 2024-09-22 20:31:04
  */
 import { defineConfig } from 'dumi';
 import path from 'path';
@@ -42,6 +42,10 @@ export default defineConfig({
       {
         title: '后台文档',
         link: '/backend',
+      },
+      {
+        title:'新媒体运营',
+        link: '/operate',
       },
       {
         title:'演讲',
