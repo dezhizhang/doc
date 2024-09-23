@@ -1,4 +1,4 @@
-# promise 
+# promise
 
 ### 从入门到精通
 
@@ -22,7 +22,7 @@
 - message 属性：错误相关信息
 - stack 属性：函数调用栈记录信息
 
-### Promise 理解
+### Promise 的理解
 
 1. ##### Promise 是什么
 
@@ -43,5 +43,63 @@
 4. ##### Promise 的基本流程
 
 ![alt text](../../public/promise/flow.png)
+
+5. ##### Promise 的基本使用
+
+```js
+const p = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    const time = Date.now();
+    if (time % 2 == 0) {
+      resolve('ok');
+    } else {
+      reject('error');
+    }
+  }, 1000);
+});
+
+p.then(
+  (value) => {
+    // 接收到成功的数据
+    console.log('value', value);
+  },
+  (reson) => {
+    // 接收到失败的数据
+    console.log('reson', reson);
+  },
+);
+```
+
+### 为什么要用 Promise
+
+- 指定回调函数的方法更加灵活
+- 支持链式调用，可以解决回调地狱问题
+
+```js
+const p = new Promise((resolve, reject) => {
+  console.log('执行excutor');
+  setTimeout(() => {
+    const time = Date.now();
+    if (time % 2 === 0) {
+      resolve('ok');
+    } else {
+      reject('error');
+    }
+  }, 1000);
+});
+
+setTimeout(() => {
+  p.then(
+    (value) => {
+      console.log('value', value);
+    },
+    (reson) => {
+      console.log('reson', reson);
+    },
+  );
+}, 2000);
+
+console.log('new Promise之后');
+```
 
 <!-- [last](https://www.bilibili.com/video/BV1MJ41197Eu/?p=4&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) -->
