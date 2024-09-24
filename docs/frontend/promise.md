@@ -146,4 +146,26 @@ p2.then((value) => console.log('p2', value));
 p2.catch((reson) => console.log('p2', reson));
 ```
 
+### Promise 状态改变
+
+```js
+const p = new Promise((resolve, reject) => {
+  throw 3;
+});
+
+p.then(
+  (value) => {},
+  (reason) => {
+    console.log('reason', reason);
+  },
+);
+
+p.then(
+  (value) => {},
+  (reason) => {
+    console.log('reason2', reason);
+  },
+);
+```
+
 <!-- [last](https://www.bilibili.com/video/BV1MJ41197Eu/?p=4&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) -->
