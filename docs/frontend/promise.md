@@ -148,6 +148,8 @@ p2.catch((reson) => console.log('p2', reson));
 
 ### Promise 状态改变
 
+1. ##### Promise 正常调用
+
 ```js
 const p = new Promise((resolve, reject) => {
   throw 3;
@@ -166,6 +168,80 @@ p.then(
     console.log('reason2', reason);
   },
 );
+```
+
+2. ##### Promise 如何先改状态，后指定回调函数
+
+```js
+new Promise((resolve, reject) => {
+  resolve(1);
+}).then(
+  (value) => console.log('value2', value),
+  (reason) => console.log('reason', reason),
+);
+
+console.log('---------');
+```
+
+3. ##### Promise 如何先改状态，后指定回调函数
+
+```js
+new Promise((resolve, reject) => {
+  resolve(1);
+})
+  .then(
+    (value) => console.log('onResolved1', value),
+    (reason) => console.log('onRejected1', reason),
+  )
+  .then(
+    (value) => console.log('onResolved2', value),
+    (reason) => console.log('onRejected2', reason),
+  );
+```
+
+4. ##### Promise 异常穿透
+```js
+new Promise((resolve, reject) => {
+  resolve(1);
+})
+  .then((value) => {
+    console.log("onResolved()", value);
+    return 2;
+  })
+  .then(
+    (value) => {
+      console.log("onResolved()", value);
+      return 3;
+    },
+    (reason) => Promise.reject(reason)
+  )
+  .then((value) => {
+    console.log("onResolved3()", value);
+  })
+  .catch((reason) => {
+    console.log("onRejected1()", reason);
+  });
+
+```
+5. ##### 中断promise链
+```js
+new Promise((resolve,reject) => {
+  resolve(1)
+}).then(
+  value => console.log('value1',value),
+  reason => Promise.reject('reason1',reason)
+).then(value => {
+  value => console.log('onResolved2',value),
+  reson => Promise.reject(reson)
+}).catch((reson) => {
+  // 中断promise链
+  return new Promise(() => {})
+}).then(
+  value => console.log('onResolved3',value),
+  reson => {
+    console.log('onRejected3',reson)
+  }
+)
 ```
 
 <!-- [last](https://www.bilibili.com/video/BV1MJ41197Eu/?p=4&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) -->
