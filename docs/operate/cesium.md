@@ -2,7 +2,7 @@
 
 ### 相关链接
 
-1. ##### 演示地址 [演示地址](https://digit.icu/)
+1. ##### 演示地址 [演示地址](https://digit.icu/smart-city/guangzhou)
 2. ##### 更多获取 [更多获取](https://www.shuqin.cc/)
 3. ##### 源码地址 [源码地址](https://github.com/dezhizhang/digitwin)
 
@@ -31,16 +31,16 @@
 
 ### 目录结构
 
-![alt text](../../public/operate/image.png)
+![alt text](https://cdn.xiaozhi.shop/doc/operate/image.png)
 
 ### 组件封装
 
-![alt text](../../public/operate/image2.png)
+![alt text](https://cdn.xiaozhi.shop/doc/operate/image2.png)
 
 ### 效果展示
-![alt text](../../public/operate/image-1.png)
+![alt text](https://cdn.xiaozhi.shop/doc/operate/image-1.png)
 
-![alt text](../../public/operate/image-2.png)
+![alt text](https://cdn.xiaozhi.shop/doc/operate/image-2.png)
 
 ### 联系我们
 
