@@ -162,7 +162,29 @@ export default function NotFound() {
 }
 ```
 
-### 获取数据并渲染
+### 数据获取
+
+1. ##### 客户端模式获取数据
+
+- 如果您在此路线的其他任何地方都没有使用任何动态函数，则它将在下次构建静态页面时预渲染。然后可以使用增量静态再生来更新数据。
+
+```js
+export default async function Home() {
+  const baseUrl = 'https://cnodejs.org/api/v1';
+  const rsp = await fetch(`${baseUrl}/topics`).then((res) => res.json());
+  return (
+    <div>
+      {rsp.data.map((item: any) => (
+        <h3 key={item?._id}>{item?.title}</h3>
+      ))}
+    </div>
+  );
+}
+```
+
+2. ##### 客户端模式获取数据（不推荐）
+
+- 然而，在某些情况下，客户端数据获取仍然有意义。在这些场景中，您可以在 useEffect 中手动调用 fetch （不推荐），或者依靠社区中流行的 React 库（例如 SWR 或 React Query）进行客户端获取。
 
 ```js
 'use client';
