@@ -1,5 +1,10 @@
 # next 从入门到精通
 
+### 相关链接
+
+1. ##### 演示地址 [演示地址](https://www.shuqin.cc/market/design-component)
+2. ##### 源码地址 [源码地址](https://github.com/starfruitcloud/shuqin)
+
 - hello 大家好，我是 数擎科技，今天来跟大家聊聊 Next.js 如果你遇到任何问题，欢迎联系我 m-xiaozhicloud
 
 ### 什么是 Next.js
@@ -35,7 +40,7 @@ What import alias would you like configured? @/*
 - Next.js 使用基于文件系统的路由器，其中使用文件夹来定义路由。
 - 每个文件夹代表一个映射到 URL 段的路由段。要创建嵌套路由，您可以将文件夹相互嵌套。
 
-![路由创建](https://nextjs.org/_next/image?url=%2Fdocs%2Flight%2Froute-segments-to-path-segments.png&w=1920&q=75)
+![路由创建](../../public/next/image-3.png)
 ![路由创建](../../public/next/image.png)
 
 - 浏览器上输入 localhost:3000 你将看到
@@ -103,3 +108,100 @@ export default function Template({ children }: { children: React.ReactNode }) {
 - 模板与布局类似，它们包装子布局或页面。与跨路线持续存在并维护状态的布局不同，模板为导航上的每个子级创建一个新实例。这意味着当用户在共享模板的路由之间导航时，会安装子级的新实例，重新创建 DOM 元素，客户端组件中不会保留状态，并且会重新同步效果。
 
 ![alt text](../../public/next/image-2.png)
+
+### 元数据
+
+1. ##### 静态元数据
+
+- 您可以使用元数据 API 修改 <head> HTML 元素，例如标题和元。
+
+```js
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: '数擎科技',
+};
+export default function Home() {
+  return <div>数擎科技</div>;
+}
+```
+
+2. ##### 动态元数据
+
+- 所有基于配置的元数据选项以及 generateMetadata
+
+```js
+import type { Metadata } from 'next';
+
+// either Static metadata
+export const metadata: Metadata = {
+  title: '...',
+};
+
+// or Dynamic metadata
+export async function generateMetadata({ params }) {
+  return {
+    title: '...',
+  };
+}
+```
+
+### 自定义 404 页面
+
+```js
+import Link from 'next/link';
+
+export default function NotFound() {
+  return (
+    <div>
+      <h2>Not Found</h2>
+      <p>Could not find requested resource</p>
+      <Link href="/">Return Home</Link>
+    </div>
+  );
+}
+```
+
+### 获取数据并渲染
+
+```js
+'use client';
+
+import { useEffect, useState } from 'react';
+
+export default function Home() {
+  const [data, setData] = useState([]);
+  const featchTopics = async () => {
+    const baseUrl = 'https://cnodejs.org/api/v1';
+    const rsp = await fetch(`${baseUrl}/topics`).then((rsp) => rsp.json());
+    setData(rsp.data);
+  };
+  useEffect(() => {
+    featchTopics();
+  }, []);
+  return (
+    <div>
+      {data.map((item) => (
+        <h3 key={item._id}>{item.title}</h3>
+      ))}
+    </div>
+  );
+}
+```
+
+### 未完待续 。。。。。。。。
+
+### 联系我们
+
+1. ##### 关注我们
+
+<img src="https://cdn.xiaozhi.shop/digitwin/assets/weixin.jpg" width = 300 height = 300 />
+
+2. ##### 联系作者
+
+<img src="https://cdn.xiaozhi.shop/digitwin/assets/winxin.png" width = 300 height = 300 />
+<!-- [last](https://www.bilibili.com/video/BV1Sb41197i2/?spm_id_from=333.788&vd_source=10257e657caa8b54111087a9329462e8) -->
+
+<!-- [h5技术](https://www.bilibili.com/video/BV1Ao4y1m7ut/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8)
+[nextui](https://www.bilibili.com/video/BV1Jb4y1L7EH/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8)
+ -->
