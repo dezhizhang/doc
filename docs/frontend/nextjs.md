@@ -211,6 +211,25 @@ export default function Home() {
 }
 ```
 
+### 安装 shadcn/ui
+- shadcn/ui：是一个基于 Tailwind CSS 的 UI 组件库，注重高度的可定制性和灵活性。开发者可以轻松修改或扩展组件的样式，使其更符合项目的需求。它专注于不影响项目架构的设计思路，给开发者更多的自由来创建自定义组件。
+
+```bash
+npx shadcn@latest add button
+```
+
+```js
+import { Button } from '@/components/ui/button';
+
+export default function Home() {
+  return (
+    <div>
+      <Button>Click me</Button>
+    </div>
+  );
+}
+```
+
 ### 未完待续 。。。。。。。。
 
 ### 联系我们
