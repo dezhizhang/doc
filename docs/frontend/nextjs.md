@@ -4,6 +4,7 @@
 
 1. ##### 演示地址 [演示地址](https://www.shuqin.cc/market/design-component)
 2. ##### 源码地址 [源码地址](https://github.com/starfruitcloud/shuqin)
+3. ##### 获取更多 [获取更多](https://www.xiaozhi.shop/)
 
 - hello 大家好，我是 数擎科技，今天来跟大家聊聊 Next.js 如果你遇到任何问题，欢迎联系我 m-xiaozhicloud
 
