@@ -52,7 +52,7 @@ What import alias would you like configured? @/*
 
 - 布局是在多个路由之间共享的 UI。在导航时，布局保留状态、保持交互性并且不重新渲染。布局也可以嵌套。
 
-![根布局](https://nextjs.org/_next/image?url=%2Fdocs%2Flight%2Flayout-special-file.png&w=1920&q=75)
+![根布局](../../public/next/layout-special-file.png)
 
 ```js
 import type { Metadata } from 'next';
@@ -95,7 +95,7 @@ export default function RootLayout({
 
 - 模板与布局类似，它们包装子布局或页面。与跨路线持续存在并维护状态的布局不同，模板为导航上的每个子级创建一个新实例。这意味着当用户在共享模板的路由之间导航时，会安装子级的新实例，重新创建 DOM 元素，客户端组件中不会保留状态，并且会重新同步效果。
 
-![模板](https://nextjs.org/_next/image?url=%2Fdocs%2Flight%2Ftemplate-special-file.png&w=1920&q=75)
+![模板](../../public/next/template-special-file.png)
 
 ```js
 export default function Template({ children }: { children: React.ReactNode }) {
@@ -241,7 +241,6 @@ export default function Home() {
 2. ##### 联系作者
 
 <img src="https://cdn.xiaozhi.shop/digitwin/assets/winxin.png" width = 300 height = 300 />
-<!-- [last](https://www.bilibili.com/video/BV1Sb41197i2/?spm_id_from=333.788&vd_source=10257e657caa8b54111087a9329462e8) -->
 
 <!-- [h5技术](https://www.bilibili.com/video/BV1Ao4y1m7ut/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8)
 [nextui](https://www.bilibili.com/video/BV1Jb4y1L7EH/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8)
