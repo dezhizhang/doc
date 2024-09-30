@@ -1,11 +1,11 @@
 # webpack
 
-| 项目     | 地址                                                                  |
-| :------- | :-------------------------------------------------------------------- |
-| 晓智科技 | [晓智科技](https://xiaozhi.shop)                                      |
-| 晓智文档 | [晓智文档](http://localhost:8000/backend/algorithm)                   |
+| 项目     | 地址                                                        |
+| :------- | :---------------------------------------------------------- |
+| 晓智科技 | [晓智科技](https://xiaozhi.shop)                            |
+| 晓智文档 | [晓智文档](http://localhost:8000/backend/algorithm)         |
 | 源码地址 | [源码地址](https://github.com/dezhizhang/interview/webpack) |
-| 文档源码 | [文档源码](https://github.com/dezhizhang/doc)                         |
+| 文档源码 | [文档源码](https://github.com/dezhizhang/doc)               |
 
 ### 处理 css 资源
 
@@ -652,15 +652,16 @@ npm i core-js
 - polyfill 补丁就用用社用上提供的一段代码，让在不兼容某些特性新特性的浏览器上，使用该新特性
 
 3. ##### 配置
+
 ```js
 //app.js
 import 'core-js';
 //动态引入配置
 module.exports = {
   presets: [
-    "@babel/preset-env",
+    '@babel/preset-env',
     {
-      targets: "> 0.25%, not dead",
+      targets: '> 0.25%, not dead',
       corejs: { version: 3, proposals: true }, // 设置corejs版本
       useBuiltIns: 'usage', // 根据使用情况引入polyfill
     },
@@ -668,19 +669,23 @@ module.exports = {
   plugins: [],
 };
 ```
+
 ### PWA
 
 1. ##### 下载包
+
 ```bash
-npm i workbox-webpack-plugin -D 
+npm i workbox-webpack-plugin -D
 ```
 
 2. ##### 功能介绍
-- 渐进式网络应用程序：是一种可以提供类似于navive app(原生应用程序)体验的web app技术
-- 其中最重要的是在离线offline时应用程序能够继续运行功能
-- 内部通过service workers技术实现的
+
+- 渐进式网络应用程序：是一种可以提供类似于 navive app(原生应用程序)体验的 web app 技术
+- 其中最重要的是在离线 offline 时应用程序能够继续运行功能
+- 内部通过 service workers 技术实现的
 
 3. ##### 配置
+
 ```js
 // https://www.webpackjs.com/guides/progressive-web-application/#adding-workbox
 //webpack.config.js
@@ -707,9 +712,209 @@ if ("serviceWorker" in navigator) {
 
 ```
 
-# 
+### 自定义 babel-loader
 
-<div align="center">晓智科技公众号</div>
-<div align="center"> <img src="https://devpress.csdnimg.cn/9ea0b4566eb54d54b1b0d2c87ea6c2e0.webp" width = 300 height = 300 /> </div>
+1. ##### webpack.config.js 里配置自定义 babel-loader
 
-<!-- [last](https://www.bilibili.com/video/BV14T4y1z7sw?p=64&vd_source=10257e657caa8b54111087a9329462e8) -->
+```js
+// webpack.config.js
+// 加载器
+  module: {
+    rules: [
+      {
+        test: /\.(?:js|mjs|cjs)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: './loaders/babel-loader',
+          options: {
+            targets: "defaults",
+            presets: [
+              [
+                '@babel/preset-env',
+                {
+                  targets: {
+                    browsers: ['> 0.25%', 'not dead'],
+                  },
+                },
+              ]
+            ]
+          }
+        }
+      }
+    ]
+},
+```
+
+2. ##### 编写自定义 loader
+
+```js
+//schema.json
+{
+  "type": "object",
+  "properties": {
+    "presets": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": true
+}
+
+//------------------------------------
+const schema = require("./schema.json");
+const babel = require("@babel/core");
+
+module.exports = function (content) {
+  const callback = this.async();
+  const options = this.getOptions(schema);
+
+  console.log('options',options);
+
+
+  babel.transform(content, options, function (err, result) {
+    if (err) callback(err);
+    else callback(null, result.code);
+  });
+};
+
+```
+
+### 自定义 file-loader
+
+-
+
+```js
+// webpack.config.js
+
+{
+  test:/\.(png | jpe?g|gif)$/,
+  loader:'./loaders/file-loader',
+  type:'javascript/auto'
+},
+//-------------------------------------
+const loaderUtils = require("loader-utils");
+
+module.exports = function (content) {
+  const interpolateName = loaderUtils.interpolateName(
+    this,
+    "[hash],[ext][query]",
+    {
+      content,
+    }
+  );
+  console.log("interpolateName", interpolateName);
+  this.emitFile(interpolateName, content);
+
+  return `module.exports=${interpolateName}`;
+};
+
+module.exports.raw = true;
+
+```
+
+### 自定义 BannerWebpackPlugin 添加作者信息
+
+```js
+class BannerWebpackPlugin {
+  constructor(options) {
+    this.options = options;
+  }
+  apply(compiler) {
+    // 在资源输入之前触发
+    compiler.hooks.emit.tapAsync(
+      'BannerWebpackPlugin',
+      (compilation, callback) => {
+        const extensions = ['css', 'js'];
+        const assets = Object.keys(compilation.assets).filter((path) => {
+          const splitted = path.split('.');
+          // 获取文件扩展名
+          const extension = splitted[splitted.length - 1];
+          return extensions.includes(extension);
+        });
+
+        const prefix = `
+        /*
+        * :file description:
+        * :name: /webpack/plugins/banner-webpack-plugin.js
+        * :author:张德志
+        * :copyright: (c) 2024, Xiaozhi
+        * :date created: 2024-09-30 19:55:04
+        * :last editor: 张德志
+        * :date last edited: 2024-09-30 20:04:03
+        */
+      `;
+
+        // 遍历资源添加注释
+        assets.forEach((asset) => {
+          const source = compilation.assets[asset].source;
+
+          const content = prefix + source;
+
+          // 修改资源
+          compilation.assets[asset] = {
+            source() {
+              return content;
+            },
+            size() {
+              return content.length;
+            },
+          };
+        });
+        callback();
+      },
+    );
+  }
+}
+
+module.exports = BannerWebpackPlugin;
+```
+
+### 自定义 ClearWebpackPlugin
+
+```js
+class ClearWebpackPlugin {
+  constructor() {}
+  apply(compiler) {
+    // 获取打包输出目录
+    const outputPath = compiler.options.output.path;
+
+    const fs = compiler.outputFileSystem;
+
+    // 注册钩子，在打包输出之前 emit
+    compiler.hooks.emit.tap('ClearWebpackPlugin', (compilation) => {
+      this.removeFiles(fs, outputPath);
+    });
+  }
+  removeFiles(fs, filePath) {
+    // 想要删除打包输出目录下所有资源，需要先将目录下的资源删除，才能删除这个目录
+    // 1. 读取当前目录下所有资源
+    if (fs?.readdirSync(filePath)) {
+      const files = filePath && fs.readdirSync(filePath);
+
+      files.forEach((file) => {
+        const path = `${filePath}/${file}`;
+        const fileStat = fs.statSync(path);
+
+        if (fileStat.isDirectory()) {
+          this.removeFiles(fs, path);
+        } else {
+          fs.unlinkSync(path);
+        }
+      });
+    }
+  }
+}
+
+module.exports = ClearWebpackPlugin;
+```
+
+### 联系我们
+
+1. ##### 关注我们
+
+<img src="https://cdn.xiaozhi.shop/digitwin/assets/weixin.jpg" width = 300 height = 300 />
+
+2. ##### 联系作者
+
+<img src="https://cdn.xiaozhi.shop/digitwin/assets/winxin.png" width = 300 height = 300 />
+<!-- 
+[last](https://www.bilibili.com/video/BV14T4y1z7sw/?p=75&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) -->

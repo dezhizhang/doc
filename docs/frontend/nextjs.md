@@ -41,11 +41,11 @@ What import alias would you like configured? @/*
 - Next.js 使用基于文件系统的路由器，其中使用文件夹来定义路由。
 - 每个文件夹代表一个映射到 URL 段的路由段。要创建嵌套路由，您可以将文件夹相互嵌套。
 
-![路由创建](../../public/next/image-3.png)
-![路由创建](../../public/next/image.png)
+![路由创建](https://cdn.xiaozhi.shop/doc/next/image-3.png)
+![路由创建](https://cdn.xiaozhi.shop/doc/next/image.png)
 
 - 浏览器上输入 localhost:3000 你将看到
-  ![alt text](../../public/next/image-1.png)
+  ![alt text](https://cdn.xiaozhi.shop/doc/next/image-1.png)
 
 ### 布局和模板
 
@@ -53,7 +53,7 @@ What import alias would you like configured? @/*
 
 - 布局是在多个路由之间共享的 UI。在导航时，布局保留状态、保持交互性并且不重新渲染。布局也可以嵌套。
 
-![根布局](../../public/next/layout-special-file.png)
+![根布局](https://cdn.xiaozhi.shop/doc/next/layout-special-file.png)
 
 ```js
 import type { Metadata } from 'next';
@@ -96,7 +96,7 @@ export default function RootLayout({
 
 - 模板与布局类似，它们包装子布局或页面。与跨路线持续存在并维护状态的布局不同，模板为导航上的每个子级创建一个新实例。这意味着当用户在共享模板的路由之间导航时，会安装子级的新实例，重新创建 DOM 元素，客户端组件中不会保留状态，并且会重新同步效果。
 
-![模板](../../public/next/template-special-file.png)
+![模板](https://cdn.xiaozhi.shop/doc/next/template-special-file.png)
 
 ```js
 export default function Template({ children }: { children: React.ReactNode }) {
@@ -108,7 +108,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
 
 - 模板与布局类似，它们包装子布局或页面。与跨路线持续存在并维护状态的布局不同，模板为导航上的每个子级创建一个新实例。这意味着当用户在共享模板的路由之间导航时，会安装子级的新实例，重新创建 DOM 元素，客户端组件中不会保留状态，并且会重新同步效果。
 
-![alt text](../../public/next/image-2.png)
+![alt text](https://cdn.xiaozhi.shop/doc/next/image-2.png)
 
 ### 元数据
 
@@ -232,7 +232,7 @@ export default function Home() {
 ```
 
 ### 未完待续 。。。。。。。。
-
+<!-- 
 ### 联系我们
 
 1. ##### 关注我们
@@ -241,7 +241,7 @@ export default function Home() {
 
 2. ##### 联系作者
 
-<img src="https://cdn.xiaozhi.shop/digitwin/assets/winxin.png" width = 300 height = 300 />
+<img src="https://cdn.xiaozhi.shop/digitwin/assets/winxin.png" width = 300 height = 300 /> -->
 
 <!-- [h5技术](https://www.bilibili.com/video/BV1Ao4y1m7ut/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8)
 [nextui](https://www.bilibili.com/video/BV1Jb4y1L7EH/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8)
