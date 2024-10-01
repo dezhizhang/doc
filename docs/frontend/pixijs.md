@@ -236,3 +236,131 @@ app.stage.addChild(graphics);
 document.body.appendChild(app.view as any);
 
 ```
+
+### 添加精灵
+
+- 精灵是 PixiJS 中最基本的图形对象，用于显示纹理。你可以从本地文件或网络加载图像。
+
+```js
+import * as PIXI from 'pixi.js';
+
+const app = new PIXI.Application({
+    width: window.innerWidth,
+    height: window.innerHeight,
+    background:0x1099bb,
+    resolution: window.devicePixelRatio || 1,
+});
+
+const graphics = new PIXI.Graphics();
+graphics.beginFill(0x0000ff,0.5);
+graphics.drawRect(150, 150, 100, 100);
+graphics.endFill();
+graphics.position.set(100,100);
+app.stage.addChild(graphics);
+
+// 创建纹理
+const texture = PIXI.Texture.from('./vite.svg');
+// 创建精灵
+const sprite = new PIXI.Sprite(texture);
+//  设置精灵位置
+sprite.x = app.screen.width / 2;
+sprite.y = app.screen.height / 2;
+
+app.stage.addChild(sprite);
+
+// 添加动画
+app.ticker.add((delta) => {
+    sprite.rotation += 0.01 * delta;
+})
+
+
+document.body.appendChild(app.view as any);
+```
+
+### 添加交互事件
+
+- PixiJS 允许你为精灵和图形添加交互事件，如点击、拖拽等。
+
+```js
+import * as PIXI from 'pixi.js';
+
+const app = new PIXI.Application({
+    width: window.innerWidth,
+    height: window.innerHeight,
+    background:0x1099bb,
+    resolution: window.devicePixelRatio || 1,
+});
+
+const graphics = new PIXI.Graphics();
+graphics.beginFill(0x0000ff,0.5);
+graphics.drawRect(150, 150, 100, 100);
+graphics.endFill();
+graphics.position.set(100,100);
+app.stage.addChild(graphics);
+
+// 创建纹理
+const texture = PIXI.Texture.from('./vite.svg');
+// 创建精灵
+const sprite = new PIXI.Sprite(texture);
+//  设置精灵位置
+sprite.x = app.screen.width / 2;
+sprite.y = app.screen.height / 2;
+// 交互事件
+//-----------------------------
+sprite.interactive = true; // 使精灵可交互
+sprite.on("click", () => {
+  console.log("click");
+});
+
+
+app.stage.addChild(sprite);
+
+// 添加动画
+app.ticker.add((delta) => {
+    sprite.rotation += 0.01 * delta;
+})
+
+
+document.body.appendChild(app.view as any);
+```
+
+### 加载纹理和资源
+
+- PixiJS 提供了资源加载器，可以加载多个图像和纹理。
+
+```js
+import * as PIXI from 'pixi.js';
+
+const app = new PIXI.Application({
+    width: window.innerWidth,
+    height: window.innerHeight,
+    background: 0x1099bb,
+    resolution: window.devicePixelRatio || 1,
+});
+
+const graphics = new PIXI.Graphics();
+graphics.beginFill(0x0000ff, 0.5);
+graphics.drawRect(150, 150, 100, 100);
+graphics.endFill();
+graphics.position.set(100, 100);
+app.stage.addChild(graphics);
+
+// 资源管理
+PIXI.Assets.add("vite", "./textuer/vite.svg");
+
+const texturePromise = PIXI.Assets.load(['vite']);
+texturePromise.then((textures) => {
+    const sprite = new PIXI.Sprite(textures.vite);
+    sprite.x = app.screen.width / 2;
+    sprite.y = app.screen.height / 2;
+
+    sprite.anchor.set(0.5);
+
+    sprite.scale.set(1.5);
+    app.stage.addChild(sprite);
+
+})
+
+
+document.body.appendChild(app.view as any);
+```
