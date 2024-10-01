@@ -1,5 +1,11 @@
 # 探索 PixiJS：强大的 2D 图形渲染库
 
+1. ##### 演示地址 [演示地址](https://www.shuqin.cc/market/design-component)
+2. ##### 源码地址 [源码地址](https://github.com/dezhizhang/metaverse/tree/main/pixijs)
+3. ##### 获取更多 [获取更多](https://www.xiaozhi.shop/)
+
+
+
 - 随着 Web 技术的发展，越来越多的开发者希望在网页中实现丰富的视觉效果和动画。PixiJS 作为一个高性能的 2D 渲染库，凭借其强大的功能和易用性，成为了许多游戏和互动应用开发者的首选。本文将深入探讨 PixiJS 的特点、应用场景以及核心功能，帮助你更好地理解并应用这个库。
 
 ### 什么是 PixiJS？
@@ -442,3 +448,146 @@ sprite.on('pointerout',() => {
 
 document.body.appendChild(app.view as any);
 ```
+
+### 粒子系统
+
+- 粒子系统是创建烟雾、火焰、雨雪等视觉效果的重要工具。PixiJS 提供了 PIXI.ParticleContainer 和 PIXI.particles.ParticleContainer 来高效处理大量粒子。
+
+1. ##### 安装 PixiJS 的粒子系统模块：
+
+```bash
+npm install @pixi/particles
+```
+
+2. ##### 然后，可以创建一个简单的粒子系统：
+
+```js
+import * as PIXI from 'pixi.js';
+import { Emitter } from '@pixi/particle-emitter';
+
+// 创建一个PixiJS应用
+const app = new PIXI.Application({
+  width: window.innerWidth,
+  height: window.innerHeight,
+  background: 0x1099bb,
+  resolution: window.devicePixelRatio || 1,
+});
+
+
+// 创建一个容器来放置粒子发射器
+const container = new PIXI.Container();
+app.stage.addChild(container);
+
+// 粒子发射器的配置
+const config = {
+  lifetime: { min: 0.5, max: 0.5 },
+  frequency: 0.008,
+  spawnChance: 1,
+  particlesPerWave: 1,
+  emitterLifetime: 0.31,
+  maxParticles: 1000,
+  pos: { x: 0, y: 0 },
+  addAtBack: false,
+  behaviors: [
+    {
+      type: 'alpha',
+      config: {
+        alpha: {
+          list: [
+            { value: 0.8, time: 0 },
+            { value: 0, time: 1 }
+          ]
+        }
+      }
+    }
+  ]
+};
+
+// 创建粒子发射器
+const emitter = new Emitter(container, config);
+
+// 启动粒子发射器
+emitter.emit = true;
+
+// 更新粒子发射器
+app.ticker.add(() => {
+  emitter.update(app.ticker.deltaTime * 0.001);
+});
+
+document.body.appendChild(app.view as any);
+```
+
+### 物理引擎集成
+
+- 在游戏开发中，物理引擎用于处理碰撞、重力和其他物理效果。常用的物理引擎有 Matter.js 和 Box2D。下面以 Matter.js 为例。
+
+1. ##### 安装 Matter.js：
+
+```js
+npm install matter-js
+```
+
+2. ##### 然后，集成到 PixiJS 应用中：
+```js
+import * as PIXI from 'pixi.js';
+import Matter from 'matter-js';
+
+// 创建一个PixiJS应用
+const app = new PIXI.Application({
+  width: window.innerWidth,
+  height: window.innerHeight,
+  background: 0x1099bb,
+  resolution: window.devicePixelRatio || 1,
+});
+
+ 
+// 创建 Matter.js 引擎
+const engine = Matter.Engine.create();
+const world = engine.world;
+
+// 创建地面
+const ground = Matter.Bodies.rectangle(400, 580, 810, 60, { isStatic: true });
+Matter.World.add(world, [ground]);
+
+// 创建可移动的物体
+const box = Matter.Bodies.rectangle(400, 200, 80, 80);
+Matter.World.add(world, [box]);
+
+const texture = PIXI.Texture.from("./texture/vite.svg");
+// 创建精灵
+const sprite = new PIXI.Sprite(texture);
+//  设置精灵位置
+sprite.x = app.screen.width / 2;
+sprite.y = app.screen.height / 2;
+app.stage.addChild(sprite);
+
+
+app.ticker.add(() => {
+    Matter.Engine.update(engine); // 更新物理引擎
+
+    // 更新 PixiJS 中的图形位置
+    sprite.x = box.position.x;
+    sprite.y = box.position.y;
+    sprite.rotation = box.angle;
+});
+
+Matter.Events.on(engine, 'collisionStart', (event) => {
+  const pairs = event.pairs;
+  pairs.forEach(pair => {
+      console.log('Collision detected between', pair.bodyA, 'and', pair.bodyB);
+  });
+});
+
+
+document.body.appendChild(app.view as any);
+```
+
+### 联系我们
+
+1. ##### 关注我们
+
+<img src="https://cdn.xiaozhi.shop/digitwin/assets/weixin.jpg" width = 300 height = 300 />
+
+2. ##### 联系作者
+
+<img src="https://cdn.xiaozhi.shop/digitwin/assets/winxin.png" width = 300 height = 300 />
