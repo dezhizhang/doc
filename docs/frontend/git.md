@@ -6,6 +6,24 @@
 
 - Git 是一个分布式版本控制系统，旨在高效地处理从小型到大型的项目。与传统的版本控制系统不同，Git 允许每个开发者在本地拥有一个完整的版本库，这使得协作和分支管理变得更加灵活。
 
+### git 工作流
+
+- 首先我们的了解 Git 通常的操作流程，网上流行的不错一张图
+  ![alt text](../../public/git/work.png)
+
+- 工作区:
+  本地项目存放文件的位置,可以理解成图上的 workspace
+
+- 暂存区 (Index/Stage):
+  顾名思义就是暂时存放文件的地方，通过是通过 add 命令将工作区的文件添加到缓冲区
+
+- 本地仓库（Repository）
+  通常情况下，我们使用 commit 命令可以将暂存区的文件添加到本地仓库,通常而言，HEAD 指针指向的就是 master 分支
+
+- 远程仓库（Remote）
+
+举个例子，当我们使用 GitHub 托管我们项目时，它就是一个远程仓库。通常我们使用 clone 命令将远程仓库代码拷贝下来，本地代码更新后，通过 push 托送给远程仓库。
+
 ### Git 安装指南
 
 1. ##### Windows
@@ -201,7 +219,165 @@ git tag
 git tag -d 标签名
 ```
 
-[last](https://www.bilibili.com/video/BV1MU4y1Y7h5/?p=5&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8)
+5. ##### 推送标签到远程
 
-<div align="center"><a href="https://xiaozhi.shop">贵州晓智信息科技公众号</a></div>
-<div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
+```bash
+git push origin 标签名
+```
+
+6. ##### 推送标签到远程
+
+```bash
+git push origin 标签名
+```
+
+7. ##### 修补提交
+
+- 如果你需要修改最近的提交，可以使用
+
+```bash
+git commit --amend
+```
+
+8. ##### 查看具体提交的更改
+
+```bash
+git show 提交哈希
+```
+
+9. ##### 图形化查看提交历史
+
+```bash
+git log --graph --oneline --decorate --all
+```
+
+10. ##### 查找文件的历史
+
+```bash
+git log -- 文件名
+```
+
+11. ##### 解决冲突
+
+- 在合并或变基时发生冲突后，解决冲突后继续操作：
+
+```bash
+git add 解决的文件
+git rebase --continue  # 或者 git merge --continue
+```
+
+12. ##### 添加子模块
+
+- 子模块可以管理依赖于其他 Git 仓库的项目
+
+```bash
+git submodule add 仓库地址
+```
+
+12. ##### 初始化和更新子模块
+
+```bash
+git submodule init
+git submodule update
+```
+
+13. ##### Cherry-Pick
+
+- Cherry-pick 允许你从其他分支选择特定的提交
+
+```bash
+git cherry-pick 提交哈希
+```
+
+14. ##### 撤销未暂存的更改
+
+```bash
+git checkout -- 文件名
+```
+
+15. ##### 撤销已暂存的更改
+
+```bash
+git reset HEAD 文件名
+```
+
+16. ##### 查看某个文件在不同版本之间的差异
+
+```bash
+git diff 提交哈希1 提交哈希2 -- 文件名
+```
+
+17. ##### 查看远程信息
+
+```bash
+git remote -v
+```
+
+18. ##### 添加远程仓库
+
+```bash
+git remote add origin 仓库地址
+```
+
+19. ##### 推送到远程仓库
+
+```bash
+git push origin 分支名
+```
+
+20. ##### 推送所有分支到远程
+
+```bash
+git push --all origin
+```
+
+20. ##### 版本回滚
+
+```bash
+git revert 提交哈希
+```
+
+### 分支命名规范
+
+![分支命名规范](../../public/git/banch.png)
+
+
+### 忽略文件 .gitignore
+
+- 这个文件的作用，会去忽略一些不需要纳入 Git 管理这种，我们也不希望出现在未跟踪文件列表,那么我们来看看如何配置该文件信息。
+
+```bash
+# 此行为注释 会被Git忽略
+
+# 忽略 node_modules/ 目录下所有的文件
+node_modules
+
+
+# 忽略所有.vscode结尾的文件
+.vscode
+
+# 忽略所有.md结尾的文件
+*.md
+
+# 但README.md 除外
+!README.md
+
+# 会忽略 doc/something.txt 但不会忽略doc/images/arch.txt
+doc/*.txt
+
+# 忽略 doc/ 目录下所有扩展名为txt文件
+
+doc/**/*.txt
+```
+
+<!-- [last](https://www.bilibili.com/video/BV1MU4y1Y7h5/?p=5&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) -->
+
+### 联系我们
+
+1. ##### 关注我们
+
+<img src="https://cdn.xiaozhi.shop/digitwin/assets/weixin.jpg" width = 300 height = 300 />
+
+2. ##### 联系作者
+
+<img src="https://cdn.xiaozhi.shop/digitwin/assets/winxin.png" width = 300 height = 300 />

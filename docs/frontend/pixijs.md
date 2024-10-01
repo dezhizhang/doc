@@ -448,6 +448,7 @@ sprite.on('pointerout',() => {
 
 document.body.appendChild(app.view as any);
 ```
+<<<<<<< HEAD
 
 ### 粒子系统
 
