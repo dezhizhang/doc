@@ -83,3 +83,156 @@ app.stage.addChild(circle);
 
 document.body.appendChild(app.view as any);
 ```
+
+### 常见图元绘制
+
+1. ##### 绘制矩形
+
+- 绘制矩形可以使用 drawRect 方法。需要指定矩形的位置和尺寸：
+
+```js
+import * as PIXI from 'pixi.js';
+
+const app = new PIXI.Application({
+    width: window.innerWidth,
+    height: window.innerHeight,
+    background: 0x1099bb,
+    resolution: window.devicePixelRatio || 1
+});
+
+
+const graphics = new PIXI.Graphics();
+graphics.beginFill(0xff0000);
+graphics.drawRect(50,50,100,100);
+graphics.endFill();
+graphics.position.set(100,100);
+app.stage.addChild(graphics);
+
+document.body.appendChild(app.view as any);
+```
+
+2. ##### 绘制圆形
+
+- 使用 drawCircle 方法可以绘制圆形。需要指定圆心坐标和半径：
+
+```js
+import * as PIXI from 'pixi.js';
+
+const app = new PIXI.Application({
+    width: window.innerWidth,
+    height: window.innerHeight,
+    background: 0x1099bb,
+    resolution: window.devicePixelRatio || 1
+});
+
+const graphics = new PIXI.Graphics();
+graphics.beginFill(0xff0000);
+graphics.drawCircle(200, 200, 50);
+graphics.endFill();
+graphics.position.set(100,100);
+app.stage.addChild(graphics);
+
+
+document.body.appendChild(app.view as any);
+
+```
+
+3. ##### 绘制线条
+
+- 使用 lineStyle 方法设置线条的样式，然后使用 moveTo 和 lineTo 方法绘制线条：
+
+```js
+import * as PIXI from 'pixi.js';
+
+const app = new PIXI.Application({
+    width: window.innerWidth,
+    height: window.innerHeight,
+    background: 0x1099bb,
+    resolution: window.devicePixelRatio || 1
+});
+
+const graphics = new PIXI.Graphics();
+graphics.lineStyle(2,0x0000ff);
+graphics.moveTo(300, 50);
+graphics.lineTo(400, 150);
+graphics.endFill();
+graphics.position.set(100,100);
+app.stage.addChild(graphics);
+
+document.body.appendChild(app.view as any);
+
+```
+
+4. ##### 绘制多边形
+
+- 使用 drawPolygon 方法可以绘制多边形。你需要传递一个数组，定义多边形的各个顶点：
+
+```js
+import * as PIXI from 'pixi.js';
+
+const app = new PIXI.Application({
+    width: window.innerWidth,
+    height: window.innerHeight,
+    background:0x1099bb,
+    resolution: window.devicePixelRatio || 1,
+});
+
+const graphics = new PIXI.Graphics();
+graphics.beginFill(0xffff00);
+const points = [100, 100, 150, 50, 200, 100];
+graphics.drawPolygon(points);
+graphics.endFill();
+graphics.position.set(100,100);
+app.stage.addChild(graphics);
+
+document.body.appendChild(app.view as any);
+
+```
+
+5. ##### 绘制贝塞尔曲线
+
+- 使用 bezierCurveTo 方法可以绘制贝塞尔曲线。需要指定控制点和终点：
+
+```js
+import * as PIXI from 'pixi.js';
+
+const app = new PIXI.Application({
+    width: window.innerWidth,
+    height: window.innerHeight,
+    background:0x1099bb,
+    resolution: window.devicePixelRatio || 1,
+});
+
+const graphics = new PIXI.Graphics();
+graphics.lineStyle(2,0xff00ff);
+graphics.moveTo(400, 200);
+graphics.bezierCurveTo(450, 100, 500, 300, 600, 200);
+graphics.position.set(100,100);
+app.stage.addChild(graphics);
+
+document.body.appendChild(app.view as any);
+
+```
+
+6. ##### 设置透明度和线条样式
+
+```js
+import * as PIXI from 'pixi.js';
+
+const app = new PIXI.Application({
+    width: window.innerWidth,
+    height: window.innerHeight,
+    background:0x1099bb,
+    resolution: window.devicePixelRatio || 1,
+});
+
+const graphics = new PIXI.Graphics();
+graphics.beginFill(0x0000ff,0.5);
+graphics.drawRect(150, 150, 100, 100);
+graphics.endFill();
+graphics.position.set(100,100);
+app.stage.addChild(graphics);
+
+document.body.appendChild(app.view as any);
+
+```
