@@ -1,11 +1,9 @@
 # webpack
 
-| 项目     | 地址                                                        |
-| :------- | :---------------------------------------------------------- |
-| 晓智科技 | [晓智科技](https://xiaozhi.shop)                            |
-| 晓智文档 | [晓智文档](http://localhost:8000/backend/algorithm)         |
-| 源码地址 | [源码地址](https://github.com/dezhizhang/interview/webpack) |
-| 文档源码 | [文档源码](https://github.com/dezhizhang/doc)               |
+### 相关链接
+
+[演示地址](https://www.shuqin.cc/market/design-component)
+[源码地址](https://github.com/dezhizhang/interview/webpack)
 
 ### 处理 css 资源
 
