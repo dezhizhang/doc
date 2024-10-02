@@ -61,6 +61,118 @@ git config --global user.name "你的名字"
 git config --global user.email "你的邮箱"
 ```
 
+### git 常用命令
+
+1. ##### 创建新仓库
+
+```bash
+git init
+```
+
+2. ##### 克隆远程仓库
+
+```bash
+git clone 仓库地址
+```
+
+3. ##### 查看当前状态
+
+```bash
+git status
+```
+
+4. ##### 查看变更（未暂存和已暂存）：
+
+```bash
+git diff           # 未暂存的变更
+git diff --cached  # 已暂存的变更
+```
+
+5. ##### 添加文件到暂存区
+
+```bash
+git add 文件名
+git add .          # 添加所有变更
+```
+
+6. ##### 提交变更
+
+```bash
+git commit -m "提交信息"
+```
+
+7. ##### 查看所有分支
+
+```bash
+git branch
+```
+
+8. ##### 创建新分支
+
+```bash
+git branch 新分支名
+```
+
+9. ##### 切换分支
+
+```bash
+git checkout 分支名
+```
+
+10. ##### 切换分支
+
+```bash
+git merge 分支名
+```
+
+11. ##### 删除分支
+
+```bash
+git branch -d 分支名
+```
+
+12. ##### 添加远程仓库
+
+```bash
+git remote add origin 仓库地址
+```
+
+13. ##### 推送到远程仓库
+
+```bash
+git push origin 分支名
+```
+
+14. ##### 拉取远程变更
+
+```bash
+git pull
+```
+
+15. ##### 查看提交历史
+
+```bash
+git log
+```
+
+16. ##### 查看简洁历史
+
+```bash
+git log --oneline
+```
+
+17. ##### 重置当前分支的 HEAD 到某个提交
+
+```bash
+git reset --hard 提交哈希
+```
+
+18. ##### 解决合并冲突后继续合并
+
+```bash
+git merge --continue
+```
+
 [last](https://www.bilibili.com/video/BV1MU4y1Y7h5/?p=5&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8)
 
 <div align="center"><a href="https://xiaozhi.shop">贵州晓智信息科技公众号</a></div>
