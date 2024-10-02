@@ -173,6 +173,34 @@ git reset --hard 提交哈希
 git merge --continue
 ```
 
+### git 高级命令
+
+1. ##### 交互式暂存
+
+- 使用 git add -p，你可以逐块选择需要暂存的改动，使提交更精确
+
+```bash
+git add -p
+```
+
+2. ##### 创建标签
+
+```bash
+git tag -a 标签名 -m "说明"
+```
+
+3. ##### 查看标签
+
+```bash
+git tag
+```
+
+4. ##### 删除标签
+
+```bash
+git tag -d 标签名
+```
+
 [last](https://www.bilibili.com/video/BV1MU4y1Y7h5/?p=5&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8)
 
 <div align="center"><a href="https://xiaozhi.shop">贵州晓智信息科技公众号</a></div>
