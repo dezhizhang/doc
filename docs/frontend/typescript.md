@@ -285,3 +285,192 @@ class Dog implements Animal {
 const dog = new Dog('tom');
 dog.speak();
 ```
+
+### 真值缩小
+
+- 是 TypeScript 中的一种类型缩小（type narrowing）机制。它基于条件语句的布尔上下文来自动推断和缩小变量的类型。当 TypeScript 确定某些类型在布尔上下文中总是 false（如 null 或 undefined），它就会根据代码路径排除掉不可能的类型，从而缩小变量的类型范围。
+
+```js
+function printAll(strs: string | string[] | null) {
+  if (strs && typeof strs === 'object') {
+    for (const s of strs) {
+      console.log(s);
+    }
+  } else if (typeof strs === 'string') {
+    console.log(strs);
+  }
+}
+```
+
+### 等值缩小
+
+- 是 TypeScript 中的一种类型缩小机制，它通过等值比较（例如 ===、!==、==、!=）自动推断并缩小变量的类型。在进行等值比较时，TypeScript 会根据比较的结果来排除不可能的类型，从而缩小变量的类型范围。
+
+##### 使用 === 和 !== 判断基本类型
+
+- 当使用严格相等（===）和不相等（!==）运算符时，TypeScript 会自动缩小变量的类型。例如：
+
+```js
+function checkValue(x: string | number | boolean) {
+  if (x === 'hello') {
+    // x 被缩小为 "hello" 字符串字面量类型
+    console.log("x is the string 'hello'");
+  } else if (x === 42) {
+    // x 被缩小为数字字面量类型 42
+    console.log('x is the number 42');
+  } else {
+    // x 被缩小为剩余的类型 boolean | number | string
+    console.log('x is either a number, boolean, or other string');
+  }
+}
+```
+
+- 在这个例子中，x === "hello" 和 x === 42 的判断分别缩小了 x 的类型。TypeScript 能够推断出对应的精确字面量类型或联合类型。
+
+##### 联合类型中的等值缩小
+
+- 等值缩小对于处理联合类型特别有用，尤其是在判断一个变量属于哪个具体的类型时。
+
+```js
+function handleInput(input: string | number | boolean | null) {
+  if (input === null) {
+    // input 被缩小为 null
+    console.log('Input is null');
+  } else if (typeof input === 'string') {
+    // input 被缩小为 string
+    console.log(`String input: ${input}`);
+  } else if (typeof input === 'number') {
+    // input 被缩小为 number
+    console.log(`Number input: ${input}`);
+  } else {
+    // input 被缩小为 boolean
+    console.log(`Boolean input: ${input}`);
+  }
+}
+```
+
+- 通过等值比较 input === null，我们可以有效地缩小变量的类型并进行安全的类型操作。
+
+##### 处理字面量类型
+
+- TypeScript 支持字面量类型的等值缩小。可以通过比较变量的值来缩小到特定的字面量类型。
+
+```js
+type TrafficLight = 'red' | 'green' | 'yellow';
+
+function operateLight(light: TrafficLight) {
+  if (light === 'red') {
+    // light 被缩小为 "red" 类型
+    console.log(light);
+  } else if (light === 'green') {
+    //  light 被缩小为 "green" 类型
+    console.log(light);
+  } else {
+    // light 被缩小为 "yellow" 类型
+    console.log(light);
+  }
+}
+
+console.log(operateLight('red'));
+```
+
+- 在这个例子中，light === "red"、light === "green" 的判断将变量缩小为相应的字面量类型，使得我们可以针对特定值编写逻辑。
+
+##### 使用 in 操作符
+
+- 当判断对象是否具有某个属性时，in 操作符也可以帮助缩小类型。例如：
+
+```js
+interface Dog {
+  bark: () => void;
+}
+
+interface Cat {
+  meow: () => void;
+}
+
+function makeSound(animal: Dog | Cat) {
+  if ('bark' in animal) {
+    // animal 被缩小为 Dog 类型
+    animal.bark();
+  } else {
+    // animal 被缩小为 Cat 类型
+    animal.meow();
+  }
+}
+```
+
+- 通过 in 操作符，TypeScript 可以缩小联合类型为具有该属性的具体类型。
+
+##### 等值缩小与 switch 语句
+
+- switch 语句同样可以通过等值缩小有效推断类型。它能够自动处理不同的分支，缩小变量的类型。
+
+```js
+type Direction = 'north' | 'south' | 'east' | 'west';
+
+function handleDirection(direction: Direction) {
+  switch (direction) {
+    case 'north':
+      console.log('Going north');
+      break;
+    case 'south':
+      console.log('Going south');
+      break;
+    case 'east':
+      console.log('Going east');
+      break;
+    case 'west':
+      console.log('Going west');
+      break;
+  }
+}
+```
+
+- 在这个例子中，switch 的每个分支将 direction 缩小为具体的字面量类型，使代码更加类型安全。
+
+##### 使用 instanceof 操作符
+
+- instanceof 操作符也可以用于缩小对象的类型。它通常用于判断对象的类或构造函数。
+
+```js
+class Dog {
+  bark() {
+    console.log('Woof!');
+  }
+}
+
+class Cat {
+  meow() {
+    console.log('Meow!');
+  }
+}
+
+function speak(pet: Dog | Cat) {
+  if (pet instanceof Dog) {
+    // pet 被缩小为 Dog
+    pet.bark();
+  } else {
+    // pet 被缩小为 Cat
+    pet.meow();
+  }
+}
+```
+
+- 通过 instanceof，我们可以将 pet 缩小为 Dog 或 Cat 类实例，从而安全地调用其方法。
+
+##### 使用 == 和 !=
+
+- 虽然不推荐使用宽松的相等运算符（== 和 !=），但 TypeScript 仍然支持基于它们的类型缩小。只不过 TypeScript 对 === 和 !== 的处理会更加严格和精确。
+
+```js
+function compareValue(value: string | number | null) {
+  if (value == null) {
+    // value 被缩小为 null 或 undefined
+    console.log('Value is null or undefined');
+  } else {
+    console.log(`Value is not null: ${value}`);
+  }
+}
+```
+- value == null 会缩小 value 为 null 或 undefined，这是一种常见的用于简洁判断空值的写法。
