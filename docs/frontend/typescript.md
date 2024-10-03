@@ -127,8 +127,161 @@ const obj: object = { name: 'Alice' };
 ```
 
 ###### 类型断言
+
 - 类型断言可以明确告诉 TypeScript 变量的具体类型，这有点类似于类型转换。
+
 ```js
 const someValue: any = "this is a string";
 const strLength: number = (someValue as string).length;
+```
+
+### 接口类型
+
+##### 基本接口类型
+
+- 接口用于定义对象的属性及其类型：
+
+```js
+interface Person {
+  name: string;
+  age: number;
+}
+
+const user: Person = {
+  name: 'Alice',
+  age: 35,
+};
+
+console.log(user.age);
+```
+
+- 在上面的例子中，Person 接口规定了一个对象必须包含 name 和 age 两个属性，且 name 是字符串，age 是数字。
+
+##### 可选属性接口类型
+
+- 使用 ? 可以标识接口中的可选属性。
+
+```js
+interface Person {
+  name: string;
+  age?: number;
+}
+
+const user1: Person = {
+  name: 'Alice',
+};
+
+const user2: Person = {
+  name: 'Bob',
+  age: 30,
+};
+
+console.log(user2.name);
+```
+
+- 在这个例子中，age 属性是可选的，user1 没有 age 属性也是合法的。
+
+##### 只读属性接口类型
+
+- 使用 readonly 可以将属性设置为只读，一旦对象被初始化，就无法修改该属性。
+
+```js
+interface Person {
+  readonly id: number;
+  name: string;
+}
+
+const user: Person = {
+  id: 1,
+  name: "Alice",
+};
+
+console.log(user.name);
+```
+
+##### 函数类型接口类型
+
+- 接口也可以用于定义函数类型。以下示例定义了一个接受两个参数的函数，并且返回一个数字：
+
+```js
+interface Add {
+  (x: number, y: number): number;
+}
+
+const add: Add = (a, b) => a + b;
+
+console.log(add(1, 2));
+```
+
+##### 索引签名接口
+
+- 索引签名允许你动态地访问对象的属性。
+
+```js
+interface StringArray {
+  [index: number]: string;
+}
+
+let arr: StringArray = ['Alice', 'Bob'];
+console.log(arr);
+// 你还可以使用字符串索引签名：
+//-------------------------------------
+
+interface Dictionary {
+  [key: string]: string;
+}
+
+let dict: Dictionary = {
+  name: 'tom',
+  city: '广州',
+};
+
+console.log(dict.name);
+```
+
+##### 接口类型继承
+
+- 接口可以通过 extends 关键字来继承其他接口，进行扩展。
+
+```js
+interface Person {
+  name: string;
+}
+
+interface Employee extends Person {
+  employeeId: number;
+}
+
+let emp: Employee = {
+  name: 'Bob',
+  employeeId: 123,
+};
+
+console.log(emp.employeeId);
+```
+
+- 在这个例子中，Employee 接口继承了 Person，所以 Employee 必须包含 name 和 employeeId 两个属性。
+
+##### 接口类型实现
+
+- 接口可以通过 implements 关键字约束类，使得类必须实现接口中定义的所有属性和方法。
+
+```js
+interface Animal {
+  name: string;
+  speak(): void;
+}
+
+class Dog implements Animal {
+  name: string;
+  constructor(name: string) {
+    this.name = name;
+  }
+  speak(): void {
+    console.log(`${this.name} barks.`);
+  }
+}
+
+const dog = new Dog('tom');
+dog.speak();
 ```
