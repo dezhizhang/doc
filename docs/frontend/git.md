@@ -1,5 +1,9 @@
 # 深入理解 Git 一个开发者的必备工具
 
+1. ##### 演示地址 [演示地址](https://www.shuqin.cc/market/design-component)
+2. ##### 获取更多 [获取更多](https://www.xiaozhi.shop/)
+
+
 - 在现代软件开发中，版本控制系统扮演着至关重要的角色。其中，Git 是最流行的选择之一。无论你是新手还是有经验的开发者，了解 Git 的基本概念和使用方法都能大大提升你的工作效率。
 
 ### 什么是 Git？
@@ -9,7 +13,7 @@
 ### git 工作流
 
 - 首先我们的了解 Git 通常的操作流程，网上流行的不错一张图
-  ![alt text](../../public/git/work.png)
+  ![alt text](https://cdn.xiaozhi.shop/doc/git/work.png)
 
 - 工作区:
   本地项目存放文件的位置,可以理解成图上的 workspace
@@ -367,7 +371,7 @@ git revert 提交哈希
 
 ### 分支命名规范
 
-![分支命名规范](../../public/git/banch.png)
+![分支命名规范](https://cdn.xiaozhi.shop/doc/git/banch.png)
 
 
 ### 忽略文件 .gitignore
