@@ -473,4 +473,71 @@ function compareValue(value: string | number | null) {
   }
 }
 ```
+
 - value == null 会缩小 value 为 null 或 undefined，这是一种常见的用于简洁判断空值的写法。
+
+### 函数在 TS 中的使用
+
+- 在 TypeScript 中，函数是最重要的编程结构之一。它允许你封装逻辑并重用代码。与 JavaScript 类似，TypeScript 中的函数具有更多的类型支持和静态检查功能。你可以为函数的参数、返回值和回调函数指定类型，从而提高代码的可读性和类型安全性。
+
+##### 函数声明
+
+- 在 TypeScript 中，声明一个函数的语法和 JavaScript 类似，但你可以为函数的参数和返回值指定类型。
+
+```js
+function add(x: number, y: number): number {
+  return x + y;
+}
+```
+
+##### 匿名函数
+
+- 你可以将函数作为值赋给变量。这样的函数叫做匿名函数或函数表达式。
+
+```js
+const subtract = function (x: number, y: number): number {
+  return x - y;
+};
+```
+
+##### 箭头函数
+
+- TypeScript 支持箭头函数（arrow function），这种写法更加简洁。箭头函数的类型注解与普通函数相同
+
+```js
+const multiply = (x: number, y: number): number => x * y;
+```
+
+##### 可选参数
+
+- 在 TypeScript 中，函数的参数可以是可选的。你可以通过在参数名后添加 ? 来实现可选参数。可选参数必须位于参数列表的最后。
+
+```js
+function greet(name: string, greeting?: string): string {
+  if (greeting) {
+    return `${greeting}, ${name}!`;
+  } else {
+    return `Hello, ${name}!`;
+  }
+}
+```
+
+##### 默认参数
+
+- 你可以为函数参数指定默认值。如果调用函数时未传递该参数，TypeScript 会使用默认值。
+
+```js
+function greet(name: string, greeting: string = 'Hello'): string {
+  return `${greeting}, ${name}!`;
+}
+```
+
+##### 剩余参数（Rest Parameters）
+
+- TypeScript 支持函数的剩余参数，它允许你将多个参数作为数组传递给函数。
+
+```js
+function sum(...numbers: number[]): number {
+  return numbers.reduce((total, num) => total + num, 0);
+}
+```
