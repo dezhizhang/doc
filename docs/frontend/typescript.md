@@ -688,3 +688,102 @@ console.log(concatStrings('a', 'b', 'c'));
 ```
 
 - 在这个例子中，TypeScript 自动推断出 strings 是一个 string[] 类型数组。
+
+### 对象类型
+
+- 在 TypeScript 中，对象类型 是用来定义对象结构和其属性类型的。对象类型可以指定对象的属性名称和对应的类型，使代码更加清晰、可维护，并能提供编译时的类型检查。
+
+1. ##### 基本对象类型
+
+- 对象类型可以通过显式地列出属性名称和它们的类型来定义。使用 : 后面紧跟具体的类型声明。
+
+```js
+let person: {
+  name: string,
+  age: number,
+};
+
+person = {
+  name: 'Alice',
+  age: 25,
+};
+
+console.log(person.name);
+```
+
+- person 是一个对象，它必须具有 name 属性（类型为 string）和 age 属性（类型为 number）。
+- 如果对象的结构与指定的类型不匹配（例如缺少属性或类型不符），TypeScript 会抛出错误。
+
+2. ##### 可选属性
+
+- 可以通过在属性名后面加上 ?，将属性标记为可选属性。可选属性允许对象的某些属性可以不存在。
+
+```js
+let car: { make: string, model?: string };
+car = { make: 'Toyota' };
+car = { make: 'Ford', model: 'Mustang' };
+
+console.log(car);
+```
+
+- 在这个例子中，model 是一个可选属性，意味着对象 car 可以有或没有 model 属性。
+
+3. ##### 只读属性
+
+- 使用 readonly 关键字可以定义只读属性。只读属性在对象初始化时可以被赋值，但之后不能被修改。
+
+```js
+let book: {
+  title: string;
+  readonly author: string;
+};
+
+book = {
+  title: "TypeScript",
+  author: "Dan",
+};
+
+book.author = "Alice"; // 错误: 不能修改只读属性
+```
+
+- 在这个例子中，author 是只读属性，因此一旦被赋值，就不能再被修改。
+
+4. ##### 索引签名
+
+- 索引签名允许我们定义对象的动态属性名称，即对象可以有任意数量的属性，只要这些属性的名称和类型符合定义的规则。
+
+```js
+let user: { [key: string]: string };
+
+user = {
+  name: 'Alice',
+  email: 'alice@example.com',
+};
+
+console.log(user.name);
+```
+
+- user 对象可以有任意数量的属性，属性名称是 string 类型，属性值也必须是 string 类型。
+- 索引签名的常用场景包括处理动态键名或处理键值对结构的数据。
+
+5. ##### 对象类型与函数
+
+- 对象类型还可以包含方法，即对象的某些属性可以是函数类型。
+
+```js
+let person: {
+  name: string,
+  greet: () => void,
+};
+
+person = {
+  name: 'Alice',
+  greet() {
+    console.log('Hello, ' + this.name);
+  },
+};
+
+person.greet();
+```
+6. ##### 使用接口定义对象类型
+- 对于复杂的对象类型，可以使用 接口（interface）来定义对象类型的结构。相比直接定义对象类型，接口提供了更简洁的语法，并且接口可以扩展或继承其他接口。
