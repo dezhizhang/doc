@@ -541,3 +541,79 @@ function sum(...numbers: number[]): number {
   return numbers.reduce((total, num) => total + num, 0);
 }
 ```
+
+### 函数重载
+
+- 是 TypeScript 提供的一项功能，允许你为同一个函数定义多个函数签名，从而支持不同类型的参数组合。通过函数重载，可以让函数在接收不同类型或数量的参数时，执行不同的逻辑，同时保持类型安全。
+
+1. ##### 基本用法
+
+- 函数重载由多个函数签名和一个函数实现组成。函数签名声明了函数不同的调用方式，而函数实现包含了函数的实际逻辑。类型检查器会基于传入的参数类型来选择最匹配的重载签名。
+
+```js
+function combine(input1: string, input2: string): string;
+function combine(input1: number, input2: number): number;
+
+// 函数实现
+function combine(input1: any, input2: any): any {
+  if (typeof input1 === "string" && typeof input2 === "string") {
+    return input1 + input2; // 拼接字符串
+  }
+
+  if (typeof input1 === "number" && typeof input2 === "number") {
+    return input1 + input2; // 数值相加
+  }
+}
+
+console.log(combine("Hello", "World")); // 输出: HelloWorld
+console.log(combine(10, 20));
+```
+
+- 函数有两个签名，一个接受两个 string 参数，另一个接受两个 number 参数。
+- 函数实现使用 any 类型，以便能够处理不同类型的输入。
+- 根据参数类型，函数会执行不同的逻辑。
+
+2. ##### 多个参数类型重载
+
+- 你可以为函数定义多个不同的参数组合，使其适应多种调用情况。
+
+```js
+function greet(person: string): string;
+function greet(person: string, age: number): string;
+
+function greet(person: string, age?: number): string {
+  if (age) {
+    return `Hello ${person}, you are ${age} years old.`;
+  }
+  return `Hello ${person}!`;
+}
+
+console.log(greet("tom"));
+console.log(greet("bob", 30));
+```
+
+2. ##### 返回值类型不同的重载
+
+- 函数重载不仅可以用于参数类型不同的情况，还可以处理返回值类型不同的情况。
+
+```js
+function parseInput(input: string): string[];
+function parseInput(input: number): number[];
+
+function parseInput(input: string | number): string[] | number[] {
+  if (typeof input === "string") {
+    return input.split(" ");
+  }
+
+  if (typeof input === "number") {
+    return input.toString().split(" ").map(Number);
+  }
+
+  return [];
+}
+
+console.log(parseInput("123"));  // 输出: ["1", "2", "3"]
+console.log(parseInput(123));  // 输出: [1, 2, 3]
+```
+
+- 在这个例子中，根据传入的参数是 string 还是 number，parseInput 函数返回的类型也会相应变化，分别是字符串数组或数字数组。
