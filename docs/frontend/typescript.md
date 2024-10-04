@@ -617,3 +617,74 @@ console.log(parseInput(123));  // 输出: [1, 2, 3]
 ```
 
 - 在这个例子中，根据传入的参数是 string 还是 number，parseInput 函数返回的类型也会相应变化，分别是字符串数组或数字数组。
+
+### 参数展开
+
+- 在 TypeScript 中，参数展开（也叫剩余参数，Rest Parameters）是指将函数的多个参数收集为一个数组。这样可以让函数接收任意数量的参数，而不需要明确指定参数的个数。这在处理变长参数列表或处理不定数量的参数时非常有用。
+
+1. ##### 基本语法
+
+- 使用 ... 语法将参数展开为数组，可以将任意数量的参数传递给函数，并在函数体中将它们当作数组进行处理。
+
+```js
+function sum(...numbers: number[]): number {
+  return numbers.reduce((total, num) => total + num, 0);
+}
+
+console.log(sum(1, 2, 3));
+```
+
+- ...numbers: number[]：numbers 是一个数组，它包含传入的所有 number 类型参数。
+- 函数内部可以像处理普通数组一样处理这些参数，比如使用 reduce 方法计算它们的和。
+
+2. ##### 展开参数与其他参数结合
+
+- 剩余参数必须是函数参数列表中的最后一个参数，意味着它后面不能再有其他参数。
+
+```js
+function multiply(factor: number, ...numbers: number[]): number[] {
+  return numbers.map((num) => num * factor);
+}
+
+console.log(multiply(2, 1, 2, 3));
+```
+
+- factor: number 是一个普通的参数。
+- ...numbers: number[] 是剩余参数，用于收集所有之后传入的 number 参数。
+
+3. ##### 与元组结合
+
+- TypeScript 中，剩余参数可以与元组（Tuple）类型结合使用，表示函数接受特定类型和长度的参数，随后可以有不定数量的参数。
+
+```js
+function tupleExample(a: string, b: number, ...rest: boolean[]) {
+  console.log(a, b, rest);
+}
+
+tupleExample('hello', 43, true, false, true);
+```
+
+4. ##### 结合 apply 和 spread
+
+- 除了用于定义函数参数，剩余参数还可以结合 apply 和 spread 操作符使用，这些操作符允许你将一个数组展开为单个参数传递给函数。
+
+```js
+const numbers = [1, 2, 3, 4];
+console.log(Math.max(...numbers));
+```
+
+- 这里我们使用 ...numbers 将数组展开为 Math.max 函数的单个参数。
+
+5. ##### 类型推断与剩余参数
+
+- 当使用剩余参数时，TypeScript 能够自动推断出传入参数的类型。
+
+```js
+function concatStrings(...strings: string[]): string {
+  return strings.join(', ');
+}
+
+console.log(concatStrings('a', 'b', 'c'));
+```
+
+- 在这个例子中，TypeScript 自动推断出 strings 是一个 string[] 类型数组。
