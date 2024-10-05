@@ -1,5 +1,10 @@
 # 深入了解 TypeScript 现代 JavaScript 的超集
 
+### 相关链接
+
+1. ##### 演示地址 [演示地址](https://www.shuqin.cc/market/design-component)
+2. ##### 源码地址 [源码地址](https://xiaozhi.shop)
+
 - TypeScript 是由微软开发的一个开源编程语言，它是 JavaScript 的超集，增加了静态类型和其他特性。随着前端开发的复杂性增加，TypeScript 越来越受到开发者的青睐。本文将探讨 TypeScript 的基本概念、优势以及如何在项目中使用。
 
 ### 什么是 TypeScript？
@@ -785,5 +790,182 @@ person = {
 
 person.greet();
 ```
-6. ##### 使用接口定义对象类型
-- 对于复杂的对象类型，可以使用 接口（interface）来定义对象类型的结构。相比直接定义对象类型，接口提供了更简洁的语法，并且接口可以扩展或继承其他接口。
+
+### typescript 类
+
+1. ##### 类的实现
+
+```js
+interface Singale {
+  sing(): void;
+}
+
+class Person implements Singale {
+  sing(): void {
+    console.log('sing');
+  }
+}
+
+const p = new Person();
+p.sing();
+```
+
+2. ##### 类的可见性 public 公开默认
+
+```js
+class Animal {
+  name: string;
+  constructor(name: string) {
+    this.name = name;
+  }
+}
+
+const a = new Animal('tom');
+console.log(a.name);
+```
+
+3. ##### 类的可见性 protect 私有的
+
+4. ##### 类的可见性 private 私有的
+
+```js
+class Animal {
+  private _run() {
+    console.log("_run去行中");
+  }
+
+  getRun() {
+    this._run();
+  }
+}
+
+const a = new Animal();
+a.getRun();
+```
+
+c 类的可见性 readonly 只读属性
+
+```js
+class Person {
+  readonly age: number = 18;
+  constructor(age: number) {
+    this.age = age;
+  }
+}
+
+const p = new Person(22);
+console.log(p.age);
+
+//-----------------------
+interface IPerson {
+  readonly name: string;
+}
+
+let obj: IPerson = {
+  name: "jack",
+};
+
+console.log(obj.name);
+```
+
+### 泛型
+
+1. ##### 泛型约束
+
+```js
+interface ILength {
+  length: number;
+}
+
+function fn<T extends ILength>(value: T): T {
+  console.log(value.length);
+  return value;
+}
+
+fn("hello");
+
+```
+
+2. ##### 多个变量泛型约束
+
+```js
+function getProps<T, Key extends keyof T>(obj: T, key: Key) {
+  return obj[key];
+}
+
+const person = {
+  name: "jack",
+  age: 18,
+};
+
+console.log(getProps(person, "age"));
+```
+
+3. ##### 泛型接口
+
+```js
+interface fnFunc<T> {
+  fn: (value: T) => T;
+}
+
+let obj: fnFunc<number> = {
+  fn: (value) => value,
+};
+
+console.log(obj.fn(123));
+```
+
+4. ##### 索引签名类型
+
+```js
+interface AnyObject {
+  [key: string]: number;
+}
+
+let obj: AnyObject = {
+  a: 1,
+  b: 2,
+};
+
+console.log(obj);
+```
+
+5. ##### 索引查询类型
+
+```js
+type Props = {
+  a:number;
+  b:string;
+  c:boolean;
+
+}
+
+type MyPartial<T> = {
+  [P in keyof T]:T[P]
+}
+```
+
+### 类型声明文件
+
+- TypeScript 类型声明文件（.d.ts）用于为 JavaScript 代码提供类型定义，让 TypeScript 编译器能够了解某些现有 JavaScript 代码的类型信息。这对于在 TypeScript 中使用现有的 JavaScript 库非常有用，即使这些库本身并没有使用 TypeScript。
+
+### react 中使用 ts
+
+1. ##### 函数组件的类型
+
+```js
+type Props = {
+  name: string,
+  age?: number,
+};
+
+const Hello: React.FC<Props> = ({ name, age }) => {
+  return (
+    <div>
+      你好，我叫{name},我的{age}岁了
+    </div>
+  );
+};
+
+export default Hello;
+```
