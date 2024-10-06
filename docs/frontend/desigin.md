@@ -80,3 +80,59 @@ console.log(car2.getDetails()); // 输
 | 方法共享     | 通过原型对象共享方法               | 通过 prototype 共享方法    |
 | 内存占用     | 节省内存，通过共享方法             | 每个实例都有独立的方法拷贝 |
 | 使用场景     | 对象创建成本高，需频繁创建相似对象 | 创建简单对象，需初始化属性 |
+
+### 工厂模式
+
+- 工厂模式（Factory Pattern）是一种用于创建对象的设计模式，它允许通过接口或函数来创建对象，而不需要显式地指定对象的类或构造函数。工厂模式的核心思想是将对象的创建逻辑集中到一个工厂函数中，调用者无需关心对象的具体创建过程。
+
+```js
+function CarFactory(type) {
+  let car;
+
+  switch (type) {
+    case 'sedan':
+      car = { type: 'Sedan', wheels: 4, doors: 4 };
+      break;
+    case 'suv':
+      car = { type: 'SUV', wheels: 4, doors: 5 };
+      break;
+    case 'truck':
+      car = { type: 'Truck', wheels: 6, doors: 2 };
+      break;
+    default:
+      car = { type: 'Unknown', wheels: 4, doors: 4 };
+  }
+
+  car.drive = function () {
+    console.log(`Driving a ${this.type}`);
+  };
+
+  return car;
+}
+
+// 使用工厂创建不同类型的汽车
+const sedan = CarFactory('sedan');
+const suv = CarFactory('suv');
+const truck = CarFactory('truck');
+
+sedan.drive(); // 输出: Driving a Sedan
+suv.drive(); // 输出: Driving a SUV
+truck.drive(); // 输出: Driving a Truck
+```
+
+- 关键点：
+- 工厂函数：CarFactory 是工厂函数，它根据输入的参数创建不同类型的对象。
+- 封装创建逻辑：创建对象的过程被封装在工厂函数中，调用者只需要传递参数，而不需要关心对象的创建细节。
+- 灵活性：可以根据输入的不同，生成不同类型的对象。
+
+2. ##### 工厂模式的优势
+
+- 封装复杂的创建逻辑：工厂模式将对象的创建逻辑集中封装，避免在代码中多次重复相同的创建过程。
+- 解耦对象创建与使用：调用者无需知道对象的构造细节，只需关心工厂提供的接口即可。
+- 易于扩展：可以很容易地扩展工厂函数，加入新的对象类型，而不会影响现有代码。
+
+3. ##### 工厂模式的应用场景
+
+- 创建复杂对象：当对象的创建过程复杂，需要初始化很多属性时，工厂模式可以简化对象创建。
+- 根据条件创建不同对象：当需要根据不同条件创建不同对象时，工厂模式是一种很好的解决方案。
+- 隐藏对象构造的复杂性：工厂模式可以隐藏对象的构造细节，使代码更易于维护和修改。
