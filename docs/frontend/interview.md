@@ -23,6 +23,8 @@
 
 [线性代数](https://www.bilibili.com/video/BV1aW411Q7x1/?p=3&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8)
 
+[收费面庞大题]（https://www.bilibili.com/cheese/play/ep178093?query_from=0&search_id=986261495675504298&search_query=%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95&csource=common_hpsearch_null_null&spm_id_from=333.337.search-card.all.click）
+
 ### Promise
 
 1. await 相当于 Promise.then 处理不了 Promise.reject

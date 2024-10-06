@@ -763,21 +763,66 @@ console.log(sandbox);
 - 此方法适用于在创建的上下文中运行复杂的代码，同时可以对上下文对象进行控制。
 
 5. ##### vm.Script()
+
 - vm.Script() 可以将代码编译为一个可执行的脚本对象，并且可以多次执行该脚本。
+
 ```js
 const vm = require('vm');
 
-const script = new vm.Script('count += 1; name = "Jerry";');
+const script = new vm.Script(`count += 1;name="tom"`);
 const sandbox = { count: 0 };
 const context = vm.createContext(sandbox);
 
 script.runInContext(context);
-script.runInContext(context);
+console.log(sandbox);
 
-console.log(sandbox); 
 // 输出 { count: 2, name: 'Jerry' }
 ```
+
 - vm.Script() 的优势在于，可以多次执行同一个编译后的代码，避免重复编译带来的性能开销
+
+### 事件模块 (events) 详解
+
+- 在 Node.js 中，事件驱动架构是其核心之一。events 模块是用于管理和触发事件的内置模块，提供了一种实现 观察者模式 的机制。通过事件模块，开发者可以定义事件、绑定事件处理函数，并在合适的时候触发这些事件。
+
+1. ##### 事件驱动模型简介
+
+- Node.js 的核心架构基于事件驱动模型。与传统的多线程模型不同，Node.js 使用 单线程、异步 I/O 和 事件循环 来处理并发。所有的 I/O 操作（如网络请求、文件读写等）都是异步的，完成后会通过事件通知回调函数，从而使代码可以继续执行其他任务，而不会被阻塞。
+
+2. ##### 监听事件
+
+- 可以使用 on() 方法为事件绑定监听器。监听器函数会在事件触发时执行。
+
+```js
+const EventEmitter = require('events');
+const emitter = new EventEmitter();
+
+emitter.on('greet', () => {
+  console.log('Hello world');
+});
+
+emitter.emit('greet');
+```
+
+- 在这个例子中，我们使用 on() 方法监听了 greet 事件，当使用 emit() 方法触发该事件时，绑定的处理函数会执行。
+
+3. ##### 移除监听器
+   可以使用 removeListener() 或 off() 方法移除某个特定事件的监听器。
+
+```js
+const EventEmitter = require('events');
+const emitter = new EventEmitter();
+
+emitter.on('greet', () => {
+  console.log('Hello, World!');
+});
+
+const callback = () => console.log('This will not run');
+emitter.on('removeEvent', callback);
+
+emitter.removeListener('removeEvent', callback);
+emitter.emit('removeEvent'); // 无输出
+```
 
 <!-- [last](https://www.bilibili.com/video/BV1gM411W7ex/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8)
 [高级](https://www.bilibili.com/video/BV1sA41137qw/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8) -->
