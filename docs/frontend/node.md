@@ -1,8 +1,34 @@
-# node 高级全栈之路
+# nodejs 构建高性能服务器的关键技术
 
 1. ##### 演示地址 [演示地址](https://www.shuqin.cc/market/design-component)
 2. ##### 源码地址 [源码地址](https://github.com/starfruitcloud/shuqin)
 3. ##### 获取更多 [获取更多](https://www.xiaozhi.shop/)
+
+- 在现代 Web 开发中，Node.js 已成为构建高性能、可扩展网络应用的首选平台之一。它的非阻塞 I/O 模型与事件驱动架构使其能够在处理大量并发请求时表现出色，尤其适合构建实时应用，如聊天系统、数据流处理等。这篇博客将介绍 Node.js 的核心特性、常用模块以及如何利用其优势来开发高效的服务器端应用。
+
+### 什么是 Node.js？
+
+- Node.js 是一个基于 Chrome V8 JavaScript 引擎 的 JavaScript 运行时。它允许开发者使用 JavaScript 编写服务器端代码，而不仅仅是前端代码。与传统的多线程 Web 服务器（如 Apache、Tomcat）不同，Node.js 采用 单线程、事件驱动 的架构，这使它能够有效处理高并发请求。
+
+### Node.js 的核心特点
+
+1. ##### 事件驱动、非阻塞 I/O
+   Node.js 最大的特点是 非阻塞 I/O，也就是在进行 I/O 操作时（如读取文件、数据库查询或 HTTP 请求），它不会阻塞主线程，而是通过 事件循环 和 回调函数 来处理。这使得即使在 I/O 密集型场景下，Node.js 也能保持高效的响应。
+
+```js
+const fs = require('fs');
+
+fs.readFile('example.txt', 'utf8', (err, data) => {
+  if (err) throw err;
+  console.log(data);
+});
+
+console.log('This will print first!');
+```
+
+2. ##### 单线程，但高并发
+
+- 虽然 Node.js 是单线程的，但它通过 libuv 库将一些复杂的操作交给底层线程池处理，如文件读写、网络请求等。这种模型使 Node.js 在处理大量并发请求时拥有极高的性能，避免了传统多线程 Web 服务器因上下文切换而导致的性能损耗。
 
 ### nodejs 架构图
 
@@ -686,6 +712,72 @@ fs.access('example.txt', fs.constants.R_OK | fs.constants.W_OK, (err) => {
   console.log(err ? 'No access!' : 'File can be read and written.');
 });
 ```
+
+### vm 模块
+
+- Node.js 提供了许多强大的内置模块，其中的 vm 模块（Virtual Machine，虚拟机）特别值得关注。它允许我们在独立的上下文中执行 JavaScript 代码，这在某些场景中非常有用，比如执行不信任的代码、沙箱化运行环境等。
+
+1. ##### 什么是 vm 模块
+
+- vm 模块允许在 Node.js 中创建沙箱化的虚拟机上下文，运行的 JavaScript 代码可以隔离在单独的上下文中，避免对主应用环境产生副作用。使用 vm 模块，可以执行动态代码，而无需担心代码直接影响主线程或全局环境。
+
+2. ##### vm.runInThisContext()
+
+- vm.runInThisContext() 方法类似于 eval()，但执行的代码是在与当前上下文分离的环境中执行的，且无法访问主上下文的变量。
+
+```js
+const vm = require('vm');
+const code = `var x=10;x += 5`;
+const result = vm.runInThisContext(code);
+console.log('result', result);
+```
+
+3. ##### vm.runInNewContext()
+
+- vm.runInNewContext() 可以在全新的上下文中执行代码，可以指定上下文的对象，用作代码执行时的全局对象。
+
+```js
+const vm = require('vm');
+
+const context = { x: 1 };
+vm.runInNewContext('x += 40;', context);
+console.log(context.x); // 输出 41
+```
+
+- 在这里，代码是在新的上下文中执行的，并且 context 对象被当作全局对象传入执行环境中。
+
+4. ##### vm.createContext()
+
+- vm.createContext() 用于创建一个新的上下文对象。在这个上下文中，可以安全地执行代码。
+
+```js
+const vm = require('vm');
+
+const sandbox = { animal: 'cat', count: 2 };
+const context = vm.createContext(sandbox);
+vm.runInContext('count += 1; name = "Tom";', context);
+
+console.log(sandbox);
+```
+
+- 此方法适用于在创建的上下文中运行复杂的代码，同时可以对上下文对象进行控制。
+
+5. ##### vm.Script()
+- vm.Script() 可以将代码编译为一个可执行的脚本对象，并且可以多次执行该脚本。
+```js
+const vm = require('vm');
+
+const script = new vm.Script('count += 1; name = "Jerry";');
+const sandbox = { count: 0 };
+const context = vm.createContext(sandbox);
+
+script.runInContext(context);
+script.runInContext(context);
+
+console.log(sandbox); 
+// 输出 { count: 2, name: 'Jerry' }
+```
+- vm.Script() 的优势在于，可以多次执行同一个编译后的代码，避免重复编译带来的性能开销
 
 <!-- [last](https://www.bilibili.com/video/BV1gM411W7ex/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8)
 [高级](https://www.bilibili.com/video/BV1sA41137qw/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8) -->
