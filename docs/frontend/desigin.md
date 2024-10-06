@@ -136,3 +136,51 @@ truck.drive(); // 输出: Driving a Truck
 - 创建复杂对象：当对象的创建过程复杂，需要初始化很多属性时，工厂模式可以简化对象创建。
 - 根据条件创建不同对象：当需要根据不同条件创建不同对象时，工厂模式是一种很好的解决方案。
 - 隐藏对象构造的复杂性：工厂模式可以隐藏对象的构造细节，使代码更易于维护和修改。
+
+### 抽象工厂模式
+
+- 抽象工厂模式是工厂模式的扩展，它允许创建一组相关或依赖的对象，而无需指定它们的具体类。抽象工厂模式提供了一种抽象层，使得工厂可以创建不同类型的对象，具体对象的创建细节交由子类或具体工厂实现。
+
+```js
+function CarFactory() {}
+
+CarFactory.prototype.createCar = function () {
+  throw new Error('This method should be overridden!');
+};
+
+//  Sedan 工厂
+function SedanFactory() {}
+SedanFactory.prototype = Object.create(CarFactory.prototype);
+SedanFactory.prototype.createCar = function () {
+  return { type: 'Sedan', wheels: 4, doors: 4 };
+};
+
+//  SUV 工厂
+function SUVFactory() {}
+SUVFactory.prototype = Object.create(CarFactory.prototype);
+SUVFactory.prototype.createCar = function () {
+  return { type: 'SUV', wheels: 4, doors: 5 };
+};
+
+// 使用抽象工厂创建汽车
+const sedanFactory = new SedanFactory();
+const suvFactory = new SUVFactory();
+
+const sedan = sedanFactory.createCar();
+const suv = suvFactory.createCar();
+
+console.log(sedan); //  输出: { type: 'Sedan', wheels: 4, doors: 4 }
+console.log(suv); //  输出: { type: 'SUV', wheels: 4, doors:
+```
+
+1. ##### 工厂模式与构造器模式的区别
+
+- 工厂模式：通过工厂函数创建对象，调用者不需要直接使用 new 关键字，创建逻辑被封装在工厂内部。
+- 构造器模式：通过构造函数直接创建对象，使用 new 关键字实例化。
+
+| 特点            | 工厂模式                     | 构造器模式               |
+| :-------------- | :--------------------------- | ------------------------ |
+| 对象创建方式    | 通过工厂函数创建             | 通过构造函数创建         |
+| 使用 new 关键字 | 不需要使用                   | 需要使用                 |
+| 封装创建逻辑    | 封装复杂的对象创建逻辑       | 创建过程公开             |
+| 灵活性          | 根据条件动态创建不同类型对象 | 一般用于创建单一类型对象 |
