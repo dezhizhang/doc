@@ -824,5 +824,124 @@ emitter.removeListener('removeEvent', callback);
 emitter.emit('removeEvent'); // 无输出
 ```
 
+### http 模块详解
+
+- Node.js 的核心特性之一是其内置的 HTTP 模块。通过 http 模块，开发者可以轻松创建 HTTP 服务器和客户端，从而实现 Web 应用、API 服务或其他网络应用。http 模块是 Node.js 中处理网络请求的基础，它是基于事件驱动的，支持异步处理。
+
+1. ##### HTTP 模块简介
+
+- Node.js 内置的 http 模块提供了创建 HTTP 服务器和客户端的功能。与浏览器端的 HTTP 请求不同，Node.js 的 http 模块允许服务器端代码主动监听并处理请求。
+
+2. ##### 创建 HTTP 服务器
+
+```js
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('Hello World\n');
+});
+
+server.listen(3000, () => {
+  console.log('Server running at http://127.0.0.1:3000/');
+});
+```
+
+1. http.createServer([requestListener])
+
+- http.createServer() 方法用于创建 HTTP 服务器。requestListener 是一个回调函数，每当服务器接收到 HTTP 请求时，都会调用该回调函数。回调函数的两个参数是：
+  req：代表 HTTP 请求的对象。
+  res：代表 HTTP 响应的对象。
+
+2. 监听请求
+
+- 通过 server.listen() 方法，服务器可以开始监听指定的端口（如 3000），当有 HTTP 请求到达时，requestListener 会被触发。
+
+3. 发送响应
+
+- 在回调函数中，我们可以通过 res.writeHead() 设置响应状态码和响应头，使用 res.end() 结束响应并返回数据。
+
+3. ##### 处理查询参数
+
+- 在处理 URL 时，可能需要解析 URL 中的查询参数（如 ?name=John&age=30）。Node.js 内置了 url 模块来帮助解析 URL 和查询参数。
+
+```js
+const url = require('url');
+
+const server = http.createServer((req, res) => {
+  const parsedUrl = url.parse(req.url, true);
+  const query = parsedUrl.query;
+
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'application/json');
+  res.end(JSON.stringify(query)); // 返回解析后的查询参数
+});
+
+server.listen(3000);
+```
+
+4. ##### 使用 HTTP 客户端
+
+- 除了创建 HTTP 服务器，Node.js 的 http 模块还可以用作 HTTP 客户端，发送 HTTP 请求。
+
+```js
+const http = require('http');
+
+const options = {
+  hostname: 'example.com',
+  port: 80,
+  path: '/',
+  method: 'GET',
+};
+
+const req = http.request(options, (res) => {
+  let data = '';
+
+  res.on('data', (chunk) => {
+    data += chunk;
+  });
+
+  res.on('end', () => {
+    console.log('Response:', data);
+  });
+});
+
+req.on('error', (error) => {
+  console.error('Error:', error);
+});
+
+req.end();
+```
+
+- 在这个例子中，http.request() 用于发起 HTTP 请求，设置请求选项（如 hostname、port、path 等），并处理服务器返回的响应。
+
+5. ##### 支持
+
+- 对于安全通信，Node.js 提供了 https 模块。它的用法与 http 模块类似，但支持 SSL/TLS 加密。需要将 http 替换为 https。
+
+```js
+const https = require('https');
+
+https.get('https://example.com', (res) => {
+  let data = '';
+
+  res.on('data', (chunk) => {
+    data += chunk;
+  });
+
+  res.on('end', () => {
+    console.log('Response:', data);
+  });
+});
+```
+
+###
+
+<div  align="center">联系作者</div>
+<div align="center">
+    <img src="https://cdn.xiaozhi.shop/digitwin/assets/weixin.jpg" width = 200 height = 200 />
+</div>
+
 <!-- [last](https://www.bilibili.com/video/BV1gM411W7ex/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8)
 [高级](https://www.bilibili.com/video/BV1sA41137qw/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8) -->
