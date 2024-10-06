@@ -8,6 +8,14 @@
 
 ![nodejs](../../public/nodejs/1.jpeg)
 
+- Node.js 架构的核心是 事件驱动、非阻塞 I/O，它利用了 事件循环（Event Loop） 来处理 I/O 操作，实现高效的并发处理。主要组件包括：
+
+1. V8 引擎：这是 Google 的 JavaScript 引擎，负责解析和执行 JavaScript 代码。
+2. libuv：Node.js 使用的库，支持事件驱动、异步 I/O 操作，主要处理文件系统、网络、DNS、以及定时器等。
+3. 事件循环（Event Loop）：Node.js 的心脏，管理和调度 I/O 事件，使其可以通过单线程处理多任务。
+4. 回调队列（Callback Queue）：事件循环将完成的异步任务的回调函数放入回调队列中，逐一执行。
+5. 线程池：尽管 Node.js 是单线程的，但底层通过 libuv 维护一个线程池，用来处理 CPU 密集型任务。
+
 ### 常见全局变量
 
 1. ##### \_\_dirname
@@ -400,6 +408,283 @@ console.log(buf.indexOf('XYZ')); // 输出: -1
 const buf = Buffer.alloc(10);
 buf.fill('a');
 console.log(buf.toString()); // 输出: aaaaaaaaaa
+```
+
+### fs 常用方法
+
+- fs 模块是 Node.js 提供的核心模块之一，用于处理文件系统相关操作。它提供了同步和异步方法，支持文件的读写、文件夹操作、文件权限修改等功能
+
+1. ##### fs.readFile(path, [options], callback)
+
+- 作用：异步读取文件的全部内容。
+- 参数：
+
+1. path: 文件路径。
+2. options: 可选，指定编码或返回格式（默认为 Buffer）。
+3. callback: 回调函数，传递 (err, data)
+
+```js
+const fs = require('fs');
+
+fs.readFile('data.txt', 'utf-8', (err, data) => {
+  if (err) throw err;
+  console.log(data);
+});
+```
+
+2. ##### fs.readFileSync(path, [options])
+
+- 作用：同步读取文件的全部内容。返回读取到的数据。
+- 参数：
+- path: 文件路径。
+- options: 可选，指定编码或返回格式。
+
+```js
+const fs = require('fs');
+const data = fs.readFileSync('data.txt', 'utf-8');
+console.log('data', data);
+```
+
+3. ##### fs.writeFile(file, data, [options], callback)
+
+- 作用：异步写入数据到文件，如果文件不存在会创建文件。
+- 参数：
+
+1. file: 文件路径。
+2. data: 要写入的数据。
+3. options: 可选，指定编码。
+4. callback: 回调函数，传递 (err)。
+
+```js
+const fs = require('fs');
+fs.writeFile('data.txt', 'change info', (err) => {
+  if (err) throw err;
+  console.log('file hash been write');
+});
+```
+
+4. ##### fs.writeFileSync(file, data, [options])
+
+- 作用：同步写入数据到文件。
+
+```js
+const fs = require('fs');
+fs.writeFileSync('data.txt', 'change info', 'utf-8');
+console.log('file has been written');
+```
+
+5. ##### fs.appendFile(file, data, [options], callback)
+
+- 作用：异步向文件追加数据。如果文件不存在则创建文件。
+
+```js
+const fs = require('fs');
+fs.appendFile('data.txt', 'this is appended txt.\n', (err) => {
+  if (err) throw err;
+  console.log('Data append to file');
+});
+```
+
+6. ##### fs.appendFileSync(file, data, [options])
+
+- 作用：同步向文件追加数据。
+
+```js
+const fs = require('fs');
+fs.appendFileSync('data.txt', 'This is appended text.\n');
+console.log('Data appended to file.');
+```
+
+7. ##### fs.rename(oldPath, newPath, callback)
+
+- 作用：异步重命名文件或文件夹。
+- 参数：
+- oldPath: 旧路径。
+- newPath: 新路径。
+- callback: 回调函数，传递 (err)。
+
+```js
+const fs = require('fs');
+
+fs.rename('file.txt', 'file1.txt', (err) => {
+  if (err) throw err;
+  console.log('Rename complete.');
+});
+```
+
+8. ##### fs.renameSync(oldPath, newPath)
+
+- 作用：同步重命名文件或文件夹。
+
+```js
+const fs = require('fs');
+
+fs.renameSync('file1.txt', 'file.txt');
+console.log('Rename complete.');
+```
+
+9. ##### fs.unlink(path, callback)
+
+- 作用：异步删除文件。
+- 参数：
+
+1. path: 文件路径。
+2. callback: 回调函数，传递 (err)。
+
+```js
+const fs = require('fs');
+fs.unlink('file.txt', (err) => {
+  if (err) throw err;
+  console.log('file delete');
+});
+```
+
+10. ##### fs.unlinkSync(path)
+
+- 作用：同步删除文件
+
+```js
+const fs = require('fs');
+fs.unlinkSync('file.txt');
+console.log('file delete');
+```
+
+11. ##### fs.readdir(path, [options], callback)
+
+- 作用：异步读取指定目录的内容，返回文件和子目录的数组。
+- 参数：
+
+1. path: 目录路径。
+2. options: 可选，encoding 或 withFileTypes（是否返回 Dirent 对象）。
+3. callback: 回调函数，传递 (err, files)。
+
+```js
+const fs = require('fs');
+
+fs.readdir('./', (err, files) => {
+  if (err) throw err;
+  console.log(files); // 输出文件和目录的列表
+});
+```
+
+12. ##### fs.readdirSync(path, [options])
+
+- 作用：同步读取目录内容。
+
+```js
+const fs = require('fs');
+const files = fs.readdirSync('./');
+console.log(files);
+```
+
+13. ##### fs.mkdir(path[, options], callback)
+
+- 作用：异步创建目录。
+- 参数：
+
+1. path: 要创建的目录路径。
+2. options: 可选，是否递归创建，或设置权限模式。
+3. callback: 回调函数，传递 (err)。
+
+```js
+const fs = require('fs');
+
+fs.mkdir('test', (err) => {
+  if (err) throw err;
+  console.log('Directory created.');
+});
+```
+
+14. ##### fs.mkdirSync(path[, options])
+
+- 作用：同步创建目录。
+
+```js
+const fs = require('fs');
+fs.mkdirSync('test');
+console.log('Directory created.');
+```
+
+15. ##### fs.rmdir(path[, options], callback)
+
+- 作用：异步删除目录。该目录必须为空。
+- 参数：
+
+1. path: 目录路径。
+2. options: 可选，recursive: true 表示递归删除非空目录（实验性功能）。
+3. callback: 回调函数，传递 (err)。
+
+```js
+const fs = require('fs');
+fs.rmdir('test', (err) => {
+  if (err) throw err;
+  console.log('directory deleted.');
+});
+```
+
+16. ##### fs.rmdirSync(path[, options])
+
+- 作用：同步删除目录。
+
+```js
+const fs = require('fs');
+fs.rmdirSync('new_directory');
+console.log('Directory deleted.');
+```
+
+17. ##### fs.stat(path, callback)
+
+- 作用：异步获取文件或目录的状态信息，返回 fs.Stats 对象。
+- 参数：
+
+1. path: 文件或目录路径。
+2. callback: 回调函数，传递 (err, stats)。
+
+```js
+const fs = require('fs');
+fs.stat('file.txt', (err, stats) => {
+  if (err) throw err;
+  console.log(stats);
+});
+```
+
+18. ##### fs.statSync(path)
+
+- 作用：同步获取文件或目录的状态信息。
+
+```js
+const fs = require('fs');
+const stats = fs.statSync('example.txt');
+console.log(stats);
+```
+
+19. ##### fs.existsSync(path)
+
+- 作用：同步检查文件或目录是否存在（注意：该方法已废弃，推荐使用 fs.access()）。
+
+```js
+const fs = require('fs');
+
+if (fs.existsSync('file.txt')) {
+  console.log('File exists.');
+}
+```
+
+20. ##### fs.access(path[, mode], callback)
+
+- 作用：检查文件或目录的权限。mode 可以用来检查读、写或执行权限。
+- 参数：
+
+1. path: 文件路径。
+2. mode: 可选，文件权限检查。
+3. callback: 回调函数，传递 (err)。
+
+```js
+const fs = require('fs');
+
+fs.access('example.txt', fs.constants.R_OK | fs.constants.W_OK, (err) => {
+  console.log(err ? 'No access!' : 'File can be read and written.');
+});
 ```
 
 <!-- [last](https://www.bilibili.com/video/BV1gM411W7ex/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8)
