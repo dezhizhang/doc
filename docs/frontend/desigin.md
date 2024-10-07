@@ -994,6 +994,7 @@ folder2.display();
 - 统一接口：无论是文件还是文件夹，都实现了 display() 方法，客户端可以用统一的方式处理它们。
 
 1. ##### 组合模式的优势与劣势
+
 优势：
 - 简化客户端代码：客户端可以使用统一的方式处理所有对象，无论它们是单个对象还是组合对象，简化了代码逻辑。
 - 符合开闭原则：可以轻松地添加新的叶子节点或组合节点，而无需修改现有代码。
@@ -1003,9 +1004,248 @@ folder2.display();
 - 类型安全问题：由于组合模式将叶子和组合对象放在一起，可能导致某些操作缺少类型安全的保证。
 
 2. ##### 组合模式的应用场景
+
 - 树形结构的数据：比如文件系统、组织架构、菜单系统等，使用组合模式可以方便地构建和操作这些层次结构。
 - 图形编辑器：在图形编辑器中，可以将基本图形（如线条、矩形、圆等）组合成复杂的图形，使用组合模式可以统一管理这些图形。
 - UI 组件树：很多 UI 框架（如 React、Vue 等）内部都使用了组合模式来管理组件树。
+
+### 命令模式
+
+- 命令模式（Command Pattern）是一种行为型设计模式，它将请求封装为对象，从而让我们可以用不同的请求对客户进行参数化。命令模式的核心思想是将请求的发送者与请求的接收者解耦，使得请求可以被储存、延迟执行、撤销等。
+- 在命令模式中，命令是一个对象，它封装了具体的操作细节。这种模式特别适合事务处理、撤销/重做操作、宏命令等场景。
+
+```js
+// 接收者：电灯
+class Light {
+    on() {
+        console.log('The light is on');
+    }
+
+    off() {
+        console.log('The light is off');
+    }
+}
+
+// 命令对象接口
+class Command {
+    execute() {
+        throw new Error('This method should be overwritten!');
+    }
+
+    undo() {
+        throw new Error('This method should be overwritten!');
+    }
+}
+
+// 具体命令对象：打开灯的命令
+class LightOnCommand extends Command {
+    constructor(light) {
+        super();
+        this.light = light;
+    }
+
+    execute() {
+        this.light.on();
+    }
+
+    undo() {
+        this.light.off();
+    }
+}
+
+// 具体命令对象：关闭灯的命令
+class LightOffCommand extends Command {
+    constructor(light) {
+        super();
+        this.light = light;
+    }
+
+    execute() {
+        this.light.off();
+    }
+
+    undo() {
+        this.light.on();
+    }
+}
+
+// 调用者：遥控器
+class RemoteControl {
+    constructor() {
+        this.command = null;
+    }
+
+    setCommand(command) {
+        this.command = command;
+    }
+
+    pressButton() {
+        this.command.execute();
+    }
+
+    pressUndo() {
+        this.command.undo();
+    }
+}
+
+// 使用命令模式
+const light = new Light();
+const lightOnCommand = new LightOnCommand(light);
+const lightOffCommand = new LightOffCommand(light);
+const remoteControl = new RemoteControl();
+
+// 打开灯
+remoteControl.setCommand(lightOnCommand);
+remoteControl.pressButton(); // 输出：The light is on
+remoteControl.pressUndo();   // 输出：The light is off
+
+// 关闭灯
+remoteControl.setCommand(lightOffCommand);
+remoteControl.pressButton(); // 输出：The light is off
+remoteControl.pressUndo();   // 输出：The light is on
+
+```
+1. ##### 命令模式的优势与劣势
+优势：
+- 解耦性：调用者与接收者之间完全解耦，易于扩展和维护。
+- 扩展性好：可以轻松添加新命令，而不需要修改调用者的代码。
+- 支持撤销操作：通过 undo 方法实现撤销，增强了用户体验。
+- 支持宏命令：可以将多个命令组合成一个宏命令，执行一系列操作。
+劣势：
+- 增加了类的数量：每个命令都需要一个独立的类，这可能会增加代码的复杂性。
+- 调试难度增加：命令模式将执行逻辑分散到多个命令对象中，可能增加调试的复杂性。
+
+2. ##### 命令模式的应用场景
+
+- 事务处理：命令模式适合实现复杂的事务操作，可以将事务拆分为多个命令，支持撤销和重做功能。
+- 操作历史：在需要记录用户操作历史的场景中（如文本编辑器），命令模式非常适合实现撤销和重做功能。
+- 宏命令：在需要一系列操作按特定顺序执行的场景中，可以将多个命令组合为一个宏命令。
+- 远程控制系统：命令模式常用于控制家电、机器人等远程设备，命令对象可以代表设备的各种操作。
+
+### 模板方法模式
+- 模板方法模式（Template Method Pattern）是一种行为型设计模式，它定义了一个操作的骨架，将一些步骤的实现延迟到子类中。模板方法模式允许子类在不改变算法结构的前提下重新定义算法的某些步骤。
+- 模板方法模式的核心思想是：将算法的通用部分放在父类中，而将具体步骤的实现留给子类。这保证了算法的整体结构不变，同时允许子类定制化某些细节。
+```js
+// 抽象类：饮料
+class Beverage {
+    prepare() {
+        this.boilWater();
+        this.brew(); // 留给子类实现
+        this.addCondiments(); // 留给子类实现
+        this.stir();
+    }
+
+    boilWater() {
+        console.log('Boiling water...');
+    }
+
+    stir() {
+        console.log('Stirring the drink...');
+    }
+
+    brew() {
+        throw new Error('This method must be overridden!');
+    }
+
+    addCondiments() {
+        throw new Error('This method must be overridden!');
+    }
+}
+
+// 具体类：咖啡
+class Coffee extends Beverage {
+    brew() {
+        console.log('Brewing coffee...');
+    }
+
+    addCondiments() {
+        console.log('Adding sugar and milk...');
+    }
+}
+
+// 具体类：茶
+class Tea extends Beverage {
+    brew() {
+        console.log('Steeping the tea...');
+    }
+
+    addCondiments() {
+        console.log('Adding lemon...');
+    }
+}
+
+// 使用模板方法模式制作饮料
+const coffee = new Coffee();
+coffee.prepare();
+// 输出：
+// Boiling water...
+// Brewing coffee...
+// Adding sugar and milk...
+// Stirring the drink...
+
+const tea = new Tea();
+tea.prepare();
+// 输出：
+// Boiling water...
+// Steeping the tea...
+// Adding lemon...
+// Stirring the drink...
+
+```
+
+关键点：
+- 抽象类：Beverage 类中定义了通用的制作流程 prepare()，并且封装了 boilWater() 和 stir() 这两个固定的步骤。brew() 和 addCondiments() 方法由子类实现。
+- 具体类：Coffee 和 Tea 类分别实现了 brew() 和 addCondiments() 方法，用于制作咖啡和茶时的具体步骤。
+- 模板方法：prepare() 方法在抽象类中定义，它是算法的骨架，规定了饮料的制作顺序，具体步骤由子类负责。
+
+1. ##### 模板方法模式的优势与劣势
+优势：
+- 避免重复代码：通用逻辑在父类中定义，子类只需实现定制化的部分，减少了代码重复。
+- 易于维护：算法的整体结构固定在父类中，任何对算法的修改只需在父类中完成，易于维护。
+- 符合开闭原则：通过继承和重写来扩展某些步骤，不需要修改模板方法，符合开闭原则。
+劣势：
+- 子类行为受限：由于模板方法定义了算法的整体结构，子类只能按父类规定的顺序来定制某些步骤，灵活性可能受限。
+- 增加类的数量：每个具体实现可能都需要创建一个新的子类，导致类的数量增加，代码结构变得复杂。
+
+2. ##### 模板方法模式的应用场景
+- 算法步骤固定，部分步骤可定制化：当某个操作的步骤是固定的，但某些步骤可以根据具体实现不同而变化时，模板方法模式非常合适。例如：各种饮料的制作、文件解析过程、游戏中的关卡生成等。
+- 框架与应用：很多框架中会提供模板方法，应用程序可以在不改变框架核心功能的情况下，定制具体行为。例如，前端的生命周期钩子函数可以看作模板方法模式的应用。
+- 钩子方法：模板方法模式常常会结合钩子方法一起使用，钩子方法是父类中定义的空方法，子类可以选择性地实现它们。
+
+### 迭代器模式
+- 迭代器模式（Iterator Pattern）是一种行为型设计模式，它提供了一种方法，能够顺序访问一个聚合对象中的各个元素，而不需要暴露其内部的表示。在 JavaScript 中，迭代器模式广泛用于对集合、数组、对象等进行遍历操作。
+- 迭代器模式的核心思想是：将遍历操作与集合对象解耦，使得遍历逻辑可以独立于集合的实现而变化。
+
+```js
+// 自定义迭代器
+class NumberIterator {
+  constructor(numbers) {
+    this.numbers = numbers;
+    this.index = 0;
+  }
+  // next 方法用于获取集合中的下一个元素
+  next() {
+    if (this.index < this.numbers.length) {
+      return { value: this.numbers[this.index++], done: false };
+    } else {
+      return { value: undefined, done: true };
+    }
+  }
+}
+
+const numbers = [1, 2, 3, 4, 5];
+const iterator = new NumberIterator(numbers);
+
+// 使用迭代器遍历数组
+let result = iterator.next();
+while (!result.done) {
+  console.log(result.value);
+  result = iterator.next();
+}
+// 输出：1 2 3 4 5
+
+```
+
 
 
 
