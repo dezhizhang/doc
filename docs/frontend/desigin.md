@@ -823,6 +823,94 @@ console.log(module.publicMethod()); //  输出: I am private
 - 代码组织：大型项目可以通过模块模式将不同功能模块化，提升代码的可维护性。
 - 依赖管理：模块模式可以通过依赖注入的方式管理依赖关系，增强代码的灵活性和扩展性。
 
+### 桥接模式
+
+- 桥接模式（Bridge Pattern）是一种结构型设计模式，目的是将抽象部分与实现部分分离，使它们可以独立变化。通过这种分离，抽象和实现可以独立扩展，不会相互影响，增强了系统的灵活性。
+- 桥接模式的核心思想是将两个维度的变化分离：一个是抽象部分的变化，另一个是实现部分的变化。这种模式特别适合在需要跨多个平台或具有多个接口实现的场景中应用。
+```js
+// 实现部分：颜色接口
+class Color {
+    constructor(name) {
+        this.name = name;
+    }
+
+    applyColor() {
+        console.log(`Applying color: ${this.name}`);
+    }
+}
+
+// 具体实现：红色和蓝色
+class Red extends Color {
+    constructor() {
+        super('red');
+    }
+}
+
+class Blue extends Color {
+    constructor() {
+        super('blue');
+    }
+}
+
+// 抽象部分：形状类
+class Shape {
+    constructor(color) {
+        this.color = color; // 颜色是通过桥接引用的
+    }
+
+    draw() {
+        throw new Error('This method should be overwritten!');
+    }
+}
+
+// 扩展的抽象：不同的形状
+class Circle extends Shape {
+    constructor(color) {
+        super(color);
+    }
+
+    draw() {
+        console.log('Drawing a Circle');
+        this.color.applyColor(); // 使用桥接引用的颜色
+    }
+}
+
+class Square extends Shape {
+    constructor(color) {
+        super(color);
+    }
+
+    draw() {
+        console.log('Drawing a Square');
+        this.color.applyColor(); // 使用桥接引用的颜色
+    }
+}
+
+// 使用桥接模式
+const redCircle = new Circle(new Red());
+const blueSquare = new Square(new Blue());
+
+redCircle.draw(); // 输出：Drawing a Circle, Applying color: red
+blueSquare.draw(); // 输出：Drawing a Square, Applying color: blue
+```
+关键点：
+- 抽象部分：Shape 类定义了形状的基本功能，具体形状通过继承扩展。
+- 实现部分：Color 类负责定义颜色的接口，不同的颜色通过继承实现。
+- 桥接：形状通过 this.color 来桥接颜色，调用不同的颜色实现。
+
+1. ##### 桥接模式的优势与劣势
+优势：
+- 解耦：抽象与实现可以独立扩展，降低了系统的复杂度和耦合性。
+- 可扩展性强：在不修改现有代码的情况下，轻松添加新的实现或抽象类。
+- 减少代码重复：避免在不同的类中重复实现相似的功能（如颜色）。
+劣势：
+- 复杂性增加：引入多个抽象类和接口后，系统结构可能变得更加复杂。
+- 性能开销：使用桥接模式可能增加一些额外的间接调用，导致性能上的轻微开销。
+
+2. ##### 桥接模式的应用场景
+- 平台无关的代码：当一个系统需要在多个平台上运行时，桥接模式可以帮助将平台相关的实现与平台无关的部分分离。
+- 多维度变化的系统：当一个系统有多个维度的变化时（如形状和颜色、设备和操作系统），桥接模式可以帮助解耦这两个维度的变化。
+- 图形绘制系统：如上例中，不同形状和颜色的组合是桥接模式的经典应用场景。
 
 
 
