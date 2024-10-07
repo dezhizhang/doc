@@ -912,5 +912,102 @@ blueSquare.draw(); // 输出：Drawing a Square, Applying color: blue
 - 多维度变化的系统：当一个系统有多个维度的变化时（如形状和颜色、设备和操作系统），桥接模式可以帮助解耦这两个维度的变化。
 - 图形绘制系统：如上例中，不同形状和颜色的组合是桥接模式的经典应用场景。
 
+### 组合模式
+
+- 组合模式（Composite Pattern）是一种结构型设计模式，它将对象组合成树形结构，用来表示部分-整体的层次结构。组合模式可以使客户端对单个对象和组合对象的使用具有一致性，这样可以在树结构中对单个对象和组合对象统一处理
+- 组合模式在处理树形结构的数据时非常有用，比如文件系统中的文件和文件夹结构，组织架构中的员工和部门结构等。
+```js
+// 抽象组件
+class FileSystemComponent {
+    constructor(name) {
+        this.name = name;
+    }
+
+    // 组件的公共接口
+    display() {
+        throw new Error('This method should be overwritten!');
+    }
+}
+
+// 叶子节点：文件
+class File extends FileSystemComponent {
+    constructor(name) {
+        super(name);
+    }
+
+    display() {
+        console.log(`File: ${this.name}`);
+    }
+}
+
+// 组合节点：文件夹
+class Folder extends FileSystemComponent {
+    constructor(name) {
+        super(name);
+        this.children = []; // 存放子组件（文件或文件夹）
+    }
+
+    // 添加子组件
+    add(component) {
+        this.children.push(component);
+    }
+
+    // 移除子组件
+    remove(component) {
+        this.children = this.children.filter(child => child !== component);
+    }
+
+    // 展示文件夹及其子组件
+    display() {
+        console.log(`Folder: ${this.name}`);
+        this.children.forEach(child => child.display());
+    }
+}
+
+// 创建文件和文件夹
+const file1 = new File('file1.txt');
+const file2 = new File('file2.txt');
+const file3 = new File('file3.txt');
+
+const folder1 = new Folder('Folder 1');
+const folder2 = new Folder('Folder 2');
+
+// 组装文件夹结构
+folder1.add(file1);
+folder1.add(file2);
+folder2.add(file3);
+folder2.add(folder1);
+
+// 展示整个文件系统
+folder2.display();
+// 输出：
+// Folder: Folder 2
+// File: file3.txt
+// Folder: Folder 1
+// File: file1.txt
+// File: file2.txt
+
+```
+关键点：
+- 叶子节点：File 类代表文件，是树结构的最小单位，不能包含其他组件。
+- 组合节点：Folder 类代表文件夹，可以包含文件或其他文件夹，展示时递归显示其包含的子组件。
+- 统一接口：无论是文件还是文件夹，都实现了 display() 方法，客户端可以用统一的方式处理它们。
+
+1. ##### 组合模式的优势与劣势
+优势：
+- 简化客户端代码：客户端可以使用统一的方式处理所有对象，无论它们是单个对象还是组合对象，简化了代码逻辑。
+- 符合开闭原则：可以轻松地添加新的叶子节点或组合节点，而无需修改现有代码。
+- 递归结构：组合模式的树形结构非常适合递归操作，可以轻松地处理层次结构。
+劣势：
+- 复杂性增加：当树的结构过于复杂时，组合模式可能引入更多的复杂性，管理树结构的操作会变得复杂。
+- 类型安全问题：由于组合模式将叶子和组合对象放在一起，可能导致某些操作缺少类型安全的保证。
+
+2. ##### 组合模式的应用场景
+- 树形结构的数据：比如文件系统、组织架构、菜单系统等，使用组合模式可以方便地构建和操作这些层次结构。
+- 图形编辑器：在图形编辑器中，可以将基本图形（如线条、矩形、圆等）组合成复杂的图形，使用组合模式可以统一管理这些图形。
+- UI 组件树：很多 UI 框架（如 React、Vue 等）内部都使用了组合模式来管理组件树。
+
+
+
 
 
