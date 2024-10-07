@@ -275,10 +275,11 @@ console.log(house);
 ### 单例模式
 
 - 单例模式（Singleton Pattern）是一种常见的设计模式，用于确保一个类只有一个实例，并提供一个全局访问点来获取该实例。这在一些需要全局共享资源的场景下非常有用，比如全局配置、日志记录器、数据库连接等。
+
 ```js
-class Singleton{
+class Singleton {
   constructor() {
-    if(Singleton.instance) {
+    if (Singleton.instance) {
       return Singleton.instance;
     }
     Singleton.instance = this;
@@ -289,7 +290,6 @@ const instance1 = new Singleton();
 const instance2 = new Singleton();
 
 console.log(instance1 === instance2); // true
-
 ```
 
 关键点：
@@ -313,7 +313,64 @@ console.log(instance1 === instance2); // true
 4. ##### 适用场景
 
 单例模式适用于以下场景：
+
 - 日志系统：日志系统需要在整个应用程序中保持一个唯一的日志对象，方便记录日志。
 - 全局配置对象：当应用程序需要共享一些全局配置时，可以通过单例模式实现统一的配置管理。
 - 数据库连接池：在服务端应用中，使用单例模式可以确保只创建一个数据库连接池实例，节省资源。
 - 浏览器中的本地存储管理：在前端开发中，可能需要一个全局对象来管理 localStorage 或 sessionStorage。
+
+### 装饰器模式
+
+- 装饰器模式（Decorator Pattern）是一种结构型设计模式，用于在不改变对象本身的情况下，动态地给对象添加新功能。这种模式可以让我们灵活地为对象增添职责，并且避免了创建子类来扩展功能的繁琐。
+- 装饰器模式的核心思想：
+
+1. 动态扩展功能：装饰器为对象提供了额外的行为，而不改变对象的原始结构。
+2. 组合而非继承：通过组合装饰器对象，可以灵活地扩展功能，而不是通过继承来增加复杂度。
+
+```js
+class Car {
+  drive() {
+    console.log('The car is driving.');
+  }
+}
+
+// 装饰器类
+class CarDecorator {
+  constructor(car) {
+    this.car = car;
+  }
+
+  drive() {
+    console.log('Starting the engine...');
+    this.car.drive();
+    console.log('Turning on the headlights.');
+  }
+}
+
+const myCar = new Car();
+const decoratedCar = new CarDecorator(myCar);
+
+decoratedCar.drive();
+```
+
+1. ##### 装饰器模式的优势和劣势
+
+- 优势：
+
+1. 灵活性高：装饰器模式允许我们动态添加功能，而不需要修改对象的代码。这让功能扩展变得更加灵活。
+2. 遵循开闭原则：对象可以通过添加装饰器来扩展功能，而不需要修改其原有代码。
+3. 可以组合：多个装饰器可以叠加使用，形成功能的组合，这比继承链更加灵活和易于维护。
+
+- 劣势：
+
+1. 复杂性增加：装饰器模式可能会导致系统中增加大量的装饰器类或函数，增加代码的复杂性。
+2. 调试困难：由于装饰器是动态添加行为，调试时很难直接看到对象的真实状态。
+
+3. ##### 装饰器模式的应用场景
+
+装饰器模式非常适合以下场景：
+
+1. 日志记录：为函数或方法添加日志记录，而不修改原函数代码。
+2. 数据验证：在函数执行前动态添加数据验证逻辑。
+3. 权限控制：为某些方法添加权限检查功能，例如确保用户具有某些权限才能调用特定功能。
+4. 函数节流：限制函数的调用频率，可以使用装饰器在函数外部添加节流逻辑。
