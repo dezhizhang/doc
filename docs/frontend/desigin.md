@@ -374,3 +374,149 @@ decoratedCar.drive();
 2. 数据验证：在函数执行前动态添加数据验证逻辑。
 3. 权限控制：为某些方法添加权限检查功能，例如确保用户具有某些权限才能调用特定功能。
 4. 函数节流：限制函数的调用频率，可以使用装饰器在函数外部添加节流逻辑。
+
+### 适配器模式
+
+- 适配器模式（Adapter Pattern）是一种结构型设计模式，主要用于解决接口不兼容的问题。适配器通过包装一个对象，使其与客户端期望的接口兼容，从而允许原本不兼容的对象协同工作。
+- 适配器模式的核心思想：
+
+1. 将一个类的接口转换为另一个客户端希望的接口。
+2. 使得原本由于接口不兼容而无法一起工作的类可以协同工作。
+
+```js
+// 第三方库提供的类
+class ThirdPartyApi {
+  send() {
+    return 'Sending data via ThirdPartyApi';
+  }
+}
+
+// 我们系统需要的接口
+class MySystemApi {
+  request() {
+    return 'Sending data via MySystemApi';
+  }
+}
+
+// 适配器类，适配第三方 API 到我们的系统
+class ApiAdapter {
+  constructor(thirdPartyApi) {
+    this.thirdPartyApi = thirdPartyApi;
+  }
+
+  request() {
+    // 调用第三方 API 的 send 方法，但暴露给客户端的是 request 方法
+    return this.thirdPartyApi.send();
+  }
+}
+
+const thirdPartyApi = new ThirdPartyApi();
+const adaptedApi = new ApiAdapter(thirdPartyApi);
+
+console.log(adaptedApi.request()); // 输出：Sending data via ThirdPartyApi
+```
+
+1. ##### 适配器模式的优势和劣势
+
+- 优势：
+
+1. 提高兼容性：适配器模式可以帮助不同接口之间的协作，使得旧代码与新系统无缝对接。
+2. 遵循开闭原则：适配器模式允许我们在不修改原有类的情况下，为其增加新的接口兼容性。
+3. 解耦：通过适配器，客户端与具体实现解耦，可以更灵活地使用不同接口。
+
+- 劣势：
+
+1. 增加代码复杂度：为每个不兼容的接口创建适配器可能会导致代码量增加，尤其在大型系统中。
+2. 性能开销：适配器模式需要引入一层中间处理逻辑，可能会带来一定的性能开销。
+
+3. ##### 适配器模式的应用场景
+
+- 适配器模式广泛应用于以下场景：
+
+1. 老系统与新系统的集成：在大型企业系统中，老旧系统与新系统的接口通常不兼容，适配器模式可以帮助它们无缝协作。
+2. 第三方库的封装：使用第三方库时，库的接口可能不符合项目的标准，可以通过适配器来包装这些接口，提供符合项目标准的接口。
+3. 兼容不同接口的实现：当需要同时支持多个不兼容的接口时，可以使用适配器进行转换。
+
+### 策略模式
+
+- 策略模式（Strategy Pattern）是一种行为型设计模式，它定义了一系列算法，将每个算法封装起来，并且使它们可以互相替换。策略模式让算法独立于使用它的客户端独立变化。这样我们可以在运行时选择合适的算法，而不需要修改客户端代码。
+
+策略模式的核心思想：
+
+1. 将算法封装成独立的策略，并通过接口进行调用。
+2. 允许算法之间可以互换使用，而不会影响使用它们的客户端。
+
+```js
+// 定义不同的策略
+class RegularStrategy {
+  calculate(price) {
+    return price; // 正常价格，无折扣
+  }
+}
+
+class SaleStrategy {
+  calculate(price) {
+    return price * 0.9; // 打9折
+  }
+}
+
+class PremiumStrategy {
+  calculate(price) {
+    return price * 0.8; // 打8折
+  }
+}
+
+// Context，负责根据不同策略进行计算
+class PriceContext {
+  constructor(strategy) {
+    this.strategy = strategy;
+  }
+
+  setStrategy(strategy) {
+    this.strategy = strategy;
+  }
+
+  calculatePrice(price) {
+    return this.strategy.calculate(price);
+  }
+}
+
+// 使用策略模式
+const price = 100;
+const priceContext = new PriceContext(new RegularStrategy());
+
+console.log(priceContext.calculatePrice(price)); // 输出：100
+
+// 切换到打折策略
+priceContext.setStrategy(new SaleStrategy());
+console.log(priceContext.calculatePrice(price)); // 输出：90
+
+// 切换到高级会员折扣策略
+priceContext.setStrategy(new PremiumStrategy());
+console.log(priceContext.calculatePrice(price)); // 输出：80
+```
+
+关键点：
+
+- 策略类：RegularStrategy、SaleStrategy 和 PremiumStrategy 是不同的策略类，它们实现了相同的接口（calculate 方法）。
+- 上下文类：PriceContext 是上下文类，负责根据不同的策略类计算价格。
+- 动态选择策略：我们可以在运行时动态选择策略，而不需要修改 PriceContext 的内部逻辑。
+
+1. ##### 策略模式的优势和劣势
+
+优势：
+
+- 开闭原则：通过将算法封装到独立的策略类中，可以在不修改客户端代码的情况下添加新的策略。
+- 避免条件语句：使用策略模式可以避免在代码中编写大量的条件语句，增强代码的可维护性和可读性。
+- 更灵活的算法选择：客户端可以根据不同的条件动态选择不同的策略。
+劣势：
+- 增加类的数量：每一个策略都是一个独立的类，这可能会导致类的数量增加，从而增加系统的复杂性。
+- 策略类之间的差异难以控制：策略类的算法可能差异较大，难以统一处理，尤其在涉及多个复杂策略时。
+
+2. ##### 策略模式的应用场景
+
+策略模式适用于以下场景：
+
+1. 算法变体很多：当一个算法有多个实现方式，或者算法会频繁更改时，可以使用策略模式来灵活选择算法。
+2. 避免条件分支过多：当一个类中包含大量的条件分支（如 if...else 或 switch），可以考虑使用策略模式代替这些条件分支。
+3. 需要动态选择算法：当算法需要根据不同的条件在运行时进行切换时，可以使用策略模式。
