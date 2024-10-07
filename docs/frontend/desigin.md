@@ -509,7 +509,7 @@ console.log(priceContext.calculatePrice(price)); // 输出：80
 - 开闭原则：通过将算法封装到独立的策略类中，可以在不修改客户端代码的情况下添加新的策略。
 - 避免条件语句：使用策略模式可以避免在代码中编写大量的条件语句，增强代码的可维护性和可读性。
 - 更灵活的算法选择：客户端可以根据不同的条件动态选择不同的策略。
-劣势：
+  劣势：
 - 增加类的数量：每一个策略都是一个独立的类，这可能会导致类的数量增加，从而增加系统的复杂性。
 - 策略类之间的差异难以控制：策略类的算法可能差异较大，难以统一处理，尤其在涉及多个复杂策略时。
 
@@ -520,3 +520,74 @@ console.log(priceContext.calculatePrice(price)); // 输出：80
 1. 算法变体很多：当一个算法有多个实现方式，或者算法会频繁更改时，可以使用策略模式来灵活选择算法。
 2. 避免条件分支过多：当一个类中包含大量的条件分支（如 if...else 或 switch），可以考虑使用策略模式代替这些条件分支。
 3. 需要动态选择算法：当算法需要根据不同的条件在运行时进行切换时，可以使用策略模式。
+
+### 代理模式
+
+- 代理模式（Proxy Pattern）是一种结构型设计模式，它为对象提供一个代理（即替身），并控制客户端对原始对象的访问。代理对象可以在客户端与目标对象之间进行一些额外的操作，如控制访问权限、延迟加载、缓存、日志记录等。
+
+代理模式的核心思想：
+
+- 代理对象 作为客户端与目标对象之间的中介，它可以控制对目标对象的访问。
+- 通过代理对象，可以在访问目标对象前后进行一些额外操作。
+
+```js
+// 目标对象
+class RealSubject {
+  request() {
+    return 'Request from RealSubject';
+  }
+}
+
+// 代理对象
+class ProxySubject {
+  constructor(realSubject) {
+    this.realSubject = realSubject;
+  }
+
+  request() {
+    // 执行一些额外的操作
+    console.log('Proxy: Checking access before forwarding the request.');
+
+    // 调用真实对象的请求
+    const result = this.realSubject.request();
+
+    // 执行一些后续操作
+    console.log('Proxy: Logging the result after forwarding the request.');
+    return result;
+  }
+}
+
+// 客户端代码
+const realSubject = new RealSubject();
+const proxy = new ProxySubject(realSubject);
+
+console.log(proxy.request());
+// 输出：
+// Proxy: Checking access before forwarding the request.
+// Proxy: Logging the result after forwarding the request.
+// Request from RealSubject
+```
+
+关键点：
+
+- 目标对象：RealSubject 提供了核心功能（如 request 方法）。
+- 代理对象：ProxySubject 控制对 RealSubject 的访问，在调用前后添加额外的逻辑。
+  通过代理对象，客户端可以透明地调用目标对象，同时代理对象可以拦截请求，并在合适的时机执行额外逻辑。
+
+1. ##### 代理模式的优势和劣势
+   优势：
+
+- 控制访问：代理模式可以控制对目标对象的访问，执行权限控制、延迟加载、缓存等功能。
+- 开闭原则：通过代理模式，可以在不修改目标对象的情况下扩展其功能。
+- 性能优化：虚拟代理和缓存代理可以有效减少系统资源的消耗和重复操作，提升性能。
+  劣势：
+- 增加复杂性：引入代理对象会增加系统的复杂性，尤其当代理逻辑复杂时，可能会导致代码难以维护。
+- 延迟真实对象的操作：虚拟代理会延迟真实对象的初始化，有时可能会导致意外的行为。
+
+2. ##### 代理模式的应用场景
+   代理模式广泛应用于以下场景：
+
+- 延迟初始化：如按需加载资源，避免过早初始化开销较大的对象。
+- 权限控制：在系统中，控制用户对某些敏感数据或操作的访问权限。
+- 性能优化：通过缓存代理减少重复计算或请求的次数，提高系统的性能。
+- 远程代理：在分布式系统中，代理对象可以代表远程服务，从而简化客户端与远程服务的交互。
