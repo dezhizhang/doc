@@ -1,4 +1,4 @@
-# js 设计模式
+# 如何彻底掌握 JavaScript 设计模式 23 大核心模式助你提升编程水平
 
 ### 构造器模式
 
@@ -600,39 +600,40 @@ console.log(proxy.request());
 
 - 主体对象（Subject）维护一组依赖它的观察者对象（Observer）。
 - 当主体对象发生变化时，它会通知所有观察者，从而更新观察者的状态。
+
 ```js
 // 主体对象（被观察者）
 class Subject {
-    constructor() {
-        this.observers = [];
-    }
+  constructor() {
+    this.observers = [];
+  }
 
-    // 添加观察者
-    addObserver(observer) {
-        this.observers.push(observer);
-    }
+  // 添加观察者
+  addObserver(observer) {
+    this.observers.push(observer);
+  }
 
-    // 移除观察者
-    removeObserver(observer) {
-        this.observers = this.observers.filter(obs => obs !== observer);
-    }
+  // 移除观察者
+  removeObserver(observer) {
+    this.observers = this.observers.filter((obs) => obs !== observer);
+  }
 
-    // 通知所有观察者
-    notifyObservers(data) {
-        this.observers.forEach(observer => observer.update(data));
-    }
+  // 通知所有观察者
+  notifyObservers(data) {
+    this.observers.forEach((observer) => observer.update(data));
+  }
 }
 
 // 观察者对象
 class Observer {
-    constructor(name) {
-        this.name = name;
-    }
+  constructor(name) {
+    this.name = name;
+  }
 
-    // 更新方法，当主体状态改变时调用
-    update(data) {
-        console.log(`${this.name} received update: ${data}`);
-    }
+  // 更新方法，当主体状态改变时调用
+  update(data) {
+    console.log(`${this.name} received update: ${data}`);
+  }
 }
 
 // 创建主体
@@ -651,10 +652,10 @@ subject.notifyObservers('New data available');
 // 输出：
 // Observer 1 received update: New data available
 // Observer 2 received update: New data available
-
 ```
 
 关键点：
+
 - 主体对象：Subject 维护一个观察者列表，当状态发生变化时，它会调用每个观察者的 update 方法。
 - 观察者对象：Observer 是依赖于主体对象的，它通过 update 方法响应主体的变化。
 - 通过这种设计，当 Subject 的状态改变时，所有依赖它的 Observer 都会被通知并做出相应的处理。
@@ -662,10 +663,11 @@ subject.notifyObservers('New data available');
 1. ##### 观察者模式的优势和劣势
 
 优势：
+
 - 解耦观察者和主体：观察者模式使得观察者与主体之间的关系松散耦合，主体不需要知道观察者的具体实现，只需通过通用的接口通知它们。
 - 动态扩展：可以在运行时添加或移除观察者，灵活性高，便于系统扩展。
 - 实时响应：观察者模式允许系统对变化进行实时响应，特别适用于需要动态更新的场景。
-劣势：
+  劣势：
 - 性能问题：当观察者数量较多时，通知的频率和开销可能较大，尤其在频繁变化的系统中，可能影响性能。
 - 调试困难：在复杂的观察者模式中，由于观察者和主体的解耦，追踪问题和调试可能变得更加困难。
 - 通知顺序不确定：观察者接收到通知的顺序可能不确定，如果对顺序有要求，可能需要额外处理。
@@ -673,7 +675,102 @@ subject.notifyObservers('New data available');
 2. ##### 观察者模式的应用场景
 
 观察者模式适用于以下场景：
+
 - 事件驱动系统：比如浏览器中的事件模型，当用户触发一个事件时，多个监听器（观察者）会做出响应。
 - 数据绑定和同步：在现代前端框架（如 Vue、React）中，观察者模式常用于双向数据绑定和组件状态管理，当数据变化时，视图会自动更新。
 - 实时系统：在需要实时更新的应用（如股票价格更新、消息推送等）中，观察者模式可以及时通知客户端变化。
+
+### 发布订阅模式
+
+- 发布订阅模式（Publish-Subscribe Pattern）是一种消息传递机制，它允许多个对象之间通过事件调度进行通信。发布者将消息发送给中间的事件通道，订阅者则从事件通道中接收消息。通过这种模式，发布者和订阅者之间实现了解耦。
+核心思想：
+- 发布者：负责发布事件或消息。
+- 订阅者：负责接收和处理消息。
+- 事件通道（消息中介）：连接发布者和订阅者，负责转发消息。
+- 与观察者模式不同，发布订阅模式是通过一个中介对象来传递消息，发布者和订阅者之间没有直接联系。
+```js
+// 事件管理器（发布订阅系统）
+class EventEmitter {
+    constructor() {
+        this.events = {};
+    }
+
+    // 订阅事件
+    subscribe(event, listener) {
+        if (!this.events[event]) {
+            this.events[event] = [];
+        }
+        this.events[event].push(listener);
+    }
+
+    // 取消订阅
+    unsubscribe(event, listener) {
+        if (!this.events[event]) return;
+        this.events[event] = this.events[event].filter(l => l !== listener);
+    }
+
+    // 发布事件
+    publish(event, data) {
+        if (!this.events[event]) return;
+        this.events[event].forEach(listener => listener(data));
+    }
+}
+
+// 创建发布订阅系统
+const eventEmitter = new EventEmitter();
+
+// 订阅者
+function listener1(data) {
+    console.log('Listener 1 received:', data);
+}
+
+function listener2(data) {
+    console.log('Listener 2 received:', data);
+}
+
+// 订阅事件
+eventEmitter.subscribe('message', listener1);
+eventEmitter.subscribe('message', listener2);
+
+// 发布事件
+eventEmitter.publish('message', 'Hello, Subscribers!');
+// 输出：
+// Listener 1 received: Hello, Subscribers!
+// Listener 2 received: Hello, Subscribers!
+
+// 取消订阅
+eventEmitter.unsubscribe('message', listener1);
+
+// 再次发布事件
+eventEmitter.publish('message', 'Another message');
+// 输出：
+// Listener 2 received: Another message
+
+```
+关键点：
+- 发布者通过 publish 方法发布消息。
+- 订阅者通过 subscribe 方法订阅特定事件，并在事件触发时执行回调函数。
+- 取消订阅可以通过 unsubscribe 方法移除订阅者。
+
+1. ##### 发布订阅模式的优势与劣势
+
+优势：
+- 解耦：发布者和订阅者完全分离，互相不知道对方的存在，降低了代码的耦合性。
+- 灵活性高：可以动态地添加或移除订阅者，发布事件时可以有多个订阅者响应。
+- 扩展性好：适用于分布式系统、异步处理和复杂应用中的模块解耦。
+劣势：
+- 性能开销：如果有大量订阅者，或事件发布频率很高，可能会造成性能问题。
+- 难以调试：由于发布者和订阅者之间没有直接联系，调试和排查问题时可能较为复杂。
+- 消息丢失：如果订阅者在事件发布之前没有订阅事件，可能会错过消息。
+
+2. ##### 发布订阅模式的应用场景
+
+发布订阅模式在以下场景中非常常见：
+
+- 事件驱动编程：如浏览器中的事件模型、Node.js 的 EventEmitter。
+- 消息队列：在微服务架构中，用于服务之间的解耦和通信。
+- 实时通信：聊天室、实时数据推送等应用。
+- 模块解耦：在复杂应用中，使用发布订阅模式可以减少模块之间的依赖。
+
+
 
