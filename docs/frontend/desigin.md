@@ -591,3 +591,89 @@ console.log(proxy.request());
 - 权限控制：在系统中，控制用户对某些敏感数据或操作的访问权限。
 - 性能优化：通过缓存代理减少重复计算或请求的次数，提高系统的性能。
 - 远程代理：在分布式系统中，代理对象可以代表远程服务，从而简化客户端与远程服务的交互。
+
+### 观察者模式
+
+- 观察者模式（Observer Pattern）是一种行为型设计模式，它定义了对象之间的一对多依赖关系，使得当一个对象的状态发生变化时，所有依赖它的对象都会自动得到通知并更新。这种模式常用于事件系统、数据绑定和实时通信等场景。
+
+观察者模式的核心思想：
+
+- 主体对象（Subject）维护一组依赖它的观察者对象（Observer）。
+- 当主体对象发生变化时，它会通知所有观察者，从而更新观察者的状态。
+```js
+// 主体对象（被观察者）
+class Subject {
+    constructor() {
+        this.observers = [];
+    }
+
+    // 添加观察者
+    addObserver(observer) {
+        this.observers.push(observer);
+    }
+
+    // 移除观察者
+    removeObserver(observer) {
+        this.observers = this.observers.filter(obs => obs !== observer);
+    }
+
+    // 通知所有观察者
+    notifyObservers(data) {
+        this.observers.forEach(observer => observer.update(data));
+    }
+}
+
+// 观察者对象
+class Observer {
+    constructor(name) {
+        this.name = name;
+    }
+
+    // 更新方法，当主体状态改变时调用
+    update(data) {
+        console.log(`${this.name} received update: ${data}`);
+    }
+}
+
+// 创建主体
+const subject = new Subject();
+
+// 创建观察者
+const observer1 = new Observer('Observer 1');
+const observer2 = new Observer('Observer 2');
+
+// 注册观察者
+subject.addObserver(observer1);
+subject.addObserver(observer2);
+
+// 通知观察者
+subject.notifyObservers('New data available');
+// 输出：
+// Observer 1 received update: New data available
+// Observer 2 received update: New data available
+
+```
+
+关键点：
+- 主体对象：Subject 维护一个观察者列表，当状态发生变化时，它会调用每个观察者的 update 方法。
+- 观察者对象：Observer 是依赖于主体对象的，它通过 update 方法响应主体的变化。
+- 通过这种设计，当 Subject 的状态改变时，所有依赖它的 Observer 都会被通知并做出相应的处理。
+
+1. ##### 观察者模式的优势和劣势
+
+优势：
+- 解耦观察者和主体：观察者模式使得观察者与主体之间的关系松散耦合，主体不需要知道观察者的具体实现，只需通过通用的接口通知它们。
+- 动态扩展：可以在运行时添加或移除观察者，灵活性高，便于系统扩展。
+- 实时响应：观察者模式允许系统对变化进行实时响应，特别适用于需要动态更新的场景。
+劣势：
+- 性能问题：当观察者数量较多时，通知的频率和开销可能较大，尤其在频繁变化的系统中，可能影响性能。
+- 调试困难：在复杂的观察者模式中，由于观察者和主体的解耦，追踪问题和调试可能变得更加困难。
+- 通知顺序不确定：观察者接收到通知的顺序可能不确定，如果对顺序有要求，可能需要额外处理。
+
+2. ##### 观察者模式的应用场景
+
+观察者模式适用于以下场景：
+- 事件驱动系统：比如浏览器中的事件模型，当用户触发一个事件时，多个监听器（观察者）会做出响应。
+- 数据绑定和同步：在现代前端框架（如 Vue、React）中，观察者模式常用于双向数据绑定和组件状态管理，当数据变化时，视图会自动更新。
+- 实时系统：在需要实时更新的应用（如股票价格更新、消息推送等）中，观察者模式可以及时通知客户端变化。
+
