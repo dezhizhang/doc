@@ -1,4 +1,5 @@
 # 如何彻底掌握 JavaScript 设计模式 23 大核心模式助你提升编程水平
+- 设计模式是解决特定问题的常用解决方案，它们可以帮助开发者编写更清晰、可维护、可扩展的代码。在 JavaScript 中，常见的设计模式可以分为三大类：创建型模式、结构型模式 和 行为型模式。本文将全面介绍 JavaScript 中常见的设计模式，帮助你更好地理解它们的应用场景
 
 ### 构造器模式
 
@@ -1245,9 +1246,92 @@ while (!result.done) {
 // 输出：1 2 3 4 5
 
 ```
+### 职责链模式
+- 职责链模式（Chain of Responsibility Pattern）是一种行为型设计模式，它允许将请求的发送者和接收者解耦，使得多个对象都有机会处理这个请求。将这些对象连成一条链，并沿着这条链传递请求，直到有一个对象处理它为止。
+- 职责链模式的核心思想是：将请求的发送者和接收者解耦，通过一条链路将请求传递给多个处理者，从而提高了代码的灵活性和可扩展性。
+```js
+// 处理者抽象类
+class Handler {
+    constructor(successor = null) {
+        this.successor = successor; // 下一个处理者
+    }
+
+    handleRequest(request) {
+        if (this.successor) {
+            this.successor.handleRequest(request); // 传递请求给下一个处理者
+        }
+    }
+}
+
+// 具体处理者类：经理
+class Manager extends Handler {
+    handleRequest(request) {
+        if (request === 'leave' || request === 'overtime') {
+            console.log('Manager approved the request: ' + request);
+        } else {
+            super.handleRequest(request); // 继续传递请求
+        }
+    }
+}
+
+// 具体处理者类：总监
+class Director extends Handler {
+    handleRequest(request) {
+        if (request === 'budget') {
+            console.log('Director approved the request: ' + request);
+        } else {
+            super.handleRequest(request); // 继续传递请求
+        }
+    }
+}
+
+// 具体处理者类：CEO
+class CEO extends Handler {
+    handleRequest(request) {
+        console.log('CEO approved the request: ' + request);
+    }
+}
+
+// 创建职责链
+const ceo = new CEO();
+const director = new Director(ceo);
+const manager = new Manager(director);
+
+// 客户端发起请求
+manager.handleRequest('leave');   // 输出: Manager approved the request: leave
+manager.handleRequest('budget');   // 输出: Director approved the request: budget
+manager.handleRequest('overtime'); // 输出: Manager approved the request: overtime
+manager.handleRequest('other');    // 输出: CEO approved the request: other
+
+```
+
+关键点：
+- Handler 抽象类：定义了处理请求的方法，并持有对下一个处理者的引用。具体的处理逻辑在子类中实现。
+- 具体处理者类：Manager、Director 和 CEO 分别处理不同类型的请求。每个处理者都决定是否处理请求或者将请求传递给下一个处理者。
+- 客户端：客户端通过第一个处理者（在此为 Manager）发起请求，依次传递给下一个处理者，直到请求被处理。
+
+1. ##### 职责链模式的优势与劣势
+
+优势：
+- 解耦合：请求发送者与处理者之间的解耦，降低了系统的复杂性。
+- 可扩展性：可以轻松添加新的处理者，而不需要修改现有代码。
+- 动态处理：根据请求的类型和处理者的能力动态处理请求。
+劣势：
+- 调试复杂性：请求的处理可能经过多个处理者，调试时可能会比较复杂，不易追踪请求的处理路径。
+- 性能开销：如果职责链很长，每个请求都需要经过多个处理者，可能导致性能问题，尤其是在频繁的请求场景中。
+
+2. ##### 职责链模式的应用场景
+- 事件处理：在事件处理系统中，不同的事件处理器可以根据事件类型处理相应的请求，未处理的事件可以传递给下一个处理器。
+- 日志处理：日志系统可以设计为责任链模式，日志请求可以通过不同的处理者（如控制台、文件、网络）传递，直到被适当的处理者处理。
+- 审批系统：在工作流中，审批请求可以根据请求类型和权限等级传递给不同的审批者进行处理。
 
 
+### 相关链接
 
 
+[贵州数擎科技](https://www.shuqin.cc/market/design-component)  
+[贵州晓智信息科技](https://www.xiaozhi.shop/)  
+[源码地址](https://github.com/dezhizhang/interview/tree/main/desigin)  
 
-
+### 
+<img src="https://cdn.xiaozhi.shop/digitwin/assets/weixin.jpg" width = 300 height = 300 />
