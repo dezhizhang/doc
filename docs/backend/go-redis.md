@@ -1,6 +1,44 @@
-# go-redis
+# 使用 Go 语言与 Redis 构建高效缓存与消息队列系统
 
-## 连接 redis
+### 什么是 Redis？
+
+- Redis 是一个开源的内存数据库，支持多种数据结构，包括字符串、列表、集合、哈希和有序集合。由于 Redis 运行在内存中，读写速度极快，常被用于构建缓存系统、实时排行榜、会话存储和消息队列等高并发场景下的服务。
+- 在这篇博客中，我们将介绍如何使用 Go 语言集成 Redis，构建高效的缓存和消息队列系统。
+
+### 安装 Redis
+
+- 安装 Redis： 你可以通过以下命令安装 Redis（适用于 Linux 和 macOS）：
+
+```bash
+sudo apt-get install redis-server
+```
+
+- 或者通过 Homebrew 安装：
+
+```bash
+brew install redis
+```
+
+### 启动 Redis 服务
+
+```bash
+redis-server
+```
+
+### 验证安装
+
+- 可以通过以下命令进入 Redis CLI，验证 Redis 是否正常运行
+
+```bash
+redis-cli
+```
+###  安装 Go Redis 客户端
+- 在 Go 项目中，我们将使用 go-redis/redis 这个流行的 Redis 客户端库。你可以通过以下命令安装：
+```bash
+go get github.com/go-redis/redis/v8
+```
+
+### 连接 redis
 
 ```go
 rdb := redis.NewClient(&redis.Options{
@@ -10,7 +48,7 @@ rdb := redis.NewClient(&redis.Options{
 })
 ```
 
-## string 类型
+### string 类型
 
 1. set 设置 string 的值
 
@@ -194,7 +232,7 @@ func TestExpire(t *testing.T) {
 
 ```
 
-## 哈希类型
+### 哈希类型
 
 1. HSet 设置哈希值
 
@@ -438,7 +476,7 @@ func TestHExists(t *testing.T) {
 
 ```
 
-## List 类型
+### List 类型
 
 1. TestLPush 左侧插入
 
@@ -652,7 +690,7 @@ func TestLIndex(t *testing.T) {
 
 ```
 
-## set 集合
+### set 集合
 
 1. sadd 添中集合
 
@@ -796,7 +834,7 @@ func TestSPop(t *testing.T) {
 
 ```
 
-## 可排序集合
+### 可排序集合
 
 1. zadd 添加一个或多个元素到集合，如果元素已经存在则更新分数
 
@@ -993,3 +1031,13 @@ func TestZRemRangeByRank(t *testing.T) {
 }
 
 ```
+
+#### 相关链接
+
+[演示地址](https://www.shuqin.cc/market/design-component)  
+[获取更多](https://www.xiaozhi.shop/)  
+[源码地址](https://github.com/dezhizhang/rdb)
+
+####
+
+<img src="https://cdn.xiaozhi.shop/digitwin/assets/weixin.jpg" width = 300 height = 300 />
