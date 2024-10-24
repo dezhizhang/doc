@@ -4133,5 +4133,5 @@ ev.emit('data', 'a', 'b', 'c', 'd');
 <!-- [last](https://www.bilibili.com/video/BV1mH4y1Q7Z7/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8) -->
 <!-- [last](https://www.bilibili.com/video/BV19K411C7Ko/?spm_id_from=333.337.search-card.all.click&vd_source=10257e657caa8b54111087a9329462e8) -->
 
-<div align="center"><a target="_blank" href="https://xiaozhi.shop">贵州晓智信息科技有限公司</a></div>
-<div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div>
+<!-- <div align="center"><a target="_blank" href="https://xiaozhi.shop">贵州晓智信息科技有限公司</a></div>
+<div align="center"> <img src="https://cdn.xiaozhi.shop/xiaozhi/public/picture/weixinpub.png" width = 300 height = 300 /> </div> -->
