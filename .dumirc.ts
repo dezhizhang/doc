@@ -5,7 +5,7 @@
  * :copyright: (c) 2023, Tungee
  * :date created: 2023-10-21 21:31:50
  * :last editor: 张德志
- * :date last edited: 2024-10-03 09:36:39
+ * :date last edited: 2024-10-28 09:42:00
  */
 import { defineConfig } from 'dumi';
 import path from 'path';
@@ -43,17 +43,21 @@ export default defineConfig({
         title: '后台文档',
         link: '/backend',
       },
-      {
-        title:'新媒体运营',
-        link: '/operate',
-      },
-      {
-        title:'演讲',
-        link:'/speech'
-      },
+      // {
+      //   title:'新媒体运营',
+      //   link: '/operate',
+      // },
+      // {
+      //   title:'演讲',
+      //   link:'/speech'
+      // },
       {
         title: '产品经理',
         link: '/product',
+      },
+      {
+        title:'three',
+        link:'/three'
       },
       {
         title: '人工智能',
