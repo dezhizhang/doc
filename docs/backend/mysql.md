@@ -1044,3 +1044,21 @@ show variables like '%slow_query_log%';
 
 
 <!-- ### 地址:[mysql]https://www.bilibili.com/video/BV12b411K7Zu?p=130&spm_id_from=pageDriver&vd_source=10257e657caa8b54111087a9329462e8) 110 -->
+
+
+
+
+docker run -d --name zentao \
+  -p 8086:80 \
+  -v /opt/zentao/data:/var/lib/mysql \
+  easysoft/zentao
+
+
+  docker run -d \
+  --name mysql57 \
+  -p 3306:3306 \
+  -e MYSQL_ROOT_PASSWORD=12345678 \
+  -v /your/local/data:/var/lib/mysql \
+  mysql:5.7
+
+  
